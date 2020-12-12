@@ -1,0 +1,470 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Header Files\include">
+      <UniqueIdentifier>{d09d375a-d8b4-496a-b5f9-c7bab42bd447}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\src">
+      <UniqueIdentifier>{36924537-14f3-4566-accf-612912369c06}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\include\test">
+      <UniqueIdentifier>{ea4059e0-addc-4cfb-ba2e-ed35767876ac}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\src\Windows">
+      <UniqueIdentifier>{1ef9db74-6371-42a1-81fa-363f7ff95f5b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\include\Windows">
+      <UniqueIdentifier>{c92e9526-6402-4703-b25b-ecb3719f0861}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\include\ui">
+      <UniqueIdentifier>{19b54575-6431-487a-bd76-c0b0098fa1b1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\src\ui">
+      <UniqueIdentifier>{b90f4cd9-9846-4f6e-9c3b-144b77c73aea}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\src\lua">
+      <UniqueIdentifier>{cf6d6a02-80e9-438d-ba29-1b4a9af41db9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\include\lua">
+      <UniqueIdentifier>{d8522c93-a416-4d5c-8936-f009ebb0e985}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Script Files">
+      <UniqueIdentifier>{2c8ef604-2a0f-4a78-bfe3-b3824478bc1a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="User Files">
+      <UniqueIdentifier>{91e0641b-68db-4fd5-898d-040d9cab52b3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\include\test\ilay">
+      <UniqueIdentifier>{38a81f60-d21c-4c42-ad27-45056ed6f2a9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\include\python">
+      <UniqueIdentifier>{8b1ac824-8f47-423c-9cd0-96ed9ccd0543}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="User Files\webview">
+      <UniqueIdentifier>{553bc0d9-63ec-496b-a7ab-5ca96a0fa367}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="User Files\webview\lib">
+      <UniqueIdentifier>{f4032057-2310-4e41-aab7-d8d9168c6acd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="User Files\webview\compiled">
+      <UniqueIdentifier>{8013ca05-3cdb-44e7-bc73-41db0ac982b9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="User Files\webview\precompiled">
+      <UniqueIdentifier>{db6335b7-8054-4a70-9e99-e9bb3566f0dd}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\src\engine.cpp">
+      <Filter>Source Files\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\my.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\windows\surface.cpp">
+      <Filter>Source Files\src\Windows</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Windows\windowsplatform.cpp">
+      <Filter>Source Files\src\Windows</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\windows\windowscore.cpp">
+      <Filter>Source Files\src\Windows</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\ui\theme.cpp">
+      <Filter>Source Files\src\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\core.cpp">
+      <Filter>Source Files\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lib\lua-5.4.1\src\lapi.c">
+      <Filter>Source Files\src\lua</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lib\lua-5.4.1\src\lauxlib.c">
+      <Filter>Source Files\src\lua</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lib\lua-5.4.1\src\lbaselib.c">
+      <Filter>Source Files\src\lua</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lib\lua-5.4.1\src\lcode.c">
+      <Filter>Source Files\src\lua</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lib\lua-5.4.1\src\lcorolib.c">
+      <Filter>Source Files\src\lua</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lib\lua-5.4.1\src\lctype.c">
+      <Filter>Source Files\src\lua</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lib\lua-5.4.1\src\ldblib.c">
+      <Filter>Source Files\src\lua</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lib\lua-5.4.1\src\ldebug.c">
+      <Filter>Source Files\src\lua</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lib\lua-5.4.1\src\ldo.c">
+      <Filter>Source Files\src\lua</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lib\lua-5.4.1\src\ldump.c">
+      <Filter>Source Files\src\lua</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lib\lua-5.4.1\src\lfunc.c">
+      <Filter>Source Files\src\lua</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lib\lua-5.4.1\src\lgc.c">
+      <Filter>Source Files\src\lua</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lib\lua-5.4.1\src\linit.c">
+      <Filter>Source Files\src\lua</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lib\lua-5.4.1\src\liolib.c">
+      <Filter>Source Files\src\lua</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lib\lua-5.4.1\src\lmathlib.c">
+      <Filter>Source Files\src\lua</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lib\lua-5.4.1\src\lmem.c">
+      <Filter>Source Files\src\lua</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lib\lua-5.4.1\src\loadlib.c">
+      <Filter>Source Files\src\lua</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lib\lua-5.4.1\src\lobject.c">
+      <Filter>Source Files\src\lua</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lib\lua-5.4.1\src\lopcodes.c">
+      <Filter>Source Files\src\lua</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lib\lua-5.4.1\src\loslib.c">
+      <Filter>Source Files\src\lua</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lib\lua-5.4.1\src\lparser.c">
+      <Filter>Source Files\src\lua</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lib\lua-5.4.1\src\lstate.c">
+      <Filter>Source Files\src\lua</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lib\lua-5.4.1\src\lstring.c">
+      <Filter>Source Files\src\lua</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lib\lua-5.4.1\src\lstrlib.c">
+      <Filter>Source Files\src\lua</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lib\lua-5.4.1\src\ltable.c">
+      <Filter>Source Files\src\lua</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lib\lua-5.4.1\src\ltablib.c">
+      <Filter>Source Files\src\lua</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lib\lua-5.4.1\src\ltm.c">
+      <Filter>Source Files\src\lua</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lib\lua-5.4.1\src\lundump.c">
+      <Filter>Source Files\src\lua</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lib\lua-5.4.1\src\lutf8lib.c">
+      <Filter>Source Files\src\lua</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lib\lua-5.4.1\src\lvm.c">
+      <Filter>Source Files\src\lua</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lib\lua-5.4.1\src\lzio.c">
+      <Filter>Source Files\src\lua</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lib\lua-5.4.1\src\llex.c">
+      <Filter>Header Files\include\lua</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\mylua.cpp">
+      <Filter>Source Files\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\engine_lualib.cpp">
+      <Filter>Source Files\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\engine_draw.cpp">
+      <Filter>Source Files\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\mypy.cpp">
+      <Filter>Source Files\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\engine_pymodule.cpp">
+      <Filter>Source Files\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\windows\windowswebview.cpp">
+      <Filter>Source Files\src\Windows</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\mywebview.cpp">
+      <Filter>Source Files\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\mypyarray.cpp">
+      <Filter>Source Files\src</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\include\Windows\directdraw.h">
+      <Filter>Header Files\include\Windows</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\Windows\surface.h">
+      <Filter>Header Files\include\Windows</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\Windows\windowsplatform.h">
+      <Filter>Header Files\include\Windows</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\core.h">
+      <Filter>Header Files\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\engine.h">
+      <Filter>Header Files\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\platform.h">
+      <Filter>Header Files\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\my.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\test\engine2.h">
+      <Filter>Header Files\include\test</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\windows\windowscore.h">
+      <Filter>Header Files\include\Windows</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\test\myengine.h">
+      <Filter>Header Files\include\test</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\test\molecularengine.h">
+      <Filter>Header Files\include\test</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\molecular.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\ui\slider.h">
+      <Filter>Header Files\include\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\test\uitest.h">
+      <Filter>Header Files\include\test</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\ui\control.h">
+      <Filter>Header Files\include\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\ui\theme.h">
+      <Filter>Header Files\include\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\test\molecularengine2.h">
+      <Filter>Header Files\include\test</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\lib\lua-5.4.1\src\ljumptab.h">
+      <Filter>Source Files\src\lua</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\lib\lua-5.4.1\src\lundump.h">
+      <Filter>Source Files\src\lua</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\lib\lua-5.4.1\src\lapi.h">
+      <Filter>Header Files\include\lua</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\lib\lua-5.4.1\src\lauxlib.h">
+      <Filter>Header Files\include\lua</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\lib\lua-5.4.1\src\lcode.h">
+      <Filter>Header Files\include\lua</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\lib\lua-5.4.1\src\lctype.h">
+      <Filter>Header Files\include\lua</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\lib\lua-5.4.1\src\ldebug.h">
+      <Filter>Header Files\include\lua</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\lib\lua-5.4.1\src\ldo.h">
+      <Filter>Header Files\include\lua</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\lib\lua-5.4.1\src\lfunc.h">
+      <Filter>Header Files\include\lua</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\lib\lua-5.4.1\src\lgc.h">
+      <Filter>Header Files\include\lua</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\lib\lua-5.4.1\src\llex.h">
+      <Filter>Header Files\include\lua</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\lib\lua-5.4.1\src\llimits.h">
+      <Filter>Header Files\include\lua</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\lib\lua-5.4.1\src\lmem.h">
+      <Filter>Header Files\include\lua</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\lib\lua-5.4.1\src\lobject.h">
+      <Filter>Header Files\include\lua</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\lib\lua-5.4.1\src\lopcodes.h">
+      <Filter>Header Files\include\lua</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\lib\lua-5.4.1\src\lopnames.h">
+      <Filter>Header Files\include\lua</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\lib\lua-5.4.1\src\lparser.h">
+      <Filter>Header Files\include\lua</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\lib\lua-5.4.1\src\lprefix.h">
+      <Filter>Header Files\include\lua</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\lib\lua-5.4.1\src\lstate.h">
+      <Filter>Header Files\include\lua</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\lib\lua-5.4.1\src\lstring.h">
+      <Filter>Header Files\include\lua</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\lib\lua-5.4.1\src\ltable.h">
+      <Filter>Header Files\include\lua</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\lib\lua-5.4.1\src\lua.h">
+      <Filter>Header Files\include\lua</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\lib\lua-5.4.1\src\ltm.h">
+      <Filter>Header Files\include\lua</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\lib\lua-5.4.1\src\lua.hpp">
+      <Filter>Header Files\include\lua</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\lib\lua-5.4.1\src\lualib.h">
+      <Filter>Header Files\include\lua</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\lib\lua-5.4.1\src\luaconf.h">
+      <Filter>Header Files\include\lua</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\lib\lua-5.4.1\src\lvm.h">
+      <Filter>Header Files\include\lua</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\lib\lua-5.4.1\src\lzio.h">
+      <Filter>Header Files\include\lua</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\test\lua_test.h">
+      <Filter>Header Files\include\test</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\mylua.h">
+      <Filter>Header Files\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\mylualib.h">
+      <Filter>Header Files\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\myimage.h">
+      <Filter>Header Files\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\mymath.h">
+      <Filter>Header Files\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\test\ilay\ilay_io.h">
+      <Filter>Header Files\include\test\ilay</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\test\ilay\ilay_main.h">
+      <Filter>Header Files\include\test\ilay</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\test\ilay\ilay_convolver.h">
+      <Filter>Header Files\include\test\ilay</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\test\ilay2.h">
+      <Filter>Header Files\include\test\ilay</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\test\py_test.h">
+      <Filter>Header Files\include\test</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\mypy.h">
+      <Filter>Header Files\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\python\pymodule.h">
+      <Filter>Header Files\include\python</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\mywebview.h">
+      <Filter>Header Files\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\windows\windowswebview.h">
+      <Filter>Header Files\include\Windows</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\test\test_webview.h">
+      <Filter>Header Files\include\test</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\test\std_test.h">
+      <Filter>Header Files\include\test</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\test\test_bokeh.h">
+      <Filter>Header Files\include\test</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\test\test_dat.h">
+      <Filter>Header Files\include\test</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\test\parse_test.h">
+      <Filter>Header Files\include\test</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\myparser.h">
+      <Filter>Header Files\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\test\test_json.h">
+      <Filter>Header Files\include\test</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\test\test_vue.h">
+      <Filter>Header Files\include\test</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\test\test_numpy.h">
+      <Filter>Header Files\include\test</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\test\test_vuetify.h">
+      <Filter>Header Files\include\test</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\mypyarray.h">
+      <Filter>Header Files\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\test\test_xml.h">
+      <Filter>Header Files\include\test</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\myxml.h">
+      <Filter>Header Files\include</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\script\init.lua">
+      <Filter>Script Files</Filter>
+    </None>
+    <None Include="..\..\user\lua_test.lua">
+      <Filter>User Files</Filter>
+    </None>
+    <None Include="..\..\user\ilay.lua">
+      <Filter>User Files</Filter>
+    </None>
+    <None Include="..\..\user\py_test.py">
+      <Filter>User Files</Filter>
+    </None>
+    <None Include="..\..\script\init.py">
+      <Filter>Script Files</Filter>
+    </None>
+    <None Include="packages.config" />
+    <None Include="..\..\user\webview\bokeh_test.py">
+      <Filter>User Files\webview</Filter>
+    </None>
+    <None Include="..\..\user\webview\precompiled\index.html">
+      <Filter>User Files\webview\precompiled</Filter>
+    </None>
+    <None Include="..\..\user\webview\precompiled\vue_index.html">
+      <Filter>User Files\webview\precompiled</Filter>
+    </None>
+    <None Include="..\..\user\webview\precompiled\vue_test.js">
+      <Filter>User Files\webview\precompiled</Filter>
+    </None>
+    <None Include="..\..\user\webview\precompiled\vue_index2.html">
+      <Filter>User Files\webview\precompiled</Filter>
+    </None>
+    <None Include="..\..\user\webview\precompiled\vue_test_xml.html">
+      <Filter>User Files\webview\precompiled</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Xml Include="..\..\user\tree.xml">
+      <Filter>User Files</Filter>
+    </Xml>
+  </ItemGroup>
+</Project>

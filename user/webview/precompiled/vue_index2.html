@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/@mdi/font@4.x/css/materialdesignicons.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.min.css" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
+</head>
+<body>
+    
+    <div id="app">
+        <v-app>
+            <v-app-bar app="true"></v-app-bar>
+            <v-main>
+                <v-form>
+                    <v-container>
+                        <v-row>
+                            <v-col cols="4" lg="4">
+                                <v-text-field v-model="firstname" label="First Name"> 
+                                </v-text-field>
+                            </v-col>
+                            <v-col cols="4" lg="4">
+                                <v-text-field v-model="surname" label="SurName"> 
+                                </v-text-field>
+                            </v-col>
+                            <v-col cols="4" lg="4">
+                                <v-text-field v-model="midname" label="MidName"> 
+                                </v-text-field>
+                            </v-col>
+                        </v-row>
+                        <v-row>
+                            <v-col cols="12" lg="12">
+                                <v-text-field v-model="description" label="Description"> 
+                                </v-text-field>
+                            </v-col>
+                        </v-row>
+                        <v-row>
+                            <v-col cols="6" md="3">
+                                <v-slider v-model=density label="Density" thumb-label></v-slider>
+                            </v-col>
+                            
+                        </v-row>
+                    </v-container>    
+                </v-form>
+            </v-main>
+        </v-app>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.x/dist/vue.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.js"></script>
+    <script>
+    var app = new Vue({
+      el: '#app',
+      vuetify: new Vuetify(),
+      data: {
+            firstname:  "hakan",
+            surname: "özgür",
+            description: "8 Color 8 bit monostable rip device with postprocessor."
+            } 
+    })
+    </script>
+</body>
+</html>

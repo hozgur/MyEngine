@@ -1,0 +1,317 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>16.0</VCProjectVersion>
+    <Keyword>Win32Proj</Keyword>
+    <ProjectGuid>{3eae439e-c128-4457-b48c-1f9a9ade418a}</ProjectGuid>
+    <RootNamespace>MyEngine2</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(SolutionDir)../../include;$(SolutionDir)../../;$(SolutionDir)../../lib/Lua-5.4.1/src/;$(SolutionDir)../../../eigen-3.3.7/;$(PYTHONHOME)/include/</IncludePath>
+    <IntDir>$(Configuration)\Intermediate\</IntDir>
+    <LibraryPath>$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86);$(PYTHONHOME)\libs;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(SolutionDir)../../include;$(SolutionDir)../../;$(SolutionDir)../../lib/Lua-5.4.1/src/;$(SolutionDir)../../../eigen-3.3.7/;$(PYTHONHOME)/include/</IncludePath>
+    <IntDir>$(Configuration)\Intermediate\</IntDir>
+    <LibraryPath>$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86);$(PYTHONHOME)\libs;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <LinkIncremental>true</LinkIncremental>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(SolutionDir)../../include;$(SolutionDir)../../;$(SolutionDir)../../lib/Lua-5.4.1/src/;$(SolutionDir)../../../eigen-3.3.7/;$(PYTHONHOME)/include/</IncludePath>
+    <IntDir>$(Platform)\$(Configuration)\Intermediate\</IntDir>
+    <LibraryPath>$(VC_LibraryPath_x64);$(WindowsSDK_LibraryPath_x64);$(PYTHONHOME)\libs;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <LinkIncremental>false</LinkIncremental>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(SolutionDir)../../include;$(SolutionDir)../../;$(SolutionDir)../../lib/Lua-5.4.1/src/;$(SolutionDir)../../../eigen-3.3.7/;$(PYTHONHOME)/include/</IncludePath>
+    <IntDir>$(Platform)\$(Configuration)\Intermediate\</IntDir>
+    <LibraryPath>$(VC_LibraryPath_x64);$(WindowsSDK_LibraryPath_x64);$(PYTHONHOME)\libs;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions);WINDOWS</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <OpenMPSupport>true</OpenMPSupport>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions);WINDOWS</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <OpenMPSupport>true</OpenMPSupport>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions);WINDOWS</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <OpenMPSupport>true</OpenMPSupport>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions);WINDOWS</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <OpenMPSupport>true</OpenMPSupport>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\lib\lua-5.4.1\src\lapi.c" />
+    <ClCompile Include="..\..\lib\lua-5.4.1\src\lauxlib.c" />
+    <ClCompile Include="..\..\lib\lua-5.4.1\src\lbaselib.c" />
+    <ClCompile Include="..\..\lib\lua-5.4.1\src\lcode.c" />
+    <ClCompile Include="..\..\lib\lua-5.4.1\src\lcorolib.c" />
+    <ClCompile Include="..\..\lib\lua-5.4.1\src\lctype.c" />
+    <ClCompile Include="..\..\lib\lua-5.4.1\src\ldblib.c" />
+    <ClCompile Include="..\..\lib\lua-5.4.1\src\ldebug.c" />
+    <ClCompile Include="..\..\lib\lua-5.4.1\src\ldo.c" />
+    <ClCompile Include="..\..\lib\lua-5.4.1\src\ldump.c" />
+    <ClCompile Include="..\..\lib\lua-5.4.1\src\lfunc.c" />
+    <ClCompile Include="..\..\lib\lua-5.4.1\src\lgc.c" />
+    <ClCompile Include="..\..\lib\lua-5.4.1\src\linit.c" />
+    <ClCompile Include="..\..\lib\lua-5.4.1\src\liolib.c" />
+    <ClCompile Include="..\..\lib\lua-5.4.1\src\llex.c" />
+    <ClCompile Include="..\..\lib\lua-5.4.1\src\lmathlib.c" />
+    <ClCompile Include="..\..\lib\lua-5.4.1\src\lmem.c" />
+    <ClCompile Include="..\..\lib\lua-5.4.1\src\loadlib.c" />
+    <ClCompile Include="..\..\lib\lua-5.4.1\src\lobject.c" />
+    <ClCompile Include="..\..\lib\lua-5.4.1\src\lopcodes.c" />
+    <ClCompile Include="..\..\lib\lua-5.4.1\src\loslib.c" />
+    <ClCompile Include="..\..\lib\lua-5.4.1\src\lparser.c" />
+    <ClCompile Include="..\..\lib\lua-5.4.1\src\lstate.c" />
+    <ClCompile Include="..\..\lib\lua-5.4.1\src\lstring.c" />
+    <ClCompile Include="..\..\lib\lua-5.4.1\src\lstrlib.c" />
+    <ClCompile Include="..\..\lib\lua-5.4.1\src\ltable.c" />
+    <ClCompile Include="..\..\lib\lua-5.4.1\src\ltablib.c" />
+    <ClCompile Include="..\..\lib\lua-5.4.1\src\ltm.c" />
+    <ClCompile Include="..\..\lib\lua-5.4.1\src\lundump.c" />
+    <ClCompile Include="..\..\lib\lua-5.4.1\src\lutf8lib.c" />
+    <ClCompile Include="..\..\lib\lua-5.4.1\src\lvm.c" />
+    <ClCompile Include="..\..\lib\lua-5.4.1\src\lzio.c" />
+    <ClCompile Include="..\..\my.cpp" />
+    <ClCompile Include="..\..\src\core.cpp" />
+    <ClCompile Include="..\..\src\engine.cpp" />
+    <ClCompile Include="..\..\src\engine_draw.cpp" />
+    <ClCompile Include="..\..\src\engine_lualib.cpp" />
+    <ClCompile Include="..\..\src\engine_pymodule.cpp" />
+    <ClCompile Include="..\..\src\mylua.cpp" />
+    <ClCompile Include="..\..\src\mypy.cpp" />
+    <ClCompile Include="..\..\src\mypyarray.cpp" />
+    <ClCompile Include="..\..\src\mywebview.cpp" />
+    <ClCompile Include="..\..\src\ui\theme.cpp" />
+    <ClCompile Include="..\..\src\windows\surface.cpp" />
+    <ClCompile Include="..\..\src\windows\windowscore.cpp" />
+    <ClCompile Include="..\..\src\Windows\windowsplatform.cpp" />
+    <ClCompile Include="..\..\src\windows\windowswebview.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\include\core.h" />
+    <ClInclude Include="..\..\include\engine.h" />
+    <ClInclude Include="..\..\include\myimage.h" />
+    <ClInclude Include="..\..\include\mylualib.h" />
+    <ClInclude Include="..\..\include\mymath.h" />
+    <ClInclude Include="..\..\include\mylua.h" />
+    <ClInclude Include="..\..\include\mypy.h" />
+    <ClInclude Include="..\..\include\mypyarray.h" />
+    <ClInclude Include="..\..\include\mywebview.h" />
+    <ClInclude Include="..\..\include\myparser.h" />
+    <ClInclude Include="..\..\include\myxml.h" />
+    <ClInclude Include="..\..\include\platform.h" />
+    <ClInclude Include="..\..\include\python\pymodule.h" />
+    <ClInclude Include="..\..\include\test\engine2.h" />
+    <ClInclude Include="..\..\include\test\parse_test.h" />
+    <ClInclude Include="..\..\include\test\test_bokeh.h" />
+    <ClInclude Include="..\..\include\test\ilay2.h" />
+    <ClInclude Include="..\..\include\test\ilay\ilay_convolver.h" />
+    <ClInclude Include="..\..\include\test\ilay\ilay_io.h" />
+    <ClInclude Include="..\..\include\test\ilay\ilay_main.h" />
+    <ClInclude Include="..\..\include\test\lua_test.h" />
+    <ClInclude Include="..\..\include\test\molecularengine.h" />
+    <ClInclude Include="..\..\include\test\molecularengine2.h" />
+    <ClInclude Include="..\..\include\test\py_test.h" />
+    <ClInclude Include="..\..\include\test\std_test.h" />
+    <ClInclude Include="..\..\include\test\test_dat.h" />
+    <ClInclude Include="..\..\include\test\test_json.h" />
+    <ClInclude Include="..\..\include\test\test_numpy.h" />
+    <ClInclude Include="..\..\include\test\test_vue.h" />
+    <ClInclude Include="..\..\include\test\test_vuetify.h" />
+    <ClInclude Include="..\..\include\test\test_webview.h" />
+    <ClInclude Include="..\..\include\test\test_xml.h" />
+    <ClInclude Include="..\..\include\test\uitest.h" />
+    <ClInclude Include="..\..\include\test\myengine.h" />
+    <ClInclude Include="..\..\include\ui\control.h" />
+    <ClInclude Include="..\..\include\ui\slider.h" />
+    <ClInclude Include="..\..\include\ui\theme.h" />
+    <ClInclude Include="..\..\include\Windows\directdraw.h" />
+    <ClInclude Include="..\..\include\Windows\surface.h" />
+    <ClInclude Include="..\..\include\windows\windowscore.h" />
+    <ClInclude Include="..\..\include\Windows\windowsplatform.h" />
+    <ClInclude Include="..\..\include\windows\windowswebview.h" />
+    <ClInclude Include="..\..\lib\lua-5.4.1\src\lapi.h" />
+    <ClInclude Include="..\..\lib\lua-5.4.1\src\lauxlib.h" />
+    <ClInclude Include="..\..\lib\lua-5.4.1\src\lcode.h" />
+    <ClInclude Include="..\..\lib\lua-5.4.1\src\lctype.h" />
+    <ClInclude Include="..\..\lib\lua-5.4.1\src\ldebug.h" />
+    <ClInclude Include="..\..\lib\lua-5.4.1\src\ldo.h" />
+    <ClInclude Include="..\..\lib\lua-5.4.1\src\lfunc.h" />
+    <ClInclude Include="..\..\lib\lua-5.4.1\src\lgc.h" />
+    <ClInclude Include="..\..\lib\lua-5.4.1\src\ljumptab.h" />
+    <ClInclude Include="..\..\lib\lua-5.4.1\src\llex.h" />
+    <ClInclude Include="..\..\lib\lua-5.4.1\src\llimits.h" />
+    <ClInclude Include="..\..\lib\lua-5.4.1\src\lmem.h" />
+    <ClInclude Include="..\..\lib\lua-5.4.1\src\lobject.h" />
+    <ClInclude Include="..\..\lib\lua-5.4.1\src\lopcodes.h" />
+    <ClInclude Include="..\..\lib\lua-5.4.1\src\lopnames.h" />
+    <ClInclude Include="..\..\lib\lua-5.4.1\src\lparser.h" />
+    <ClInclude Include="..\..\lib\lua-5.4.1\src\lprefix.h" />
+    <ClInclude Include="..\..\lib\lua-5.4.1\src\lstate.h" />
+    <ClInclude Include="..\..\lib\lua-5.4.1\src\lstring.h" />
+    <ClInclude Include="..\..\lib\lua-5.4.1\src\ltable.h" />
+    <ClInclude Include="..\..\lib\lua-5.4.1\src\ltm.h" />
+    <ClInclude Include="..\..\lib\lua-5.4.1\src\lua.h" />
+    <ClInclude Include="..\..\lib\lua-5.4.1\src\lua.hpp" />
+    <ClInclude Include="..\..\lib\lua-5.4.1\src\luaconf.h" />
+    <ClInclude Include="..\..\lib\lua-5.4.1\src\lualib.h" />
+    <ClInclude Include="..\..\lib\lua-5.4.1\src\lundump.h" />
+    <ClInclude Include="..\..\lib\lua-5.4.1\src\lvm.h" />
+    <ClInclude Include="..\..\lib\lua-5.4.1\src\lzio.h" />
+    <ClInclude Include="..\..\molecular.h" />
+    <ClInclude Include="..\..\my.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\script\init.lua" />
+    <None Include="..\..\script\init.py" />
+    <None Include="..\..\user\ilay.lua" />
+    <None Include="..\..\user\lua_test.lua" />
+    <None Include="..\..\user\py_test.py" />
+    <None Include="..\..\user\webview\bokeh_test.py" />
+    <None Include="..\..\user\webview\precompiled\index.html" />
+    <None Include="..\..\user\webview\precompiled\vue_index2.html" />
+    <None Include="..\..\user\webview\precompiled\vue_index.html" />
+    <None Include="..\..\user\webview\precompiled\vue_test.js" />
+    <None Include="..\..\user\webview\precompiled\vue_test_xml.html" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Xml Include="..\..\user\tree.xml" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+    <Import Project="packages\Microsoft.Windows.ImplementationLibrary.1.0.201120.3\build\native\Microsoft.Windows.ImplementationLibrary.targets" Condition="Exists('packages\Microsoft.Windows.ImplementationLibrary.1.0.201120.3\build\native\Microsoft.Windows.ImplementationLibrary.targets')" />
+    <Import Project="packages\Microsoft.Web.WebView2.1.0.664.37\build\native\Microsoft.Web.WebView2.targets" Condition="Exists('packages\Microsoft.Web.WebView2.1.0.664.37\build\native\Microsoft.Web.WebView2.targets')" />
+  </ImportGroup>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('packages\Microsoft.Windows.ImplementationLibrary.1.0.201120.3\build\native\Microsoft.Windows.ImplementationLibrary.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Microsoft.Windows.ImplementationLibrary.1.0.201120.3\build\native\Microsoft.Windows.ImplementationLibrary.targets'))" />
+    <Error Condition="!Exists('packages\Microsoft.Web.WebView2.1.0.664.37\build\native\Microsoft.Web.WebView2.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Microsoft.Web.WebView2.1.0.664.37\build\native\Microsoft.Web.WebView2.targets'))" />
+  </Target>
+</Project>
