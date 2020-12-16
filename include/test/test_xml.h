@@ -4,7 +4,7 @@
 #include <winrt/Windows.Graphics.Imaging.h> // for softwarebitmap
 #include <winrt/Windows.Media.h> // for videoframe
 #include <winrt/Windows.Storage.h> // for file io
-
+#include <algorithm>
 #pragma comment(lib, "windowsapp")
 
 #include "mypy.h"
@@ -24,13 +24,13 @@ public:
     }
     void test()
     {
-        LearningModel model = LearningModel::LoadFromFilePath(myfs::s2w(myfs::path("asset/model2.onnx")));
+        LearningModel model = LearningModel::LoadFromFilePath(myfs::s2w(myfs::path("asset/candy.onnx")));
         LearningModelDeviceKind deviceKind = LearningModelDeviceKind::Default;
         LearningModelSession session = nullptr;
         LearningModelBinding binding = nullptr;
 
         VideoFrame inputImage = nullptr;
-        std::string inputPath = myfs::path("") + "asset\\mandala400.png";
+        std::string inputPath = myfs::path("") + "asset\\FRUIT400.png";
         winrt::hstring inPath(myfs::s2w(inputPath));
         try {
             StorageFile file = StorageFile::GetFileFromPathAsync(inPath).get();
@@ -53,8 +53,55 @@ public:
 
         auto results = session.Evaluate(binding, L"RunId");
         auto resultTensor = results.Outputs().Lookup(L"output").as<TensorFloat>();
-
+        auto resultVector = resultTensor.GetAsVectorView();
+        std::ofstream fout("data.dat", std::ios::out | std::ios::binary);        
+        //std::ofstream fout2("data.csv", std::ios::out);
+        //std::locale cpploc{ "" };
+        //fout2.imbue(cpploc);
+        int i = 0;
+        int csize = 370 * 370;
+        int csize2 = csize *2;
         
+        std::vector<int> red;
+        std::vector<int> green;
+        std::vector<int> blue;
+        for (float a : resultVector) {
+
+            if (i < csize)
+            {
+                red.push_back((int)a);
+            }
+            else
+                if (i < csize2)
+                {
+                    green.push_back((int)a);
+                }
+                else
+                    blue.push_back((int)a);
+            i++;
+        }
+        int redmax = *std::max_element(std::begin(red), std::end(red));
+        int greenmax = *std::max_element(std::begin(green), std::end(green));
+        int bluemax = *std::max_element(std::begin(blue), std::end(blue));
+        
+        for (int a : red)
+        {
+            char val = a * 255 / redmax;
+            fout.write((char*)&val, 1);
+        }
+        for (int a : green)
+        {
+            char val = a * 255 / greenmax;
+            fout.write((char*)&val, 1);
+        }
+        for (int a : blue)
+        {
+            char val = a * 255 / bluemax;
+            fout.write((char*)&val, 1);
+        }
+            
+        fout.close();
+        //fout2.close();
     }
     void test1()
     {

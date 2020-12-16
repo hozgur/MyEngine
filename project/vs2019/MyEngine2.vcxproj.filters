@@ -428,6 +428,9 @@
     <ClInclude Include="..\..\include\commandqueue.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\include\test\test_ai.h">
+      <Filter>Header Files\include\test</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\script\init.lua">

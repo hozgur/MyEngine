@@ -4,27 +4,29 @@
 #include "..\..\include\windows\windowscore.h"
 namespace My
 {
-	std::wstring ConvertS2W(std::string s)
+	std::wstring ConvertS2W(std::string_view s)
 	{
 #ifdef __MINGW32__
 		wchar_t* buffer = new wchar_t[s.length() + 1];
 		mbstowcs(buffer, s.c_str(), s.length());
 		buffer[s.length()] = L'\0';
 #else
-		int count = MultiByteToWideChar(CP_UTF8, 0, s.c_str(), -1, NULL, 0);
+		std::string ss(s);
+		int count = MultiByteToWideChar(CP_UTF8, 0, ss.c_str(), -1, NULL, 0);
 		wchar_t* buffer = new wchar_t[count];
-		MultiByteToWideChar(CP_UTF8, 0, s.c_str(), -1, buffer, count);
+		MultiByteToWideChar(CP_UTF8, 0, ss.c_str(), -1, buffer, count);
 #endif
 		std::wstring w(buffer);
 		delete[] buffer;
 		return w;
 	}
 
-	std::string ConvertW2S(std::wstring w)
+	std::string ConvertW2S(std::wstring_view w)
 	{
-		int count = WideCharToMultiByte(CP_UTF8, 0, w.c_str(), -1, NULL, 0, NULL, NULL);
+		std::wstring ww(w);
+		int count = WideCharToMultiByte(CP_UTF8, 0, ww.c_str(), -1, NULL, 0, NULL, NULL);
 		char* buffer = new char[count];
-		WideCharToMultiByte(CP_UTF8, 0, w.c_str(), -1, buffer, count, NULL, NULL);
+		WideCharToMultiByte(CP_UTF8, 0, ww.c_str(), -1, buffer, count, NULL, NULL);
 
 		std::string s(buffer);
 		delete[] buffer;

@@ -7,11 +7,11 @@ namespace fs = std::filesystem;
 namespace myfs
 {
 #ifdef WINDOWS
-    std::string w2s(std::wstring wstring)
+    std::string w2s(std::wstring_view wstring)
     {
         return My::ConvertW2S(wstring);
     }
-    std::wstring s2w(std::string string)
+    std::wstring s2w(std::string_view string)
     {
         return My::ConvertS2W(string);
     }
@@ -72,7 +72,7 @@ namespace myfs
         size_t len;
         errno_t err = _dupenv_s(&pValue, &len, env.c_str());
         if (err) return "";
-        std::string val = pValue;
+        std::string val(pValue);
         free(pValue);
         return val;
     }

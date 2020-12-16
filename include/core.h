@@ -123,8 +123,8 @@ namespace My
 
 namespace myfs
 {
-	std::string w2s(std::wstring wstring);
-	std::wstring s2w(std::string string);
+	std::string w2s(std::wstring_view wstring);
+	std::wstring s2w(std::string_view string);
 	std::string root();
 	bool exits(const std::string& path, const std::string& filename);
 	std::string path(std::string directory);

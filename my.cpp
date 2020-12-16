@@ -1,5 +1,6 @@
 // my.cpp
-#include "test/test_xml.h"
+//#include "test/test_xml.h"
+#include "test/test_ai.h"
 //#include "test/test_numpy.h"
 //#include "test/test_vuetify.h"
 //#include "test/test_vue.h"
