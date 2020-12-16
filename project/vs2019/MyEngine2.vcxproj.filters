@@ -425,6 +425,9 @@
     <ClInclude Include="..\..\include\myxml.h">
       <Filter>Header Files\include</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\include\commandqueue.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\script\init.lua">

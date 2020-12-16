@@ -6,6 +6,7 @@
 #include "myimage.h"
 #include "mywebview.h"
 #include "platform.h"
+#include "commandqueue.h"
 #include "engine.h"
 #include "mylua.h"
 

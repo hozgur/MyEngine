@@ -1,0 +1,16 @@
+{
+	"sources" : 
+	[
+		{
+			"file" : "F:/Repos/Github/hozgur/xxxGameEngine/eigen-3.3.7/test/product_symm.cpp"
+		}
+	],
+	"target" : 
+	{
+		"labels" : 
+		[
+			"BuildOfficial"
+		],
+		"name" : "product_symm_5"
+	}
+}

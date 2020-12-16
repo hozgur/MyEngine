@@ -1,0 +1,16 @@
+{
+	"sources" : 
+	[
+		{
+			"file" : "F:/Repos/Github/hozgur/xxxGameEngine/eigen-3.3.7/unsupported/test/matrix_power.cpp"
+		}
+	],
+	"target" : 
+	{
+		"labels" : 
+		[
+			"BuildUnsupported"
+		],
+		"name" : "matrix_power_9"
+	}
+}

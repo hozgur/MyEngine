@@ -1,8 +1,20 @@
 #pragma once
+#include <winrt/Windows.AI.MachineLearning.h>
+#include <winrt/Windows.Foundation.h>   // for string
+#include <winrt/Windows.Graphics.Imaging.h> // for softwarebitmap
+#include <winrt/Windows.Media.h> // for videoframe
+#include <winrt/Windows.Storage.h> // for file io
+
+#pragma comment(lib, "windowsapp")
+
 #include "mypy.h"
 #include "myxml.h"
 using namespace My;
-
+using namespace winrt::Windows::AI::MachineLearning;
+using namespace winrt::Windows::Graphics::Imaging;
+using namespace winrt::Windows::Media;
+using namespace winrt::Windows::Storage;
+using namespace winrt::Windows::Foundation;
 class MyEngine : public My::Engine
 {
 public:
@@ -10,7 +22,40 @@ public:
     MyEngine(const char* path) :My::Engine(path)
     {
     }
+    void test()
+    {
+        LearningModel model = LearningModel::LoadFromFilePath(myfs::s2w(myfs::path("asset/model2.onnx")));
+        LearningModelDeviceKind deviceKind = LearningModelDeviceKind::Default;
+        LearningModelSession session = nullptr;
+        LearningModelBinding binding = nullptr;
 
+        VideoFrame inputImage = nullptr;
+        std::string inputPath = myfs::path("") + "asset\\mandala400.png";
+        winrt::hstring inPath(myfs::s2w(inputPath));
+        try {
+            StorageFile file = StorageFile::GetFileFromPathAsync(inPath).get();
+            auto stream = file.OpenAsync(FileAccessMode::Read).get();
+            BitmapDecoder decoder = BitmapDecoder::CreateAsync(stream).get();
+            SoftwareBitmap softwareBitmap = decoder.GetSoftwareBitmapAsync().get();
+            inputImage = VideoFrame::CreateWithSoftwareBitmap(softwareBitmap);
+        }
+        catch (...) {
+            debug << "Error on Image Load \n";
+            return;
+        }
+        session = LearningModelSession{ model, LearningModelDevice(deviceKind) };
+        binding = LearningModelBinding{ session };
+        // bind the intput image
+        binding.Bind(L"input", ImageFeatureValue::CreateFromVideoFrame(inputImage));
+        // bind the output
+        std::vector<int64_t> shape({ 3,370,370 });
+        binding.Bind(L"output", TensorFloat::Create(shape));
+
+        auto results = session.Evaluate(binding, L"RunId");
+        auto resultTensor = results.Outputs().Lookup(L"output").as<TensorFloat>();
+
+        
+    }
     void test1()
     {
         myxml::xml_document doc;
@@ -106,7 +151,7 @@ public:
     }
     bool OnStart() override
     {
-        test3();
+        test();
         return true;
     }
 };

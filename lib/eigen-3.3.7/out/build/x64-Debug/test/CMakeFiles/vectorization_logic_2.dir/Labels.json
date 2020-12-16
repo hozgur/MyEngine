@@ -1,0 +1,16 @@
+{
+	"sources" : 
+	[
+		{
+			"file" : "F:/Repos/Github/hozgur/xxxGameEngine/eigen-3.3.7/test/vectorization_logic.cpp"
+		}
+	],
+	"target" : 
+	{
+		"labels" : 
+		[
+			"BuildOfficial"
+		],
+		"name" : "vectorization_logic_2"
+	}
+}
