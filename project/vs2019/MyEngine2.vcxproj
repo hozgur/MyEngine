@@ -229,6 +229,7 @@
     <ClInclude Include="..\..\include\test\engine2.h" />
     <ClInclude Include="..\..\include\test\parse_test.h" />
     <ClInclude Include="..\..\include\test\test_ai.h" />
+    <ClInclude Include="..\..\include\test\test_ai2.h" />
     <ClInclude Include="..\..\include\test\test_bokeh.h" />
     <ClInclude Include="..\..\include\test\ilay2.h" />
     <ClInclude Include="..\..\include\test\ilay\ilay_convolver.h" />

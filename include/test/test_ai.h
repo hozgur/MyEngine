@@ -1,9 +1,11 @@
 #pragma once
+#include <unknwn.h>
 #include <winrt/Windows.AI.MachineLearning.h>
 #include <winrt/Windows.Foundation.h>   // for string
 #include <winrt/Windows.Graphics.Imaging.h> // for softwarebitmap
 #include <winrt/Windows.Media.h> // for videoframe
 #include <winrt/Windows.Storage.h> // for file io
+#include <MemoryBuffer.h>
 #include <algorithm>
 #pragma comment(lib, "windowsapp")
 
@@ -15,12 +17,14 @@ using namespace winrt::Windows::Graphics::Imaging;
 using namespace winrt::Windows::Media;
 using namespace winrt::Windows::Storage;
 using namespace winrt::Windows::Foundation;
+using namespace Windows::Foundation;
 class MyEngine : public My::Engine
 {
 public:
 
     MyEngine(const char* path) :My::Engine(path)
     {
+         
     }
 
     void dumpFeatures(LearningModel model)
@@ -87,7 +91,10 @@ public:
 
         binding = LearningModelBinding{ session };
         // bind the intput image
-        binding.Bind(L"inputImage", ImageFeatureValue::CreateFromVideoFrame(inputImage));
+        SoftwareBitmap bmp(BitmapPixelFormat::Bgra8, 720, 720);
+
+        //auto in = ImageFeatureValue::CreateFromVideoFrame(VideoFrame(bmp);
+        binding.Bind(L"inputImage", inputImage);
         // bind the output
         std::vector<int64_t> shape({ 3,720,720 });
         binding.Bind(L"outputImage", TensorFloat::Create(shape));
@@ -157,6 +164,21 @@ public:
 
         fout.close();
         //fout2.close();
+    }
+
+    void test2()
+    {
+        std::vector<int64_t> shape({ 3,720,720 });
+        TensorFloat input = TensorFloat::Create({ 3,720,720 });
+        IMemoryBufferReference ref = input.CreateReference();
+        winrt::com_ptr<IMemoryBufferByteAccess> mbba = ref.as<IMemoryBufferByteAccess>();
+        BYTE* data = nullptr;
+        UINT32 capacity = 0;
+        if (SUCCEEDED(mbba->GetBuffer(&data, &capacity)))
+        {
+            //code here
+        }
+
     }
 
     bool OnStart() override

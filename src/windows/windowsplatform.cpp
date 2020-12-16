@@ -66,22 +66,46 @@ namespace My
 	{
 		static int lastline = 0;
 		static bool drawed = false;
-
+		static StopWatch s;
+		static bool first = true;
 		
 		while (ThreadActive)
 		{
 			int scanline = GetScanLine();
-			if (!drawed && (scanline > 700))
+			if (scanline < 0)
 			{
-				Engine::pEngine->OnDraw();
-				OnPaint();				
-				//SetWindowTitle(std::to_string(scanline));
-				drawed = true;
+				if (first)
+				{
+					first = false;
+					s.Start();
+				}
+				else
+				{
+					s.Stop();
+					double d = s.GetDurationMS();
+					if (d > 15)
+					{
+						s.Start();
+						Engine::pEngine->OnDraw();
+						OnPaint();
+					}
+				}
 			}
-			if (scanline < lastline)
-				drawed = false;
+			else
+			{
+				if (!drawed && (scanline > 700))
+				{
+					Engine::pEngine->OnDraw();
+					OnPaint();
+					//SetWindowTitle(std::to_string(scanline));
+					drawed = true;
+				}
+				if (scanline < lastline)
+					drawed = false;
 
-			lastline = scanline;
+				lastline = scanline;
+			}
+			
 			Engine::pEngine->OnUpdate();
 			
 		}		
@@ -107,8 +131,11 @@ namespace My
 	inline int WindowsPlatform::GetScanLine()
 	{
 		DWORD scanLine;
-		((LPDIRECTDRAW)g_pDD)->GetScanLine(&scanLine);
-		return (int)scanLine;
+		HRESULT hr = ((LPDIRECTDRAW)g_pDD)->GetScanLine(&scanLine);
+		if (hr == S_OK)
+			return (int)scanLine;
+		else
+			return -1;
 	}
 
     bool WindowsPlatform::AddWindow(int width,int height, int pixelWidth, int pixelHeight, bool fullScreen)
