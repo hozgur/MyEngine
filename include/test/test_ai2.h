@@ -101,9 +101,9 @@ public:
     }
     void draw()
     {
-        int offset = mouseY * Width + mouseX;
+        const int offset = mouseY * Width + mouseX;
 
-        int size = Width * Height;
+        const int size = Width * Height;
         if ((offset >= 0) && (offset < size))
         {
             *(inputData + offset) = 255;
@@ -111,19 +111,23 @@ public:
             *(inputData + offset + 2*size) = 255;
         }
         eval();
+        float* data = outputData;
         debug << "eval";
 #pragma omp parallel for
         for (int y = 0; y < Height; y++)
         {
             Color* p = GetLinePointer(y);
-            float* red = outputData + y * Width;
-            float* green = outputData + (y * Width) + size;
-            float* blue = outputData + (y * Width) + 2 * size;
+            float* red = data + y * Width;
+            float* green = data + (y * Width) + size;
+            float* blue = data + (y * Width) + 2 * size;
             for (int x = 0; x < Width; x++)
             {
                 p[x] = Color(clamp(red[x]), clamp(green[x]), clamp(blue[x]));
             }
         }
+#pragma omp parallel for
+        for (int a = 0; a < size * 3; a++)
+            inputData[a] = outputData[a];
     }
 
     void OnDraw()
