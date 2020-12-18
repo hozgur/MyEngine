@@ -116,7 +116,7 @@ public:
     }
     void draw()
     {
-        const int offset = mouseY * clientWidth + mouseX;
+        const int offset = (int)(mouseY * clientWidth + mouseX);
 
         float* inp = inputData;
         const int inSize = inWidth * inHeight;
@@ -140,7 +140,7 @@ public:
             float* blue = data + (y * outWidth) + 2 * outSize;
             for (int x = 0; x < outWidth; x++)
             {
-                p[x] = Color(clamp(red[x]), clamp(green[x]), clamp(blue[x]));
+                p[x] = Color(clamp((int)red[x]), clamp((int)green[x]), clamp((int)blue[x]));
             }
         }
 //#pragma omp parallel for

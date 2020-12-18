@@ -205,7 +205,7 @@ namespace My
 		int h = rWndRect.bottom - rWndRect.top;		
 		backSurface = new Surface();
 		if (backSurface->Create(width/pixelWidth, height/pixelHeight, 32) == false) return false;
-
+		Engine::pEngine->background = new WindowsImage(backSurface);
 		hWnd = CreateWindowEx(dwExStyle, myT("MyEngine"), myT(""), dwStyle,
 			x, y, w, h, NULL, NULL, GetModuleHandle(nullptr), this);
 						
@@ -230,8 +230,8 @@ namespace My
 			//case WM_KILLFOCUS:	ptrPGE->olc_UpdateKeyFocus(false);                                      return 0;
 			case WM_KEYDOWN:	Engine::pEngine->UpdateKeyState(mapKeys[wParam], true);						return 0;
 			case WM_KEYUP:		Engine::pEngine->UpdateKeyState(mapKeys[wParam], false);                     return 0;
-			//case WM_LBUTTONDOWN:ptrPGE->olc_UpdateMouseState(0, true);                                  return 0;
-			//case WM_LBUTTONUP:	ptrPGE->olc_UpdateMouseState(0, false);                                 return 0;
+			case WM_LBUTTONDOWN:	Engine::pEngine->mousePressed = true;                                  return 0;
+			case WM_LBUTTONUP:	Engine::pEngine->mousePressed = false;                                 return 0;
 			//case WM_RBUTTONDOWN:ptrPGE->olc_UpdateMouseState(1, true);                                  return 0;
 			//case WM_RBUTTONUP:	ptrPGE->olc_UpdateMouseState(1, false);                                 return 0;
 			//case WM_MBUTTONDOWN:ptrPGE->olc_UpdateMouseState(2, true);                                  return 0;

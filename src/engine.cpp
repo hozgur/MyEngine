@@ -21,6 +21,7 @@ namespace My
         
         clientWidth = clientHeight = 0;
         mouseX = 0; mouseY = 0;
+        mousePressed = false;
         
     }
 
@@ -29,6 +30,7 @@ namespace My
         for(std::map<handle, object*>::iterator it = objects.begin(); it != objects.end(); ++it)
             delete it->second;
         Py::exit();
+        delete background;
         delete pPlatform;
     }
 
@@ -143,6 +145,7 @@ namespace My
 
     handle Engine::SetObject(object* obj)
     {
+        if (obj == nullptr) return -1;
         handle key = GetHashCode();
         obj->SetID(key);
         objects[key] = obj;

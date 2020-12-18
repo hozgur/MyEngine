@@ -63,7 +63,7 @@ namespace myfs
     {
         fs::path path = root();
         path /= directory;
-        return path.string();
+        return path.make_preferred().string();
     }
 
     std::string getEnv(std::string env)

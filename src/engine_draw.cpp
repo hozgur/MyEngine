@@ -176,5 +176,13 @@ namespace My
     }
     void Engine::DrawText(int x, int y, std::string text, int fontHeight)
     {
-    }    
+    }
+
+    void Engine::DrawImage(handle sourceImage, int x, int y, int width, int height, int sx, int sy, handle destImage)
+    {
+        image<Color>* imgSource = dynamic_cast<image<Color>*>(Get(sourceImage));
+        image<Color>* imgDest = (destImage < 0)?background: dynamic_cast<image<Color>*>(Get(destImage));
+        if((imgSource != nullptr) && (imgDest != nullptr))
+            imgDest->draw(imgSource, x, y, width, height, sx, sy, width, height);
+    }
 }
