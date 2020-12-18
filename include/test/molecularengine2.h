@@ -8,10 +8,10 @@ class MyEngine : public My::Engine
 {
 public:
 	
-	const int width = 256;
-	const int height = 92;
+	const int width = 400;
+	const int height = 300;
 	Molecular::grid grid;
-	MyEngine() :My::Engine(),grid(width,height,scale)
+	MyEngine(const char* path) :My::Engine(path),grid(width,height,scale)
 	{}
 	void InitDots()
 	{		
@@ -41,7 +41,7 @@ public:
 	}
 	bool OnStart() override
 	{
-		AddWindow(width*scale, height*scale,5,5);		
+		AddWindow(width*scale, height*scale,3,3);		
 		std::srand(0);
 		grid.bDrawLines = true;
 		InitDots();		

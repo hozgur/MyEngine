@@ -165,12 +165,7 @@ namespace My
         pPlatform->SetFPS(fps);
     }
 
-    void Engine::Clear(Color c)
-    {
-        pPlatform->Clear(c);        
-
-    }
-
+    
     void Engine::OnDraw()
     {
         if (luaEnable && (pressedKey >= 0) && lua.checkfunction("OnKey"))
@@ -242,5 +237,10 @@ namespace My
     handle Engine::AddWebView(int x, int y, int width, int height)
     {
         return SetObject(pPlatform->AddWebView(x, y, width, height));
+    }
+
+    handle Engine::loadImage(std::string path)
+    {
+        return SetObject(pPlatform->loadImage(path));
     }
 }

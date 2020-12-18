@@ -14,8 +14,10 @@ namespace My
         virtual Color* GetLinePointer(int nLine) = 0;
         virtual void SetWindowTitle(std::string title) = 0;
         virtual int GetScanLine() = 0;
-        virtual void Clear(Color c) = 0;
+        virtual void ClearBackground(Color c) = 0;
         virtual void StartUp() = 0;
         virtual void CleanUp() = 0;
+        
+        virtual image<Color>* loadImage(std::string path) = 0;
     };
 }

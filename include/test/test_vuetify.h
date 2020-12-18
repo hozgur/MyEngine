@@ -32,7 +32,7 @@ public:
 
         AddWindow(w, h, pw, ph);
         //hView = AddWebView(dx, dy, dw, dh);
-        hView = AddWebView(0, 0, w, h);
+        hView = AddWebView(0, 0, dw, dh);
         //compile();
         return true;
     }

@@ -62,7 +62,7 @@ namespace My
 
 
         // Drawing Functions
-        void Clear(Color c);
+        void Clear(Color c,handle h = -1);
         void DrawHLine(int x1, int x2, int y, const Color& c);
         void DrawVLine(int y1, int y2, int x, const Color& c);
         void FillRect(ivec2 pos, ivec2 size, const Color& c);
@@ -71,7 +71,12 @@ namespace My
         void DrawLine(int32_t x1, int32_t y1, int32_t x2, int32_t y2, Color p, uint32_t pattern = 0xFFFFFFFF);
         void DrawLine(ivec2 p1, ivec2 p2, Color p, uint32_t pattern = 0xFFFFFFFF);
         void DrawText(int x, int y, std::string text,int fontHeight);
+        void DrawImage(handle hImage, int x, int y, int width, int height, int sx, int sy,handle destination = -1);
+        //Image Functions
 
+        handle loadImage(std::string path);
+        template<typename T>
+        handle createImage(int width, int height, int channelCount, Interleave interleave = Interleave::interleave_interleaved);
 
         // Handlers
         virtual void OnDraw();

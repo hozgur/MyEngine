@@ -8,7 +8,7 @@
 #pragma comment(lib, "ddraw.lib")
 #include "Windows\directdraw.h"
 #include "Windows\windowswebview.h"
-
+#include "Windows\windowsimage.h"
 namespace My
 {	
 	std::atomic<bool> WindowsPlatform::ThreadActive = { false };
@@ -110,6 +110,20 @@ namespace My
 			
 		}		
 	}
+	
+	image<Color>* WindowsPlatform::loadImage(std::string path)
+	{
+		Surface* surface = LoadSurface(myfs::s2w(path));
+		if (surface == nullptr) return nullptr;
+		if (surface->GetDepth() != 32)
+		{
+			Surface* newsurface = ChangeDepthSurface(surface, 32);
+			delete surface;
+			surface = newsurface;
+		}
+		return new WindowsImage(surface);
+	}
+	
 	void WindowsPlatform::OnPaint()
 	{						
 		int w = backSurface->GetWidth();
@@ -124,8 +138,8 @@ namespace My
 		ReleaseDC(hWnd,hdc);		
 	}
 
-	void WindowsPlatform::Clear(Color c)
-	{
+	void WindowsPlatform::ClearBackground(Color c)
+	{	
 		backSurface->Clear(c);
 	}
 	inline int WindowsPlatform::GetScanLine()

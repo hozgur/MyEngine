@@ -29,13 +29,13 @@ namespace My
 		virtual void SetWindowTitle(std::string title);
 		void MapKeys();
 		virtual void StartUp() override;
-		virtual void CleanUp() override;
-		void CreateWebViews();
-		void CloseWebViews();
+		virtual void CleanUp() override;		
 		void mainThread();
+		
+		image<Color>* loadImage(std::string path);
 
 		virtual void OnPaint();
-		virtual void Clear(Color c);
+		virtual void ClearBackground(Color c);
 		//Static Functions		
 		static LRESULT CALLBACK WindowEvent(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
 	};

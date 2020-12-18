@@ -255,6 +255,7 @@
     <ClInclude Include="..\..\include\Windows\directdraw.h" />
     <ClInclude Include="..\..\include\Windows\surface.h" />
     <ClInclude Include="..\..\include\windows\windowscore.h" />
+    <ClInclude Include="..\..\include\windows\windowsimage.h" />
     <ClInclude Include="..\..\include\Windows\windowsplatform.h" />
     <ClInclude Include="..\..\include\windows\windowswebview.h" />
     <ClInclude Include="..\..\lib\lua-5.4.1\src\lapi.h" />

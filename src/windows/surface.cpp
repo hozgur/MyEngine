@@ -361,6 +361,43 @@ namespace My
 		return surface;
 	}
 
+	Surface* ChangeDepthSurface(Surface* surface,int depth)
+	{
+				
+		if (surface->GetDepth() == depth) return surface;
+
+		int width = surface->GetWidth();
+		int height = surface->GetHeight();
+		float dpix = surface->GetDpiX();
+		float dpiy = surface->GetDpiY();
+
+
+		Surface* newsurface = new Surface();
+		if (newsurface == NULL)
+		{
+			debug << "Insufficient Memory Error\n.";
+			return nullptr;
+		}
+		newsurface->Create(width, height, depth);
+		newsurface->SetDPI(dpix, dpiy);
+		
+		BitBlt(newsurface->GetDC(), 0, 0, width, height, surface->GetDC(), 0, 0, SRCCOPY);
+
+		if (newsurface->GetDepth() == 32)	//  yeni surface alpha içeriyor ise alpha'yı tam set et.
+		{
+			unsigned int* p = (unsigned int*)newsurface->GetLinePointer(0);
+			int size = height * newsurface->GetStride()/sizeof(int);
+			for (int a = 0; a < size; a++)
+			{
+				*p = (*p) | 0xFF000000;		// yeni alpha değerlerini 0xFF yap.
+				p++;
+			}
+		}
+
+		return newsurface;
+	}
+	
+
 	Surface* LoadSurface(std::wstring path)
 	{
 		Gdiplus::Bitmap image(path.c_str(), TRUE);
@@ -370,45 +407,7 @@ namespace My
 		return surface;
 	}
 
-
-	//WinImage* WinImage::Create(int width, int height)
-	//{
-	//	WinImage* img = new WinImage();
-	//	img->surface = new Surface();		
-	//	if (!img->surface->Create(width, height, 32)) return nullptr;
-	//	return img;
-	//}
-
-	//int WinImage::getWidth()
-	//{
-	//	assert(surface != nullptr);
-	//	if (surface != nullptr)
-	//		return surface->GetWidth();
-	//	else		
-	//		return 0;
-	//}
-	//int WinImage::getHeight()
-	//{
-	//	assert(surface != nullptr);
-	//	if (surface != nullptr)
-	//		return surface->GetHeight();
-	//	else
-	//		return 0;
-	//}
-	//
-	//drawable<Color>* WinImage::clone()
-	//{
-	//	assert(surface != nullptr);
-	//	return nullptr;
-	//}
-	//const std::vector<Color> WinImage::getline(int line)
-	//{
-	//	return std::vector<Color>(surface->GetLinePointer(line), surface->GetLinePointer(line)+getWidth());
-	//}
-	//void WinImage::setline(int line, Color* data)
-	//{
-	//	// do nothing
-	//}
+	
 }
 
 #endif //WINDOWS

@@ -2,6 +2,17 @@
 
 namespace My
 {
+    void Engine::Clear(Color c,handle h)
+    {
+        if(h < 0)
+            pPlatform->ClearBackground(c);
+        else
+        {
+
+        }
+
+    }
+
     void Engine::DrawHLine(int x1, int x2, int y, const Color& c)
     {
         if (x1 < 0) x1 = 0;
@@ -165,5 +176,5 @@ namespace My
     }
     void Engine::DrawText(int x, int y, std::string text, int fontHeight)
     {
-    }
+    }    
 }

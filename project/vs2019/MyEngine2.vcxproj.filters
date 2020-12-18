@@ -434,6 +434,9 @@
     <ClInclude Include="..\..\include\test\test_ai2.h">
       <Filter>Header Files\include\test</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\include\windows\windowsimage.h">
+      <Filter>Header Files\include\Windows</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\script\init.lua">
