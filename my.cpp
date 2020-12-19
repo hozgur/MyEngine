@@ -1,5 +1,5 @@
 // my.cpp
-#include "test/test_image.h"
+//#include "test/test_image.h"
 //#include "test/test_xml.h"
 //#include "test/test_ai2.h"
 //#include "test/test_numpy.h"
@@ -10,7 +10,7 @@
 //#include "test/std_test.h"
 //#include "test/test_webview.h"
 //#include "test/test_dat.h"
-//#include "test\test_py.h"
+#include "test\test_py.h"
 //#include "test\lua_test.h"
 //#include "test\molecularengine2.h"
 //#include "test\engine2.h"

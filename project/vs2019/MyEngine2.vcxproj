@@ -225,6 +225,7 @@
     <ClInclude Include="..\..\include\mylua.h" />
     <ClInclude Include="..\..\include\mypy.h" />
     <ClInclude Include="..\..\include\mypyarray.h" />
+    <ClInclude Include="..\..\include\mytensor.h" />
     <ClInclude Include="..\..\include\mywebview.h" />
     <ClInclude Include="..\..\include\myparser.h" />
     <ClInclude Include="..\..\include\myxml.h" />
