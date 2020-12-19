@@ -249,6 +249,7 @@
     <ClInclude Include="..\..\include\test\test_image.h" />
     <ClInclude Include="..\..\include\test\test_json.h" />
     <ClInclude Include="..\..\include\test\test_numpy.h" />
+    <ClInclude Include="..\..\include\test\test_tensor.h" />
     <ClInclude Include="..\..\include\test\test_vue.h" />
     <ClInclude Include="..\..\include\test\test_vuetify.h" />
     <ClInclude Include="..\..\include\test\test_webview.h" />

@@ -48,7 +48,6 @@ namespace My
 	{
 		if (hWnd != nullptr)
 		{
-			//CreateWebViews();
 			ThreadActive = true;
 			paintThread = std::thread(&WindowsPlatform::mainThread, this);
 		}		
@@ -58,8 +57,7 @@ namespace My
 	{
 		ThreadActive = false;
 		if (paintThread.joinable())
-			paintThread.join();		
-		//CloseWebViews();
+			paintThread.join();
 	}
 	
 	void WindowsPlatform::mainThread()
@@ -261,15 +259,7 @@ namespace My
 	
 	void WindowsPlatform::SetFPS(int fps)
 	{
-		if (fps >= 0)
-		{
-			nFPS = fps;
-			if (hTimer != 0)			
-				KillTimer(hWnd,hTimer);							
-			hTimer = SetTimer(hWnd, 1000, 1000 / nFPS, nullptr);
-		}
 		
-
 	}
 
 	Color* WindowsPlatform::GetLinePointer(int nLine)
