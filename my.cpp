@@ -10,7 +10,7 @@
 //#include "test/std_test.h"
 //#include "test/test_webview.h"
 //#include "test/test_dat.h"
-//#include "test\py_test.h"
+//#include "test\test_py.h"
 //#include "test\lua_test.h"
 //#include "test\molecularengine2.h"
 //#include "test\engine2.h"

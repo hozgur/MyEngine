@@ -12,7 +12,7 @@ void test1()
         locals["a"] = 45L;
         Py::dict result;
         result["outa"] = 0L;
-        py.dostring("outa = 25 * a\n", locals, result);
+        Py::dostring("outa = 25 * a\n", locals, result);
         //debug << std::get<long>(result["outa"]);
     }
     s.Stop();
@@ -21,8 +21,8 @@ void test1()
 
 void test2()
 {
-    py.dofile(myfs::path("user/py_test.py"));
-    py.dofunction("test_function", { 33. });
+    Py::dofile(myfs::path("user/py_test.py"));
+    Py::dofunction("test_function", { 33. });
 }
 
 struct SampleVisitor
@@ -62,7 +62,7 @@ void test4()
 {
     Py::dict locals;
     locals["a"] = 45L;    
-    py.dostring("outa = 25 * a\n", locals);
+    Py::dostring("outa = 25 * a\n", locals);
 }
 
 class MyEngine : public My::Engine
@@ -72,7 +72,7 @@ public:
     MyEngine(const char* path) :My::Engine(path) 
     {
         //py.addModule(nullptr);
-        py.init();
+        Py::init();
     }
 
     bool OnStart() override

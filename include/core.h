@@ -46,6 +46,10 @@ inline int mod(int a, int b) { return (a % b + b) % b; }
 
 namespace My
 {	
+	/// <summary>
+	/// handle 
+	/// Object Handle
+	/// </summary>
 	typedef int handle;	
 	const handle invalidHandle = -1;
 	class object
