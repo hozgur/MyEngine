@@ -231,6 +231,7 @@
     <ClInclude Include="..\..\include\myxml.h" />
     <ClInclude Include="..\..\include\platform.h" />
     <ClInclude Include="..\..\include\python\pymodule.h" />
+    <ClInclude Include="..\..\include\py_mytensor.h" />
     <ClInclude Include="..\..\include\test\engine2.h" />
     <ClInclude Include="..\..\include\test\parse_test.h" />
     <ClInclude Include="..\..\include\test\test_ai.h" />
@@ -243,6 +244,7 @@
     <ClInclude Include="..\..\include\test\lua_test.h" />
     <ClInclude Include="..\..\include\test\molecularengine.h" />
     <ClInclude Include="..\..\include\test\molecularengine2.h" />
+    <ClInclude Include="..\..\include\test\test_draw.h" />
     <ClInclude Include="..\..\include\test\test_py.h" />
     <ClInclude Include="..\..\include\test\std_test.h" />
     <ClInclude Include="..\..\include\test\test_dat.h" />

@@ -218,7 +218,11 @@ namespace My
 			{				
 				int pw = Engine::pEngine->pixelWidth;
 				int ph = Engine::pEngine->pixelHeight;
-				Engine::pEngine->OnMouseMove((float)(lParam & 0xFFFF)/pw, (float)((lParam >> 16) & 0xFFFF)/ph );
+				float mouseX = (float)(lParam & 0xFFFF) / pw;
+				float mouseY = (float)((lParam >> 16) & 0xFFFF) / ph;
+				Engine::pEngine->mouseX = mouseX;
+				Engine::pEngine->mouseY = mouseY;
+				Engine::pEngine->OnMouse(MouseEvent::Mouse_Move,mouseX, mouseY );
 				return 0;				
 			}
 			//case WM_SIZE:       ptrPGE->olc_UpdateWindowSize(lParam & 0xFFFF, (lParam >> 16) & 0xFFFF);	return 0;
@@ -228,8 +232,30 @@ namespace My
 			//case WM_KILLFOCUS:	ptrPGE->olc_UpdateKeyFocus(false);                                      return 0;
 			case WM_KEYDOWN:	Engine::pEngine->UpdateKeyState(mapKeys[wParam], true);						return 0;
 			case WM_KEYUP:		Engine::pEngine->UpdateKeyState(mapKeys[wParam], false);                     return 0;
-			case WM_LBUTTONDOWN:	Engine::pEngine->mousePressed = true;                                  return 0;
-			case WM_LBUTTONUP:	Engine::pEngine->mousePressed = false;                                 return 0;
+			case WM_LBUTTONDOWN:
+			{
+				Engine::pEngine->mousePressed = true;
+				int pw = Engine::pEngine->pixelWidth;
+				int ph = Engine::pEngine->pixelHeight;
+				float mouseX = (float)(lParam & 0xFFFF) / pw;
+				float mouseY = (float)((lParam >> 16) & 0xFFFF) / ph;
+				Engine::pEngine->mouseX = mouseX;
+				Engine::pEngine->mouseY = mouseY;
+				Engine::pEngine->OnMouse(MouseEvent::Mouse_LBPressed, mouseX, mouseY);
+				return 0;
+			}
+			case WM_LBUTTONUP:
+			{
+				Engine::pEngine->mousePressed = false;
+				int pw = Engine::pEngine->pixelWidth;
+				int ph = Engine::pEngine->pixelHeight;
+				float mouseX = (float)(lParam & 0xFFFF) / pw;
+				float mouseY = (float)((lParam >> 16) & 0xFFFF) / ph;
+				Engine::pEngine->mouseX = mouseX;
+				Engine::pEngine->mouseY = mouseY;
+				Engine::pEngine->OnMouse(MouseEvent::Mouse_LBReleased, mouseX, mouseY);
+				return 0;
+			}
 			//case WM_RBUTTONDOWN:ptrPGE->olc_UpdateMouseState(1, true);                                  return 0;
 			//case WM_RBUTTONUP:	ptrPGE->olc_UpdateMouseState(1, false);                                 return 0;
 			//case WM_MBUTTONDOWN:ptrPGE->olc_UpdateMouseState(2, true);                                  return 0;

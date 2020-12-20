@@ -3,6 +3,14 @@
 
 namespace My
 {
+	class _mytensor
+	{
+	public:
+		virtual std::vector<int64_t> shape() const = 0;
+		virtual std::vector<int64_t> strides() const = 0;
+		virtual void* getData(int depth, int index) const = 0;
+		virtual void setData(int depth, int index, const void* data, int dataSize) const = 0;
+	};
 	template<typename T>
 	class mytensor
 	{
@@ -36,7 +44,7 @@ namespace My
 			pData = new T[size]; 
 		}
 		~mytensorImpl() {
-			delete pData;
+			delete [] pData;
 		}
 		// mytensor impl
 		std::vector<int64_t> shape() const override { return _shape; };

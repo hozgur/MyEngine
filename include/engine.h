@@ -9,6 +9,8 @@ typedef Matrix<int, 2, 1> ivec2;
 
 namespace My
 {
+    enum class MouseEvent {Mouse_LBPressed, Mouse_RBPressed, Mouse_MBPressed, Mouse_LBReleased, MouseRBReleased, Mouse_MBReleased,
+                           Mouse_Move};
     enum Key
     {
         NONE,
@@ -87,6 +89,7 @@ namespace My
         virtual void OnExit();
         virtual void OnIdle();
         virtual void OnKey(uint8_t key, bool pressed);
+        virtual void OnMouse(MouseEvent event, float x, float y);
 
         //WebView Methods
         void Navigate(handle id, std::string uri);
@@ -113,8 +116,7 @@ namespace My
             else
                 return it->second;
         }
-        void OnMouseMove(float x, float y);
-        
+
         void UpdateKeyState(uint8_t key, bool state);
 
     protected:

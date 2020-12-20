@@ -22,6 +22,7 @@
 #include <locale>
 #include <codecvt>
 #include <variant>
+#include <utility>
 #ifdef WINDOWS
 #define VC_EXTRALEAN
 #define WIN32_LEAN_AND_MEAN

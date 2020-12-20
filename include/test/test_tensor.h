@@ -15,13 +15,15 @@ public:
 		debug << "Strides = ";
 		for (int64_t s : tensor.strides())
 			debug << s << " ";
+		debug << "\n";
+		const int itemsize = 33;
+		mytensorImpl<char[itemsize]> tensor2 = mytensorImpl<char[itemsize]>({3,24,50});
 
-		tensor = mytensorImpl<int>({});
-
-		debug << tensor;
-
+		debug << tensor2;
+		strcpy_s(tensor2.getData(0, 0)[0],itemsize, "Hello!");
+		debug << *tensor2.getData(0,0);
 		debug << "Strides = ";
-		for (int64_t s : tensor.strides())
+		for (int64_t s : tensor2.strides())
 			debug << s << " ";
 	}
 
