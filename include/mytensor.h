@@ -6,8 +6,8 @@ namespace My
 	class _mytensor
 	{
 	public:
-		virtual std::vector<int64_t> shape() const = 0;
-		virtual std::vector<int64_t> strides() const = 0;
+		virtual const std::vector<int64_t>& shape() const = 0;
+		virtual const std::vector<int64_t>& strides() const = 0;
 		virtual void* getData(int depth, int index) const = 0;
 		virtual void setData(int depth, int index, const void* data, int dataSize) const = 0;
 	};
@@ -15,8 +15,9 @@ namespace My
 	class mytensor
 	{
 	public:
-		virtual std::vector<int64_t> shape() const = 0;
-		virtual std::vector<int64_t> strides() const = 0;
+		virtual const std::vector<int64_t>& shape() const = 0;
+		virtual const std::vector<int64_t>& strides() const = 0;
+		virtual int getMinDepth() const = 0;
 		virtual T* getData(int depth, int index) const = 0;
 		virtual void setData(int depth, int index, const T* data, int dataSize) const = 0;
 	};
@@ -47,13 +48,14 @@ namespace My
 			delete [] pData;
 		}
 		// mytensor impl
-		std::vector<int64_t> shape() const override { return _shape; };
-		std::vector<int64_t> strides() const override{ return _strides; };
+		const std::vector<int64_t>& shape() const override { return _shape; };
+		const std::vector<int64_t>& strides() const override{ return _strides; };
 		T* getData(int depth, int index) const override {
 			if (depth <= 0) return pData;
 			return (T*)((uint8_t*)pData + _strides[depth -1 ] * index);
 			}
 		void setData(int depth, int index, const T* data, int dataSize) const override{}
+		virtual int getMinDepth() const override { return 0; }
 	};	
 	template<typename T>
 	std::ostream& operator<<(std::ostream& os, const mytensor<T>& t)

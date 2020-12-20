@@ -47,12 +47,19 @@ bool My::Py::init()
     if (program == nullptr)        
         return false;
     Py_SetProgramName(program);
+    if (!initTensorModule())
+    {
+        PyMem_RawFree(program);
+        program = nullptr;
+        return false;
+    }
     if (!initArrayModule())
     {
         PyMem_RawFree(program);
         program = nullptr;
         return false;
-    }        
+    }
+    addModule(nullptr);
     Py_Initialize();    
     return true;
 }
@@ -230,7 +237,7 @@ static PyMethodDef SpamMethods[] = {
 
 static struct PyModuleDef spammodule = {
     PyModuleDef_HEAD_INIT,
-    "spam",   /* name of module */
+    "MyEngine",   /* name of module */
     "module doc", /* module documentation, may be NULL */
     -1,       /* size of per-interpreter state of the module,
                  or -1 if the module keeps state in global variables. */
@@ -245,7 +252,7 @@ PyMODINIT_FUNC PyInit_spam(void)
 #include "mypyarray.h"
 bool My::Py::addModule(pymodule* module)
 {
-    if (PyImport_AppendInittab("spam", PyInit_spam) == -1) {
+    if (PyImport_AppendInittab("MyEngine", PyInit_spam) == -1) {
         debug << "Error: could not extend in-built modules table\n";
         return false;
     }

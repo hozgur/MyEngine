@@ -5,7 +5,6 @@ using namespace My;
 
 void test5()
 {
-    Py::addModule(nullptr);
     Py::init();
     Py::dict locals;
     locals["a"] = 45L;
