@@ -8,8 +8,8 @@ public:
 
 	MyEngine(const char* path) :My::Engine(path)
 	{
-		//mytensorImpl<int> tensor({ 3, 5, 5 });
-		mytensorImpl<int> tensor({});
+		mytensorImpl<int> tensor({ 3, 5, 5 });
+		//mytensorImpl<int> tensor({});
 		debug << tensor;
 		*tensor.pData = 123;
 		debug << "Strides = ";

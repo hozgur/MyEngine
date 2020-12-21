@@ -1,9 +1,6 @@
-﻿import pymyarray
-import MyEngine
+﻿import MyEngine
 import mytensor
 import numpy as np
-arr = pymyarray.PyMyArray(size=10, type="int")
-print (arr)
 
 tensor = mytensor.MyTensor((2,2),"int")
 print(tensor)
@@ -12,8 +9,8 @@ nptensor = np.asarray(tensor)
 print(nptensor.shape)
 print(nptensor.dtype)
 
-arr2 = MyEngine.system((2,3,4),"double")
-nparr = np.asarray(arr2, dtype=np.float32)
+arr2 = MyEngine.engine_test((2,3,4),"double")
+nparr = np.asarray(tensor, dtype=np.float32)
 print(nparr.shape)
 print(nparr.dtype)
 nparr[0:5] = 0

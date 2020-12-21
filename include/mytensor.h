@@ -3,14 +3,6 @@
 
 namespace My
 {
-	class _mytensor
-	{
-	public:
-		virtual const std::vector<int64_t>& shape() const = 0;
-		virtual const std::vector<int64_t>& strides() const = 0;
-		virtual void* getData(int depth, int index) const = 0;
-		virtual void setData(int depth, int index, const void* data, int dataSize) const = 0;
-	};
 	template<typename T>
 	class mytensor
 	{

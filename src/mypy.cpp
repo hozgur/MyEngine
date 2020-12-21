@@ -46,19 +46,14 @@ bool My::Py::init()
     program = Py_DecodeLocale(My::Engine::pEngine->appPath.c_str(), NULL);
     if (program == nullptr)        
         return false;
+
     Py_SetProgramName(program);
     if (!initTensorModule())
     {
         PyMem_RawFree(program);
         program = nullptr;
         return false;
-    }
-    if (!initArrayModule())
-    {
-        PyMem_RawFree(program);
-        program = nullptr;
-        return false;
-    }
+    }    
     addModule(nullptr);
     Py_Initialize();    
     return true;
@@ -128,8 +123,7 @@ bool My::Py::dofunction(std::string funcname, paramlist parameters)
     for (std::variant v : parameters)    
         PyTuple_SetItem(pArgs, i++, std::visit(pc, v));
         
-    PyObject *pResult = PyObject_CallObject(pFunc, pArgs);
-    //debug << "result = " << PyLong_AsLong(pResult);
+    PyObject *pResult = PyObject_CallObject(pFunc, pArgs);    
     if (PyObject_CheckBuffer(pResult))
     {
         Py_buffer buffer;
@@ -166,8 +160,7 @@ bool My::Py::dofile(std::string file)
 }
 
 
-static PyObject*
-spam_system(PyObject* self, PyObject* args)
+static PyObject* engine_test(PyObject* self, PyObject* args)
 { 
     Py_ssize_t argCount = PyTuple_Size(args);
     if (argCount > 0)
@@ -216,46 +209,35 @@ spam_system(PyObject* self, PyObject* args)
             Py_DECREF(_itemSize);
         }
     }
-    //sts = system(command);
-    PyObject* pInst = PyObject_CallObject((PyObject*)&Py::pymyarrayType, NULL);
-    Py::myarray& a = ((Py::pymyarray*)pInst)->arr;
-    Py::myarray::init_array(&a, 100, 'i', 4);
-    return pInst;
+    PyObject* longNumber = Py_BuildValue("i", 0);
+    return longNumber;
 }
 
-static PyObject* example_wrapper(PyObject* dummy, PyObject* args)
-{
-
-}
-
-
-static PyMethodDef SpamMethods[] = {
-    { "system",  spam_system, METH_VARARGS,
-     "Execute a shell command."},
+static PyMethodDef EngineMethods[] = {
+    { "engine_test",  engine_test, METH_VARARGS,
+     "Test method for engine module."},
     {NULL, NULL, 0, NULL}        /* Sentinel */
 };
 
-static struct PyModuleDef spammodule = {
+static struct PyModuleDef engineModule = {
     PyModuleDef_HEAD_INIT,
     "MyEngine",   /* name of module */
     "module doc", /* module documentation, may be NULL */
     -1,       /* size of per-interpreter state of the module,
                  or -1 if the module keeps state in global variables. */
-    SpamMethods
+    EngineMethods
 };
 
-PyMODINIT_FUNC PyInit_spam(void)
+PyMODINIT_FUNC PyInit_MyEngine(void)
 {
-    return PyModule_Create(&spammodule);
+    return PyModule_Create(&engineModule);
 }
 
-#include "mypyarray.h"
 bool My::Py::addModule(pymodule* module)
 {
-    if (PyImport_AppendInittab("MyEngine", PyInit_spam) == -1) {
+    if (PyImport_AppendInittab("MyEngine", PyInit_MyEngine) == -1) {
         debug << "Error: could not extend in-built modules table\n";
         return false;
     }
-    
     return true;
 }
