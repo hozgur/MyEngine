@@ -9,6 +9,7 @@
 #include <Python.h>
 #endif
 #include <filesystem>
+#include <py_mytensor.h>
 #include "mypyarray.h"
 namespace fs = std::filesystem;
 using namespace My;
@@ -46,12 +47,19 @@ bool My::Py::init()
     if (program == nullptr)        
         return false;
     Py_SetProgramName(program);
+    if (!initTensorModule())
+    {
+        PyMem_RawFree(program);
+        program = nullptr;
+        return false;
+    }
     if (!initArrayModule())
     {
         PyMem_RawFree(program);
         program = nullptr;
         return false;
-    }        
+    }
+    addModule(nullptr);
     Py_Initialize();    
     return true;
 }
@@ -160,14 +168,59 @@ bool My::Py::dofile(std::string file)
 
 static PyObject*
 spam_system(PyObject* self, PyObject* args)
-{
-    const char* command;
-    int sts;
+{ 
+    Py_ssize_t argCount = PyTuple_Size(args);
+    if (argCount > 0)
+    {
+        PyObject* shape = PyTuple_GetItem(args, 0);
+        if (shape == NULL) { return NULL; }
 
-    if (!PyArg_ParseTuple(args, "s", &command))
-        return NULL;
-    sts = system(command);
-    return PyLong_FromLong(sts);
+        if (!PyTuple_Check(shape))
+        {
+            PyErr_SetString(PyExc_TypeError, "shape must be list.");
+            return NULL;
+        }
+        Py_ssize_t shapesize = PyTuple_Size(shape);
+
+        std::vector<int> vshape;
+        for (int i = 0; i < shapesize; i++) {
+            PyObject* dim = PyTuple_GetItem(shape, i);
+            /* Check if temp_p is numeric */
+            if (!PyNumber_Check(dim)) {
+                PyErr_SetString(PyExc_TypeError, "Non-numeric argument.");
+                return NULL;
+            }
+            PyObject* longNumber = PyNumber_Long(dim);
+            vshape.push_back((int)PyLong_AsUnsignedLong(longNumber));
+            
+            debug << vshape.back();
+            Py_DECREF(longNumber);            
+            if (PyErr_Occurred()) { return NULL; }
+        }
+        Py_DECREF(shape);
+
+        if (argCount > 1)
+        {
+            PyObject* typeString = PyTuple_GetItem(args, 1);
+            Py_ssize_t size;
+            const char* ptr = PyUnicode_AsUTF8AndSize(typeString, &size);
+            debug << ptr;
+            Py_DECREF(typeString);
+        }
+
+        if (argCount > 2)
+        {
+            PyObject* _itemSize = PyTuple_GetItem(args, 2);
+            long itemSize = PyLong_AsLong(_itemSize);
+            debug << itemSize;
+            Py_DECREF(_itemSize);
+        }
+    }
+    //sts = system(command);
+    PyObject* pInst = PyObject_CallObject((PyObject*)&Py::pymyarrayType, NULL);
+    Py::myarray& a = ((Py::pymyarray*)pInst)->arr;
+    Py::myarray::init_array(&a, 100, 'i', 4);
+    return pInst;
 }
 
 static PyObject* example_wrapper(PyObject* dummy, PyObject* args)
@@ -184,7 +237,7 @@ static PyMethodDef SpamMethods[] = {
 
 static struct PyModuleDef spammodule = {
     PyModuleDef_HEAD_INIT,
-    "spam",   /* name of module */
+    "MyEngine",   /* name of module */
     "module doc", /* module documentation, may be NULL */
     -1,       /* size of per-interpreter state of the module,
                  or -1 if the module keeps state in global variables. */
@@ -199,7 +252,7 @@ PyMODINIT_FUNC PyInit_spam(void)
 #include "mypyarray.h"
 bool My::Py::addModule(pymodule* module)
 {
-    if (PyImport_AppendInittab("spam", PyInit_spam) == -1) {
+    if (PyImport_AppendInittab("MyEngine", PyInit_spam) == -1) {
         debug << "Error: could not extend in-built modules table\n";
         return false;
     }

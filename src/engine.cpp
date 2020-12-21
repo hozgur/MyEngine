@@ -219,6 +219,9 @@ namespace My
             releasedKey = key;
 
     }
+    void Engine::OnMouse(MouseEvent event, float x, float y)
+    {
+    }
     bool Engine::OnStart() { return true; }
         
     void Engine::SetWindowTitle(std::string title)
@@ -226,11 +229,6 @@ namespace My
         pPlatform->SetWindowTitle(title);
     }
 
-    void Engine::OnMouseMove(float x, float y)
-    {
-        mouseX = x;
-        mouseY = y;        
-    }
     void Engine::UpdateKeyState(uint8_t key, bool state)
     {
         KeyState[key] = state;

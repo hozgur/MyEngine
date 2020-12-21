@@ -41,16 +41,6 @@ namespace My
 				HDC dc1 = sourceImage->surface->GetDC();
 				HDC dc2 = surface->GetDC();
 				::AlphaBlend(dc2, x, y, dW, dH, dc1, sX, sY, sW, sH, func);
-				Color* p = sourceImage->readLine(0);
-				debug << p[0].a;
-				/*if ((sW == dW) && (sH == dH))
-				{			
-					
-
-					BitBlt(dc2, x, y, dW, dH,dc1, sX, sY, SRCCOPY);
-				}
-				else
-					StretchBlt(surface->GetDC(), x, y, dW, dH, sourceImage->surface->GetDC(), sX, sY, sW, sH, SRCCOPY);*/
 			}
 			else
 			{

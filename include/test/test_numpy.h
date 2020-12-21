@@ -9,7 +9,7 @@ void test5()
     Py::dict locals;
     locals["a"] = 45L;
     Py::dofile(myfs::path("user/py_test.py"));
-    Py::dofunction("test_numpy", {});
+   // Py::dofunction("test_numpy", {});
 }
 
 class MyEngine : public My::Engine

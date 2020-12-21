@@ -15,6 +15,7 @@ namespace My
 
     void Engine::DrawHLine(int x1, int x2, int y, const Color& c)
     {
+        if (x1 > x2) std::swap(x1, x2);
         if (x1 < 0) x1 = 0;
         if (x2 < 0) return;
         if (x1 >= clientWidth) return;
@@ -29,6 +30,7 @@ namespace My
 
     void Engine::DrawVLine(int y1, int y2, int x, const Color& c)
     {
+        if (y1 > y2) std::swap(y1, y2);
         if (y1 < 0) y1 = 0;
         if (y2 < 0) return;
         if (y1 >= clientHeight) return;
@@ -42,7 +44,10 @@ namespace My
 
     void Engine::FillRect(ivec2 pos, ivec2 size, const Color& c)
     {
-        for (int y = pos.y(); y < pos.y() + size.y(); y++)
+        int y1 = pos.y();
+        int y2 = y1 + size.y();
+        if (y1 > y2) std::swap(y1, y2);
+        for (int y = y1; y < y2; y++)
         {
             DrawHLine(pos.x(), pos.x() + size.x()-1, y, c);
         }
