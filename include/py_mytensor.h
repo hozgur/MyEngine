@@ -1,5 +1,6 @@
 #pragma once
 #include "mytensor.h"
+#include "structmember.h"
 namespace My
 {
 	namespace Py
@@ -210,6 +211,63 @@ namespace My
 			return 0;
 		}
 
+		static PyMemberDef Custom_Members[] = {
+			{"type", T_OBJECT_EX, offsetof(pytensor, type), 0, "Type"},	
+			{NULL}  /* Sentinel */
+			};
+		static PyObject* pytensor_new(PyTypeObject* type, PyObject* args, PyObject* kwds)
+		{
+			pytensor* self;
+			self = (pytensor*)type->tp_alloc(type, 0);
+			if (self != NULL) {
+				pytensor_init(self, args);
+			}
+			return (PyObject*)self;
+		}
+
+		static PyObject* fromBuffer(PyObject* self, PyObject* args)
+		{
+			pytensor* s = (pytensor*)self;
+
+			PyObject* image;
+			PyObject* shape;
+			if (!PyArg_ParseTuple(args, "OO", &image,&shape))
+				return nullptr;
+			if (!PyObject_CheckBuffer(image))
+			{
+				PyErr_SetString(PyExc_TypeError, "buffer is not supported.");
+				return nullptr;
+			}
+			if (!PyTuple_Check(shape))
+			{
+				PyErr_SetString(PyExc_TypeError, "shape is not validated.");
+				return nullptr;
+			}
+			Py_buffer buffer;
+			if(PyObject_GetBuffer(image,&buffer,0) != 0)
+			{
+				PyErr_SetString(PyExc_TypeError, "buffer is not supported (2).");
+				return nullptr;
+			}
+
+						
+
+			mytensorImpl<float>* tensor = new mytensorImpl<float>({ 3,45,45 });
+			if (s->tensor != nullptr) delete s->tensor;
+			s->tensor = tensor;
+			s->type = str2pair("float").first;
+			return self;
+			//return PyUnicode_FromFormat("%S %S", self->first, self->last);
+		}
+
+		static PyMethodDef Custom_Methods[] = {
+			{"fromBuffer", (PyCFunction)fromBuffer, METH_VARARGS,
+			 "Create Tensor from PIL Image"
+			},
+			{NULL}  /* Sentinel */
+		};
+
+		
 		static PyBufferProcs pytensor_as_buffer = {
 			(getbufferproc)pytensor_getbuffer,
 			(releasebufferproc)0
@@ -265,7 +323,9 @@ namespace My
 		PyMODINIT_FUNC PyInit_pytensor(void)
 		{
 			PyObject* m;
-			pytensorType.tp_new = PyType_GenericNew;
+			pytensorType.tp_new = pytensor_new;//PyType_GenericNew;
+			pytensorType.tp_members = Custom_Members;
+			pytensorType.tp_methods = Custom_Methods;
 			if (PyType_Ready(&pytensorType) < 0)
 				return NULL;
 
