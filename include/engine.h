@@ -75,7 +75,8 @@ namespace My
         void DrawLine(int32_t x1, int32_t y1, int32_t x2, int32_t y2, Color p, uint32_t pattern = 0xFFFFFFFF);
         void DrawLine(ivec2 p1, ivec2 p2, Color p, uint32_t pattern = 0xFFFFFFFF);
         void DrawText(int x, int y, std::string text,int fontHeight);
-        void DrawImage(handle sourceImage, int x, int y, int width, int height, int sx, int sy,handle destImage = -1);
+        void DrawImage(handle sourceImage, int x, int y, int width, int height, int sx, int sy, handle destImage = -1);
+        void DrawImage(handle sourceImage, int x, int y, int width, int height, int sx, int sy, int sW, int sH, handle destImage = -1);
         //Image Functions
 
         handle loadImage(std::string path);
