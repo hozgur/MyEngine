@@ -245,6 +245,7 @@
     <ClInclude Include="..\..\include\test\molecularengine.h" />
     <ClInclude Include="..\..\include\test\molecularengine2.h" />
     <ClInclude Include="..\..\include\test\test_draw.h" />
+    <ClInclude Include="..\..\include\test\test_mnist.h" />
     <ClInclude Include="..\..\include\test\test_py.h" />
     <ClInclude Include="..\..\include\test\std_test.h" />
     <ClInclude Include="..\..\include\test\test_dat.h" />
@@ -301,6 +302,7 @@
   <ItemGroup>
     <None Include="..\..\script\init.lua" />
     <None Include="..\..\script\init.py" />
+    <None Include="..\..\user\DeepLearning\MnistTest\main.py" />
     <None Include="..\..\user\ilay.lua" />
     <None Include="..\..\user\lua_test.lua" />
     <None Include="..\..\user\py_test.py" />

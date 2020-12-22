@@ -1,4 +1,5 @@
 // my.cpp
+#include "test/test_mnist.h"
 //#include "test/test_draw.h"
 //#include "test/test_tensor.h"
 #include "test/test_image.h"

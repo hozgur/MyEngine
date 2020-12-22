@@ -64,6 +64,12 @@
     <Filter Include="User Files\webview\precompiled">
       <UniqueIdentifier>{db6335b7-8054-4a70-9e99-e9bb3566f0dd}</UniqueIdentifier>
     </Filter>
+    <Filter Include="User Files\DeepLearning">
+      <UniqueIdentifier>{49f7bc94-2ee0-4b90-82aa-9f2df6de8ccc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="User Files\DeepLearning\MnistTest">
+      <UniqueIdentifier>{d7487f5f-d69c-4e93-83d5-15de3f6668db}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src\engine.cpp">
@@ -452,6 +458,9 @@
     <ClInclude Include="..\..\include\test\test_draw.h">
       <Filter>Header Files\include\test</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\include\test\test_mnist.h">
+      <Filter>Header Files\include\test</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\script\init.lua">
@@ -487,6 +496,9 @@
     </None>
     <None Include="..\..\user\webview\precompiled\vue_test_xml.html">
       <Filter>User Files\webview\precompiled</Filter>
+    </None>
+    <None Include="..\..\user\DeepLearning\MnistTest\main.py">
+      <Filter>User Files\DeepLearning\MnistTest</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
