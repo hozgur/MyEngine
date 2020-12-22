@@ -43,7 +43,7 @@ public:
     {
         handle h = loadImage(myfs::path("asset/FRUIT720.png"));
 
-        object* o = Get(h);
+        object* o = GetMyObject(h);
         image<Color>* img = dynamic_cast<image<Color>*>(o);
         if (img != nullptr)
         {

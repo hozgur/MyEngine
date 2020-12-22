@@ -185,15 +185,15 @@ namespace My
 
     void Engine::DrawImage(handle sourceImage, int x, int y, int width, int height, int sx, int sy, handle destImage)
     {
-        image<Color>* imgSource = dynamic_cast<image<Color>*>(Get(sourceImage));
-        image<Color>* imgDest = (destImage < 0)?background: dynamic_cast<image<Color>*>(Get(destImage));
+        image<Color>* imgSource = dynamic_cast<image<Color>*>(GetMyObject(sourceImage));
+        image<Color>* imgDest = (destImage < 0)?background: dynamic_cast<image<Color>*>(GetMyObject(destImage));
         if((imgSource != nullptr) && (imgDest != nullptr))
             imgDest->draw(imgSource, x, y, width, height, sx, sy, width, height);
     }
     void Engine::DrawImage(handle sourceImage, int x, int y, int width, int height, int sx, int sy, int sW, int sH, handle destImage)
     {
-        image<Color>* imgSource = dynamic_cast<image<Color>*>(Get(sourceImage));
-        image<Color>* imgDest = (destImage < 0) ? background : dynamic_cast<image<Color>*>(Get(destImage));
+        image<Color>* imgSource = dynamic_cast<image<Color>*>(GetMyObject(sourceImage));
+        image<Color>* imgDest = (destImage < 0) ? background : dynamic_cast<image<Color>*>(GetMyObject(destImage));
         if ((imgSource != nullptr) && (imgDest != nullptr))
             imgDest->draw(imgSource, x, y, width, height, sx, sy, sW, sH);
     }

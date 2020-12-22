@@ -18,7 +18,7 @@ public:
 	{
 		std::string path = myfs::path("asset/ball64.png");
 		hImage = loadImage(path);
-		image<Color> *img = dynamic_cast<image<Color>*>(Get(hImage));
+		image<Color> *img = dynamic_cast<image<Color>*>(GetMyObject(hImage));
 		iW = img->getWidth();
 		iH = img->getHeight();
 		AddWindow(1400, 900,1,1);

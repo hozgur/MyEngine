@@ -40,7 +40,7 @@ void My::Py::exit()
             PyMem_RawFree(program);
     }
 }
-
+PyObject* gpDict;
 bool My::Py::init()
 {
     program = Py_DecodeLocale(My::Engine::pEngine->appPath.c_str(), NULL);
@@ -55,7 +55,9 @@ bool My::Py::init()
         return false;
     }    
     addModule(nullptr);
-    Py_Initialize();    
+    Py_Initialize();
+    gpDict = PyDict_New();
+    PyDict_SetItemString(gpDict, "__builtins__", PyEval_GetBuiltins());
     return true;
 }
 
@@ -66,30 +68,23 @@ bool My::Py::isInitialized()
 
 bool My::Py::dostring(std::string content)
 {        
-    return PyRun_SimpleString(content.c_str()) == 0;
+    return PyRun_String(content.c_str(),Py_file_input,gpDict,gpDict) == 0;
 }
 
 bool My::Py::dostring(std::string content, dict locals)
 {
-    PyObject* pDict = PyDict_New();
-    if (!pDict) return NULL;
-    PyDict_SetItemString(pDict, "__builtins__", PyEval_GetBuiltins());
     pyconvert pc;
     for (dictItem element : locals)
-        PyDict_SetItemString(pDict, element.first.c_str(), std::visit(pc, element.second));
-    return PyRun_String(content.c_str(), Py_file_input, pDict, pDict) != NULL;
+        PyDict_SetItemString(gpDict, element.first.c_str(), std::visit(pc, element.second));
+    return PyRun_String(content.c_str(), Py_file_input, gpDict, gpDict) != NULL;
 }
 bool My::Py::dostring(std::string content, dict locals, dict &result)
 {    
-    PyObject* pDict = PyDict_New();    
-    if (!pDict) return NULL;
-
-    PyDict_SetItemString(pDict, "__builtins__", PyEval_GetBuiltins());
     pyconvert pc;
     for (dictItem element : locals)
-        PyDict_SetItemString(pDict, element.first.c_str(), std::visit(pc, element.second));
+        PyDict_SetItemString(gpDict, element.first.c_str(), std::visit(pc, element.second));
 
-    if (PyRun_String(content.c_str(), Py_file_input, pDict, pDict) != NULL)
+    if (PyRun_String(content.c_str(), Py_file_input, gpDict, gpDict) != NULL)
     {
         for (dictItem element : result)        
         {
@@ -98,15 +93,15 @@ bool My::Py::dostring(std::string content, dict locals, dict &result)
             
             if (std::get_if<double>(&value))
             {
-                result[key] = PyFloat_AsDouble(PyDict_GetItemString(pDict, key));
+                result[key] = PyFloat_AsDouble(PyDict_GetItemString(gpDict, key));
             }else
             if (std::get_if<long>(&value))
             {
-                result[key] = PyLong_AsLong(PyDict_GetItemString(pDict, key));
+                result[key] = PyLong_AsLong(PyDict_GetItemString(gpDict, key));
             }else
             if (std::get_if<std::string>(&value))
             {
-                result[key] = PyUnicode_AsUTF8(PyDict_GetItemString(pDict, key));
+                result[key] = PyUnicode_AsUTF8(PyDict_GetItemString(gpDict, key));
             }
         }
     }
@@ -156,7 +151,7 @@ bool My::Py::dofile(std::string file)
     std::string content((std::istreambuf_iterator<char>(ifs)),
         (std::istreambuf_iterator<char>()));
     
-    return PyRun_SimpleString(content.c_str()) == 0;
+    return PyRun_String(content.c_str(),Py_file_input,gpDict, gpDict) == 0;
 }
 
 

@@ -27,9 +27,13 @@ namespace My
 
     Engine::~Engine()
     {
-        for(std::map<handle, object*>::iterator it = objects.begin(); it != objects.end(); ++it)
-            delete it->second;
         Py::exit();
+        if (objects.size() > 0)
+        {
+            debug << "There are " << objects.size() << " objects are still on memory.\n";
+            for (std::map<handle, object*>::iterator it = objects.begin(); it != objects.end(); ++it)
+                delete it->second;
+        }
         delete background;
         delete pPlatform;
     }
@@ -96,10 +100,10 @@ namespace My
         {
             switch (q.commandID)
             {
-                case Commands::Navigate: if (q.params.size() == 1) ((webview*)Get(q.id))->Navigate(std::get<std::string>(q.params[0])); break;
-                case Commands::NavigateContent: if (q.params.size() == 1) ((webview*)Get(q.id))->NavigateContent(std::get<std::string>(q.params[0])); break;
-                case Commands::SetScript: if (q.params.size() == 1) ((webview*)Get(q.id))->SetScript(std::get<std::string>(q.params[0])); break;
-                case Commands::PostWebMessage: if (q.params.size() == 1) ((webview*)Get(q.id))->PostWebMessage(std::get<std::string>(q.params[0])); break;
+                case Commands::Navigate: if (q.params.size() == 1) ((webview*)GetMyObject(q.id))->Navigate(std::get<std::string>(q.params[0])); break;
+                case Commands::NavigateContent: if (q.params.size() == 1) ((webview*)GetMyObject(q.id))->NavigateContent(std::get<std::string>(q.params[0])); break;
+                case Commands::SetScript: if (q.params.size() == 1) ((webview*)GetMyObject(q.id))->SetScript(std::get<std::string>(q.params[0])); break;
+                case Commands::PostWebMessage: if (q.params.size() == 1) ((webview*)GetMyObject(q.id))->PostWebMessage(std::get<std::string>(q.params[0])); break;
             }
         }
     }
@@ -143,19 +147,41 @@ namespace My
         return key++;
     }
 
-    handle Engine::SetObject(object* obj)
+    object* Engine::GetMyObject(handle id)
+    {
+        std::map<handle, object*>::iterator it;
+        it = objects.find(id);
+        if (it == objects.end())
+            return nullptr;
+        else
+            return it->second;
+    }
+
+    handle Engine::SetMyObject(object* obj)
     {
         if (obj == nullptr) return -1;
         handle key = GetHashCode();
         obj->SetID(key);
         objects[key] = obj;
+        debug << "New Object = " << key << "\n";
         return key;
     }
 
-    void Engine::DeleteObject(handle id)
+    void Engine::RemoveMyObject(handle id)
     {
-        delete objects[id];
-        objects.erase(id);
+        if (id < 0) return;
+        std::map<handle, object*>::iterator it;
+        it = objects.find(id);
+        if (it != objects.end())
+        {
+            delete objects[id];
+            objects.erase(id);
+        }
+        else
+        {
+            debug << "Object not found on Remove Object\n";
+        }
+        debug << "Delete Object = " << id << "\n";
     }
 
     void Engine::EngineThread()
@@ -237,11 +263,11 @@ namespace My
 
     handle Engine::AddWebView(int x, int y, int width, int height)
     {
-        return SetObject(pPlatform->AddWebView(x, y, width, height));
+        return SetMyObject(pPlatform->AddWebView(x, y, width, height));
     }
 
     handle Engine::loadImage(std::string path)
     {
-        return SetObject(pPlatform->loadImage(path));
+        return SetMyObject(pPlatform->loadImage(path));
     }
 }

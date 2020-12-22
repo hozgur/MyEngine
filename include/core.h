@@ -57,6 +57,7 @@ namespace My
 	{
 	protected:
 		handle object_id;
+		const char control[6] = "Hakan";
 	public:
 		object():object_id(invalidHandle){};
 		virtual ~object() {}

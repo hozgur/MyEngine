@@ -2,7 +2,7 @@
 #include "test/test_mnist.h"
 //#include "test/test_draw.h"
 //#include "test/test_tensor.h"
-#include "test/test_image.h"
+//#include "test/test_image.h"
 //#include "test/test_xml.h"
 //#include "test/test_ai2.h"
 //#include "test/test_numpy.h"

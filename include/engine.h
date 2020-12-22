@@ -106,24 +106,16 @@ namespace My
         virtual void OnError(handle id, std::string uri) {};
 
 
-        void DeleteObject(handle id);
+        void RemoveMyObject(handle id);
         
-        object* Get(handle id)
-        {
-            std::map<handle, object*>::iterator it;
-            it = objects.find(id);
-            if (it == objects.end())
-                return nullptr;
-            else
-                return it->second;
-        }
-
+        object* GetMyObject(handle id);
+        handle SetMyObject(object* obj);
         void UpdateKeyState(uint8_t key, bool state);
 
     protected:
         void EngineThread();
         handle GetHashCode();
-        handle SetObject(object* obj);
+        
         
     public:
         template<typename T> void ForEachPixel(T&& lambda)

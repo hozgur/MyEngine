@@ -4,7 +4,7 @@
 namespace My
 {
 	template<typename T>
-	class mytensor
+	class mytensor : public object
 	{
 	public:
 		virtual const std::vector<int64_t>& shape() const = 0;
@@ -25,7 +25,7 @@ namespace My
 		mytensorImpl(const mytensorImpl&) = delete;
 		mytensorImpl& operator=(const mytensorImpl&) = delete;
 
-		mytensorImpl(std::vector<int64_t> shape) {
+		mytensorImpl(std::vector<int64_t> shape, void* data = nullptr, int64_t byteSize = 0) {
 			int64_t size = 1; for (int64_t d : shape) size *= d;
 			for (int i = 0; i < shape.size(); i++)
 			{
@@ -34,10 +34,17 @@ namespace My
 				_strides.push_back(s);
 			}
 			this->_shape = shape;
-			pData = new T[size]; 
+			if ((data != nullptr) && (byteSize == (size * sizeof(T))))
+			{
+				pData = (T*) data;
+			}
+			else
+			{
+				pData = new T[size];
+			}
 		}
 		~mytensorImpl() {
-			delete [] pData;
+			delete pData;
 		}
 		// mytensor impl
 		const std::vector<int64_t>& shape() const override { return _shape; };

@@ -8,7 +8,7 @@ namespace My
 		struct pytensor
 		{
 			PyObject_HEAD
-			void* tensor;
+			handle tensor;
 			char type;
 		};
 
@@ -67,32 +67,29 @@ namespace My
 			}
 		}
 
-		static void* pair2tensor(std::pair<char, int> pair,std::vector<int64_t> shape)
+		static void* pair2tensor(std::pair<char, int> pair,std::vector<int64_t> shape, void* data = nullptr, int64_t byteSize = 0)
 		{
 			switch (pair.first)
 			{
-			case 'b':return new mytensorImpl<uint8_t>(shape);
-			case 'h':return new mytensorImpl<int16_t>(shape);
-			case 'H':return new mytensorImpl<uint16_t>(shape);
-			case 'i':return new mytensorImpl<int32_t>(shape);
-			case 'I':return new mytensorImpl<uint32_t>(shape);
-			case 'L':return new mytensorImpl<int64_t>(shape);
-			case 'K':return new mytensorImpl<uint64_t>(shape);
-			case 'f':return new mytensorImpl<float>(shape);
-			case 'd':return new mytensorImpl<double>(shape);
+			case 'b':return new mytensorImpl<uint8_t>(shape, data, byteSize);
+			case 'h':return new mytensorImpl<int16_t>(shape, data, byteSize);
+			case 'H':return new mytensorImpl<uint16_t>(shape, data, byteSize);
+			case 'i':return new mytensorImpl<int32_t>(shape, data, byteSize);
+			case 'I':return new mytensorImpl<uint32_t>(shape, data, byteSize);
+			case 'L':return new mytensorImpl<int64_t>(shape, data, byteSize);
+			case 'K':return new mytensorImpl<uint64_t>(shape, data, byteSize);
+			case 'f':return new mytensorImpl<float>(shape, data, byteSize);
+			case 'd':return new mytensorImpl<double>(shape, data, byteSize);
 			case 'x': return nullptr;	// þu anki sistemde custom desteklenmemektedir.
 			default:return nullptr;
 			}
 		}
 
 		static int pytensor_init(pytensor* self, PyObject* args) {
-			
-			if (self->tensor != nullptr)
-				delete self->tensor;
 			Py_ssize_t argCount = PyTuple_Size(args);
 			const char* typeString = nullptr;
 			int itemSize = 0;
-			std::vector<int> vshape;
+			std::vector<int64_t> vshape;
 			if (argCount > 0)
 			{
 				PyObject* shape = PyTuple_GetItem(args, 0);
@@ -112,7 +109,7 @@ namespace My
 						return -1;
 					}
 					PyObject* longNumber = PyNumber_Long(dim);
-					vshape.push_back((int)PyLong_AsUnsignedLong(longNumber));
+					vshape.push_back((int64_t)PyLong_AsUnsignedLong(longNumber));
 					Py_DECREF(longNumber);
 					if (PyErr_Occurred()) { return -1; }
 				}
@@ -145,24 +142,25 @@ namespace My
 			}
 			if (p.first != 'x')
 				itemSize = p.second;
-			std::vector<int64_t> shape64(vshape.begin(), vshape.end());
-			void* tensor = pair2tensor(p, shape64);
+			void* tensor = pair2tensor(p, vshape);
 			if (tensor == nullptr)
 				return -1;
-			self->tensor = tensor;
+			Engine::pEngine->RemoveMyObject(self->tensor);
+			self->tensor = Engine::pEngine->SetMyObject((object*)tensor);
 			self->type = p.first;
+			//Py_INCREF(self);
 			return 0;
 		}
 
 		static void pytensor_dealloc(pytensor* self) {
-			delete self->tensor;
-			self->tensor = nullptr;
+			Engine::pEngine->RemoveMyObject(self->tensor);
+			self->tensor = invalidHandle;;
 			Py_TYPE(self)->tp_free((PyObject*)self);
 		}
 
 		static PyObject* pytensor_str(pytensor* self) {
 			std::stringstream buffer;
-			buffer << *(mytensor<uint8_t>*)self->tensor;
+			buffer << *(mytensor<uint8_t>*)Engine::pEngine->GetMyObject(self->tensor);
 			return PyUnicode_FromString(buffer.str().c_str());
 		}
 
@@ -174,7 +172,7 @@ namespace My
 				return -1;
 			}
 			pytensor* self = (pytensor*)obj;
-			mytensor<uint8_t>* t = (mytensor<uint8_t>*)self->tensor;
+			mytensor<uint8_t>* t = (mytensor<uint8_t>*)Engine::pEngine->GetMyObject(self->tensor);
 			if(t->getMinDepth() != 0)
 			{
 				PyErr_SetString(PyExc_ValueError, "MyTensor is too complex for Python Buffer.");
@@ -215,15 +213,7 @@ namespace My
 			{"type", T_OBJECT_EX, offsetof(pytensor, type), 0, "Type"},	
 			{NULL}  /* Sentinel */
 			};
-		static PyObject* pytensor_new(PyTypeObject* type, PyObject* args, PyObject* kwds)
-		{
-			pytensor* self;
-			self = (pytensor*)type->tp_alloc(type, 0);
-			if (self != NULL) {
-				pytensor_init(self, args);
-			}
-			return (PyObject*)self;
-		}
+		
 
 		static PyObject* fromBuffer(PyObject* self, PyObject* args)
 		{
@@ -250,14 +240,27 @@ namespace My
 				return nullptr;
 			}
 
-						
-
-			mytensorImpl<float>* tensor = new mytensorImpl<float>({ 3,45,45 });
-			if (s->tensor != nullptr) delete s->tensor;
-			s->tensor = tensor;
+			Py_ssize_t shapesize = PyTuple_Size(shape);
+			std::vector<int64_t> vshape;
+			for (int i = 0; i < shapesize; i++) {
+				PyObject* dim = PyTuple_GetItem(shape, i);
+				if (!PyNumber_Check(dim)) {
+					PyErr_SetString(PyExc_TypeError, "Non-numeric argument on shape.");
+					return nullptr;
+				}
+				PyObject* longNumber = PyNumber_Long(dim);
+				vshape.push_back((int64_t)PyLong_AsUnsignedLong(longNumber));
+				Py_DECREF(longNumber);
+				if (PyErr_Occurred()) { return nullptr; }
+			}
+			Py_DECREF(shape);
+			//std::pair<char, int> p();
+			//void* tensor = pair2tensor(p, vshape);
+			mytensorImpl<float>* tensor = new mytensorImpl<float>(vshape);
+			Engine::pEngine->RemoveMyObject(s->tensor);
+			s->tensor = Engine::pEngine->SetMyObject(tensor);
 			s->type = str2pair("float").first;
-			return self;
-			//return PyUnicode_FromFormat("%S %S", self->first, self->last);
+			return PyLong_FromLong(s->tensor);
 		}
 
 		static PyMethodDef Custom_Methods[] = {
@@ -323,7 +326,7 @@ namespace My
 		PyMODINIT_FUNC PyInit_pytensor(void)
 		{
 			PyObject* m;
-			pytensorType.tp_new = pytensor_new;//PyType_GenericNew;
+			pytensorType.tp_new = PyType_GenericNew;
 			pytensorType.tp_members = Custom_Members;
 			pytensorType.tp_methods = Custom_Methods;
 			if (PyType_Ready(&pytensorType) < 0)
