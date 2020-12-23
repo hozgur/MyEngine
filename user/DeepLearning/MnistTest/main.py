@@ -6,8 +6,13 @@ from torchvision import datasets, transforms
 from torch.optim.lr_scheduler import StepLR
 import mytensor
 dataset1 = datasets.MNIST('../data', train=True, download=True,transform=None)
-
+import numpy as np
 tensor = mytensor.MyTensor()
-#id = tensor.fromBuffer(dataset1[0][0].tobytes(),(1,28,28))
+tensor2 = tensor.fromBuffer(dataset1[0][0].tobytes(),(1,28,28))
+print(tensor2)
 
-#print("id = ", id)
+#tensor2 = mytensor.MyTensor((3,28,28),"float")
+
+#natest = np.array(tensor2)
+
+#print(natest)

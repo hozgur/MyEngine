@@ -8,7 +8,7 @@ public:
 
 	MyEngine(const char* path) :My::Engine(path)
 	{
-		mytensorImpl<int> tensor({ 3, 5, 5 });
+		tensorImpl<int> tensor({ 3, 5, 5 });
 		//mytensorImpl<int> tensor({});
 		debug << tensor;
 		*tensor.pData = 123;
@@ -17,7 +17,7 @@ public:
 			debug << s << " ";
 		debug << "\n";
 		const int itemsize = 33;
-		mytensorImpl<char[itemsize]> tensor2 = mytensorImpl<char[itemsize]>({3,24,50});
+		tensorImpl<char[itemsize]> tensor2 = tensorImpl<char[itemsize]>({3,24,50});
 
 		debug << tensor2;
 		strcpy_s(tensor2.getData(0, 0)[0],itemsize, "Hello!");

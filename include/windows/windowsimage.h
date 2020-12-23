@@ -18,21 +18,21 @@ namespace My
 			delete surface;
 		}
 		// Inherited via image
-		virtual int getWidth() override { return surface->GetWidth(); }
+		virtual int getWidth() const override { return surface->GetWidth(); }
 
-		virtual int getHeight() override { return surface->GetHeight(); }
+		virtual int getHeight() const override { return surface->GetHeight(); }
 
-		virtual Interleave getInterleave() override { return Interleave::interleave_interleaved; }
+		virtual Interleave getInterleave() const override { return Interleave::interleave_interleaved; }
 
-		virtual Color* readLine(int line) override { return (Color*)surface->GetLinePointer(line); }
+		virtual Color* readLine(int line) const override { return (Color*)surface->GetLinePointer(line); }
 
-		virtual bool canUseReadforWrite() override { return true; }
+		virtual bool canUseReadforWrite() const override { return true; }
 
-		virtual void writeLine(int line, const Color* data) override { memcpy(surface->GetLinePointer(line), data, getWidth() * sizeof(Color)); }
+		virtual void writeLine(int line, const Color* data, int bytecount) override { memcpy(surface->GetLinePointer(line), data, bytecount); }
 
-		virtual void draw(image* img, int x, int y, int dW, int dH, int sX = 0, int sY = 0, int sW = -1, int sH = -1, Interpolation interpolation = Interpolation::interpolation_default) override
+		virtual void draw(const image* source, int x, int y, int dW, int dH, int sX = 0, int sY = 0, int sW = -1, int sH = -1, Interpolation interpolation = Interpolation::interpolation_default) const override
 		{
-			WindowsImage* sourceImage = dynamic_cast<WindowsImage*>(img);
+			const WindowsImage* sourceImage = dynamic_cast<const WindowsImage*>(source);
 			if (sourceImage != nullptr)
 			{
 				if (sW < 0) sW = dW;
@@ -44,7 +44,12 @@ namespace My
 			}
 			else
 			{
-				//  readLine ile yazmak lazým.
+				sW = dW;	// ilk sürümde scale yok!!
+				sH = dH;
+				for (int y = 0; y < dH; y++)
+				{
+
+				}
 			}
 		}
 	};

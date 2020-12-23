@@ -15,6 +15,7 @@ namespace My
 		void exit();
 		bool isInitialized();
 		bool dofile(std::string file);
+		bool dofile2(std::string file);
 		bool addModule(pymodule* module);		
 		bool dostring(std::string content);
 		bool dostring(std::string content, dict locals);

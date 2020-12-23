@@ -67,8 +67,14 @@ bool My::Py::isInitialized()
 }
 
 bool My::Py::dostring(std::string content)
-{        
-    return PyRun_String(content.c_str(),Py_file_input,gpDict,gpDict) == 0;
+{            
+    auto result = PyRun_String(content.c_str(), Py_file_input, gpDict, gpDict);
+    if (result == nullptr)
+    {
+        PyErr_Print();
+        return false;
+    }
+    return  true;
 }
 
 bool My::Py::dostring(std::string content, dict locals)
@@ -110,8 +116,8 @@ bool My::Py::dostring(std::string content, dict locals, dict &result)
 
 bool My::Py::dofunction(std::string funcname, paramlist parameters)
 {
-    PyObject *mainModule = PyImport_ImportModule("__main__");
-    PyObject* pFunc = PyObject_GetAttrString(mainModule, funcname.c_str());
+    //PyObject *mainModule = PyImport_ImportModule("__main__");
+    PyObject* pFunc = PyObject_GetAttrString(gpDict, funcname.c_str());
     PyObject* pArgs = PyTuple_New(parameters.size());
     int i = 0;
     pyconvert pc;
@@ -119,17 +125,7 @@ bool My::Py::dofunction(std::string funcname, paramlist parameters)
         PyTuple_SetItem(pArgs, i++, std::visit(pc, v));
         
     PyObject *pResult = PyObject_CallObject(pFunc, pArgs);    
-    if (PyObject_CheckBuffer(pResult))
-    {
-        Py_buffer buffer;
-        if (PyObject_GetBuffer(pResult, &buffer, NULL) == 0)
-        {
-            debug << buffer.len << "\n";
-            debug << buffer.strides << "\n";
-            PyBuffer_Release(&buffer);
-        }
-    }
-    Py_DECREF(pResult);
+        
     Py_DECREF(pFunc);
     Py_DECREF(pArgs);
     return true;
@@ -151,7 +147,22 @@ bool My::Py::dofile(std::string file)
     std::string content((std::istreambuf_iterator<char>(ifs)),
         (std::istreambuf_iterator<char>()));
     
-    return PyRun_String(content.c_str(),Py_file_input,gpDict, gpDict) == 0;
+    auto result = PyRun_String(content.c_str(), Py_file_input, gpDict, gpDict);
+    if (result == nullptr)
+    {
+        PyErr_Print();
+        return false;
+    }
+    return  true;
+}
+
+bool My::Py::dofile2(std::string file)
+{
+    std::ifstream ifs(file);
+    std::string content((std::istreambuf_iterator<char>(ifs)),
+        (std::istreambuf_iterator<char>()));
+
+    return PyRun_SimpleString(content.c_str()) == 0;    
 }
 
 

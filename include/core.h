@@ -56,8 +56,7 @@ namespace My
 	class object
 	{
 	protected:
-		handle object_id;
-		const char control[6] = "Hakan";
+		handle object_id;		
 	public:
 		object():object_id(invalidHandle){};
 		virtual ~object() {}

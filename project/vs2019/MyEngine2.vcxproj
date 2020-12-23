@@ -208,7 +208,7 @@
     <ClCompile Include="..\..\src\mylua.cpp" />
     <ClCompile Include="..\..\src\mypy.cpp" />
     <ClCompile Include="..\..\src\mypyarray.cpp" />
-    <ClCompile Include="..\..\src\mywebview.cpp" />
+    <ClCompile Include="..\..\src\mytensor.cpp" />
     <ClCompile Include="..\..\src\ui\theme.cpp" />
     <ClCompile Include="..\..\src\windows\surface.cpp" />
     <ClCompile Include="..\..\src\windows\windowscore.cpp" />
@@ -303,6 +303,7 @@
     <None Include="..\..\script\init.lua" />
     <None Include="..\..\script\init.py" />
     <None Include="..\..\user\DeepLearning\MnistTest\main.py" />
+    <None Include="..\..\user\DeepLearning\MnistTest\main2.py" />
     <None Include="..\..\user\ilay.lua" />
     <None Include="..\..\user\lua_test.lua" />
     <None Include="..\..\user\py_test.py" />

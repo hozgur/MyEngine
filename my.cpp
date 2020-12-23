@@ -1,5 +1,5 @@
 // my.cpp
-//#include "test/test_mnist.h"
+#include "test/test_mnist.h"
 //#include "test/test_draw.h"
 //#include "test/test_tensor.h"
 //#include "test/test_image.h"
@@ -14,7 +14,7 @@
 //#include "test/test_webview.h"
 //#include "test/test_dat.h"
 //#include "test\test_py.h"
-#include "test\lua_test.h"
+//#include "test\lua_test.h"
 //#include "test\molecularengine2.h"
 //#include "test\engine2.h"
 //#define USE_MY_CONTROLS

@@ -4,28 +4,30 @@
 namespace My
 {
 	template<typename T>
-	class mytensor : public object
+	class tensor : public object
 	{
 	public:
 		virtual const std::vector<int64_t>& shape() const = 0;
 		virtual const std::vector<int64_t>& strides() const = 0;
 		virtual int getMinDepth() const = 0;
 		virtual T* getData(int depth, int index) const = 0;
+		virtual bool canUseReadforWrite() const = 0;
 		virtual void setData(int depth, int index, const T* data, int dataSize) const = 0;
 	};
 
 	template<typename T>
-	class mytensorImpl : public mytensor<T>
+	class tensorImpl : public tensor<T>
 	{
 	public:
 		std::vector<int64_t> _shape;
 		std::vector<int64_t> _strides;
 		T* pData = nullptr;
+		bool deleteData = true;
 
-		mytensorImpl(const mytensorImpl&) = delete;
-		mytensorImpl& operator=(const mytensorImpl&) = delete;
+		tensorImpl(const tensorImpl&) = delete;
+		tensorImpl& operator=(const tensorImpl&) = delete;
 
-		mytensorImpl(std::vector<int64_t> shape, void* data = nullptr, int64_t byteSize = 0) {
+		tensorImpl(std::vector<int64_t> shape, void* data = nullptr, int64_t byteSize = 0) {
 			int64_t size = 1; for (int64_t d : shape) size *= d;
 			for (int i = 0; i < shape.size(); i++)
 			{
@@ -37,27 +39,51 @@ namespace My
 			if ((data != nullptr) && (byteSize == (size * sizeof(T))))
 			{
 				pData = (T*) data;
+				deleteData = false;
 			}
 			else
 			{
 				pData = new T[size];
 			}
 		}
-		~mytensorImpl() {
-			delete pData;
+		~tensorImpl() {
+			if(deleteData)
+				delete pData;
 		}
 		// mytensor impl
-		const std::vector<int64_t>& shape() const override { return _shape; };
-		const std::vector<int64_t>& strides() const override{ return _strides; };
+		const std::vector<int64_t>& shape() const override { return _shape; }
+		const std::vector<int64_t>& strides() const override{ return _strides; }
 		T* getData(int depth, int index) const override {
 			if (depth <= 0) return pData;
-			return (T*)((uint8_t*)pData + _strides[depth -1 ] * index);
+			return (T*)((uint8_t*)pData + _strides[depth] * index);
 			}
+		virtual bool canUseReadforWrite() const override { return true; }
 		void setData(int depth, int index, const T* data, int dataSize) const override{}
 		virtual int getMinDepth() const override { return 0; }
-	};	
+	};
+
+	//class imagetensor : public image<Color>
+	//{
+	//public:		
+	//	tensor<uint8_t>* sourceTensor = nullptr;
+
+	//	imagetensor(tensor<uint8_t>* tensor);
+	//	
+	//	// Image Methods
+	//	virtual int getWidth() const override { return sourceTensor->shape()[2]; }
+	//	virtual int getHeight() const override { return sourceTensor->shape()[1]; }
+	//	virtual Interleave getInterleave() const override { return Interleave::interleave_planar; }
+	//	virtual Color* readLine(int line) const override { return (Color*)sourceTensor->getData(1, line); }
+	//	virtual bool canUseReadforWrite() const override { return sourceTensor->canUseReadforWrite(); }
+	//	virtual void writeLine(int line, const Color* data, int bytecount) override { sourceTensor->setData(1, line, data, bytecount); }
+	//	virtual void draw(image<Color>* source, int x, int y, int dW, int dH, int sX = 0, int sY = 0, int sW = -1, int sH = -1, Interpolation interpolation = Interpolation::interpolation_default) const override{
+	//		
+	//	}
+	//};
+
+
 	template<typename T>
-	std::ostream& operator<<(std::ostream& os, const mytensor<T>& t)
+	std::ostream& operator<<(std::ostream& os, const tensor<T>& t)
 	{
 		auto shape = t.shape();
 		os << "Tensor<"; 
@@ -73,4 +99,5 @@ namespace My
 		}
 		return os;
 	}
+	
 }

@@ -162,8 +162,7 @@ namespace My
         if (obj == nullptr) return -1;
         handle key = GetHashCode();
         obj->SetID(key);
-        objects[key] = obj;
-        debug << "New Object = " << key << "\n";
+        objects[key] = obj;        
         return key;
     }
 
@@ -180,8 +179,7 @@ namespace My
         else
         {
             debug << "Object not found on Remove Object\n";
-        }
-        debug << "Delete Object = " << id << "\n";
+        }        
     }
 
     void Engine::EngineThread()
@@ -214,11 +212,11 @@ namespace My
                 debug << lua.error();
             }
         
-        if (pyEnable && Py::checkfunction("OnDraw"))
+        /*if (pyEnable && Py::checkfunction("OnDraw"))
         {
             if (Py::dofunction("OnDraw", {}) == false)
                 pyEnable = false;
-        }
+        }*/
 
     }
     void Engine::OnUpdate()

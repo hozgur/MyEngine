@@ -13,7 +13,7 @@ public:
 
 	bool OnStart() override
 	{
-		AddWindow(800, 600);
+		AddWindow(1200, 800);
 		SetScript(myfs::path("user/lua_test.lua"));
 		return true;
 	}

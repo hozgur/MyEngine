@@ -1,6 +1,6 @@
 
-clientWidth = 600
-clientHeight = 400
+clientWidth = 1200
+clientHeight = 800
 pixelWidth = 1
 pixelHeight = 1
 datWidth = 300

@@ -71,15 +71,15 @@ namespace My
 		{
 			switch (pair.first)
 			{
-			case 'b':return new mytensorImpl<uint8_t>(shape, data, byteSize);
-			case 'h':return new mytensorImpl<int16_t>(shape, data, byteSize);
-			case 'H':return new mytensorImpl<uint16_t>(shape, data, byteSize);
-			case 'i':return new mytensorImpl<int32_t>(shape, data, byteSize);
-			case 'I':return new mytensorImpl<uint32_t>(shape, data, byteSize);
-			case 'L':return new mytensorImpl<int64_t>(shape, data, byteSize);
-			case 'K':return new mytensorImpl<uint64_t>(shape, data, byteSize);
-			case 'f':return new mytensorImpl<float>(shape, data, byteSize);
-			case 'd':return new mytensorImpl<double>(shape, data, byteSize);
+			case 'b':return new tensorImpl<uint8_t>(shape, data, byteSize);
+			case 'h':return new tensorImpl<int16_t>(shape, data, byteSize);
+			case 'H':return new tensorImpl<uint16_t>(shape, data, byteSize);
+			case 'i':return new tensorImpl<int32_t>(shape, data, byteSize);
+			case 'I':return new tensorImpl<uint32_t>(shape, data, byteSize);
+			case 'L':return new tensorImpl<int64_t>(shape, data, byteSize);
+			case 'K':return new tensorImpl<uint64_t>(shape, data, byteSize);
+			case 'f':return new tensorImpl<float>(shape, data, byteSize);
+			case 'd':return new tensorImpl<double>(shape, data, byteSize);
 			case 'x': return nullptr;	// þu anki sistemde custom desteklenmemektedir.
 			default:return nullptr;
 			}
@@ -160,7 +160,7 @@ namespace My
 
 		static PyObject* pytensor_str(pytensor* self) {
 			std::stringstream buffer;
-			buffer << *(mytensor<uint8_t>*)Engine::pEngine->GetMyObject(self->tensor);
+			buffer << *(tensor<uint8_t>*)Engine::pEngine->GetMyObject(self->tensor);
 			return PyUnicode_FromString(buffer.str().c_str());
 		}
 
@@ -172,7 +172,7 @@ namespace My
 				return -1;
 			}
 			pytensor* self = (pytensor*)obj;
-			mytensor<uint8_t>* t = (mytensor<uint8_t>*)Engine::pEngine->GetMyObject(self->tensor);
+			tensor<uint8_t>* t = (tensor<uint8_t>*)Engine::pEngine->GetMyObject(self->tensor);
 			if(t->getMinDepth() != 0)
 			{
 				PyErr_SetString(PyExc_ValueError, "MyTensor is too complex for Python Buffer.");
@@ -215,61 +215,9 @@ namespace My
 			};
 		
 
-		static PyObject* fromBuffer(PyObject* self, PyObject* args)
-		{
-			pytensor* s = (pytensor*)self;
+		
 
-			PyObject* image;
-			PyObject* shape;
-			if (!PyArg_ParseTuple(args, "OO", &image,&shape))
-				return nullptr;
-			if (!PyObject_CheckBuffer(image))
-			{
-				PyErr_SetString(PyExc_TypeError, "buffer is not supported.");
-				return nullptr;
-			}
-			if (!PyTuple_Check(shape))
-			{
-				PyErr_SetString(PyExc_TypeError, "shape is not validated.");
-				return nullptr;
-			}
-			Py_buffer buffer;
-			if(PyObject_GetBuffer(image,&buffer,0) != 0)
-			{
-				PyErr_SetString(PyExc_TypeError, "buffer is not supported (2).");
-				return nullptr;
-			}
-
-			Py_ssize_t shapesize = PyTuple_Size(shape);
-			std::vector<int64_t> vshape;
-			for (int i = 0; i < shapesize; i++) {
-				PyObject* dim = PyTuple_GetItem(shape, i);
-				if (!PyNumber_Check(dim)) {
-					PyErr_SetString(PyExc_TypeError, "Non-numeric argument on shape.");
-					return nullptr;
-				}
-				PyObject* longNumber = PyNumber_Long(dim);
-				vshape.push_back((int64_t)PyLong_AsUnsignedLong(longNumber));
-				Py_DECREF(longNumber);
-				if (PyErr_Occurred()) { return nullptr; }
-			}
-			Py_DECREF(shape);
-			//std::pair<char, int> p();
-			//void* tensor = pair2tensor(p, vshape);
-			mytensorImpl<float>* tensor = new mytensorImpl<float>(vshape);
-			Engine::pEngine->RemoveMyObject(s->tensor);
-			s->tensor = Engine::pEngine->SetMyObject(tensor);
-			s->type = str2pair("float").first;
-			return PyLong_FromLong(s->tensor);
-		}
-
-		static PyMethodDef Custom_Methods[] = {
-			{"fromBuffer", (PyCFunction)fromBuffer, METH_VARARGS,
-			 "Create Tensor from PIL Image"
-			},
-			{NULL}  /* Sentinel */
-		};
-
+		
 		
 		static PyBufferProcs pytensor_as_buffer = {
 			(getbufferproc)pytensor_getbuffer,
@@ -314,6 +262,79 @@ namespace My
 			0,								/* tp_dictoffset */
 			(initproc)pytensor_init,			/* tp_init */
 		};
+
+		static PyObject* fromBuffer(PyObject* self, PyObject* args)
+		{
+			pytensor* s = (pytensor*)self;
+			PyObject* image;
+			PyObject* shape;
+			if (!PyArg_ParseTuple(args, "OO", &image, &shape))
+				return nullptr;
+			if (!PyObject_CheckBuffer(image))
+			{
+				PyErr_SetString(PyExc_TypeError, "buffer is not supported.");
+				return nullptr;
+			}
+			if (!PyTuple_Check(shape))
+			{
+				PyErr_SetString(PyExc_TypeError, "shape is not validated.");
+				return nullptr;
+			}
+			Py_buffer buffer;
+			if (PyObject_GetBuffer(image, &buffer, 0) != 0)
+			{
+				PyErr_SetString(PyExc_TypeError, "buffer is not supported (2).");
+				return nullptr;
+			}
+
+			Py_ssize_t shapesize = PyTuple_Size(shape);
+			std::vector<int64_t> vshape;
+			for (int i = 0; i < shapesize; i++) {
+				PyObject* dim = PyTuple_GetItem(shape, i);
+				if (!PyNumber_Check(dim)) {
+					PyErr_SetString(PyExc_TypeError, "Non-numeric argument on shape.");
+					return nullptr;
+				}
+				PyObject* longNumber = PyNumber_Long(dim);
+				vshape.push_back((int64_t)PyLong_AsUnsignedLong(longNumber));
+				Py_DECREF(longNumber);
+				if (PyErr_Occurred()) { return nullptr; }
+			}
+			Py_DECREF(shape);
+
+			void* tensor = nullptr;
+			char type;
+			if (buffer.itemsize == 1)
+			{
+				tensor = new tensorImpl<uint8_t>(vshape, buffer.buf, buffer.len);
+				type = 'b';
+			}
+
+			if (buffer.itemsize == 4)
+			{
+				tensor = new tensorImpl<int>(vshape, buffer.buf, buffer.len);
+				type = 'i';
+			}
+			if (tensor == nullptr)
+			{
+				PyErr_SetString(PyExc_TypeError, "itemSize is not supported.");
+				return nullptr;
+			}
+			pytensor* tens = (pytensor*)PyObject_CallObject((PyObject*)&pytensorType, 0);
+
+			//Engine::pEngine->RemoveMyObject(s->tensor);
+			tens->tensor = Engine::pEngine->SetMyObject((object*)tensor);			
+			tens->type = type;
+			return (PyObject*)tens;
+		}
+
+		static PyMethodDef Custom_Methods[] = {
+			{"fromBuffer", (PyCFunction)fromBuffer, METH_VARARGS,
+			 "Create Tensor from PIL Image"
+			},
+			{NULL}  /* Sentinel */
+		};
+
 
 		static PyModuleDef pytensor_module = {
 			PyModuleDef_HEAD_INIT,
