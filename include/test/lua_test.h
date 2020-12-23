@@ -8,11 +8,13 @@ public:
 	
 	MyEngine(const char* path) :My::Engine(path)
 	{
-		SetScript(myfs::path("user/lua_test.lua"));
+		
 	}
 
 	bool OnStart() override
 	{
+		AddWindow(800, 600);
+		SetScript(myfs::path("user/lua_test.lua"));
 		return true;
 	}
 };
