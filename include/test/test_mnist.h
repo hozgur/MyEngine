@@ -3,18 +3,14 @@
 #include "my.h"
 #include "mypy.h"
 #include "mytensor.h"
+
 using namespace My;
 class MyEngine : public My::Engine
 {
 public:
-
 	MyEngine(const char* path) :My::Engine(path)
 	{
-		if (!Py::init())
-		{
-			debug << "Py Error!\n";
-			exit(1);
-		}
+		
 	}
 	std::string replace(std::string str, const std::string& from, const std::string& to) {
 		size_t start_pos = str.find(from);
@@ -27,15 +23,26 @@ public:
 	int c = 0;
 	bool OnStart() override
 	{
-		AddWindow(800, 600);
-		Py::dofile(myfs::path("user/DeepLearning/MnistTest/main2.py"));		
+		if (!Py::init())
+		{
+			debug << "Py Error!\n";
+			exit(1);
+		}
+		Py::dofile(myfs::path("user/DeepLearning/MnistTest/main.py"));
+		AddWindow(800, 600);		
 		results["id"] = 12L;	
 		return true;
 	}
 
+	void OnIdle() override
+	{
+		//Py::dostring("runBatch()");
+		//std::this_thread::sleep_for(std::chrono::milliseconds(500));
+	}
+
 	void OnDraw() override
 	{
-		Py::dostring("runBatch()");
+		
 		//for (int i = 0; i < 20; i++)
 		//{
 		//	for (int j = 0; j < 20; j++)
