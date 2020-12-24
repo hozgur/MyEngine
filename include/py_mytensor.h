@@ -8,8 +8,10 @@ namespace My
 		struct pytensor
 		{
 			PyObject_HEAD
-				handle tensor;
+			handle tensorId;
+			Py_buffer* buffer;
 			char type;
+		private:			
 		};
 
 
@@ -38,35 +40,31 @@ namespace My
 			std::vector<int64_t> vshape;
 			Py_buffer buffer;
 			memset(&buffer, 0, sizeof(buffer));
-			if (argCount > 0)
+			if (argCount > 0)								// Shape
 			{
 				PyObject* shape = PyTuple_GetItem(args, 0);
 				if (shape == NULL) { return -1; }
-
-				if(! getTupleList(shape, vshape))
-					return -1;				
-				
+				bool stat = getTupleList(shape, vshape);
 				Py_DECREF(shape);
-
-				if (argCount > 1)
+				if (!stat) return -1;
+			}
+			if (argCount > 1)								// TypeString
+			{
+				PyObject* typeStr = PyTuple_GetItem(args, 1);
+				Py_ssize_t size;
+				typeString = PyUnicode_AsUTF8AndSize(typeStr, &size);
+				Py_DECREF(typeStr);
+			}
+			if (argCount > 2)								// Buffer
+			{					
+				PyObject* bufobj = PyTuple_GetItem(args, 2);
+				if (PyObject_GetBuffer(bufobj, &buffer, 0) != 0)
 				{
-					PyObject* typeStr = PyTuple_GetItem(args, 1);
-					Py_ssize_t size;
-					typeString = PyUnicode_AsUTF8AndSize(typeStr, &size);
-					Py_DECREF(typeStr);
-				}
-				if (argCount > 2)
-				{
-					
-					PyObject* bufobj = PyTuple_GetItem(args, 2);
-					if (PyObject_GetBuffer(bufobj, &buffer, 0) != 0)
-					{
-						PyErr_SetString(PyExc_TypeError, "buffer is not supported (2).");
-						return -1;
-					}
+					PyErr_SetString(PyExc_TypeError, "Error on fetching buffer data.");
+					return -1;
 				}
 			}
-			
+
 			std::pair<char, int> p = { 'i' , 4 };
 			if (typeString != nullptr)
 				p = str2pair(typeString);
@@ -76,26 +74,25 @@ namespace My
 				PyErr_SetString(PyExc_ValueError, "Undefined Type.");
 				return -1;
 			}
-			//void* tensor = pair2tensor(p, vshape,buffer.buf,buffer.len);
-			//if (tensor == nullptr)
-			//	return -1;
-			//Engine::pEngine->RemoveMyObject(self->tensor);
-			//self->tensor = Engine::pEngine->SetMyObject((object*)tensor);
-			//self->type = p.first;
-			//Py_INCREF(self);
+			void* tensor = pair2tensor(p, vshape,buffer.buf,buffer.len);
+			if (tensor == nullptr)
+				return -1;
+			Engine::pEngine->RemoveMyObject(self->tensorId);
+			self->tensorId = Engine::pEngine->SetMyObject((object*)tensor);
+			self->type = p.first;			
 			return 0;
 		}
 
 		static void pytensor_dealloc(pytensor* self) {
-			//Engine::pEngine->RemoveMyObject(self->tensor);
-			self->tensor = invalidHandle;;
+			Engine::pEngine->RemoveMyObject(self->tensorId);
+			self->tensorId = invalidHandle;
+			if (self->buffer) PyBuffer_Release(self->buffer);
 			Py_TYPE(self)->tp_free((PyObject*)self);
 		}
 
 		static PyObject* pytensor_str(pytensor* self) {
 			std::stringstream buffer;
-			buffer << "deneme";
-		//	buffer << *(tensor<uint8_t>*)Engine::pEngine->GetMyObject(self->tensor);
+			buffer << *(tensor<uint8_t>*)Engine::pEngine->GetMyObject(self->tensorId);
 			return PyUnicode_FromString(buffer.str().c_str());
 		}
 
@@ -107,7 +104,7 @@ namespace My
 				return -1;
 			}
 			pytensor* self = (pytensor*)obj;
-			tensor<uint8_t>* t = (tensor<uint8_t>*)Engine::pEngine->GetMyObject(self->tensor);
+			tensor<uint8_t>* t = (tensor<uint8_t>*)Engine::pEngine->GetMyObject(self->tensorId);
 			if(t->getMinDepth() != 0)
 			{
 				PyErr_SetString(PyExc_ValueError, "MyTensor is too complex for Python Buffer.");
@@ -199,8 +196,8 @@ namespace My
 			pytensor* s = (pytensor*)self;
 			PyObject* image;
 			PyObject* shape;
-			char* typeString;
-			if (!PyArg_ParseTuple(args, "OOs", &image, &shape, &typeString ))
+			const char* typeString;
+			if (!PyArg_ParseTuple(args, "OOs", &image, &shape, &typeString ))			
 				return nullptr;
 			if (!PyObject_CheckBuffer(image))
 			{
@@ -213,42 +210,42 @@ namespace My
 				return nullptr;
 			}
 			
-			Py_buffer buffer;
-			if (PyObject_GetBuffer(image, &buffer, 0) != 0)
+			Py_buffer* buffer = new Py_buffer;
+			if (PyObject_GetBuffer(image, buffer, 0) != 0)
 			{
 				PyErr_SetString(PyExc_TypeError, "buffer is not supported (2).");
+				delete buffer;
+				buffer = nullptr;
 				return nullptr;
 			}
-			
-			Py_ssize_t shapesize = PyTuple_Size(shape);
 			std::vector<int64_t> vshape;
-			for (int i = 0; i < shapesize; i++) {
-				PyObject* dim = PyTuple_GetItem(shape, i);
-				if (!PyNumber_Check(dim)) {
-					PyErr_SetString(PyExc_TypeError, "Non-numeric argument on shape.");
-					return nullptr;
-				}
-				PyObject* longNumber = PyNumber_Long(dim);
-				vshape.push_back((int64_t)PyLong_AsUnsignedLong(longNumber));
-				Py_DECREF(longNumber);
-				if (PyErr_Occurred()) { return nullptr; }
-			}
-			Py_DECREF(shape);
+			if(!getTupleList<int64_t>(shape,vshape))
+			{
+				PyErr_SetString(PyExc_TypeError, "Error on shape.");
+				delete buffer;
+				buffer = nullptr;
+				return nullptr;
+			}			
+			//Py_DECREF(shape);
 
 			std::pair<char, int> p = { 'i' , 4 };
 			if (typeString != nullptr)
 				p = str2pair(typeString);
-			void* tensor = pair2tensor(p, vshape,buffer.buf,buffer.len);
+			void* tensor = pair2tensor(p, vshape,buffer->buf,buffer->len);
 			if (tensor == nullptr)
 			{
 				PyErr_SetString(PyExc_TypeError, "itemSize is not supported.");
+				delete buffer;
+				buffer = nullptr;
 				return nullptr;
 			}
 			
-			Engine::pEngine->RemoveMyObject(s->tensor);
-			s->tensor = Engine::pEngine->SetMyObject((object*)tensor);			
+			Engine::pEngine->RemoveMyObject(s->tensorId);
+			s->tensorId = Engine::pEngine->SetMyObject((object*)tensor);			
 			s->type = p.first;
-			return PyLong_FromLong(s->tensor);
+			if (s->buffer) PyBuffer_Release(s->buffer);
+			s->buffer = buffer;
+			return PyLong_FromLong(s->tensorId);
 		}
 
 		static PyMethodDef Custom_Methods[] = {

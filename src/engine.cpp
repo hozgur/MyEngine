@@ -127,7 +127,7 @@ namespace My
     
     handle Engine::GetHashCode()
     {
-        static handle key = 0;
+        static handle key = 1;  // Eskiden 0 idi ama Python için 0 kullanýlmamasý gerektiði için baþlangýç 1 yapýldý.
         static bool lookup = false;
 
         if (lookup)
@@ -135,13 +135,13 @@ namespace My
             while (objects.count(key) > 0)
             {
                 key++;
-                if (key == INT32_MAX) key = 0;
+                if (key == INT32_MAX) key = 1;
             }
         }
 
         if (key == INT32_MAX)
         {
-            key = 0;
+            key = 1;
             lookup = true;
         }
         return key++;
@@ -149,6 +149,7 @@ namespace My
 
     object* Engine::GetMyObject(handle id)
     {
+        if (id <= 0) return nullptr;
         std::map<handle, object*>::iterator it;
         it = objects.find(id);
         if (it == objects.end())
@@ -168,7 +169,7 @@ namespace My
 
     void Engine::RemoveMyObject(handle id)
     {
-        if (id < 0) return;
+        if (id <= 0) return;
         std::map<handle, object*>::iterator it;
         it = objects.find(id);
         if (it != objects.end())

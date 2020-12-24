@@ -103,22 +103,40 @@ bool My::Py::dostring(std::string content, dict locals, dict &result)
     }
     return true;
 }
-
-bool My::Py::dofunction(std::string funcname, paramlist parameters)
+void My::Py::DumpGlobals()
 {
-    //PyObject *mainModule = PyImport_ImportModule("__main__");
-    PyObject* pFunc = PyObject_GetAttrString(gpDict, funcname.c_str());
+    PyObject* keys = PyDict_Keys(gpDict);
+    Py_ssize_t size = PyList_Size(keys);
+    for (int a = 0; a < size; a++)
+    {
+        PyObject* item = PyList_GetItem(keys, a);
+        PyObject* strItem = PyObject_Str(item);
+        debug << PyUnicode_AsUTF8(strItem) << "\n";
+    }
+}
+int My::Py::dofunction(std::string funcname, paramlist parameters)
+{
+
+    PyObject* pFunc = PyDict_GetItemString(gpDict, funcname.c_str());
     PyObject* pArgs = PyTuple_New(parameters.size());
     int i = 0;
-    pyconvert pc;
+    static pyconvert pc;
     for (std::variant v : parameters)    
         PyTuple_SetItem(pArgs, i++, std::visit(pc, v));
         
-    PyObject *pResult = PyObject_CallObject(pFunc, pArgs);    
-        
-    Py_DECREF(pFunc);
+    PyObject *pResult = PyObject_CallObject(pFunc, pArgs);
+    int result = -1;
+    if (pResult != nullptr)
+    {
+        if(PyNumber_Check(pResult))
+            result = PyLong_AsUnsignedLong(pResult);
+        Py_DECREF(pResult);
+    }
+    else
+        PyErr_Print();     
+    
     Py_DECREF(pArgs);
-    return true;
+    return result;
 }
 
 bool My::Py::checkfunction(std::string funcname)

@@ -21,8 +21,9 @@ namespace My
 		bool dostring(std::string content);
 		bool dostring(std::string content, dict locals);
 		bool dostring(std::string content, dict locals, dict &result);		
-		bool dofunction(std::string funcname, paramlist parameters);
-		bool checkfunction(std::string funcname);		
+		int dofunction(std::string funcname, paramlist parameters);
+		bool checkfunction(std::string funcname);
+		void DumpGlobals();
 		template<typename T>
 		T getglobal(const char* name) { T result; return result; }
 

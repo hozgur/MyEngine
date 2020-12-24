@@ -248,6 +248,7 @@
     <ClInclude Include="..\..\include\test\molecularengine2.h" />
     <ClInclude Include="..\..\include\test\test_draw.h" />
     <ClInclude Include="..\..\include\test\test_mnist.h" />
+    <ClInclude Include="..\..\include\test\test_mnist2.h" />
     <ClInclude Include="..\..\include\test\test_py.h" />
     <ClInclude Include="..\..\include\test\std_test.h" />
     <ClInclude Include="..\..\include\test\test_dat.h" />

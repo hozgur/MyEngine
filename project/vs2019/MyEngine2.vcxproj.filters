@@ -467,6 +467,9 @@
     <ClInclude Include="..\..\include\py_core.h">
       <Filter>Header Files\include</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\include\test\test_mnist2.h">
+      <Filter>Header Files\include\test</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\script\init.lua">
