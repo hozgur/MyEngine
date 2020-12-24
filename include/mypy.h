@@ -25,7 +25,7 @@ namespace My
 		bool checkfunction(std::string funcname);
 		void DumpGlobals();
 		template<typename T>
-		T getglobal(const char* name) { T result; return result; }
+		T getglobal(const char* name);
 
 		//template<>int getglobal<int>(const char* name) { return getglobalint(name); }
 

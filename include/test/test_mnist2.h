@@ -45,9 +45,7 @@ public:
 			for (int j = 0; j < 20; j++)
 			{
 				id = Py::dofunction("doBatch2", { (long)(i * 10 + j + c * 400) });
-				//int id2 = Py::dofunction("doBatch", { (long)(id) });
-				//tensor<uint8_t>* tens = (tensor<uint8_t>*) GetMyObject(id2);
-				tensor<uint8_t>* tens = nullptr;
+				tensor<uint8_t>* tens = (tensor<uint8_t>*) GetMyObject(id);
 				if (tens != nullptr)
 				{
 					for (int y = 0; y < 28; y++)
@@ -74,11 +72,11 @@ public:
 
 	void OnDraw() override
 	{
-		
+		run();
 	}
 
 	void OnUpdate() override
 	{
-		run();
+		
 	}
 };

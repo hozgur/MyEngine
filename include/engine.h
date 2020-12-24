@@ -50,7 +50,7 @@ namespace My
         image<Color>* background = nullptr;
      public:
         Engine(const char* path);
-        ~Engine();
+        virtual ~Engine();
         bool Start();
         bool SetScript(std::string scriptPath);
         bool AddWindow(int width,int height, int pixelWidth = 1, int pixelHeight = 1, bool fullScreen = false);

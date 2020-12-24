@@ -116,7 +116,6 @@ void My::Py::DumpGlobals()
 }
 int My::Py::dofunction(std::string funcname, paramlist parameters)
 {
-
     PyObject* pFunc = PyDict_GetItemString(gpDict, funcname.c_str());
     PyObject* pArgs = PyTuple_New(parameters.size());
     int i = 0;
@@ -254,4 +253,11 @@ bool My::Py::addModule(pymodule* module)
         return false;
     }
     return true;
+}
+
+template<>
+long My::Py::getglobal(const char* name)
+{
+    PyObject* value = PyDict_GetItemString(gpDict, name);
+    return PyLong_AsLong(value);    
 }

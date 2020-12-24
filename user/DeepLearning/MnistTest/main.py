@@ -1,10 +1,5 @@
-import torch
-import torch.nn as nn
-import torch.nn.functional as F
-import torch.optim as optim
-from torchvision import datasets, transforms
-from torch.optim.lr_scheduler import StepLR
 import mytensor
+from torchvision import datasets
 dataset1 = datasets.MNIST('../data', train=True, download=True,transform=None)
 import numpy as np
 tensor = mytensor.MyTensor((1,28,28),"float")
