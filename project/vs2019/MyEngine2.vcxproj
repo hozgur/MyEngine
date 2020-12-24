@@ -209,6 +209,7 @@
     <ClCompile Include="..\..\src\mypy.cpp" />
     <ClCompile Include="..\..\src\mypyarray.cpp" />
     <ClCompile Include="..\..\src\mytensor.cpp" />
+    <ClCompile Include="..\..\src\py_core.cpp" />
     <ClCompile Include="..\..\src\ui\theme.cpp" />
     <ClCompile Include="..\..\src\windows\surface.cpp" />
     <ClCompile Include="..\..\src\windows\windowscore.cpp" />
@@ -231,6 +232,7 @@
     <ClInclude Include="..\..\include\myxml.h" />
     <ClInclude Include="..\..\include\platform.h" />
     <ClInclude Include="..\..\include\python\pymodule.h" />
+    <ClInclude Include="..\..\include\py_core.h" />
     <ClInclude Include="..\..\include\py_mytensor.h" />
     <ClInclude Include="..\..\include\test\engine2.h" />
     <ClInclude Include="..\..\include\test\parse_test.h" />

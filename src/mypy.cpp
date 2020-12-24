@@ -9,25 +9,15 @@
 #include <Python.h>
 #endif
 #include <filesystem>
-#include <py_mytensor.h>
+#include "py_core.h"
+#include "py_mytensor.h"
 #include "mypyarray.h"
 namespace fs = std::filesystem;
 using namespace My;
 
 #include "mypyarray.h"
 
-struct pyconvert
-{
-    PyObject* operator()(long i) const {
-        return PyLong_FromLong(i);
-    }
-    PyObject* operator()(double f) const {
-        return PyLong_FromDouble(f);
-    }
-    PyObject* operator()(const std::string& s) const {
-        return PyUnicode_FromString(s.c_str());
-    }
-};
+
 wchar_t* My::Py::program = nullptr;
 
 void My::Py::exit()

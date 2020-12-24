@@ -213,6 +213,9 @@
     <ClCompile Include="..\..\src\mytensor.cpp">
       <Filter>Source Files\src</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\py_core.cpp">
+      <Filter>Source Files\src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\include\Windows\directdraw.h">
@@ -460,6 +463,9 @@
     </ClInclude>
     <ClInclude Include="..\..\include\test\test_mnist.h">
       <Filter>Header Files\include\test</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\py_core.h">
+      <Filter>Header Files\include</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
