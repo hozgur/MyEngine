@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include "mytensor.h"
 #include "structmember.h"
 namespace My
@@ -26,7 +26,7 @@ namespace My
 			case 'K':return new tensorImpl<uint64_t>(shape, data, byteSize);
 			case 'f':return new tensorImpl<float>(shape, data, byteSize);
 			case 'd':return new tensorImpl<double>(shape, data, byteSize);
-			case 'x': return nullptr;	// þu anki sistemde custom desteklenmemektedir.
+			case 'x': return nullptr;	// ï¿½u anki sistemde custom desteklenmemektedir.
 			default:return nullptr;
 			}
 		}
@@ -36,6 +36,8 @@ namespace My
 			const char* typeString = nullptr;
 			int itemSize = 0;
 			std::vector<int64_t> vshape;
+			Py_buffer buffer;
+			memset(&buffer, 0, sizeof(buffer));
 			if (argCount > 0)
 			{
 				PyObject* shape = PyTuple_GetItem(args, 0);
@@ -53,12 +55,15 @@ namespace My
 					typeString = PyUnicode_AsUTF8AndSize(typeStr, &size);
 					Py_DECREF(typeStr);
 				}
-
 				if (argCount > 2)
 				{
-					PyObject* _itemSize = PyTuple_GetItem(args, 2);
-					itemSize = PyLong_AsLong(_itemSize);
-					Py_DECREF(_itemSize);
+					
+					PyObject* bufobj = PyTuple_GetItem(args, 2);
+					if (PyObject_GetBuffer(bufobj, &buffer, 0) != 0)
+					{
+						PyErr_SetString(PyExc_TypeError, "buffer is not supported (2).");
+						return -1;
+					}
 				}
 			}
 			
@@ -71,27 +76,26 @@ namespace My
 				PyErr_SetString(PyExc_ValueError, "Undefined Type.");
 				return -1;
 			}
-			if (p.first != 'x')
-				itemSize = p.second;
-			void* tensor = pair2tensor(p, vshape);
-			if (tensor == nullptr)
-				return -1;
-			Engine::pEngine->RemoveMyObject(self->tensor);
-			self->tensor = Engine::pEngine->SetMyObject((object*)tensor);
-			self->type = p.first;
+			//void* tensor = pair2tensor(p, vshape,buffer.buf,buffer.len);
+			//if (tensor == nullptr)
+			//	return -1;
+			//Engine::pEngine->RemoveMyObject(self->tensor);
+			//self->tensor = Engine::pEngine->SetMyObject((object*)tensor);
+			//self->type = p.first;
 			//Py_INCREF(self);
 			return 0;
 		}
 
 		static void pytensor_dealloc(pytensor* self) {
-			Engine::pEngine->RemoveMyObject(self->tensor);
+			//Engine::pEngine->RemoveMyObject(self->tensor);
 			self->tensor = invalidHandle;;
 			Py_TYPE(self)->tp_free((PyObject*)self);
 		}
 
 		static PyObject* pytensor_str(pytensor* self) {
 			std::stringstream buffer;
-			buffer << *(tensor<uint8_t>*)Engine::pEngine->GetMyObject(self->tensor);
+			buffer << "deneme";
+		//	buffer << *(tensor<uint8_t>*)Engine::pEngine->GetMyObject(self->tensor);
 			return PyUnicode_FromString(buffer.str().c_str());
 		}
 
@@ -144,11 +148,7 @@ namespace My
 			{"type", T_OBJECT_EX, offsetof(pytensor, type), 0, "Type"},	
 			{NULL}  /* Sentinel */
 			};
-		
 
-		
-
-		
 		
 		static PyBufferProcs pytensor_as_buffer = {
 			(getbufferproc)pytensor_getbuffer,
@@ -199,7 +199,8 @@ namespace My
 			pytensor* s = (pytensor*)self;
 			PyObject* image;
 			PyObject* shape;
-			if (!PyArg_ParseTuple(args, "OO", &image, &shape))
+			char* typeString;
+			if (!PyArg_ParseTuple(args, "OOs", &image, &shape, &typeString ))
 				return nullptr;
 			if (!PyObject_CheckBuffer(image))
 			{
@@ -211,13 +212,14 @@ namespace My
 				PyErr_SetString(PyExc_TypeError, "shape is not validated.");
 				return nullptr;
 			}
+			
 			Py_buffer buffer;
 			if (PyObject_GetBuffer(image, &buffer, 0) != 0)
 			{
 				PyErr_SetString(PyExc_TypeError, "buffer is not supported (2).");
 				return nullptr;
 			}
-
+			
 			Py_ssize_t shapesize = PyTuple_Size(shape);
 			std::vector<int64_t> vshape;
 			for (int i = 0; i < shapesize; i++) {
@@ -233,30 +235,20 @@ namespace My
 			}
 			Py_DECREF(shape);
 
-			void* tensor = nullptr;
-			char type;
-			if (buffer.itemsize == 1)
-			{
-				tensor = new tensorImpl<uint8_t>(vshape, buffer.buf, buffer.len);
-				type = 'b';
-			}
-
-			if (buffer.itemsize == 4)
-			{
-				tensor = new tensorImpl<int>(vshape, buffer.buf, buffer.len);
-				type = 'i';
-			}
+			std::pair<char, int> p = { 'i' , 4 };
+			if (typeString != nullptr)
+				p = str2pair(typeString);
+			void* tensor = pair2tensor(p, vshape,buffer.buf,buffer.len);
 			if (tensor == nullptr)
 			{
 				PyErr_SetString(PyExc_TypeError, "itemSize is not supported.");
 				return nullptr;
 			}
-			pytensor* tens = (pytensor*)PyObject_CallObject((PyObject*)&pytensorType, 0);
-
-			//Engine::pEngine->RemoveMyObject(s->tensor);
-			tens->tensor = Engine::pEngine->SetMyObject((object*)tensor);			
-			tens->type = type;
-			return (PyObject*)tens;
+			
+			Engine::pEngine->RemoveMyObject(s->tensor);
+			s->tensor = Engine::pEngine->SetMyObject((object*)tensor);			
+			s->type = p.first;
+			return PyLong_FromLong(s->tensor);
 		}
 
 		static PyMethodDef Custom_Methods[] = {

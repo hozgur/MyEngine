@@ -72,16 +72,18 @@ print ("epochs started..")
 epochs = 1
 counter = 0
 it = iter(train_loader)
-tensor = mytensor.MyTensor()
-def runBatch():    
-    inp = next(it)[0].view(-1,784)
-    optimizer.zero_grad()        
-    # compute reconstructions    
-    outputs = model(inp)
-    out = inp.numpy()        
-    id = tensor.fromBuffer(out.tobytes(),(128,28,28))
-    print(id)    
 
+def runBatch():
+    inp = next(it)[0].view(-1,784)
+    #optimizer.zero_grad()        
+    # compute reconstructions    
+    #outputs = model(inp)
+    out = inp.numpy()    
+    tensor = mytensor.MyTensor((128,28,28), "float",out.tobytes())
+    print(tensor)
+
+for i in range(10):
+    runBatch()
 
 #for epoch in range(epochs):    
 #    loss = 0    
