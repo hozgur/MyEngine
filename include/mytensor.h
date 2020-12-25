@@ -12,7 +12,7 @@ namespace My
 		virtual int getMinDepth() const = 0;
 		virtual T* getData(int depth, int index) const = 0;
 		virtual bool canUseReadforWrite() const = 0;
-		virtual void setData(int depth, int index, const T* data, int dataSize) const = 0;
+		virtual void setData(int depth, int index, const T* data, int dataSize) const = 0;		
 	};
 
 	template<typename T>

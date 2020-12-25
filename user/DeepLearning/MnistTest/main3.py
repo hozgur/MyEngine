@@ -6,7 +6,12 @@ import torchvision
 from torchvision import datasets, transforms
 from torch.optim.lr_scheduler import StepLR
 import mytensor
+
 gcode = None
+batch_size = 16
+width = 178
+height = 218
+
 class AE(nn.Module):
     def __init__(self, **kwargs):
         super().__init__()
@@ -14,17 +19,14 @@ class AE(nn.Module):
             in_features=kwargs["input_shape"], out_features=128
         )
         self.encoder_output_layer = nn.Linear(
-            in_features=128, out_features=128
+            in_features=128, out_features=256
         )
         self.decoder_hidden_layer1 = nn.Linear(
-            in_features=128, out_features=2
-        )
+            in_features=256, out_features=256
+        )       
         self.decoder_hidden_layer2 = nn.Linear(
-            in_features=2, out_features=128
-        )
-        self.decoder_hidden_layer3 = nn.Linear(
-            in_features=128, out_features=128
-        )
+            in_features=256, out_features=128
+        )   
         self.decoder_output_layer = nn.Linear(
             in_features=128, out_features=kwargs["input_shape"]
         )
@@ -38,13 +40,12 @@ class AE(nn.Module):
         code = self.encoder_output_layer(activation)        
         code = torch.relu(code)        
         code = self.decoder_hidden_layer1(code)
-        code = torch.relu(code)
-        gcode = code.data.numpy()
+        code = torch.relu(code)        
         code = self.decoder_hidden_layer2(code)
         code = torch.relu(code)        
-        activation = self.decoder_hidden_layer3(code)
-        activation = torch.relu(activation)                
-        activation = self.decoder_output_layer(activation)
+        #code = self.decoder_hidden_layer3(code)
+        #code = torch.relu(code)
+        activation = self.decoder_output_layer(code)
         reconstructed = torch.relu(activation)
         return reconstructed
 
@@ -64,33 +65,28 @@ device = torch.device("cpu")
 
 # create a model from `AE` autoencoder class
 # load it to the specified device, either gpu or cpu
-model = AE(input_shape=784)
+model = AE(input_shape=width * height)
 
 # create an optimizer object
 # Adam optimizer with learning rate 1e-3
-optimizer = optim.Adam(model.parameters(), lr=1e-4)
+optimizer = optim.Adam(model.parameters(), lr=1e-3)
 
 # mean-squared error loss
 criterion = nn.MSELoss()
 
+
 print ("datasets loading..")
-transform = torchvision.transforms.Compose([torchvision.transforms.ToTensor()])
+transform  = torchvision.transforms.Compose([torchvision.transforms.Grayscale(num_output_channels=1),
+                                    torchvision.transforms.ToTensor()
+                                    ])
 
-train_dataset = torchvision.datasets.FashionMNIST(
-    root="./data", train=True, transform=transform, download=True
-)
-
-test_dataset = torchvision.datasets.FashionMNIST(
-    root="./data", train=False, transform=transform, download=True
-)
+train_dataset = torchvision.datasets.ImageFolder(root="C:/Repos/MyEngine/dev/user/DeepLearning/MnistTest/data/Celeba", transform=transform)
+#tiff header invalid.
 
 train_loader = torch.utils.data.DataLoader(
-    train_dataset, batch_size=128, shuffle=True, num_workers=0
+    train_dataset, batch_size=batch_size, shuffle=True, num_workers=0
 )
 
-test_loader = torch.utils.data.DataLoader(
-    test_dataset, batch_size=32, shuffle=False, num_workers=0
-)
 
 print ("epochs started..")
 epochs = 1
@@ -107,7 +103,7 @@ fwdId = 0
 def runBatch():
     global inpId, outId,it,codeId
     try:        
-        inp = next(it)[0].view(-1,784)
+        inp = next(it)[0].view(-1,width * height)
         optimizer.zero_grad()        
         # compute reconstructions    
         outp = model(inp)
@@ -116,8 +112,8 @@ def runBatch():
         optimizer.step()
         nout = outp.data.numpy()
         ninp = inp.numpy()            
-        inpId = tensorIn.fromBuffer(ninp.tobytes(),(128,28,28), "float")
-        outId = tensorOut.fromBuffer(nout.tobytes(),(128,28,28), "float")        
+        inpId = tensorIn.fromBuffer(ninp.tobytes(),(batch_size,height,width), "float")
+        outId = tensorOut.fromBuffer(nout.tobytes(),(batch_size,height,width), "float")        
         return 0    
     except StopIteration:
         it = iter(train_loader)
@@ -127,7 +123,7 @@ def Forward2(x,y):
     global fwdId
     out = model.forward2(x,y)
     nout = out.data.numpy()
-    fwdId = tensorDraw.fromBuffer(nout.tobytes(),(1,28,28), "float")
+    fwdId = tensorDraw.fromBuffer(nout.tobytes(),(1,height,width), "float")
 
 
 
