@@ -177,6 +177,16 @@ bool My::Py::dofile2(std::string file)
     return PyRun_SimpleString(content.c_str()) == 0;    
 }
 
+static PyObject* engine_path(PyObject* self, PyObject* args)
+{
+    const char* path;
+    if (PyArg_ParseTuple(args, "s", &path) == 0)
+    {
+        PyErr_SetString(PyExc_TypeError, "Invalid path argument string.");
+        Py_RETURN_NONE;
+    }
+    return PyUnicode_FromString(myfs::path(path).c_str());
+}
 
 static PyObject* engine_test(PyObject* self, PyObject* args)
 { 
@@ -234,6 +244,8 @@ static PyObject* engine_test(PyObject* self, PyObject* args)
 static PyMethodDef EngineMethods[] = {
     { "engine_test",  engine_test, METH_VARARGS,
      "Test method for engine module."},
+     { "path",  engine_path, METH_VARARGS,
+     "Combine MyEngine Root Path with your relative path inside of Root."},
     {NULL, NULL, 0, NULL}        /* Sentinel */
 };
 

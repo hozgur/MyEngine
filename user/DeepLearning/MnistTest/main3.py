@@ -6,7 +6,7 @@ import torchvision
 from torchvision import datasets, transforms
 from torch.optim.lr_scheduler import StepLR
 import mytensor
-
+import MyEngine
 gcode = None
 batch_size = 16
 width = 178
@@ -79,8 +79,9 @@ print ("datasets loading..")
 transform  = torchvision.transforms.Compose([torchvision.transforms.Grayscale(num_output_channels=1),
                                     torchvision.transforms.ToTensor()
                                     ])
-
-train_dataset = torchvision.datasets.ImageFolder(root="C:/Repos/MyEngine/dev/user/DeepLearning/MnistTest/data/Celeba", transform=transform)
+path = MyEngine.path("user/DeepLearning/data/Celeba");
+print(path)
+train_dataset = torchvision.datasets.ImageFolder(root=path, transform=transform)
 #tiff header invalid.
 
 train_loader = torch.utils.data.DataLoader(
