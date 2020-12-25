@@ -81,7 +81,7 @@ namespace My
 				{
 					s.Stop();
 					double d = s.GetDurationMS();
-					if (d > 15)
+					if (d > 5)
 					{
 						s.Start();
 						Engine::pEngine->OnDraw();

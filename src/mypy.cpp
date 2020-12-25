@@ -117,6 +117,11 @@ void My::Py::DumpGlobals()
 int My::Py::dofunction(std::string funcname, paramlist parameters)
 {
     PyObject* pFunc = PyDict_GetItemString(gpDict, funcname.c_str());
+    if (pFunc == nullptr)
+    {
+        debug << funcname << " not found.";
+        return -1;
+    }
     PyObject* pArgs = PyTuple_New(parameters.size());
     int i = 0;
     static pyconvert pc;
