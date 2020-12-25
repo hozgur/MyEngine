@@ -238,6 +238,7 @@
     <ClInclude Include="..\..\include\test\parse_test.h" />
     <ClInclude Include="..\..\include\test\test_ai.h" />
     <ClInclude Include="..\..\include\test\test_ai2.h" />
+    <ClInclude Include="..\..\include\test\test_autoencoder.h" />
     <ClInclude Include="..\..\include\test\test_bokeh.h" />
     <ClInclude Include="..\..\include\test\ilay2.h" />
     <ClInclude Include="..\..\include\test\ilay\ilay_convolver.h" />
@@ -308,6 +309,7 @@
     <None Include="..\..\script\init.py" />
     <None Include="..\..\user\DeepLearning\MnistTest\main.py" />
     <None Include="..\..\user\DeepLearning\MnistTest\main2.py" />
+    <None Include="..\..\user\DeepLearning\MnistTest\main3.py" />
     <None Include="..\..\user\ilay.lua" />
     <None Include="..\..\user\lua_test.lua" />
     <None Include="..\..\user\py_test.py" />
