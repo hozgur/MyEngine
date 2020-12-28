@@ -204,7 +204,6 @@
     <ClCompile Include="..\..\src\engine.cpp" />
     <ClCompile Include="..\..\src\engine_draw.cpp" />
     <ClCompile Include="..\..\src\engine_lualib.cpp" />
-    <ClCompile Include="..\..\src\engine_pymodule.cpp" />
     <ClCompile Include="..\..\src\mylua.cpp" />
     <ClCompile Include="..\..\src\mypy.cpp" />
     <ClCompile Include="..\..\src\mypyarray.cpp" />
@@ -225,20 +224,20 @@
     <ClInclude Include="..\..\include\mymath.h" />
     <ClInclude Include="..\..\include\mylua.h" />
     <ClInclude Include="..\..\include\mypy.h" />
-    <ClInclude Include="..\..\include\mypyarray.h" />
     <ClInclude Include="..\..\include\mytensor.h" />
     <ClInclude Include="..\..\include\mywebview.h" />
     <ClInclude Include="..\..\include\myparser.h" />
     <ClInclude Include="..\..\include\myxml.h" />
     <ClInclude Include="..\..\include\platform.h" />
-    <ClInclude Include="..\..\include\python\pymodule.h" />
     <ClInclude Include="..\..\include\py_core.h" />
+    <ClInclude Include="..\..\include\py_engine.h" />
     <ClInclude Include="..\..\include\py_mytensor.h" />
     <ClInclude Include="..\..\include\test\engine2.h" />
     <ClInclude Include="..\..\include\test\parse_test.h" />
     <ClInclude Include="..\..\include\test\test_ai.h" />
     <ClInclude Include="..\..\include\test\test_ai2.h" />
     <ClInclude Include="..\..\include\test\test_autoencoder.h" />
+    <ClInclude Include="..\..\include\test\test_autoencoder_cuda.h" />
     <ClInclude Include="..\..\include\test\test_bokeh.h" />
     <ClInclude Include="..\..\include\test\ilay2.h" />
     <ClInclude Include="..\..\include\test\ilay\ilay_convolver.h" />
@@ -307,6 +306,7 @@
   <ItemGroup>
     <None Include="..\..\script\init.lua" />
     <None Include="..\..\script\init.py" />
+    <None Include="..\..\user\DeepLearning\MnistTest\autoencoder_cuda.py" />
     <None Include="..\..\user\DeepLearning\MnistTest\main.py" />
     <None Include="..\..\user\DeepLearning\MnistTest\main2.py" />
     <None Include="..\..\user\DeepLearning\MnistTest\main3.py" />

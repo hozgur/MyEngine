@@ -1,4 +1,5 @@
 #pragma once
+#pragma once
 
 #include "my.h"
 #include "mypy.h"
@@ -32,7 +33,7 @@ public:
 			exit(1);
 		}
 		AddWindow(1600, 1000);
-		Py::dofile(myfs::path("user/DeepLearning/MnistTest/main3.py"));		
+		Py::dofile(myfs::path("user/DeepLearning/MnistTest/autoencoder_cuda.py"));
 		return true;
 	}
 
@@ -78,6 +79,8 @@ public:
 						for (int x = 0; x < width; x++)
 						{
 							int t = tData[x] * 255;
+							if (t < 0) t = 0;
+							if (t > 255) t = 255;
 							p[x] = Color(t, t, t);
 						}
 					}
@@ -120,6 +123,8 @@ public:
 			for (int x = 0; x < 28; x++)
 			{
 				int t = tData[x] * 255;
+				if (t < 0) t = 0;
+				if (t > 255) t = 255;
 				FillRect({ x * 3 + 500,y * 3 + 500 }, { 3,3 }, Color(t, t, t));
 			}
 		}
@@ -128,14 +133,14 @@ public:
 
 	void OnIdle() override
 	{
-
+		if (canRun)
+			run();
 	}
 
 	void OnDraw() override
 	{
-		Clear(Color::Black);
-		if (canRun)
-			run();
+		//Clear(Color::Black);
+		
 		/*draw();*/
 	}
 

@@ -49,9 +49,6 @@
     <Filter Include="Header Files\include\test\ilay">
       <UniqueIdentifier>{38a81f60-d21c-4c42-ad27-45056ed6f2a9}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\include\python">
-      <UniqueIdentifier>{8b1ac824-8f47-423c-9cd0-96ed9ccd0543}</UniqueIdentifier>
-    </Filter>
     <Filter Include="User Files\webview">
       <UniqueIdentifier>{553bc0d9-63ec-496b-a7ab-5ca96a0fa367}</UniqueIdentifier>
     </Filter>
@@ -199,9 +196,6 @@
       <Filter>Source Files\src</Filter>
     </ClCompile>
     <ClCompile Include="..\..\src\mypy.cpp">
-      <Filter>Source Files\src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\engine_pymodule.cpp">
       <Filter>Source Files\src</Filter>
     </ClCompile>
     <ClCompile Include="..\..\src\windows\windowswebview.cpp">
@@ -383,9 +377,6 @@
     <ClInclude Include="..\..\include\mypy.h">
       <Filter>Header Files\include</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\include\python\pymodule.h">
-      <Filter>Header Files\include\python</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\include\mywebview.h">
       <Filter>Header Files\include</Filter>
     </ClInclude>
@@ -421,9 +412,6 @@
     </ClInclude>
     <ClInclude Include="..\..\include\test\test_vuetify.h">
       <Filter>Header Files\include\test</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\include\mypyarray.h">
-      <Filter>Header Files\include</Filter>
     </ClInclude>
     <ClInclude Include="..\..\include\test\test_xml.h">
       <Filter>Header Files\include\test</Filter>
@@ -476,6 +464,12 @@
     <ClInclude Include="..\..\include\test\test_autoencoder.h">
       <Filter>Header Files\include\test</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\include\py_engine.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\test\test_autoencoder_cuda.h">
+      <Filter>Header Files\include\test</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\script\init.lua">
@@ -519,6 +513,9 @@
       <Filter>User Files\DeepLearning\MnistTest</Filter>
     </None>
     <None Include="..\..\user\DeepLearning\MnistTest\main3.py">
+      <Filter>User Files\DeepLearning\MnistTest</Filter>
+    </None>
+    <None Include="..\..\user\DeepLearning\MnistTest\autoencoder_cuda.py">
       <Filter>User Files\DeepLearning\MnistTest</Filter>
     </None>
   </ItemGroup>

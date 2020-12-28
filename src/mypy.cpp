@@ -11,13 +11,9 @@
 #include <filesystem>
 #include "py_core.h"
 #include "py_mytensor.h"
-#include "mypyarray.h"
+#include "py_engine.h"
+
 namespace fs = std::filesystem;
-using namespace My;
-
-#include "mypyarray.h"
-
-
 wchar_t* My::Py::program = nullptr;
 
 void My::Py::exit()
@@ -44,7 +40,8 @@ bool My::Py::init()
         program = nullptr;
         return false;
     }    
-    addModule(nullptr);
+    if (!addEngineModule())
+        debug << "Error on adding Python MyEngine module.\n";
     Py_Initialize();
     gpDict = PyDict_New();
     PyDict_SetItemString(gpDict, "__builtins__", PyEval_GetBuiltins());
@@ -67,42 +64,6 @@ bool My::Py::dostring(std::string content)
     return  true;
 }
 
-bool My::Py::dostring(std::string content, dict locals)
-{
-    pyconvert pc;
-    for (dictItem element : locals)
-        PyDict_SetItemString(gpDict, element.first.c_str(), std::visit(pc, element.second));
-    return PyRun_String(content.c_str(), Py_file_input, gpDict, gpDict) != NULL;
-}
-bool My::Py::dostring(std::string content, dict locals, dict &result)
-{    
-    pyconvert pc;
-    for (dictItem element : locals)
-        PyDict_SetItemString(gpDict, element.first.c_str(), std::visit(pc, element.second));
-
-    if (PyRun_String(content.c_str(), Py_file_input, gpDict, gpDict) != NULL)
-    {
-        for (dictItem element : result)        
-        {
-            const char* key = element.first.c_str();
-            auto value = element.second;
-            
-            if (std::get_if<double>(&value))
-            {
-                result[key] = PyFloat_AsDouble(PyDict_GetItemString(gpDict, key));
-            }else
-            if (std::get_if<long>(&value))
-            {
-                result[key] = PyLong_AsLong(PyDict_GetItemString(gpDict, key));
-            }else
-            if (std::get_if<std::string>(&value))
-            {
-                result[key] = PyUnicode_AsUTF8(PyDict_GetItemString(gpDict, key));
-            }
-        }
-    }
-    return true;
-}
 void My::Py::DumpGlobals()
 {
     PyObject* keys = PyDict_Keys(gpDict);
@@ -168,113 +129,14 @@ bool My::Py::dofile(std::string file)
     return  true;
 }
 
-bool My::Py::dofile2(std::string file)
+template<>
+int My::Py::getglobal(const char* name)
 {
-    std::ifstream ifs(file);
-    std::string content((std::istreambuf_iterator<char>(ifs)),
-        (std::istreambuf_iterator<char>()));
-
-    return PyRun_SimpleString(content.c_str()) == 0;    
-}
-
-static PyObject* engine_path(PyObject* self, PyObject* args)
-{
-    const char* path;
-    if (PyArg_ParseTuple(args, "s", &path) == 0)
-    {
-        PyErr_SetString(PyExc_TypeError, "Invalid path argument string.");
-        Py_RETURN_NONE;
-    }
-    return PyUnicode_FromString(myfs::path(path).c_str());
-}
-
-static PyObject* engine_test(PyObject* self, PyObject* args)
-{ 
-    Py_ssize_t argCount = PyTuple_Size(args);
-    if (argCount > 0)
-    {
-        PyObject* shape = PyTuple_GetItem(args, 0);
-        if (shape == NULL) { return NULL; }
-
-        if (!PyTuple_Check(shape))
-        {
-            PyErr_SetString(PyExc_TypeError, "shape must be list.");
-            return NULL;
-        }
-        Py_ssize_t shapesize = PyTuple_Size(shape);
-
-        std::vector<int> vshape;
-        for (int i = 0; i < shapesize; i++) {
-            PyObject* dim = PyTuple_GetItem(shape, i);
-            /* Check if temp_p is numeric */
-            if (!PyNumber_Check(dim)) {
-                PyErr_SetString(PyExc_TypeError, "Non-numeric argument.");
-                return NULL;
-            }
-            PyObject* longNumber = PyNumber_Long(dim);
-            vshape.push_back((int)PyLong_AsUnsignedLong(longNumber));
-            
-            debug << vshape.back();
-            Py_DECREF(longNumber);            
-            if (PyErr_Occurred()) { return NULL; }
-        }
-        Py_DECREF(shape);
-
-        if (argCount > 1)
-        {
-            PyObject* typeString = PyTuple_GetItem(args, 1);
-            Py_ssize_t size;
-            const char* ptr = PyUnicode_AsUTF8AndSize(typeString, &size);
-            debug << ptr;
-            Py_DECREF(typeString);
-        }
-
-        if (argCount > 2)
-        {
-            PyObject* _itemSize = PyTuple_GetItem(args, 2);
-            long itemSize = PyLong_AsLong(_itemSize);
-            debug << itemSize;
-            Py_DECREF(_itemSize);
-        }
-    }
-    PyObject* longNumber = Py_BuildValue("i", 0);
-    return longNumber;
-}
-
-static PyMethodDef EngineMethods[] = {
-    { "engine_test",  engine_test, METH_VARARGS,
-     "Test method for engine module."},
-     { "path",  engine_path, METH_VARARGS,
-     "Combine MyEngine Root Path with your relative path inside of Root."},
-    {NULL, NULL, 0, NULL}        /* Sentinel */
-};
-
-static struct PyModuleDef engineModule = {
-    PyModuleDef_HEAD_INIT,
-    "MyEngine",   /* name of module */
-    "module doc", /* module documentation, may be NULL */
-    -1,       /* size of per-interpreter state of the module,
-                 or -1 if the module keeps state in global variables. */
-    EngineMethods
-};
-
-PyMODINIT_FUNC PyInit_MyEngine(void)
-{
-    return PyModule_Create(&engineModule);
-}
-
-bool My::Py::addModule(pymodule* module)
-{
-    if (PyImport_AppendInittab("MyEngine", PyInit_MyEngine) == -1) {
-        debug << "Error: could not extend in-built modules table\n";
-        return false;
-    }
-    return true;
+    return PyLong_AsLong(PyDict_GetItemString(gpDict, name));
 }
 
 template<>
-long My::Py::getglobal(const char* name)
+void My::Py::setglobal(const char* name, const int& val)
 {
-    PyObject* value = PyDict_GetItemString(gpDict, name);
-    return PyLong_AsLong(value);    
+    PyDict_SetItemString(gpDict, name, PyLong_FromLong(val));
 }

@@ -1,12 +1,10 @@
 #pragma once
 #include "my.h"
-
-#include "python/pymodule.h"
 namespace My
 {
 	namespace Py
     {	
-		typedef std::variant<long, double, std::string> pyvariant;
+		typedef std::variant<int, double, std::string> pyvariant;
 		typedef std::pair<std::string, pyvariant> dictItem;
 		typedef std::map<std::string, pyvariant> dict;
 		typedef std::vector<pyvariant> paramlist;
@@ -16,22 +14,13 @@ namespace My
 		void exit();
 		bool isInitialized();
 		bool dofile(std::string file);
-		bool dofile2(std::string file);
-		bool addModule(pymodule* module);		
-		bool dostring(std::string content);
-		bool dostring(std::string content, dict locals);
-		bool dostring(std::string content, dict locals, dict &result);		
+		bool dostring(std::string content);		
 		int dofunction(std::string funcname, paramlist parameters);
 		bool checkfunction(std::string funcname);
 		void DumpGlobals();
 		template<typename T>
 		T getglobal(const char* name);
-
-		//template<>int getglobal<int>(const char* name) { return getglobalint(name); }
-
-		//std::string error();
-		
-
-		//int getglobalint(const char* name);
+		template<typename T>
+		void setglobal(const char* name, const T& val);
     };	
 }
