@@ -1,6 +1,4 @@
 #pragma once
-#pragma once
-
 #include "my.h"
 #include "mypy.h"
 #include "mytensor.h"
@@ -33,7 +31,7 @@ public:
 			exit(1);
 		}
 		AddWindow(1600, 1000);
-		Py::dofile(myfs::path("user/DeepLearning/MnistTest/autoencoder_cuda.py"));
+		Py::dofile(myfs::path("user/DeepLearning/AutoEncoder/test1.py"));
 		return true;
 	}
 
@@ -63,7 +61,7 @@ public:
 					// Input
 					for (int y = 0; y < height; y++)
 					{
-						float* tData = tensIn->getData() + (y + (i * 8 +j)*height ) * width;
+						float* tData = tensIn->getData() + (y + (i * 8 + j) * height) * width;
 						Color* p = GetLinePointer(y + i * height) + j * width;
 						for (int x = 0; x < width; x++)
 						{
@@ -121,7 +119,7 @@ public:
 		tensor<float>* tensDraw = (tensor<float>*) GetMyObject(id);
 		for (int y = 0; y < 28; y++)
 		{
-			float* tData = tensDraw->getData()+ y * width;
+			float* tData = tensDraw->getData() + y * width;
 			for (int x = 0; x < 28; x++)
 			{
 				int t = (int)(tData[x] * 255);
@@ -142,7 +140,7 @@ public:
 	void OnDraw() override
 	{
 		//Clear(Color::Black);
-		
+
 		/*draw();*/
 	}
 

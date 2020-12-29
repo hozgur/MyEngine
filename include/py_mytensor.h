@@ -105,13 +105,8 @@ namespace My
 			}
 			pytensor* self = (pytensor*)obj;
 			tensor<uint8_t>* t = (tensor<uint8_t>*)Engine::pEngine->GetMyObject(self->tensorId);
-			if(t->getMinDepth() != 0)
-			{
-				PyErr_SetString(PyExc_ValueError, "MyTensor is too complex for Python Buffer.");
-				return -1;
-			}
 			view->obj = (PyObject*)self;
-			view->buf = t->getData(0,0);
+			view->buf = t->getData();
 			ssize_t  len = 1;
 			int itemsize = char2itemsize(self->type);
 			if (t->shape().size() > 0)
@@ -133,8 +128,8 @@ namespace My
 			fmtstr[1] = 0;
 			view->format = fmtstr;
 			view->ndim = (int) t->shape().size();
-			view->shape = (int64_t*) t->shape().data();
-			view->strides = (int64_t*) t->strides().data();
+			view->shape = 0;
+			view->strides = 0;
 			view->suboffsets = nullptr;
 			view->internal = nullptr;
 			Py_INCREF(self);

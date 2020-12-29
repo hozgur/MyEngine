@@ -9,10 +9,9 @@ namespace My
 	public:
 		virtual const std::vector<int64_t>& shape() const = 0;
 		virtual const std::vector<int64_t>& strides() const = 0;
-		virtual int getMinDepth() const = 0;
-		virtual T* getData(int depth, int index) const = 0;
+		virtual T* getData() const = 0;
 		virtual bool canUseReadforWrite() const = 0;
-		virtual void setData(int depth, int index, const T* data, int dataSize) const = 0;		
+		virtual void setData(const T* data, int dataSize) const = 0;		
 	};
 
 	template<typename T>
@@ -28,13 +27,7 @@ namespace My
 		tensorImpl& operator=(const tensorImpl&) = delete;
 
 		tensorImpl(std::vector<int64_t> shape, void* data = nullptr, int64_t byteSize = 0) {
-			int64_t size = 1; for (int64_t d : shape) size *= d;
-			for (int i = 0; i < shape.size(); i++)
-			{
-				int s = sizeof(T);
-				for (int j = i+1; j < shape.size(); j++) s *= (int)shape[j];
-				_strides.push_back(s);
-			}
+			int64_t size = 1; for (int64_t d : shape) size *= d;			
 			this->_shape = shape;
 			if ((data != nullptr) && (byteSize == (size * sizeof(T))))
 			{
@@ -53,13 +46,11 @@ namespace My
 		// mytensor impl
 		const std::vector<int64_t>& shape() const override { return _shape; }
 		const std::vector<int64_t>& strides() const override{ return _strides; }
-		T* getData(int depth, int index) const override {
-			if (depth <= 0) return pData;
-			return (T*)((uint8_t*)pData + _strides[depth] * index);
+		T* getData() const override {
+			return pData;
 			}
 		virtual bool canUseReadforWrite() const override { return true; }
-		void setData(int depth, int index, const T* data, int dataSize) const override{}
-		virtual int getMinDepth() const override { return 0; }
+		void setData(const T* data, int dataSize) const override{}
 	};
 
 	//class imagetensor : public image<Color>

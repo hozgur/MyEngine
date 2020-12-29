@@ -80,7 +80,7 @@ print ("datasets loading..")
 transform  = torchvision.transforms.Compose([torchvision.transforms.Grayscale(num_output_channels=1),
                                     torchvision.transforms.ToTensor()
                                     ])
-path = MyEngine.path("user/DeepLearning/data/Celeba");
+path = MyEngine.Path("user/DeepLearning/data/Celeba");
 print(path)
 train_dataset = torchvision.datasets.ImageFolder(root=path, transform=transform)
 #tiff header invalid.

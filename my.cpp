@@ -1,5 +1,5 @@
 // my.cpp
-#include "test/test_autoencoder_cuda.h"
+#include "test/test_autoencoder2.h"
 //#include "test/test_mnist3.h"
 //#include "test/test_draw.h"
 //#include "test/test_tensor.h"

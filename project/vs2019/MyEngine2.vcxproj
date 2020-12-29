@@ -237,6 +237,7 @@
     <ClInclude Include="..\..\include\test\test_ai.h" />
     <ClInclude Include="..\..\include\test\test_ai2.h" />
     <ClInclude Include="..\..\include\test\test_autoencoder.h" />
+    <ClInclude Include="..\..\include\test\test_autoencoder2.h" />
     <ClInclude Include="..\..\include\test\test_autoencoder_cuda.h" />
     <ClInclude Include="..\..\include\test\test_bokeh.h" />
     <ClInclude Include="..\..\include\test\ilay2.h" />
@@ -306,6 +307,9 @@
   <ItemGroup>
     <None Include="..\..\script\init.lua" />
     <None Include="..\..\script\init.py" />
+    <None Include="..\..\user\DeepLearning\AutoEncoder\init.py" />
+    <None Include="..\..\user\DeepLearning\AutoEncoder\model.py" />
+    <None Include="..\..\user\DeepLearning\AutoEncoder\test1.py" />
     <None Include="..\..\user\DeepLearning\MnistTest\autoencoder_cuda.py" />
     <None Include="..\..\user\DeepLearning\MnistTest\main.py" />
     <None Include="..\..\user\DeepLearning\MnistTest\main2.py" />

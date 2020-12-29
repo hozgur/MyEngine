@@ -15,6 +15,25 @@ namespace My
             return PyUnicode_FromString(myfs::path(path).c_str());
         }
 
+        static PyObject* engine_import(PyObject* self, PyObject* args)
+        {
+            const char* file = nullptr;
+            if (PyArg_ParseTuple(args, "s", &file) == 0)
+            {
+                PyErr_SetString(PyExc_TypeError, "Invalid path argument string.");
+                Py_RETURN_NONE;
+            }
+            if(dofile(myfs::path(file).c_str()))
+                Py_RETURN_NONE;
+            else
+            {
+                std::string err = "Error on importing file ";
+                err = err + file;
+                PyErr_SetString(PyExc_TypeError, err.c_str());
+                Py_RETURN_NONE;
+            }
+        }
+
         static PyObject* engine_test(PyObject* self, PyObject* args)
         {
             Py_ssize_t argCount = PyTuple_Size(args);
@@ -71,8 +90,10 @@ namespace My
         static PyMethodDef EngineMethods[] = {
             { "engine_test",  engine_test, METH_VARARGS,
              "Test method for engine module."},
-             { "path",  engine_path, METH_VARARGS,
+             { "Path",  engine_path, METH_VARARGS,
              "Combine MyEngine Root Path with your relative path inside of Root."},
+             { "Import",  engine_import, METH_VARARGS,
+             "Import file."},
             {NULL, NULL, 0, NULL}        /* Sentinel */
         };
 

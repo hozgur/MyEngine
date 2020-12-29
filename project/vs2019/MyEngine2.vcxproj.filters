@@ -67,6 +67,9 @@
     <Filter Include="User Files\DeepLearning\MnistTest">
       <UniqueIdentifier>{d7487f5f-d69c-4e93-83d5-15de3f6668db}</UniqueIdentifier>
     </Filter>
+    <Filter Include="User Files\DeepLearning\AutoEncoder">
+      <UniqueIdentifier>{31903a4c-8a4d-4354-bcfc-50fdc86ec1a9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src\engine.cpp">
@@ -470,6 +473,9 @@
     <ClInclude Include="..\..\include\test\test_autoencoder_cuda.h">
       <Filter>Header Files\include\test</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\include\test\test_autoencoder2.h">
+      <Filter>Header Files\include\test</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\script\init.lua">
@@ -517,6 +523,15 @@
     </None>
     <None Include="..\..\user\DeepLearning\MnistTest\autoencoder_cuda.py">
       <Filter>User Files\DeepLearning\MnistTest</Filter>
+    </None>
+    <None Include="..\..\user\DeepLearning\AutoEncoder\init.py">
+      <Filter>User Files\DeepLearning\AutoEncoder</Filter>
+    </None>
+    <None Include="..\..\user\DeepLearning\AutoEncoder\model.py">
+      <Filter>User Files\DeepLearning\AutoEncoder</Filter>
+    </None>
+    <None Include="..\..\user\DeepLearning\AutoEncoder\test1.py">
+      <Filter>User Files\DeepLearning\AutoEncoder</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
