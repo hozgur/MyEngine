@@ -13,7 +13,7 @@ namespace My
         luaEnable = false;
         pyEnable = false;
         pEngine = this;
-        pPlatform = new WindowsPlatform();
+        pPlatform = new WindowsPlatform();        
         lua.loadlibrary("engine", this);
         
         if (!lua.dofile(myfs::path("script\\init.lua")))

@@ -7,10 +7,16 @@ from torchvision import datasets, transforms
 from torch.optim.lr_scheduler import StepLR
 import mytensor
 import MyEngine
+import time
 gcode = None
 batch_size = 16
 width = 178
 height = 218
+
+
+
+
+print(torch.__version__)
 torch.cuda.empty_cache()
 class AE(nn.Module):
     def __init__(self, **kwargs):
@@ -63,8 +69,8 @@ class AE(nn.Module):
         return reconstructed
 
     #  use gpu if available
-device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-#device = torch.device("cpu")
+#device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+device = torch.device("cpu")
 print(device)
 # create a model from `AE` autoencoder class
 # load it to the specified device, either gpu or cpu
@@ -105,8 +111,9 @@ outId = 0
 codeId = 0
 fwdId = 0
 c = 0
+start_time = time.time()
 def runBatch():
-    global inpId, outId,it,codeId,c
+    global inpId, outId,it,codeId,c,start_time
     try:        
         inp = next(it)[0].view(-1,width * height).to(device)
         optimizer.zero_grad()        
@@ -116,12 +123,14 @@ def runBatch():
         train_loss.backward()
         optimizer.step()
         c = c + 1
-        if c == 50:
+        if c == 20:
+            print("--- %s seconds ---" % (time.time() - start_time))
+            start_time = time.time()
             c = 0
             nout = outp.data.cpu().numpy()
             ninp = inp.cpu().numpy()            
             inpId = tensorIn.fromBuffer(ninp.tobytes(),(batch_size,height,width), "float")
-            outId = tensorOut.fromBuffer(nout.tobytes(),(batch_size,height,width), "float")        
+            outId = tensorOut.fromBuffer(nout.tobytes(),(batch_size,height,width), "float")            
         return 0    
     except StopIteration:
         it = iter(train_loader)

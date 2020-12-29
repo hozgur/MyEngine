@@ -59,6 +59,7 @@ class AE(nn.Module):
         reconstructed = torch.relu(activation)
         return reconstructed
 
+print(torch.__version__)
     #  use gpu if available
 # device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 device = torch.device("cpu")
