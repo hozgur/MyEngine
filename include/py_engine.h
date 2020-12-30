@@ -34,6 +34,34 @@ namespace My
             }
         }
 
+        static PyObject* engine_getbackground(PyObject* self, PyObject* args)
+        {
+            Color* pColor = Engine::pEngine->background->readLine(0);
+            int width = Engine::pEngine->background->getWidth();
+            int stride = Engine::pEngine->background->getWidth() * sizeof(Color);
+            int height = Engine::pEngine->background->getHeight();
+            int size = stride * height;
+
+
+            pytensor* pytens = (pytensor*)pytensorType.tp_alloc(&pytensorType, 0);
+            if (pytens)
+            {
+                std::pair<char, int> p = { 'b' , 1 };                
+                void* tensor = pair2tensor(p, {height,width,4}, pColor, size);
+                pytens->tensorId = Engine::pEngine->SetMyObject((object*)tensor);
+                pytens->type = p.first;                
+                pytens->buffer = 0;
+
+                return (PyObject*)pytens;
+            }            
+            else
+            {
+                std::string err = "Error on creating tensor.";                
+                PyErr_SetString(PyExc_TypeError, err.c_str());
+                Py_RETURN_NONE;
+            }
+        }
+
         static PyObject* engine_test(PyObject* self, PyObject* args)
         {
             Py_ssize_t argCount = PyTuple_Size(args);
@@ -94,6 +122,8 @@ namespace My
              "Combine MyEngine Root Path with your relative path inside of Root."},
              { "Import",  engine_import, METH_VARARGS,
              "Import file."},
+             { "GetBackground",  engine_getbackground, METH_NOARGS,
+             "Get Background Image Tensor."},
             {NULL, NULL, 0, NULL}        /* Sentinel */
         };
 

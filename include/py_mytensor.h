@@ -107,17 +107,15 @@ namespace My
 			tensor<uint8_t>* t = (tensor<uint8_t>*)Engine::pEngine->GetMyObject(self->tensorId);
 			view->obj = (PyObject*)self;
 			view->buf = t->getData();
-			ssize_t  len = 1;
+			
 			int itemsize = char2itemsize(self->type);
+			ssize_t  len = itemsize;
 			if (t->shape().size() > 0)
 			{
-				len = t->shape()[0] * t->strides()[0];
+				for(auto s : t->shape())
+					len *= s;
 			}
-			else
-			{
-				len = itemsize;
-			}
-
+			
 			view->len = len;
 			view->readonly = 0;
 			view->itemsize = itemsize;
@@ -127,7 +125,7 @@ namespace My
 			memcpy(fmtstr, s.c_str(), 1);
 			fmtstr[1] = 0;
 			view->format = fmtstr;
-			view->ndim = (int) t->shape().size();
+			view->ndim = 1;//(int) t->shape().size();
 			view->shape = 0;
 			view->strides = 0;
 			view->suboffsets = nullptr;

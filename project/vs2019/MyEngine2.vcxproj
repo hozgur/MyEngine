@@ -257,6 +257,7 @@
     <ClInclude Include="..\..\include\test\test_image.h" />
     <ClInclude Include="..\..\include\test\test_json.h" />
     <ClInclude Include="..\..\include\test\test_numpy.h" />
+    <ClInclude Include="..\..\include\test\test_py_background.h" />
     <ClInclude Include="..\..\include\test\test_tensor.h" />
     <ClInclude Include="..\..\include\test\test_vue.h" />
     <ClInclude Include="..\..\include\test\test_vuetify.h" />
@@ -314,6 +315,7 @@
     <None Include="..\..\user\DeepLearning\MnistTest\main.py" />
     <None Include="..\..\user\DeepLearning\MnistTest\main2.py" />
     <None Include="..\..\user\DeepLearning\MnistTest\main3.py" />
+    <None Include="..\..\user\DeepLearning\test_background.py" />
     <None Include="..\..\user\ilay.lua" />
     <None Include="..\..\user\lua_test.lua" />
     <None Include="..\..\user\py_test.py" />
