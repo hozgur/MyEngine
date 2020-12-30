@@ -479,6 +479,9 @@
     <ClInclude Include="..\..\include\test\test_py_background.h">
       <Filter>Header Files\include\test</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\include\test\test_mnist1.h">
+      <Filter>Header Files\include\test</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\script\init.lua">
@@ -538,6 +541,9 @@
     </None>
     <None Include="..\..\user\DeepLearning\test_background.py">
       <Filter>User Files\DeepLearning</Filter>
+    </None>
+    <None Include="..\..\user\DeepLearning\AutoEncoder\test_mnist1.py">
+      <Filter>User Files\DeepLearning\AutoEncoder</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>

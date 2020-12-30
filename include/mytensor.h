@@ -38,6 +38,14 @@ namespace My
 			{
 				pData = new T[size];
 			}
+			int64_t ssize = shape.size();
+			_strides.resize(ssize);
+			int64_t s = sizeof(T);
+			for (int a = 0; a < shape.size(); a++)
+			{
+				_strides[ssize - a - 1] = s;
+				s = s * shape[ssize - a - 1];
+			}
 		}
 		~tensorImpl() {
 			if(deleteData)

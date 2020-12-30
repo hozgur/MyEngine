@@ -19,7 +19,8 @@ print(device)
 
 c = 0
 tensor = MyEngine.GetBackground()
-ntens = np.asarray(tensor,dtype="byte").reshape(1000,1600,4)
+ntens = np.asarray(tensor,dtype="byte")
+print(ntens.shape)
 
 im = Image.open(MyEngine.Path("asset/ball64.png"))
 nim = np.array(im)

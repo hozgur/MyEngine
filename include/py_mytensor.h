@@ -121,9 +121,9 @@ namespace My
 			view->readonly = 0;
 			view->itemsize = itemsize;
 			view->format = self->type;
-			view->ndim = 1;//(int) t->shape().size();
-			view->shape = 0;
-			view->strides = 0;
+			view->ndim = (int) t->shape().size();
+			view->shape = (Py_ssize_t*) t->shape().data();
+			view->strides = (Py_ssize_t*) t->strides().data();
 			view->suboffsets = nullptr;
 			view->internal = nullptr;
 			Py_INCREF(self);
