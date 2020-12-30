@@ -10,7 +10,7 @@ namespace My
 			PyObject_HEAD
 			handle tensorId;
 			Py_buffer* buffer;
-			char type;
+			char type[2];
 		private:			
 		};
 
@@ -79,7 +79,8 @@ namespace My
 				return -1;
 			Engine::pEngine->RemoveMyObject(self->tensorId);
 			self->tensorId = Engine::pEngine->SetMyObject((object*)tensor);
-			self->type = p.first;			
+			self->type[0] = p.first;
+			self->type[1] = 0;
 			return 0;
 		}
 
@@ -108,7 +109,7 @@ namespace My
 			view->obj = (PyObject*)self;
 			view->buf = t->getData();
 			
-			int itemsize = char2itemsize(self->type);
+			int itemsize = char2itemsize(self->type[0]);
 			ssize_t  len = itemsize;
 			if (t->shape().size() > 0)
 			{
@@ -119,12 +120,7 @@ namespace My
 			view->len = len;
 			view->readonly = 0;
 			view->itemsize = itemsize;
-			std::string s(1, self->type);
-			view->format = nullptr;
-			char fmtstr[2];
-			memcpy(fmtstr, s.c_str(), 1);
-			fmtstr[1] = 0;
-			view->format = fmtstr;
+			view->format = self->type;
 			view->ndim = 1;//(int) t->shape().size();
 			view->shape = 0;
 			view->strides = 0;
@@ -235,7 +231,8 @@ namespace My
 			
 			Engine::pEngine->RemoveMyObject(s->tensorId);
 			s->tensorId = Engine::pEngine->SetMyObject((object*)tensor);			
-			s->type = p.first;
+			s->type[0] = p.first;
+			s->type[1] = 0;
 			if (s->buffer) PyBuffer_Release(s->buffer);
 			s->buffer = buffer;
 			return PyLong_FromLong(s->tensorId);

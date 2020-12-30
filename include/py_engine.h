@@ -49,7 +49,8 @@ namespace My
                 std::pair<char, int> p = { 'b' , 1 };                
                 void* tensor = pair2tensor(p, {height,width,4}, pColor, size);
                 pytens->tensorId = Engine::pEngine->SetMyObject((object*)tensor);
-                pytens->type = p.first;                
+                pytens->type[0] = p.first;
+                pytens->type[1] = 0;
                 pytens->buffer = 0;
 
                 return (PyObject*)pytens;

@@ -7,6 +7,7 @@ using namespace My;
 class MyEngine : public My::Engine
 {
 public:
+	bool canRun = false;
 	MyEngine(const char* path) :My::Engine(path)
 	{
 
@@ -20,7 +21,7 @@ public:
 			exit(1);
 		}
 		AddWindow(1600, 1000);
-		Py::dofile(myfs::path("user/DeepLearning/test_background.py"));
+		canRun = Py::dofile(myfs::path("user/DeepLearning/test_background.py"));
 		
 		return true;
 	}
@@ -45,7 +46,8 @@ public:
 
 	void OnDraw() override
 	{
-		run();
+		if(canRun)
+			run();
 	}
 
 	void OnUpdate() override
