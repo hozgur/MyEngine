@@ -21,7 +21,7 @@ public:
 			exit(1);
 		}
 		AddWindow(1600, 1000);
-		canRun = Py::dofile(myfs::path("user/DeepLearning/AutoEncoder/test1.py"));
+		Py::dofile(myfs::path("user/DeepLearning/AutoEncoder/test_mnist1.py"));
 		return true;
 	}
 

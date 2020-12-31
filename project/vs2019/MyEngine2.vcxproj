@@ -238,7 +238,7 @@
     <ClInclude Include="..\..\include\test\test_ai2.h" />
     <ClInclude Include="..\..\include\test\test_autoencoder.h" />
     <ClInclude Include="..\..\include\test\test_autoencoder2.h" />
-    <ClInclude Include="..\..\include\test\test_mnist1.h" />
+    <ClInclude Include="..\..\include\test\test_autoencoder_mnist1.h" />
     <ClInclude Include="..\..\include\test\test_autoencoder_cuda.h" />
     <ClInclude Include="..\..\include\test\test_bokeh.h" />
     <ClInclude Include="..\..\include\test\ilay2.h" />

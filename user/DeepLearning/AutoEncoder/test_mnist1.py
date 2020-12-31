@@ -3,14 +3,13 @@ import torch.nn as nn
 import torch.nn.functional as F
 import torch.optim as optim
 import torchvision
+import numpy as np
 from torchvision import datasets, transforms
 import mytensor
 import MyEngine
 import time
 
-#MyEngine.Import("user/DeepLearning/autoencoder/model.py")
-
-
+MyEngine.Import("user/DeepLearning/autoencoder/model.py")
 
 batch_size = 16
 width = 28
@@ -41,6 +40,8 @@ train_loader = torch.utils.data.DataLoader(
 print ("epochs started..")
 epochs = 1
 counter = 0
+back = np.asarray(MyEngine.GetBackground(),dtype="byte")
+print(back.shape)
 it = iter(train_loader)
 c = 0
 start_time = time.time()

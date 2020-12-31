@@ -42,17 +42,19 @@ namespace My
             int height = Engine::pEngine->background->getHeight();
             int size = stride * height;
 
-
-            pytensor* pytens = (pytensor*)pytensorType.tp_alloc(&pytensorType, 0);
+            pytensor* pytens = (pytensor*)PyObject_CallObject((PyObject*)&pytensorType, args);
+            //pytensor* pytens = (pytensor*)pytensorType.tp_alloc(&pytensorType, 0);
             if (pytens)
             {
+                Engine::pEngine->RemoveMyObject(pytens->tensorId);
+                pytens->tensorId = invalidHandle;
+                if (pytens->buffer) PyBuffer_Release(pytens->buffer);
                 std::pair<char, int> p = { 'b' , 1 };                
                 void* tensor = pair2tensor(p, {height,width,4}, pColor, size);
                 pytens->tensorId = Engine::pEngine->SetMyObject((object*)tensor);
                 pytens->type[0] = p.first;
                 pytens->type[1] = 0;
                 pytens->buffer = 0;
-
                 return (PyObject*)pytens;
             }            
             else

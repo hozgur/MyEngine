@@ -479,7 +479,7 @@
     <ClInclude Include="..\..\include\test\test_py_background.h">
       <Filter>Header Files\include\test</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\include\test\test_mnist1.h">
+    <ClInclude Include="..\..\include\test\test_autoencoder_mnist1.h">
       <Filter>Header Files\include\test</Filter>
     </ClInclude>
   </ItemGroup>
