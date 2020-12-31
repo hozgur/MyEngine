@@ -36,6 +36,12 @@ namespace My
 
         static PyObject* engine_getbackground(PyObject* self, PyObject* args)
         {
+            if (Engine::pEngine->background == nullptr)
+            {
+                std::string err = "No valid background.";
+                PyErr_SetString(PyExc_TypeError, err.c_str());
+                Py_RETURN_NONE;
+            }
             Color* pColor = Engine::pEngine->background->readLine(0);
             int width = Engine::pEngine->background->getWidth();
             int stride = Engine::pEngine->background->getWidth() * sizeof(Color);
