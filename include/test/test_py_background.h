@@ -34,20 +34,20 @@ public:
 	{
 		Py::setglobal("mouseX", (int)mouseX);
 		Py::setglobal("mouseY", (int)mouseY);
-		int stat = Py::dofunction("runBatch", {});
+		canRun = Py::dofunction("runBatch", {});
 		
 	}
 
 
 	void OnIdle() override
 	{		
-		//run();
+		if (canRun)
+			run();
 	}
 
 	void OnDraw() override
 	{
-		if(canRun)
-			run();
+		
 	}
 
 	void OnUpdate() override

@@ -18,11 +18,13 @@ namespace My
         static PyObject* engine_import(PyObject* self, PyObject* args)
         {
             const char* file = nullptr;
-            if (PyArg_ParseTuple(args, "s", &file) == 0)
+            if ((PyArg_ParseTuple(args, "s", &file) == 0) && (file != nullptr))
             {
                 PyErr_SetString(PyExc_TypeError, "Invalid path argument string.");
                 Py_RETURN_NONE;
             }
+
+
             if(dofile(myfs::path(file).c_str()))
                 Py_RETURN_NONE;
             else
