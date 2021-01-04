@@ -70,6 +70,9 @@
     <Filter Include="User Files\DeepLearning\AutoEncoder">
       <UniqueIdentifier>{31903a4c-8a4d-4354-bcfc-50fdc86ec1a9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="User Files\DeepLearning\AutoEncoder\models">
+      <UniqueIdentifier>{85be1d7e-90e9-4bd5-ba03-335ff1eda6d5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src\engine.cpp">
@@ -479,7 +482,7 @@
     <ClInclude Include="..\..\include\test\test_py_background.h">
       <Filter>Header Files\include\test</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\include\test\test_autoencoder_mnist1.h">
+    <ClInclude Include="..\..\include\test\test_autoencoder3.h">
       <Filter>Header Files\include\test</Filter>
     </ClInclude>
   </ItemGroup>
@@ -542,7 +545,19 @@
     <None Include="..\..\user\DeepLearning\test_background.py">
       <Filter>User Files\DeepLearning</Filter>
     </None>
-    <None Include="..\..\user\DeepLearning\AutoEncoder\test_mnist1.py">
+    <None Include="..\..\user\DeepLearning\AutoEncoder\models\model_mnist.py">
+      <Filter>User Files\DeepLearning\AutoEncoder\models</Filter>
+    </None>
+    <None Include="..\..\user\DeepLearning\AutoEncoder\models\model_celeba.py">
+      <Filter>User Files\DeepLearning\AutoEncoder\models</Filter>
+    </None>
+    <None Include="..\..\user\DeepLearning\AutoEncoder\models\model_celeba_color.py">
+      <Filter>User Files\DeepLearning\AutoEncoder\models</Filter>
+    </None>
+    <None Include="..\..\user\DeepLearning\AutoEncoder\models\model_fashion_mnist.py">
+      <Filter>User Files\DeepLearning\AutoEncoder\models</Filter>
+    </None>
+    <None Include="..\..\user\DeepLearning\AutoEncoder\test_autoencoder.py">
       <Filter>User Files\DeepLearning\AutoEncoder</Filter>
     </None>
   </ItemGroup>

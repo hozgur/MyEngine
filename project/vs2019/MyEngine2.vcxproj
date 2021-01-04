@@ -238,7 +238,7 @@
     <ClInclude Include="..\..\include\test\test_ai2.h" />
     <ClInclude Include="..\..\include\test\test_autoencoder.h" />
     <ClInclude Include="..\..\include\test\test_autoencoder2.h" />
-    <ClInclude Include="..\..\include\test\test_autoencoder_mnist1.h" />
+    <ClInclude Include="..\..\include\test\test_autoencoder3.h" />
     <ClInclude Include="..\..\include\test\test_autoencoder_cuda.h" />
     <ClInclude Include="..\..\include\test\test_bokeh.h" />
     <ClInclude Include="..\..\include\test\ilay2.h" />
@@ -311,8 +311,12 @@
     <None Include="..\..\script\init.py" />
     <None Include="..\..\user\DeepLearning\AutoEncoder\init.py" />
     <None Include="..\..\user\DeepLearning\AutoEncoder\model.py" />
+    <None Include="..\..\user\DeepLearning\AutoEncoder\models\model_celeba.py" />
+    <None Include="..\..\user\DeepLearning\AutoEncoder\models\model_celeba_color.py" />
+    <None Include="..\..\user\DeepLearning\AutoEncoder\models\model_fashion_mnist.py" />
+    <None Include="..\..\user\DeepLearning\AutoEncoder\models\model_mnist.py" />
     <None Include="..\..\user\DeepLearning\AutoEncoder\test1.py" />
-    <None Include="..\..\user\DeepLearning\AutoEncoder\test_mnist1.py" />
+    <None Include="..\..\user\DeepLearning\AutoEncoder\test_autoencoder.py" />
     <None Include="..\..\user\DeepLearning\MnistTest\autoencoder_cuda.py" />
     <None Include="..\..\user\DeepLearning\MnistTest\main.py" />
     <None Include="..\..\user\DeepLearning\MnistTest\main2.py" />
