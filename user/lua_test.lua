@@ -1,6 +1,6 @@
 
-clientWidth = 1200
-clientHeight = 800
+clientWidth = 1600
+clientHeight = 1000
 pixelWidth = 1
 pixelHeight = 1
 datWidth = 300
@@ -77,7 +77,7 @@ local time = 0
 
 c = color.random();
 function OnDraw()
-	engine.clear(color.black)
+	--engine.clear(color.black)
 	w = int(70 - 50 * math.abs(math.sin(time/12)))
 
 	time = time + 1

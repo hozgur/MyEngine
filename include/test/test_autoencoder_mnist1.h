@@ -20,10 +20,10 @@ public:
 			debug << "Py Error!\n";
 			exit(1);
 		}
-		AddWindow(1600, 1000);
+		AddWindow(800, 500,2,2);
 		if (Py::dofile(myfs::path("user/DeepLearning/AutoEncoder/test_mnist1.py")))
 		{			
-			//canRun = true;
+			canRun = true;
 		}
 		return true;
 	}
@@ -47,7 +47,7 @@ public:
 
 	void OnDraw() override
 	{
-		Py::dofunction("Forward2", {(int)mouseX,(int)mouseY});
+		//Py::dofunction("Forward2", {(int)mouseX,(int)mouseY});
 	}
 
 	void OnUpdate() override

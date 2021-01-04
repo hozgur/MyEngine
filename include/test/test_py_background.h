@@ -20,6 +20,7 @@ public:
 			debug << "Py Error!\n";
 			exit(1);
 		}
+		SetScript(myfs::path("user/lua_test.lua"));
 		AddWindow(1600, 1000);
 		canRun = Py::dofile(myfs::path("user/DeepLearning/test_background.py"));
 		
@@ -36,8 +37,17 @@ public:
 		Py::setglobal("mouseY", (int)mouseY);
 		canRun = Py::dofunction("runBatch", {});
 		
+		
 	}
-
+	void OnDraw() override
+	{
+		if (luaEnable && lua.checkfunction("OnDraw"))
+			if (lua.dofunction("OnDraw") == false)
+			{
+				luaEnable = false;
+				debug << lua.error();
+			}
+	}
 
 	void OnIdle() override
 	{		
@@ -45,13 +55,4 @@ public:
 			run();
 	}
 
-	void OnDraw() override
-	{
-		
-	}
-
-	void OnUpdate() override
-	{
-
-	}
 };
