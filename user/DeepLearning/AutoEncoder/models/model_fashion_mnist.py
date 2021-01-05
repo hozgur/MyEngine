@@ -5,7 +5,7 @@ class Model(nn.Module):
         self.conv1 = nn.Conv2d(1,16,3)
         self.conv2 = nn.Conv2d(16,4,3)        
         self.maxpool1 = nn.MaxPool2d(2, stride=2)
-        self.maxpool2 = nn.MaxPool2d(2, stride=2, return_indices=True)
+        self.maxpool2 = nn.MaxPool2d(2, stride=2)
         self.hidden_layer = nn.Linear(4*25,121)
         self.dconv1 = nn.ConvTranspose2d(1, 16, 3, stride=1)
         self.dconv2 = nn.ConvTranspose2d(16, 1, 4, stride=2)        
@@ -23,7 +23,7 @@ class Model(nn.Module):
         code = self.maxpool1(code)
         code = self.conv2(code)
         code = torch.relu(code) 
-        code,indices = self.maxpool2(code)
+        code = self.maxpool2(code)
         code = code.view(-1,4*25)
         code = self.hidden_layer(code)
         code = torch.relu(code) 
@@ -35,7 +35,7 @@ class Model(nn.Module):
         code = torch.clamp(code,0,1)
         return code
 
-    def train(self):
+    def train_(self):
         try:
             self.inp = next(self.it)[0].to(device)
             self.optimizer.zero_grad()    
@@ -45,3 +45,6 @@ class Model(nn.Module):
             self.optimizer.step()
         except StopIteration:
             self.it = iter(self.loader)
+
+    def name_(self):
+        return "FashionMnist.pth"

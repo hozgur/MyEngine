@@ -30,12 +30,19 @@ public:
 
 	void OnKey(uint8_t key, bool pressed) override
 	{
+		if (pressed)
+		{
+			if (key == Key::S) canRun = Py::dofunction("save", { myfs::path("user/DeepLearning/AutoEncoder/models/data/") });
+			if (key == Key::L) canRun = Py::dofunction("load", { myfs::path("user/DeepLearning/AutoEncoder/models/data/") });
+		}
+			
+
 	}
 
 	void run()
 	{
 		int stat = Py::dofunction("runBatch", {});
-		if (stat < 0) { canRun = false; return; }
+		if (stat < 0) { canRun = false; return; }		
 	}
 
 

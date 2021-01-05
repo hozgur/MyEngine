@@ -27,16 +27,41 @@ def printSample(sample,x,y):
         back[y:y+h,x+i*w:x+i*w+w,0:4] = inp[i:i+1,0:h,0:w]*255
 
 c = 0
+d = 0
+line = 1
+sline = 2
 start_time = time.time()
 def runBatch():
-    global c,start_time
-    model.train()
+    global c,d,start_time,line,sline
+    model.train_()
     c = c + 1
-    if c == 50:
+    if c > 50:
         c = 0
+        d = d + 1
+        if d > 10:
+            d = 0
+            line = line + 1
+            if line > 15:
+                line = sline
+                sline = sline + 1
+                if sline > 15:
+                    sline = 15
         printSample(model.inp,0,0)
-        printSample(model.outp,0,50)        
+        printSample(model.outp,0,28 * line)
         print("--- %s seconds ---" % (time.time() - start_time))
         start_time = time.time() 
     return 0
     
+def save(path):
+        torch.save(model.state_dict(), path+model.name_())
+        #torch.save(model,path+model.name())
+        print("model saved.")
+
+def load(path):
+    global model
+    #model = torch.load(path+model.name());    
+    model = Model(batch_size=20)
+    model.state_dict(torch.load(path+model.name_()))
+    model.eval()
+    print("model loaded.")
+        
