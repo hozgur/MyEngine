@@ -32,8 +32,8 @@ public:
 	{
 		if (pressed)
 		{
-			if (key == Key::S) canRun = Py::dofunction("save", { myfs::path("user/DeepLearning/AutoEncoder/models/data/") });
-			if (key == Key::L) canRun = Py::dofunction("load", { myfs::path("user/DeepLearning/AutoEncoder/models/data/") });
+			if (key == Key::S) canRun = Py::dofunction("save_", { myfs::path("user/DeepLearning/AutoEncoder/models/data/") });
+			if (key == Key::L) canRun = Py::dofunction("load_", { myfs::path("user/DeepLearning/AutoEncoder/models/data/") });
 		}
 			
 

@@ -9,7 +9,7 @@ import mytensor
 import MyEngine
 import time
 
-MyEngine.Import(MyEngine.Path("user/DeepLearning/AutoEncoder/models/model_fashion_mnist.py"))
+MyEngine.Import(MyEngine.Path("user/DeepLearning/AutoEncoder/models/model_fashion_mnist2.py"))
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 #device = torch.device("cpu")
@@ -31,8 +31,11 @@ d = 0
 line = 1
 sline = 2
 start_time = time.time()
+savePath = None
+loadPath = None
+
 def runBatch():
-    global c,d,start_time,line,sline
+    global c,d,start_time,line,sline,loadPath,savePath
     model.train_()
     c = c + 1
     if c > 50:
@@ -49,11 +52,18 @@ def runBatch():
         printSample(model.inp,0,0)
         printSample(model.outp,0,28 * line)
         print("--- %s seconds ---" % (time.time() - start_time))
+        if loadPath != None:
+            load(loadPath)
+            loadPath = None
+        if savePath != None:
+            save(savePath)
+            savePath = None
         start_time = time.time() 
     return 0
     
 def save(path):
         torch.save(model.state_dict(), path+model.name_())
+        torch.save(model.optimizer.state_dict(), path+"_optim_" + model.name_())
         #torch.save(model,path+model.name())
         print("model saved.")
 
@@ -61,7 +71,18 @@ def load(path):
     global model
     #model = torch.load(path+model.name());    
     model = Model(batch_size=20)
-    model.state_dict(torch.load(path+model.name_()))
-    model.eval()
+    model.load_state_dict(torch.load(path+model.name_()))
+    model.to(device).eval()
+    model.optimizer = optim.Adam(model.parameters(), lr=1e-3)
+    model.optimizer.load_state_dict(torch.load(path+"_optim_" + model.name_()))
+    
+    model.cuda()
     print("model loaded.")
         
+def save_(path):
+    global savePath
+    savePath = path
+
+def load_(path):
+    global loadPath
+    loadPath = path
