@@ -314,6 +314,7 @@
     <None Include="..\..\user\DeepLearning\AutoEncoder\models\model_celeba.py" />
     <None Include="..\..\user\DeepLearning\AutoEncoder\models\model_celeba_color.py" />
     <None Include="..\..\user\DeepLearning\AutoEncoder\models\model_fashion_mnist.py" />
+    <None Include="..\..\user\DeepLearning\AutoEncoder\models\model_fashion_mnist2.py" />
     <None Include="..\..\user\DeepLearning\AutoEncoder\models\model_mnist.py" />
     <None Include="..\..\user\DeepLearning\AutoEncoder\test1.py" />
     <None Include="..\..\user\DeepLearning\AutoEncoder\test_autoencoder.py" />

@@ -560,6 +560,9 @@
     <None Include="..\..\user\DeepLearning\AutoEncoder\test_autoencoder.py">
       <Filter>User Files\DeepLearning\AutoEncoder</Filter>
     </None>
+    <None Include="..\..\user\DeepLearning\AutoEncoder\models\model_fashion_mnist2.py">
+      <Filter>User Files\DeepLearning\AutoEncoder\models</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Xml Include="..\..\user\tree.xml">
