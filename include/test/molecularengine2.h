@@ -1,7 +1,7 @@
 #pragma once
 
 #include "my.h"
-#include "molecular.h"
+#include "molecular/molecular.h"
 using namespace My;
 const int scale = 1;
 class MyEngine : public My::Engine

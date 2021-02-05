@@ -1,0 +1,1 @@
+- Yeni Anaconda kurulumunda numpy ve Pillow pip instal c --force þeklinde kurulmasý gerekiyor.

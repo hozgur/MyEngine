@@ -73,6 +73,9 @@
     <Filter Include="User Files\DeepLearning\AutoEncoder\models">
       <UniqueIdentifier>{85be1d7e-90e9-4bd5-ba03-335ff1eda6d5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\include\molecular">
+      <UniqueIdentifier>{876324c4-389e-49dc-9c28-c1ae09ffbc2b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src\engine.cpp">
@@ -250,9 +253,6 @@
     </ClInclude>
     <ClInclude Include="..\..\include\test\molecularengine.h">
       <Filter>Header Files\include\test</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\molecular.h">
-      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\include\ui\slider.h">
       <Filter>Header Files\include\ui</Filter>
@@ -485,6 +485,18 @@
     <ClInclude Include="..\..\include\test\test_autoencoder3.h">
       <Filter>Header Files\include\test</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\include\molecular\molecular.h">
+      <Filter>Header Files\include\molecular</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\molecular\molecular2.h">
+      <Filter>Header Files\include\molecular</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\test\test_molecular.h">
+      <Filter>Header Files\include\test</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\test\test_perf_molecular.h">
+      <Filter>Header Files\include\test</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\script\init.lua">
@@ -568,5 +580,8 @@
     <Xml Include="..\..\user\tree.xml">
       <Filter>User Files</Filter>
     </Xml>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="Notlar.txt" />
   </ItemGroup>
 </Project>
