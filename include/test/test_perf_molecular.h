@@ -8,8 +8,8 @@ class MyEngine : public My::Engine
 {
 public:
 	typedef int testtype;
-	const int width = 1400;
-	const int height = 900;
+	const int width = 800;
+	const int height = 600;
 	std::vector<pixel<testtype>> pixels;
 	MyEngine(const char* path) :My::Engine(path) {}
 
@@ -31,15 +31,8 @@ public:
 	{
 		AddWindow(width, height, 1, 1);
 		InitDots();
-		StopWatch s;
-		s.Start();
-		const int testCount = 1000;
-		for (int a = 0; a < testCount; a++)
-		{
-			draw();
-		}
-		s.Stop();
-		debug << s.GetDurationStr();
+		for (int a = 0; a < 1; a++)
+			test();
 		return true;
 	}
 	void MoveDot(int nDot)
@@ -47,13 +40,46 @@ public:
 
 	}
 
-	void draw()
+	void test()
 	{
+		Sleep(1);
+		StopWatch s;
+		s.Start();
+		const int testCount = 10000;
+		double t1, t2;
+		for (int a = 0; a < testCount; a++)
+		{
+			draw();
+		}
+		s.Stop();
+		t1 = s.GetDurationMS();
+		s.Start();
+		for (int a = 0; a < testCount; a++)
+		{
+			draw_reference();
+		}
+		s.Stop();
+		t2 = s.GetDurationMS();
+		debug << "Duration = " << t1 << "ms. Reference = " << t2 << "ms. Diff = " << t1 - t2 << "ms. %" << 100 * (t1 - t2) / t2 << "\n";
+	}
+
+	void draw_reference()
+	{		
 		for (pixel<testtype>& p : pixels)
 		{
 			int x = (int)p.x;
 			int y = (int)p.y;
 			Pixel(p.x, p.y) = p.color;
+		}
+	}
+
+	void draw()
+	{
+		for (pixel<testtype>& p : pixels)
+		{
+			int x = (int)p.x;//% width;
+			int y = (int)p.y;//% height;			
+			Pixel(p.x, p.y) = p.color;			
 		}
 	}
 
