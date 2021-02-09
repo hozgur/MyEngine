@@ -4,6 +4,26 @@
 
 using namespace My;
 
+class test_perf
+{
+	StopWatch s;
+	std::string name;
+public:
+	void (*test_func)(void);
+	void (*reference_func)(void);
+
+	test_perf(std::string name):test_func(nullptr),reference_func(nullptr),name(name){}
+
+	void run()
+	{
+		debug << name << " test starting.\n";
+		test_func();
+	}
+
+};
+
+
+
 class MyEngine : public My::Engine
 {
 public:
@@ -30,9 +50,16 @@ public:
 	bool OnStart() override
 	{
 		//AddWindow(width, height, 1, 1);
+
+		test_perf t("integer mod test");
+		t.test_func = []()
+		{
+			debug << "test";
+		};
+		t.run();
 		InitDots();
-		for (int a = 0; a < 10; a++)
-			test();
+		//for (int a = 0; a < 10; a++)
+		//	test();
 		return true;
 	}
 	void MoveDot(int nDot)
