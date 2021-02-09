@@ -29,9 +29,9 @@ public:
 	}
 	bool OnStart() override
 	{
-		AddWindow(width, height, 1, 1);
+		//AddWindow(width, height, 1, 1);
 		InitDots();
-		for (int a = 0; a < 1; a++)
+		for (int a = 0; a < 10; a++)
 			test();
 		return true;
 	}
@@ -42,46 +42,54 @@ public:
 
 	void test()
 	{
-		Sleep(1);
 		StopWatch s;
 		s.Start();
 		const int testCount = 10000;
 		double t1, t2;
+		long long sum1 = 0;
 		for (int a = 0; a < testCount; a++)
 		{
-			draw();
+			sum1 += draw();
 		}
 		s.Stop();
 		t1 = s.GetDurationMS();
+		long long sum2 = 0;
 		s.Start();
 		for (int a = 0; a < testCount; a++)
 		{
-			draw_reference();
+			sum2 += draw_reference();
 		}
 		s.Stop();
 		t2 = s.GetDurationMS();
 		debug << "Duration = " << t1 << "ms. Reference = " << t2 << "ms. Diff = " << t1 - t2 << "ms. %" << 100 * (t1 - t2) / t2 << "\n";
+		debug << "Sum  = " << sum1 << " Sum Ref = " << sum2 << "\n";
 	}
 
-	void draw_reference()
-	{		
+	int draw()
+	{
+		int sum = 0;
+		for (pixel<testtype>& p : pixels)
+		{
+			int x = ((int)p.x);//% width;
+			int y = ((int)p.y);//% height;
+			sum += x + y;
+		}
+		return sum;
+	}
+
+	int draw_reference()
+	{	
+		int sum = 0;
 		for (pixel<testtype>& p : pixels)
 		{
 			int x = (int)p.x;
 			int y = (int)p.y;
-			Pixel(p.x, p.y) = p.color;
+			sum += x + y;
 		}
+		return sum;
 	}
 
-	void draw()
-	{
-		for (pixel<testtype>& p : pixels)
-		{
-			int x = (int)p.x;//% width;
-			int y = (int)p.y;//% height;			
-			Pixel(p.x, p.y) = p.color;			
-		}
-	}
+	
 
 	void OnDraw() override
 	{

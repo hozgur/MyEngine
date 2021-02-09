@@ -81,6 +81,7 @@ namespace My
 
 	};
 	
+	void sleep(int ms);
 	struct StopWatch
 	{
 		void Start()
