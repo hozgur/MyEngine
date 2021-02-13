@@ -88,10 +88,11 @@ namespace My
 		{
 			t1 = std::chrono::high_resolution_clock::now();
 		}
-		void Stop()
+		double Stop()
 		{
 			std::chrono::high_resolution_clock::time_point t2 = std::chrono::high_resolution_clock::now();
 			time_span = std::chrono::duration_cast<std::chrono::duration<double>>(t2 - t1);
+			return time_span.count();
 		}
 		double GetDurationMS()
 		{
