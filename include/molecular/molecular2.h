@@ -29,7 +29,7 @@ class cell
 {
 public:
 	My::fastarray<pixel<T>> pixels;
-	void add(const pixel& p)
+	void add(const pixel<T>& p)
 	{
 		pixels.push(p);
 	}
@@ -44,18 +44,34 @@ class grid
 {
 	int width;
 	int height;
+	cell<T>* cells1 = nullptr;
+	cell<T>* cells2 = nullptr;
+	cell<T>* currentCell = nullptr;
 public:
 	grid(int width, int height):width(width),height(height)
 	{
-		
+		int size = width * height;
+		cells1 = new cell<T>[size];
+		cells2 = new cell<T>[size];
+		currentCell = cells1;
 	}
 
-	int add(double x, double y, pixel<int> p)
+	void add(double x, double y, pixel<int> p)
 	{
 		T xc = (T) x;
 		T yc = (T) y;
-		T xi = x - xc;
-		T yi = y - yc;
+		T xi = (T)(x - xc);
+		T yi = (T)(y - yc);
+		p.x = xi;
+		p.y = yi;
+		getCell(xc, yc).add(p);
 	}
 
+
+	// Cell functions
+
+	cell<T>& getCell(int x, int y)
+	{
+		return currentCell[y * width + x];
+	}
 };
