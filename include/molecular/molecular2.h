@@ -59,11 +59,9 @@ public:
 	void add(double x, double y, pixel<int> p)
 	{
 		T xc = (T) x;
-		T yc = (T) y;
-		T xi = (T)(x - xc);
-		T yi = (T)(y - yc);
-		p.x = xi;
-		p.y = yi;
+		T yc = (T) y;		
+		p.x = (T)(x - xc);
+		p.y = (T)(y - yc);
 		getCell(xc, yc).add(p);
 	}
 
