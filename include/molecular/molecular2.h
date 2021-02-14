@@ -55,7 +55,11 @@ public:
 		cells2 = new cell<T>[size];
 		currentCell = cells1;
 	}
-
+	~grid()
+	{
+		delete cells1;
+		delete cells2;
+	}
 	void add(double x, double y, pixel<int> p)
 	{
 		T xc = (T) x;

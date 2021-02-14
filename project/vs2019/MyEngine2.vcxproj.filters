@@ -497,6 +497,9 @@
     <ClInclude Include="..\..\include\test\test_perf_molecular.h">
       <Filter>Header Files\include\test</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\include\test\test_iterator.h">
+      <Filter>Header Files\include\test</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\script\init.lua">
