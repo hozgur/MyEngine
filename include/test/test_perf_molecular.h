@@ -97,7 +97,7 @@ public:
 	typedef int testtype;
 	const int width = 800;
 	const int height = 600;
-	std::vector<pixel<testtype>> pixels;
+	
 	MyEngine(const char* path) :My::Engine(path) {}
 
 	float frand() { return (float)std::rand() / RAND_MAX; }
@@ -105,16 +105,7 @@ public:
 	
 	void InitDots()
 	{
-		int size = (width / 2) * (height / 2);
-		//debug << "Dot Count = " << size << "\n";
-		pixels.reserve(size);
-		for (int y = 0; y < height; y+=2)
-		{
-			for (int x = 0; x < width; x+=2)
-			{
-				pixels.push_back(pixel<testtype>(x, y, Color::Random(),(testtype) frand(), (testtype) frand()));
-			}
-		}
+	
 	}
 	bool OnStart() override
 	{
@@ -184,60 +175,7 @@ public:
 		}
 		return true;
 	}
-	void MoveDot(int nDot)
-	{
-
-	}
-
-	void test()
-	{
-		StopWatch s;
-		s.Start();
-		const int testCount = 10000;
-		double t1, t2;
-		long long sum1 = 0;
-		for (int a = 0; a < testCount; a++)
-		{
-			sum1 += draw();
-		}
-		s.Stop();
-		t1 = s.GetDurationMS();
-		long long sum2 = 0;
-		s.Start();
-		for (int a = 0; a < testCount; a++)
-		{
-			sum2 += draw_reference();
-		}
-		s.Stop();
-		t2 = s.GetDurationMS();
-		debug << "Duration = " << t1 << "ms. Reference = " << t2 << "ms. Diff = " << t1 - t2 << "ms. %" << 100 * (t1 - t2) / t2 << "\n";
-		debug << "Sum  = " << sum1 << " Sum Ref = " << sum2 << "\n";
-	}
-
-	int draw()
-	{
-		int sum = 0;
-		for (pixel<testtype>& p : pixels)
-		{
-			int x = ((int)p.x);//% width;
-			int y = ((int)p.y);//% height;
-			sum += x + y;
-		}
-		return sum;
-	}
-
-	int draw_reference()
-	{	
-		int sum = 0;
-		for (pixel<testtype>& p : pixels)
-		{
-			int x = (int)p.x;
-			int y = (int)p.y;
-			sum += x + y;
-		}
-		return sum;
-	}
-
+	
 	
 
 	void OnDraw() override
