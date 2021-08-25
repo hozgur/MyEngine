@@ -1,7 +1,7 @@
 // my.cpp
 //#include "test/test_molecular.h"
 //#include "test/test_iterator.h"
-#include "test/test_perf_molecular.h"
+//#include "test/test_perf_molecular.h"
 //#include "test/test_autoencoder3.h"
 //#include "test/test_py_background.h"
 //#include "test/test_autoencoder2.h"
@@ -17,7 +17,7 @@
 //#include "test/test_json.h"
 //#include "test/parse_test.h"
 //#include "test/std_test.h"
-//#include "test/test_webview.h"
+#include "test/test_webview.h"
 //#include "test/test_dat.h"
 //#include "test\test_py.h"
 //#include "test\lua_test.h"

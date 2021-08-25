@@ -12,7 +12,7 @@ namespace My
 {
 	class windowswebview : public webview
 	{
-        wil::com_ptr<ICoreWebView2Controller> webviewController;
+        wil::com_ptr<ICoreWebView2Controller2> webviewController;
         wil::com_ptr<ICoreWebView2> webviewWindow;
         RECT bounds;
         HWND hWnd = nullptr;

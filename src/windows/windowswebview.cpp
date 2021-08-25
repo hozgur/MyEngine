@@ -3,16 +3,18 @@
 #include "Windows/windowswebview.h"
 bool My::windowswebview::Create()
 {
-    CreateCoreWebView2EnvironmentWithOptions(nullptr, nullptr, nullptr,
+   HRESULT hr = CreateCoreWebView2EnvironmentWithOptions(nullptr, nullptr, nullptr,
         Callback<ICoreWebView2CreateCoreWebView2EnvironmentCompletedHandler>(
             [this](HRESULT result, ICoreWebView2Environment* env) -> HRESULT {
-
+                
                 // Create a CoreWebView2Controller and get the associated CoreWebView2 whose parent is the main window hWnd
                 env->CreateCoreWebView2Controller(hWnd, Callback<ICoreWebView2CreateCoreWebView2ControllerCompletedHandler>(
                     [this](HRESULT result, ICoreWebView2Controller* controller) -> HRESULT {
                         if (controller != nullptr) {
-                            webviewController = controller;
+                            wil::com_ptr<ICoreWebView2Controller> controller1 = controller;
+                            webviewController = controller1.query<ICoreWebView2Controller2>();
                             webviewController->get_CoreWebView2(&webviewWindow);
+                            webviewController->put_DefaultBackgroundColor({ 0,0,0,255 });
                         }
 
                         // Add a few settings for the webview
@@ -68,6 +70,7 @@ bool My::windowswebview::Create()
                     }).Get());
                 return S_OK;
             }).Get());
+   debug << std::hex << hr;
     return true;
 }
 

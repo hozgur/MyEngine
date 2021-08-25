@@ -517,7 +517,6 @@
     <None Include="..\..\script\init.py">
       <Filter>Script Files</Filter>
     </None>
-    <None Include="packages.config" />
     <None Include="..\..\user\webview\bokeh_test.py">
       <Filter>User Files\webview</Filter>
     </None>
@@ -578,6 +577,7 @@
     <None Include="..\..\user\DeepLearning\AutoEncoder\models\model_fashion_mnist2.py">
       <Filter>User Files\DeepLearning\AutoEncoder\models</Filter>
     </None>
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <Xml Include="..\..\user\tree.xml">

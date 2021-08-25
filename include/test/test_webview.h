@@ -10,13 +10,13 @@ public:
     MyEngine(const char* path) :My::Engine(path)
     {        
         SetScript(myfs::path("user/lua_test.lua"));
-        py.init();
+        Py::init();
         SetScript(myfs::path("user/webviewpy_test.py"));
     }
 
     bool OnStart() override
     {
-        //AddWindow(1200, 800);
+        AddWindow(1200, 800);
         hWeb = AddWebView(0, 0, 400, 300);
         return true;
     }
