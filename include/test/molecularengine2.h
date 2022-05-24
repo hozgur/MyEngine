@@ -3,7 +3,7 @@
 #include "my.h"
 #include "molecular/molecular.h"
 using namespace My;
-const int scale = 1;
+const int scale = 2;
 class MyEngine : public My::Engine
 {
 public:
@@ -19,7 +19,7 @@ public:
 		{
 			for (int x = 0; x < 20; x++)
 			{
-				grid.setPixel(x+15, 1*y+5, Color::Random());
+				grid.setPixel(x+15, 1*y+5, Color::Random(128));
 			}
 		}
 
@@ -27,7 +27,7 @@ public:
 		{
 			for (int x = 0; x < 8; x++)
 			{
-				grid.setPixel(x +125, y + 25, Color::Random(),-3500,0,1);
+				grid.setPixel(x +125, y + 25, Color::Random(128),-3500,0,1);
 			}
 		}
 		/*grid.setPixel(10, 10, Color::Red);

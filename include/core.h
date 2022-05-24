@@ -76,7 +76,7 @@ namespace My
 		Color(uint32_t p) { n = p; }
 
 		uint8_t GetGrayTone() { return (59 * r + 30 * g + 11 * b) / 100; }
-		static Color Random() { return Color(rand() % 256, rand() % 256, rand() % 256); }
+		static Color Random(int min = 0, int max = 255) { return Color(min + (rand() % (max-min+1)), min + (rand() % (max - min + 1)), min + (rand() % (max - min + 1))); }
 		enum Colors{White = 0xFFFFFFFF,  Red = 0xFFFF0000, DarkRed = 0xff800000, Blue = 0xFF0000FF, Black = 0xFF000000, Gray = 0xFF808080, Green = 0xFF00FF00};
 
 	};
