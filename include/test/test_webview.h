@@ -11,7 +11,7 @@ public:
     {        
         SetScript(myfs::path("user/lua_test.lua"));
         Py::init();
-        SetScript(myfs::path("user/webviewpy_test.py"));
+       // SetScript(myfs::path("user/webviewpy_test.py"));
     }
 
     bool OnStart() override
