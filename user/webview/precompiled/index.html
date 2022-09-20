@@ -17,7 +17,8 @@
 <body>
     <h1 >Deneme</h1>
     <script type="text/javascript">
-        $(function () {
+        window.onLoad = () =>
+         {
             var controls = new function() {
             this.Speed = 0.02;
             this.Size = 0.03;
@@ -25,6 +26,16 @@
             var gui = new dat.GUI();
             gui.add(controls, 'Speed',0,0.5).onChange(function(newValue) { window.chrome.webview.postMessage(newValue.toString())});
             gui.add(controls, 'Size',0,0.5);
+            document.addEventListener('click', function (event)
+            {
+                let elem = event.target;
+                let jsonObject =
+                {
+                    Key: 'click',
+                    Value: elem.name || elem.id || elem.tagName || "Unkown"
+                };
+                window.chrome.webview.postMessage(jsonObject);
+            });
         });
     </script>
 </body>

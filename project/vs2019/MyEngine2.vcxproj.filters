@@ -488,10 +488,16 @@
     <None Include="..\..\user\webview\precompiled\vue_test_xml.html">
       <Filter>User Files\webview\precompiled</Filter>
     </None>
+    <None Include="..\..\user\webview\compiled\index.html">
+      <Filter>User Files\webview\compiled</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Xml Include="..\..\user\tree.xml">
       <Filter>User Files</Filter>
     </Xml>
+  </ItemGroup>
+  <ItemGroup>
+    <Natvis Include="$(MSBuildThisFileDirectory)..\..\natvis\wil.natvis" />
   </ItemGroup>
 </Project>

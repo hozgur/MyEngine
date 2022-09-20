@@ -305,6 +305,7 @@
     <None Include="..\..\user\lua_test.lua" />
     <None Include="..\..\user\py_test.py" />
     <None Include="..\..\user\webview\bokeh_test.py" />
+    <None Include="..\..\user\webview\compiled\index.html" />
     <None Include="..\..\user\webview\precompiled\index.html" />
     <None Include="..\..\user\webview\precompiled\vue_index2.html" />
     <None Include="..\..\user\webview\precompiled\vue_index.html" />

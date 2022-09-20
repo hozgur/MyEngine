@@ -52,7 +52,7 @@ bool windowswebview::Create()
                                 PWSTR message;
                                 args->TryGetWebMessageAsString(&message);
                                 myEngine::pEngine->OnMessageReceived(object_id, myfs::w2s(message));
-                                debug << myfs::w2s(message) << "\n";
+                                //debug << myfs::w2s(message) << "\n";
                                 webview->PostWebMessageAsString(message);
                                 CoTaskMemFree(message);
                                 return S_OK;

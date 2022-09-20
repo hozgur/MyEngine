@@ -1,11 +1,15 @@
 #pragma once
 #include "mypy.h"
+#include "myparser.h"
+#include <3rdParty/json.hpp>
+using json = nlohmann::json;
 
 class MyEngine : public myEngine
 {
 public:
     myHandle hWeb = invalidHandle;
-        
+    const int posX = 400;
+    const int posY = 0;
     MyEngine(const char* path) :myEngine(path)
     {        
         SetScript(myfs::path("user/lua_test.lua"));
@@ -15,13 +19,16 @@ public:
 
     bool OnStart() override
     {
-        AddWindow(1920, 1080);
-        hWeb = AddWebView(1920-400, 0, 400, 300);
+		const int width = 800;
+		const int height = 600;
+        AddWindow(width, height);
+        hWeb = AddWebView(posX, posY, 400, 300);
         return true;
     }
 
     void OnReady(myHandle id) override
     {
+		
         std::string url = myfs::path("user/webview/compiled/index.html");
         url = "file://" + url;
         Navigate(id, url);
@@ -50,11 +57,17 @@ public:
         NavigateContent(id, { content });*/
     }
 
-    void OnMessageReceived(std::string message)
+    
+    virtual void OnMessageReceived(myHandle id, std::string message) override
     {
-        debug << message << "\n";
+        debug << message;
+        json msg = json::parse(message);
+		
+        if (msg["event"] == "mousemove") {
+            myEngine::pEngine->mouseX = msg["x"] + posX;
+            myEngine::pEngine->mouseY = msg["y"] + posY;
+        }
     }
-
     void OnDraw() override
     {
         myEngine::OnDraw();

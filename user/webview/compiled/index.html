@@ -10,7 +10,7 @@
     <title>Document</title>
     <style>
         body {
-            background-color: rgb(0, 0, 0);
+            background-color: rgb(0,0, 0, 0);
         }
     </style>
 </head>
@@ -23,8 +23,24 @@
             this.Size = 0.03;
             }
             var gui = new dat.GUI();
-            gui.add(controls, 'Speed',0,0.5).onChange(function(newValue) { window.chrome.webview.postMessage(newValue.toString())});
-            gui.add(controls, 'Size',0,0.5);
+            gui.add(controls, 'Speed', 0, 0.5).onChange(function (newValue) {
+                window.chrome.webview.postMessage(JSON.stringify(
+                    {
+                    event: "speedchange",
+                    value: newValue
+                    }))                  
+            });
+            gui.add(controls, 'Size', 0, 0.5);
+            document.addEventListener('mousemove', function (event) {
+                let elem = event.target;
+                let jsonObject =
+                {          
+                    event:"mousemove",
+                    x: event.layerX,
+                    y: event.layerY
+                };
+                window.chrome.webview.postMessage(JSON.stringify(jsonObject));
+            });
         });
     </script>
 </body>
