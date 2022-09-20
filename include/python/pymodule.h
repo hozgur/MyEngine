@@ -1,11 +1,7 @@
 #pragma once
-namespace My
+class myPyModule
 {
-	class pymodule
-	{
-	public:
-		pymodule(const char* name) {};
-		virtual ~pymodule() {}
-
-	};
-}
+public:
+	myPyModule(const char* name) {};
+	virtual ~myPyModule() {}
+};

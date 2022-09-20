@@ -330,7 +330,7 @@ namespace pugi
 	class PUGIXML_CLASS xml_writer_file: public xml_writer
 	{
 	public:
-		// Construct writer from a FILE* object; void* is used to avoid header dependencies on stdio
+		// Construct writer from a FILE* myObject; void* is used to avoid header dependencies on stdio
 		xml_writer_file(void* file);
 
 		virtual void write(const void* data, size_t size) PUGIXML_OVERRIDE;
@@ -344,7 +344,7 @@ namespace pugi
 	class PUGIXML_CLASS xml_writer_stream: public xml_writer
 	{
 	public:
-		// Construct writer from an output stream object
+		// Construct writer from an output stream myObject
 		xml_writer_stream(std::basic_ostream<char, std::char_traits<char> >& stream);
 		xml_writer_stream(std::basic_ostream<wchar_t, std::char_traits<wchar_t> >& stream);
 
@@ -451,7 +451,7 @@ namespace pugi
 		xml_attribute next_attribute() const;
 		xml_attribute previous_attribute() const;
 
-		// Get hash value (unique for handles to the same object)
+		// Get hash value (unique for handles to the same myObject)
 		size_t hash_value() const;
 
 		// Get internal pointer
@@ -528,7 +528,7 @@ namespace pugi
 		// Get root of DOM tree this node belongs to
 		xml_node root() const;
 
-		// Get text object for the current node
+		// Get text myObject for the current node
 		xml_text text() const;
 
 		// Get child, attribute or next/previous sibling with the specified name
@@ -683,7 +683,7 @@ namespace pugi
 
 	#endif
 
-		// Print subtree using a writer object
+		// Print subtree using a writer myObject
 		void print(xml_writer& writer, const char_t* indent = PUGIXML_TEXT("\t"), unsigned int flags = format_default, xml_encoding encoding = encoding_auto, unsigned int depth = 0) const;
 
 	#ifndef PUGIXML_NO_STL
@@ -712,7 +712,7 @@ namespace pugi
 		// Get node offset in parsed file/string (in char_t units) for debugging purposes
 		ptrdiff_t offset_debug() const;
 
-		// Get hash value (unique for handles to the same object)
+		// Get hash value (unique for handles to the same myObject)
 		size_t hash_value() const;
 
 		// Get internal pointer
@@ -740,7 +740,7 @@ namespace pugi
 		xml_node_struct* _data() const;
 
 	public:
-		// Default constructor. Constructs an empty object.
+		// Default constructor. Constructs an empty myObject.
 		xml_text();
 
 		// Safe bool conversion operator
@@ -749,16 +749,16 @@ namespace pugi
 		// Borland C++ workaround
 		bool operator!() const;
 
-		// Check if text object is empty
+		// Check if text myObject is empty
 		bool empty() const;
 
-		// Get text, or "" if object is empty
+		// Get text, or "" if myObject is empty
 		const char_t* get() const;
 
-		// Get text, or the default value if object is empty
+		// Get text, or the default value if myObject is empty
 		const char_t* as_string(const char_t* def = PUGIXML_TEXT("")) const;
 
-		// Get text as a number, or the default value if conversion did not succeed or object is empty
+		// Get text as a number, or the default value if conversion did not succeed or myObject is empty
 		int as_int(int def = 0) const;
 		unsigned int as_uint(unsigned int def = 0) const;
 		double as_double(double def = 0) const;
@@ -769,10 +769,10 @@ namespace pugi
 		unsigned long long as_ullong(unsigned long long def = 0) const;
 	#endif
 
-		// Get text as bool (returns true if first character is in '1tTyY' set), or the default value if object is empty
+		// Get text as bool (returns true if first character is in '1tTyY' set), or the default value if myObject is empty
 		bool as_bool(bool def = false) const;
 
-		// Set text (returns false if object is empty or there is not enough memory)
+		// Set text (returns false if myObject is empty or there is not enough memory)
 		bool set(const char_t* rhs);
 
 		// Set text with type conversion (numbers are converted to strings, boolean is converted to "true"/"false")
@@ -806,7 +806,7 @@ namespace pugi
 		xml_text& operator=(unsigned long long rhs);
 	#endif
 
-		// Get the data node (node_pcdata or node_cdata) for this object
+		// Get the data node (node_pcdata or node_cdata) for this myObject
 		xml_node data() const;
 	};
 
@@ -969,7 +969,7 @@ namespace pugi
 		virtual bool end(xml_node& node);
 	};
 
-	// Parsing status, returned as part of xml_parse_result object
+	// Parsing status, returned as part of xml_parse_result myObject
 	enum xml_parse_status
 	{
 		status_ok = 0,				// No error
@@ -1008,7 +1008,7 @@ namespace pugi
 		// Source document encoding
 		xml_encoding encoding;
 
-		// Default constructor, initializes object to failed state
+		// Default constructor, initializes myObject to failed state
 		xml_parse_result();
 
 		// Cast to bool operator
@@ -1117,7 +1117,7 @@ namespace pugi
 		// Last parsed offset (in char_t units from string start)
 		ptrdiff_t offset;
 
-		// Default constructor, initializes object to failed state
+		// Default constructor, initializes myObject to failed state
 		xpath_parse_result();
 
 		// Cast to bool operator
@@ -1205,7 +1205,7 @@ namespace pugi
 		const xpath_variable* get(const char_t* name) const;
 	};
 
-	// A compiled XPath query object
+	// A compiled XPath query myObject
 	class PUGIXML_CLASS xpath_query
 	{
 	private:
@@ -1219,7 +1219,7 @@ namespace pugi
 		xpath_query& operator=(const xpath_query&);
 
 	public:
-		// Construct a compiled object from XPath expression.
+		// Construct a compiled myObject from XPath expression.
 		// If PUGIXML_NO_EXCEPTIONS is not defined, throws xpath_exception on compilation errors.
 		explicit xpath_query(const char_t* query, xpath_variable_set* variables = PUGIXML_NULL);
 

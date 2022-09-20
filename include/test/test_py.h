@@ -1,18 +1,17 @@
 #pragma once
 #include "mypy.h"
-using namespace My;
 
 void test1()
 {
-    StopWatch s;
+    myStopWatch s;
     s.Start();
     for (int a = 0; a < 10000; a++)
     {
-        Py::dict locals;
+        myPy::dict locals;
         locals["a"] = 45L;
-        Py::dict result;
+        myPy::dict result;
         result["outa"] = 0L;
-        Py::dostring("outa = 25 * a\n", locals, result);
+        myPy::dostring("outa = 25 * a\n", locals, result);
         //debug << std::get<long>(result["outa"]);
     }
     s.Stop();
@@ -21,8 +20,8 @@ void test1()
 
 void test2()
 {
-    Py::dofile(myfs::path("user/py_test.py"));
-    Py::dofunction("test_function", { 33. });
+    myPy::dofile(myfs::path("user/py_test.py"));
+    myPy::dofunction("test_function", { 33. });
 }
 
 struct SampleVisitor
@@ -60,19 +59,19 @@ void test3()
 
 void test4()
 {
-    Py::dict locals;
+    myPy::dict locals;
     locals["a"] = 45L;    
-    Py::dostring("outa = 25 * a\n", locals);
+    myPy::dostring("outa = 25 * a\n", locals);
 }
 
-class MyEngine : public My::Engine
+class MyEngine : public myEngine
 {
 public:
 
-    MyEngine(const char* path) :My::Engine(path) 
+    MyEngine(const char* path) :myEngine(path) 
     {
         //py.addModule(nullptr);
-        Py::init();
+        myPy::init();
     }
 
     bool OnStart() override

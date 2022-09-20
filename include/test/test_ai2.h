@@ -20,7 +20,7 @@ using namespace winrt::Windows::Foundation;
 using namespace Windows::Foundation;
 
 
-class MyEngine : public My::Engine
+class MyEngine : public My::myEngine
 {
 public:
     const int inWidth = 720;
@@ -39,12 +39,12 @@ public:
     byte* inputBuffer = nullptr;
     std::string inputName = "inputImage";
     std::string outputName = "outputImage";
-    MyEngine(const char* path) :My::Engine(path)
+    MyEngine(const char* path) :My::myEngine(path)
     {
-        handle h = loadImage(myfs::path("asset/FRUIT720.png"));
+        myHandle h = loadImage(myfs::path("asset/FRUIT720.png"));
 
-        object* o = Get(h);
-        image<Color>* img = dynamic_cast<image<Color>*>(o);
+        myObject* o = Get(h);
+        myImage<myColor>* img = dynamic_cast<myImage<myColor>*>(o);
         if (img != nullptr)
         {
             debug << " Width = " << img->getWidth();
@@ -134,13 +134,13 @@ public:
 #pragma omp parallel for
         for (int y = 0; y < outHeight; y++)
         {
-            Color* p = GetLinePointer(y);
+            myColor* p = GetLinePointer(y);
             float* red = data + y * outWidth;
             float* green = data + (y * outWidth) + outSize;
             float* blue = data + (y * outWidth) + 2 * outSize;
             for (int x = 0; x < outWidth; x++)
             {
-                p[x] = Color(clamp((int)red[x]), clamp((int)green[x]), clamp((int)blue[x]));
+                p[x] = myColor(clamp((int)red[x]), clamp((int)green[x]), clamp((int)blue[x]));
             }
         }
 //#pragma omp parallel for

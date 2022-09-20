@@ -1,5 +1,5 @@
 /*
-** $Id: lualib.h $
+** $Id: myLualib.h $
 ** Lua standard libraries
 ** See Copyright Notice in lua.h
 */

@@ -18,11 +18,11 @@ using namespace winrt::Windows::Media;
 using namespace winrt::Windows::Storage;
 using namespace winrt::Windows::Foundation;
 using namespace Windows::Foundation;
-class MyEngine : public My::Engine
+class MyEngine : public My::myEngine
 {
 public:
 
-    MyEngine(const char* path) :My::Engine(path)
+    MyEngine(const char* path) :My::myEngine(path)
     {
          
     }

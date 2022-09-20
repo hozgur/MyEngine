@@ -90,12 +90,12 @@ typedef struct TValue {
 
 /* Macros for internal tests */
 
-/* collectable object has the same tag as the original value */
+/* collectable myObject has the same tag as the original value */
 #define righttt(obj)		(ttypetag(obj) == gcvalue(obj)->tt)
 
 /*
 ** Any value being manipulated by the program either is non
-** collectable, or the collectable object has the right tag
+** collectable, or the collectable myObject has the right tag
 ** and it is not dead. The option 'L == NULL' allows other
 ** macros using this one to be used where L is not available.
 */
@@ -127,7 +127,7 @@ typedef struct TValue {
 #define setobj2s(L,o1,o2)	setobj(L,s2v(o1),o2)
 /* from table to same table */
 #define setobjt2t	setobj
-/* to new object */
+/* to new myObject */
 #define setobj2n	setobj
 /* to table */
 #define setobj2t	setobj
@@ -352,7 +352,7 @@ typedef struct GCObject {
 /* set a string to the stack */
 #define setsvalue2s(L,o,s)	setsvalue(L,s2v(o),s)
 
-/* set a string to a new object */
+/* set a string to a new myObject */
 #define setsvalue2n	setsvalue
 
 

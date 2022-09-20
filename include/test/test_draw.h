@@ -2,23 +2,23 @@
 #include "my.h"
 
 using namespace My;
-class MyEngine : public My::Engine
+class MyEngine : public My::myEngine
 {
 public:
 	ivec2 start;
 	ivec2 stop;
-	MyEngine(const char* path) :My::Engine(path)
+	MyEngine(const char* path) :My::myEngine(path)
 	{
 		
 	}
 
-	void OnMouse(MouseEvent evt, float x, float y) override
+	void OnMouse(myMouseEvent evt, float x, float y) override
 	{
 		switch (evt)
 		{
-		case MouseEvent::Mouse_LBPressed: start = { (int)x,(int)y }; break;
-		case MouseEvent::Mouse_Move:
-		case MouseEvent::Mouse_LBReleased: stop = { (int)x,(int)y }; break;
+		case myMouseEvent::Mouse_LBPressed: start = { (int)x,(int)y }; break;
+		case myMouseEvent::Mouse_Move:
+		case myMouseEvent::Mouse_LBReleased: stop = { (int)x,(int)y }; break;
 		}
 	}
 	bool OnStart() override
@@ -29,9 +29,9 @@ public:
 
 	void OnDraw() override
 	{
-		Clear(Color::Black);
+		Clear(myColor::Black);
 		if(mousePressed)
-			FillRect(start, stop-start, Color::Red);
-		DrawLine(start, { (int)mouseX, (int)mouseY }, Color::Blue);
+			FillRect(start, stop-start, myColor::Red);
+		DrawLine(start, { (int)mouseX, (int)mouseY }, myColor::Blue);
 	}
 };

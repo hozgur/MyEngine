@@ -5,7 +5,7 @@ using namespace My;
 enum Type { Simple, Wall };
 struct dot
 {
-	dot(vec2 pos, vec2 vel, Color color, int type = Simple)
+	dot(vec2 pos, vec2 vel, myColor color, int type = Simple)
 	{
 		this->pos = pos;
 		this->vel = vel;
@@ -14,11 +14,11 @@ struct dot
 	}
 	vec2 pos;
 	vec2 vel;
-	Color color;
+	myColor color;
 	int type;
 };
    
-class MyEngine : public My::Engine
+class MyEngine : public My::myEngine
 {
 public:
 	
@@ -26,25 +26,25 @@ public:
 	const int dotCountX = 12;
 	const int dotCountY = 12;
 	const int gap = 5;	
-	MyEngine():My::Engine(1,1)
+	MyEngine():My::myEngine(1,1)
 	{}
 	void InitDots()
 	{
 		int x1 = 0;
-		dots.push_back(dot({ 0,0 }, { 0,0 }, Color::White));
+		dots.push_back(dot({ 0,0 }, { 0,0 }, myColor::White));
 		float y1 = 0.8660254f * gap;
 		for (int y = 0; y < dotCountY; y++)
 		{
 			x1 = x1 + gap / 2;
 			for (int x = 0; x < dotCountX; x++)
 			{
-				dots.push_back(dot({ 50 + x * gap + x1 ,10 + y * y1 }, { 0,0 }, Color::Random()));
+				dots.push_back(dot({ 50 + x * gap + x1 ,10 + y * y1 }, { 0,0 }, myColor::Random()));
 			}
 			if (x1 >= gap) x1 = 0;
 		}
 		for (int x = 0; x < 300; x += 3)
 		{
-			dots.push_back(dot({ 50 + x ,330 + x * 0 }, { 0,0 }, Color::Blue, Wall));
+			dots.push_back(dot({ 50 + x ,330 + x * 0 }, { 0,0 }, myColor::Blue, Wall));
 		}
 	}
 	bool OnStart() override
@@ -76,9 +76,9 @@ public:
 	}
 	void fade()
 	{
-		ForEachPixel([this](int x, int y, Color& c) {
+		ForEachPixel([this](int x, int y, myColor& c) {
 			const int fader = 100;
-			c = Color(fader * c.r / 255, fader * c.g / 255, fader * c.b / 255);
+			c = myColor(fader * c.r / 255, fader * c.g / 255, fader * c.b / 255);
 			});
 	}
 	void OnDraw() override

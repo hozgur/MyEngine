@@ -1,11 +1,11 @@
 #pragma once
 #include "my.h"
 
-class MyEngine : public My::Engine
+class MyEngine : public My::myEngine
 {
 public:
 	My::Slider *slider;
-	MyEngine() :My::Engine()
+	MyEngine() :My::myEngine()
 	{
 		
 	}

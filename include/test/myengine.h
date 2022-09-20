@@ -7,7 +7,7 @@ const float pi = (float)std::atan(1) * 4;
 const int lineCount = 500;
 struct line
 {
-    line(float x, float y, float dx, float dy, Color color)
+    line(float x, float y, float dx, float dy, myColor color)
     {
         this->x = x;
         this->y = y;
@@ -16,17 +16,17 @@ struct line
         this->color = color;
     }
     float x, y, dx, dy;
-    Color color;
+    myColor color;
 
 
 };
 
-class MyEngine : public Engine
+class MyEngine : public myEngine
 {
 public:
     std::vector<line> lines;
     std::string title = "My Engine";
-    MyEngine() :Engine()
+    MyEngine() :myEngine()
     {
     
     }
@@ -35,7 +35,7 @@ public:
     {
         for (int i = 0; i < lineCount; i++)
         {
-            lines.push_back(line((float)(rand() % clientWidth / 10), (float)(rand() % clientHeight / 1), (rand() % 500 + 1) / 500.f, 0/*(rand() % 500 + 1) / 5000.f*/, Color(rand() % 256, rand() % 256, rand() % 256)));
+            lines.push_back(line((float)(rand() % clientWidth / 10), (float)(rand() % clientHeight / 1), (rand() % 500 + 1) / 500.f, 0/*(rand() % 500 + 1) / 5000.f*/, myColor(rand() % 256, rand() % 256, rand() % 256)));
         }
         return true;
     }
@@ -61,12 +61,12 @@ public:
     }
     bool OnUpdate() override
     {
-        StopWatch s;
+        myStopWatch s;
         s.Start();
         fade2();
         s.Stop();
         title = std::to_string(s.GetDuration());
-        Color* p = GetLinePointer(0);
+        myColor* p = GetLinePointer(0);
         for (int i = 0; i < lineCount; i++)
         {
             int y = (int)lines[i].y;
@@ -82,7 +82,7 @@ public:
 //#pragma omp parallel for
         for (int y = 0; y < clientHeight; y++)
         {
-            Color* p = GetLinePointer(y);
+            myColor* p = GetLinePointer(y);
             for (int x = 0; x < clientWidth; x++)
             {
                 p[x].r = 254 * p[x].r / 255;
@@ -95,8 +95,8 @@ public:
 
     void fade2()
     {
-        ForEachPixel([this](int x, int y, Color &c) {            
-            c = Color(254*c.r / 255, 254*c.g / 255, 254*c.b / 255);            
+        ForEachPixel([this](int x, int y, myColor &c) {            
+            c = myColor(254*c.r / 255, 254*c.g / 255, 254*c.b / 255);            
             });
     }
     

@@ -6,12 +6,12 @@ using namespace My;
 //note: check quasar 
 using json = nlohmann::json;
 
-class MyEngine : public My::Engine
+class MyEngine : public My::myEngine
 {
 public:
-    handle hView = invalidHandle;
+    myHandle hView = invalidHandle;
 
-    MyEngine(const char* path) :My::Engine(path)
+    MyEngine(const char* path) :My::myEngine(path)
     {
     }
 
@@ -43,7 +43,7 @@ public:
         std::string outpath = myfs::path("user/webview/compiled/vue_index2.html");
         std::string libpath = myfs::path("script/web/lib/");
 
-        Parser::parse(inpath, outpath, {
+        myParser::parse(inpath, outpath, {
             {"LIB_PATH",libpath},
             {"DAT_PATH","dat.gui.min.js"},
             {"JQUERY_PATH","jquery-3.5.1.min.js"},
@@ -58,7 +58,7 @@ public:
         std::string path = myfs::path("user/webview/compiled/vue_index2.html");
         Navigate(hView, "file://" + path);
     }
-    void OnReady(handle id) override
+    void OnReady(myHandle id) override
     {
         std::string path = myfs::path("user/webview/precompiled/vue_index2.html");
         Navigate(hView, "file://" + path);

@@ -48,7 +48,7 @@
 ** elements younger than their main ages.
 **
 ** The generational collector also uses a pointer 'firstold1', which
-** points to the first OLD1 object in the list. It is used to optimize
+** points to the first OLD1 myObject in the list. It is used to optimize
 ** 'markold'. (Potentially OLD1 objects can be anywhere between 'allgc'
 ** and 'reallyold', but often the list has no OLD1 objects or they are
 ** after 'old1'.) Note the difference between it and 'old1':
@@ -61,7 +61,7 @@
 ** Moreover, there is another set of lists that control gray objects.
 ** These lists are linked by fields 'gclist'. (All objects that
 ** can become gray have such a field. The field is not the same
-** in all objects, but it always has this name.)  Any gray object
+** in all objects, but it always has this name.)  Any gray myObject
 ** must belong to one of these lists, and all objects in these lists
 ** must be gray (with two exceptions explained below):
 **
@@ -283,7 +283,7 @@ typedef struct global_State {
   GCObject *survival;  /* start of objects that survived one GC cycle */
   GCObject *old1;  /* start of old1 objects */
   GCObject *reallyold;  /* objects more than one cycle old ("really old") */
-  GCObject *firstold1;  /* first OLD1 object in the list (if any) */
+  GCObject *firstold1;  /* first OLD1 myObject in the list (if any) */
   GCObject *finobjsur;  /* list of survival objects with finalizers */
   GCObject *finobjold1;  /* list of old1 objects with finalizers */
   GCObject *finobjrold;  /* list of really old objects with finalizers */
@@ -336,7 +336,7 @@ struct lua_State {
 ** Union of all collectable objects (only for conversions)
 ** ISO C99, 6.5.2.3 p.5:
 ** "if a union contains several structures that share a common initial
-** sequence [...], and if the union object currently contains one
+** sequence [...], and if the union myObject currently contains one
 ** of these structures, it is permitted to inspect the common initial
 ** part of any of them anywhere that a declaration of the complete type
 ** of the union is visible."
@@ -355,7 +355,7 @@ union GCUnion {
 
 /*
 ** ISO C99, 6.7.2.1 p.14:
-** "A pointer to a union object, suitably converted, points to each of
+** "A pointer to a union myObject, suitably converted, points to each of
 ** its members [...], and vice versa."
 */
 #define cast_u(o)	cast(union GCUnion *, (o))
@@ -375,8 +375,8 @@ union GCUnion {
 
 
 /*
-** macro to convert a Lua object into a GCObject
-** (The access to 'tt' tries to ensure that 'v' is actually a Lua object.)
+** macro to convert a Lua myObject into a GCObject
+** (The access to 'tt' tries to ensure that 'v' is actually a Lua myObject.)
 */
 #define obj2gco(v)	check_exp((v)->tt >= LUA_TSTRING, &(cast_u(v)->gc))
 

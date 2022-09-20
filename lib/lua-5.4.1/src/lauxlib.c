@@ -55,7 +55,7 @@ static int findfield (lua_State *L, int objidx, int level) {
   lua_pushnil(L);  /* start 'next' loop */
   while (lua_next(L, -2)) {  /* for each pair in table */
     if (lua_type(L, -2) == LUA_TSTRING) {  /* ignore non-string keys */
-      if (lua_rawequal(L, objidx, -1)) {  /* found object? */
+      if (lua_rawequal(L, objidx, -1)) {  /* found myObject? */
         lua_pop(L, 1);  /* remove value (but keep name) */
         return 1;
       }
@@ -853,7 +853,7 @@ LUALIB_API lua_Integer luaL_len (lua_State *L, int idx) {
   l = lua_tointegerx(L, -1, &isnum);
   if (!isnum)
     luaL_error(L, "object length is not an integer");
-  lua_pop(L, 1);  /* remove object */
+  lua_pop(L, 1);  /* remove myObject */
   return l;
 }
 

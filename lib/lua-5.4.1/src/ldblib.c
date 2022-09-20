@@ -105,7 +105,7 @@ static lua_State *getthread (lua_State *L, int *arg) {
 
 /*
 ** Variations of 'lua_settable', used by 'db_getinfo' to put results
-** from 'lua_getinfo' into result table. Key is always a string;
+** from 'lua_getinfo' into result table. myKey is always a string;
 ** value can be a string, an int, or a boolean.
 */
 static void settabss (lua_State *L, const char *k, const char *v) {
@@ -133,10 +133,10 @@ static void settabsb (lua_State *L, const char *k, int v) {
 */
 static void treatstackoption (lua_State *L, lua_State *L1, const char *fname) {
   if (L == L1)
-    lua_rotate(L, -2, 1);  /* exchange object and table */
+    lua_rotate(L, -2, 1);  /* exchange myObject and table */
   else
-    lua_xmove(L1, L, 1);  /* move object to the "main" stack */
-  lua_setfield(L, -2, fname);  /* put object into table */
+    lua_xmove(L1, L, 1);  /* move myObject to the "main" stack */
+  lua_setfield(L, -2, fname);  /* put myObject into table */
 }
 
 

@@ -78,7 +78,7 @@ static int luaB_auxwrap (lua_State *L) {
     if (stat != LUA_OK && stat != LUA_YIELD)  /* error in the coroutine? */
       lua_resetthread(co);  /* close its tbc variables */
     if (stat != LUA_ERRMEM &&  /* not a memory error and ... */
-        lua_type(L, -1) == LUA_TSTRING) {  /* ... error object is a string? */
+        lua_type(L, -1) == LUA_TSTRING) {  /* ... error myObject is a string? */
       luaL_where(L, 1);  /* add extra info, if available */
       lua_insert(L, -2);
       lua_concat(L, 2);

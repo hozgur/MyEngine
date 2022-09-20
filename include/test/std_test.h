@@ -14,16 +14,16 @@ public:
 };
 
 
-class MyEngine : public My::Engine
+class MyEngine : public My::myEngine
 {
 public:
     
-    MyEngine(const char* path) :My::Engine(path)
+    MyEngine(const char* path) :My::myEngine(path)
     {
-        command q;
+        myCommand q;
         if (commandQueue.pop(q))
             debug << q.id;
-        commandQueue.push({ 12,Commands::Navigate,{"tata"} });
+        commandQueue.push({ 12,myCommands::Navigate,{"tata"} });
         if (commandQueue.pop(q))
             debug << q.id;
         

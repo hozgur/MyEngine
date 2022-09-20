@@ -9,11 +9,11 @@ namespace myfs
 #ifdef WINDOWS
     std::string w2s(std::wstring_view wstring)
     {
-        return My::ConvertW2S(wstring);
+        return ConvertW2S(wstring);
     }
     std::wstring s2w(std::string_view string)
     {
-        return My::ConvertS2W(string);
+        return ConvertS2W(string);
     }
 #else
     std::wstring_convert<std::codecvt_utf8_utf16<wchar_t>> converter;

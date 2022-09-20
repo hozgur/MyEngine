@@ -13,11 +13,11 @@
 
 /*
 ** Collectable objects may have one of three colors: white, which means
-** the object is not marked; gray, which means the object is marked, but
+** the myObject is not marked; gray, which means the myObject is marked, but
 ** its references may be not marked; and black, which means that the
-** object and all its references are marked.  The main invariant of the
-** garbage collector, while marking objects, is that a black object can
-** never point to a white one. Moreover, any gray object must be in a
+** myObject and all its references are marked.  The main invariant of the
+** garbage collector, while marking objects, is that a black myObject can
+** never point to a white one. Moreover, any gray myObject must be in a
 ** "gray list" (gray, grayagain, weak, allweak, ephemeron) so that it
 ** can be visited again before finishing the collection cycle. (Open
 ** upvalues are an exception to this rule.)  These lists have no meaning
@@ -69,13 +69,13 @@
 
 /*
 ** Layout for bit use in 'marked' field. First three bits are
-** used for object "age" in generational mode. Last bit is used
+** used for myObject "age" in generational mode. Last bit is used
 ** by tests.
 */
-#define WHITE0BIT	3  /* object is white (type 0) */
-#define WHITE1BIT	4  /* object is white (type 1) */
-#define BLACKBIT	5  /* object is black */
-#define FINALIZEDBIT	6  /* object has been marked for finalization */
+#define WHITE0BIT	3  /* myObject is white (type 0) */
+#define WHITE1BIT	4  /* myObject is white (type 1) */
+#define BLACKBIT	5  /* myObject is black */
+#define FINALIZEDBIT	6  /* myObject has been marked for finalization */
 
 #define TESTBIT		7
 
@@ -102,14 +102,14 @@
 #define luaC_white(g)	cast_byte((g)->currentwhite & WHITEBITS)
 
 
-/* object age in generational mode */
+/* myObject age in generational mode */
 #define G_NEW		0	/* created in current cycle */
 #define G_SURVIVAL	1	/* created in previous cycle */
 #define G_OLD0		2	/* marked old by frw. barrier in this cycle */
 #define G_OLD1		3	/* first full cycle as old */
-#define G_OLD		4	/* really old object (not to be visited) */
-#define G_TOUCHED1	5	/* old object touched this cycle */
-#define G_TOUCHED2	6	/* old object touched in previous cycle */
+#define G_OLD		4	/* really old myObject (not to be visited) */
+#define G_TOUCHED1	5	/* old myObject touched this cycle */
+#define G_TOUCHED2	6	/* old myObject touched in previous cycle */
 
 #define AGEBITS		7  /* all age bits (111) */
 

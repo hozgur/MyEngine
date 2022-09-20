@@ -1,6 +1,6 @@
 #include "core.h"
 #include "ui\theme.h"
 
-const My::Color My::DefaultTheme::Border =		My::Color::Green;
-const My::Color My::DefaultTheme::Background =	My::Color::Black;
-const My::Color My::DefaultTheme::Foreground =	My::Color::Red;
+const myColor My::DefaultTheme::Border =		myColor::Green;
+const myColor My::DefaultTheme::Background =	myColor::Black;
+const myColor My::DefaultTheme::Foreground =	myColor::Red;

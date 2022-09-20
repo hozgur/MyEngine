@@ -442,7 +442,7 @@ LUA_API lua_State *lua_tothread (lua_State *L, int idx) {
 
 
 /*
-** Returns a pointer to the internal representation of an object.
+** Returns a pointer to the internal representation of an myObject.
 ** Note that ANSI C does not allow the conversion of a pointer to
 ** function to a 'void*', so the conversion here goes through
 ** a 'size_t'. (As the returned pointer is only informative, this
@@ -1207,7 +1207,7 @@ LUA_API int lua_error (lua_State *L) {
   lua_lock(L);
   errobj = s2v(L->top - 1);
   api_checknelems(L, 1);
-  /* error object is the memory error message? */
+  /* error myObject is the memory error message? */
   if (ttisshrstring(errobj) && eqshrstr(tsvalue(errobj), G(L)->memerrmsg))
     luaM_error(L);  /* raise a memory error */
   else

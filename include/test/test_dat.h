@@ -1,17 +1,16 @@
 #pragma once
 #include "my.h"
-using namespace My;
 #include "myparser.h"
 #include <3rdParty/json.hpp>
 
 using json = nlohmann::json;
 
-class MyEngine : public My::Engine
+class MyEngine : public myEngine
 {
 public:
-    handle hDat = invalidHandle;    
+    myHandle hDat = invalidHandle;    
     
-    MyEngine(const char* path) :My::Engine(path)
+    MyEngine(const char* path) :myEngine(path)
     {
     }
 
@@ -42,7 +41,7 @@ public:
         std::string outpath = myfs::path("user/webview/compiled/index.html");
         std::string libpath = myfs::path("script/web/lib/");
 
-        Parser::parse(inpath, outpath, {
+        myParser::parse(inpath, outpath, {
             {"LIB_PATH",libpath},
             {"DAT_PATH","dat.gui.min.js"},
             {"JQUERY_PATH","jquery-3.5.1.min.js"},
@@ -57,7 +56,7 @@ public:
         std::string path = myfs::path("user/webview/compiled/index.html");
         Navigate(hDat, "file://" + path);
     }
-    void OnReady(handle id) override
+    void OnReady(myHandle id) override
     {
         std::string path = myfs::path("user/webview/compiled/index.html");
         Navigate(hDat, "file://"+ path);
@@ -69,8 +68,8 @@ public:
     }
     void OnDraw() override
     {
-        Engine::OnDraw();
-        /*if (view->IsReady() && KeyState[Key::A])
+        myEngine::OnDraw();
+        /*if (view->IsReady() && KeyState[myKey::A])
         {
             navigated = true;
             view->Navigate("http://www.google.com");

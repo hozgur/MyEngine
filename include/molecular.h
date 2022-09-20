@@ -97,7 +97,7 @@ namespace Molecular
 
 	struct cell
 	{
-		My::fastarray<pixel, 50> pixels;
+		My::myFastArray<pixel, 50> pixels;
 		bool bDrawBorder = false;
 		int mouseX;
 		int mouseY;
@@ -140,17 +140,17 @@ namespace Molecular
 				int px = x * width + p.x * width / MAXVALUE;
 				int py = y * height + p.y * height / MAXVALUE;
 				//My::Engine::pEngine->Pixel(px, py) =  p.color;
-				My::Engine::pEngine->FillCircle(ivec2(px, py), 3,p.color);
+				My::myEngine::pEngine->FillCircle(ivec2(px, py), 3,p.color);
 				if (bDrawBorder)
 				{										
 					int mx = pos.x() + mouseX * (width - 1) / MAXVALUE;
 					int my = pos.y() + mouseY * (height - 1) / MAXVALUE;
-					//My::Engine::pEngine->DrawLine(ivec2(mx, my), ivec2(px, py), My::Color::Gray);
+					//My::Engine::pEngine->DrawLine(ivec2(mx, my), ivec2(px, py), My::myColor::Gray);
 				}
 				});
 			if (bDrawBorder)
 			{				
-				My::Engine::pEngine->DrawRect(pos, ivec2(width, height), My::Color::Gray);
+				My::myEngine::pEngine->DrawRect(pos, ivec2(width, height), My::Color::Gray);
 				bDrawBorder = false;				
 			}
 		}
@@ -334,7 +334,7 @@ namespace Molecular
 								int y2 = (cy + dY[i]) * scale + p2.y * scale / (MAXVALUE + 1);
 								if ((dv.x != 0) || (dv.y != 0))
 								{
-									//My::Engine::pEngine->DrawLine(ivec2(x1, y1), ivec2(x2, y2), My::Color::Gray);
+									//My::Engine::pEngine->DrawLine(ivec2(x1, y1), ivec2(x2, y2), My::myColor::Gray);
 								}
 							}
 						}
@@ -348,16 +348,16 @@ namespace Molecular
 						vy -= dv.y*1;
 						if ((scale > 1) && bDrawLines)
 						{
-							int x1 = (int) My::Engine::pEngine->mouseX;
-							int y1 = (int) My::Engine::pEngine->mouseY;
+							int x1 = (int) My::myEngine::pEngine->mouseX;
+							int y1 = (int) My::myEngine::pEngine->mouseY;
 							int x2 = cx * scale + p1.x * scale / (MAXVALUE + 1);
 							int y2 = cy * scale + p1.y * scale / (MAXVALUE + 1);
 							if (dv.z != 0)
 							{
 								if(dv.z < 0)
-									My::Engine::pEngine->DrawLine(ivec2(x1, y1), ivec2(x2, y2), My::Color::Gray);
+									My::myEngine::pEngine->DrawLine(ivec2(x1, y1), ivec2(x2, y2), My::Color::Gray);
 								else
-									My::Engine::pEngine->DrawLine(ivec2(x1, y1), ivec2(x2, y2), My::Color::Red);
+									My::myEngine::pEngine->DrawLine(ivec2(x1, y1), ivec2(x2, y2), My::Color::Red);
 							}
 								
 						}

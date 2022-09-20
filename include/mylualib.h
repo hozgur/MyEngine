@@ -1,10 +1,9 @@
 #pragma once
-namespace My
+
+typedef int (*myLuaCFunction) (void* L);
+class myLualib
 {
-	typedef int (*mylua_CFunction) (void* L);
-	class lualib
-	{
-	public:
-		virtual mylua_CFunction getLibFunction() = 0;
-	};
-}
+public:
+virtual myLuaCFunction getLibFunction() = 0;
+};
+

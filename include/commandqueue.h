@@ -1,46 +1,43 @@
 #pragma once
 #include <mutex>
-namespace My
+enum class myCommands
 {
-    enum class Commands
-    {
-        Navigate,
-        NavigateContent,
-        SetScript,
-        PostWebMessage
-    };
+    Navigate,
+    NavigateContent,
+    SetScript,
+    PostWebMessage
+};
 
-    typedef std::variant<long, double, std::string> engvariant;
-    struct command
-    {
-        handle id;
-        Commands commandID;
-        std::vector<engvariant> params;
-    };
+typedef std::variant<long, double, std::string> engvariant;
+struct myCommand
+{
+    myHandle id;
+    myCommands commandID;
+    std::vector<engvariant> params;
+};
 
-    struct CommandQueue
+struct myCommandQueue
+{
+    std::mutex mtx;
+    std::queue<myCommand> commands;
+    void push(myCommand cmd)
     {
-        std::mutex mtx;
-        std::queue<command> commands;
-        void push(command cmd)
+        std::unique_lock<std::mutex> lck(mtx, std::defer_lock);
+        lck.lock();
+        commands.push(cmd);
+        lck.unlock();
+    }
+    bool pop(myCommand& cmd)
+    {
+        std::unique_lock<std::mutex> lck(mtx, std::defer_lock);
+        lck.lock();
+        if (commands.size() > 0)
         {
-            std::unique_lock<std::mutex> lck(mtx, std::defer_lock);
-            lck.lock();
-            commands.push(cmd);
+            cmd = commands.front();
+            commands.pop();
             lck.unlock();
+            return true;
         }
-        bool pop(command& cmd)
-        {
-            std::unique_lock<std::mutex> lck(mtx, std::defer_lock);
-            lck.lock();
-            if (commands.size() > 0)
-            {
-                cmd = commands.front();
-                commands.pop();
-                lck.unlock();
-                return true;
-            }
-            return false;
-        }
-    };
-}
+        return false;
+    }
+};

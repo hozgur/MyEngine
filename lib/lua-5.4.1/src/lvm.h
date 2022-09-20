@@ -47,23 +47,23 @@ typedef enum {
 } F2Imod;
 
 
-/* convert an object to a float (including string coercion) */
+/* convert an myObject to a float (including string coercion) */
 #define tonumber(o,n) \
 	(ttisfloat(o) ? (*(n) = fltvalue(o), 1) : luaV_tonumber_(o,n))
 
 
-/* convert an object to a float (without string coercion) */
+/* convert an myObject to a float (without string coercion) */
 #define tonumberns(o,n) \
 	(ttisfloat(o) ? ((n) = fltvalue(o), 1) : \
 	(ttisinteger(o) ? ((n) = cast_num(ivalue(o)), 1) : 0))
 
 
-/* convert an object to an integer (including string coercion) */
+/* convert an myObject to an integer (including string coercion) */
 #define tointeger(o,i) \
   (ttisinteger(o) ? (*(i) = ivalue(o), 1) : luaV_tointeger(o,i,LUA_FLOORN2I))
 
 
-/* convert an object to an integer (without string coercion) */
+/* convert an myObject to an integer (without string coercion) */
 #define tointegerns(o,i) \
   (ttisinteger(o) ? (*(i) = ivalue(o), 1) : luaV_tointegerns(o,i,LUA_FLOORN2I))
 

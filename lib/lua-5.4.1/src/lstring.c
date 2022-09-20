@@ -150,12 +150,12 @@ void luaS_init (lua_State *L) {
 
 
 /*
-** creates a new string object
+** creates a new string myObject
 */
 static TString *createstrobj (lua_State *L, size_t l, int tag, unsigned int h) {
   TString *ts;
   GCObject *o;
-  size_t totalsize;  /* total size of TString object */
+  size_t totalsize;  /* total size of TString myObject */
   totalsize = sizelstring(l);
   o = luaC_newobj(L, tag, totalsize);
   ts = gco2ts(o);

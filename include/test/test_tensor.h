@@ -2,11 +2,11 @@
 #include "my.h"
 #include "mytensor.h"
 using namespace My;
-class MyEngine : public My::Engine
+class MyEngine : public My::myEngine
 {
 public:
 
-	MyEngine(const char* path) :My::Engine(path)
+	MyEngine(const char* path) :My::myEngine(path)
 	{
 		mytensorImpl<int> tensor({ 3, 5, 5 });
 		//mytensorImpl<int> tensor({});

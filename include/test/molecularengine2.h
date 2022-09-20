@@ -4,14 +4,14 @@
 #include "molecular.h"
 using namespace My;
 const int scale = 1;
-class MyEngine : public My::Engine
+class MyEngine : public My::myEngine
 {
 public:
 	
 	const int width = 400;
 	const int height = 300;
 	Molecular::grid grid;
-	MyEngine(const char* path) :My::Engine(path),grid(width,height,scale)
+	MyEngine(const char* path) :My::myEngine(path),grid(width,height,scale)
 	{}
 	void InitDots()
 	{		
@@ -19,7 +19,7 @@ public:
 		{
 			for (int x = 0; x < 20; x++)
 			{
-				grid.setPixel(x+15, 1*y+5, Color::Random());
+				grid.setPixel(x+15, 1*y+5, myColor::Random());
 			}
 		}
 
@@ -27,14 +27,14 @@ public:
 		{
 			for (int x = 0; x < 8; x++)
 			{
-				grid.setPixel(x +125, y + 25, Color::Random(),-3500,0,1);
+				grid.setPixel(x +125, y + 25, myColor::Random(),-3500,0,1);
 			}
 		}
-		/*grid.setPixel(10, 10, Color::Red);
+		/*grid.setPixel(10, 10, myColor::Red);
 		Molecular::cell &c = grid.getCell(10, 10);
 		c.pixels[0].vx = -1000;
 		c.pixels[0].vy = -2000;*/
-		//grid.setPixel(2, 1, Color::Blue);
+		//grid.setPixel(2, 1, myColor::Blue);
 		//grid.runCell(10, 10);
 		//Molecular::pair p = Molecular::attTable2.func(5000, 5000);
 		//debug << p;
@@ -54,7 +54,7 @@ public:
 	void DrawDots()
 	{
 		if(scale == 1)
-			ForEachPixel([this](int x, int y, Color& c) {
+			ForEachPixel([this](int x, int y, myColor& c) {
 				c = grid.getColor(x, y);
 				});
 		else
@@ -64,8 +64,8 @@ public:
 	}
 	void fade()
 	{
-		ForEachPixel([this](int x, int y, Color& c) {const int fader = 100;
-		c = Color(fader * c.r / 255, fader * c.g / 255, fader * c.b / 255);
+		ForEachPixel([this](int x, int y, myColor& c) {const int fader = 100;
+		c = myColor(fader * c.r / 255, fader * c.g / 255, fader * c.b / 255);
 			});
 	}
 	void mouseF()

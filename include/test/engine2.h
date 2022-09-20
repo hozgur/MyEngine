@@ -14,7 +14,7 @@ using namespace My;
 enum Type{Simple,Wall};
 struct dot
 {
-    dot(vec2 pos, vec2 vel, Color color,int type = Simple)
+    dot(vec2 pos, vec2 vel, myColor color,int type = Simple)
     {
         this->pos = pos;
         this->vel = vel;        
@@ -23,19 +23,19 @@ struct dot
     }
     vec2 pos;
     vec2 vel;
-    Color color;
+    myColor color;
     int type;
 };
 
 
-class MyEngine : public Engine
+class MyEngine : public myEngine
 {
 public:
     std::vector<dot> dots;
     std::string title = "My Engine";
     int width;
     int height;
-    MyEngine(const char* argc) :Engine(argc),width(0),height(0)
+    MyEngine(const char* argc) :myEngine(argc),width(0),height(0)
     {
         
     }
@@ -43,20 +43,20 @@ public:
     void InitDots()
     {
         float x1 = 0;
-        dots.push_back(dot({ 0,0}, { 0,0 }, Color::White));
+        dots.push_back(dot({ 0,0}, { 0,0 }, myColor::White));
         float y1 = 0.8660254 * gap;
         for (int y = 0; y < dotCountY; y++)
         {
             x1 = x1 + gap/2;
             for (int x = 0; x < dotCountX; x++)
             {
-                dots.push_back(dot({ 20 + x*gap + x1 ,10 + y* y1  }, { 0,0 }, Color::Random()));
+                dots.push_back(dot({ 20 + x*gap + x1 ,10 + y* y1  }, { 0,0 }, myColor::Random()));
             }
             if (x1 == gap) x1 = 0;
         }
         for (int x = 0; x < 200; x += gap)
         {
-            dots.push_back(dot({ 40 + x ,80+x*0}, { 0,0 }, Color::Blue,Wall));
+            dots.push_back(dot({ 40 + x ,80+x*0}, { 0,0 }, myColor::Blue,Wall));
         }
     }
 
@@ -82,7 +82,7 @@ public:
                     dv = dv / n;
                     dv = dv * a/1050;
                     f += dv;
-                   //  DrawLine((scale * d.pos).cast<int>(),(scale * d1.pos).cast<int>(), Color::Gray, 0xAAAAAAAA);
+                   //  DrawLine((scale * d.pos).cast<int>(),(scale * d1.pos).cast<int>(), myColor::Gray, 0xAAAAAAAA);
                 }                                
             }
         }
@@ -119,7 +119,7 @@ public:
         InitDots();
         return true;
     }
-    Color& Pixel(vec2 pos) { return GetLinePointer((int)(pos.y()))[(int)pos.x()]; }
+    myColor& Pixel(vec2 pos) { return GetLinePointer((int)(pos.y()))[(int)pos.x()]; }
 
     float rnd() { return ((float) std::rand()) / RAND_MAX; }
     float dist2(vec2 v1, vec2 v2) { vec2 dv = v2 - v1; return dv.x() * dv.x() + dv.y() * dv.y(); }
@@ -139,8 +139,8 @@ public:
     }
     void fade()
     {        
-        ForEachPixel([this](int x, int y, Color& c) {const int fader = 100;
-            c = Color(fader * c.r / 255, fader * c.g / 255, fader * c.b / 255);
+        ForEachPixel([this](int x, int y, myColor& c) {const int fader = 100;
+            c = myColor(fader * c.r / 255, fader * c.g / 255, fader * c.b / 255);
             });
     }
     void OnDraw() override

@@ -80,9 +80,9 @@ public:
 
 bool writetestfile(std::string inputFile, std::string outputFile)
 {
-	My::StopWatch s;
+	My::myStopWatch s;
 	s.Start();
-	My::Surface *surface = My::LoadSurface(myfs::s2w(inputFile));
+	My::mySurface *surface = My::LoadSurface(myfs::s2w(inputFile));
 	s.Stop();
 	debug << "Image File Read Time = " << s.GetDurationS() << " seconds.\n";
 	if (surface == nullptr)
@@ -326,10 +326,10 @@ using namespace My;
 
 
 
-class MyEngine : public My::Engine
+class MyEngine : public My::myEngine
 {
 public:
-	MyEngine() :My::Engine()
+	MyEngine() :My::myEngine()
 	{}
 
 	bool OnStart() override
@@ -339,7 +339,7 @@ public:
 		std::string outPath = myfs::path("out.raw");
 		//if (writetestfile(inputImagePath, dataFilePath))
 		{
-			StopWatch s;
+			myStopWatch s;
 			s.Start();
 			readertest(dataFilePath, outPath);
 			s.Stop();

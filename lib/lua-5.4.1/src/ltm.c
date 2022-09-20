@@ -85,7 +85,7 @@ const TValue *luaT_gettmbyobj (lua_State *L, const TValue *o, TMS event) {
 
 
 /*
-** Return the name of the type of an object. For tables and userdata
+** Return the name of the type of an myObject. For tables and userdata
 ** with metatable, use their '__name' metafield, if present.
 */
 const char *luaT_objtypename (lua_State *L, const TValue *o) {

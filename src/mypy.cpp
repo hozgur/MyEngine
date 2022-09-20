@@ -12,7 +12,6 @@
 #include <py_mytensor.h>
 #include "mypyarray.h"
 namespace fs = std::filesystem;
-using namespace My;
 
 #include "mypyarray.h"
 
@@ -28,9 +27,9 @@ struct pyconvert
         return PyUnicode_FromString(s.c_str());
     }
 };
-wchar_t* My::Py::program = nullptr;
+wchar_t* myPy::program = nullptr;
 
-void My::Py::exit()
+void myPy::exit()
 {
     if (program)
     {
@@ -41,9 +40,9 @@ void My::Py::exit()
     }
 }
 
-bool My::Py::init()
+bool myPy::init()
 {
-    program = Py_DecodeLocale(My::Engine::pEngine->appPath.c_str(), NULL);
+    program = Py_DecodeLocale(myEngine::pEngine->appPath.c_str(), NULL);
     if (program == nullptr)        
         return false;
 
@@ -59,17 +58,17 @@ bool My::Py::init()
     return true;
 }
 
-bool My::Py::isInitialized()
+bool myPy::isInitialized()
 {
     return Py_IsInitialized() != 0;
 }
 
-bool My::Py::dostring(std::string content)
+bool myPy::dostring(std::string content)
 {        
     return PyRun_SimpleString(content.c_str()) == 0;
 }
 
-bool My::Py::dostring(std::string content, dict locals)
+bool myPy::dostring(std::string content, dict locals)
 {
     PyObject* pDict = PyDict_New();
     if (!pDict) return NULL;
@@ -79,7 +78,7 @@ bool My::Py::dostring(std::string content, dict locals)
         PyDict_SetItemString(pDict, element.first.c_str(), std::visit(pc, element.second));
     return PyRun_String(content.c_str(), Py_file_input, pDict, pDict) != NULL;
 }
-bool My::Py::dostring(std::string content, dict locals, dict &result)
+bool myPy::dostring(std::string content, dict locals, dict &result)
 {    
     PyObject* pDict = PyDict_New();    
     if (!pDict) return NULL;
@@ -113,7 +112,7 @@ bool My::Py::dostring(std::string content, dict locals, dict &result)
     return true;
 }
 
-bool My::Py::dofunction(std::string funcname, paramlist parameters)
+bool myPy::dofunction(std::string funcname, paramlist parameters)
 {
     PyObject *mainModule = PyImport_ImportModule("__main__");
     PyObject* pFunc = PyObject_GetAttrString(mainModule, funcname.c_str());
@@ -140,7 +139,7 @@ bool My::Py::dofunction(std::string funcname, paramlist parameters)
     return true;
 }
 
-bool My::Py::checkfunction(std::string funcname)
+bool myPy::checkfunction(std::string funcname)
 {
     PyObject* mainModule = PyImport_ImportModule("__main__");
     PyObject* pFunc = PyObject_GetAttrString(mainModule, funcname.c_str());
@@ -150,7 +149,7 @@ bool My::Py::checkfunction(std::string funcname)
     return true;
 }
 
-bool My::Py::dofile(std::string file)
+bool myPy::dofile(std::string file)
 {
     std::ifstream ifs(file);
     std::string content((std::istreambuf_iterator<char>(ifs)),
@@ -233,7 +232,7 @@ PyMODINIT_FUNC PyInit_MyEngine(void)
     return PyModule_Create(&engineModule);
 }
 
-bool My::Py::addModule(pymodule* module)
+bool myPy::addModule(myPyModule* module)
 {
     if (PyImport_AppendInittab("MyEngine", PyInit_MyEngine) == -1) {
         debug << "Error: could not extend in-built modules table\n";

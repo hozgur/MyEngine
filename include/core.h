@@ -45,86 +45,84 @@ constexpr uint8_t  nDefaultAlpha = 0xFF;
 constexpr uint32_t nDefaultPixel = (nDefaultAlpha << 24);
 inline int mod(int a, int b) { return (a % b + b) % b; }
 
-namespace My
-{	
-	/// <summary>
-	/// handle 
-	/// Object Handle
-	/// </summary>
-	typedef int handle;	
-	const handle invalidHandle = -1;
-	class object
-	{
-	protected:
-		handle object_id;
-	public:
-		object():object_id(invalidHandle){};
-		virtual ~object() {}
-		void SetID(handle id) { this->object_id = id; }
-		handle GetID() { return object_id; }
-	};
-	typedef std::variant<int, float, const char*> variant;
-	struct Color
-	{
-		union
-		{
-			uint32_t n = nDefaultPixel;
-			struct { uint8_t b; uint8_t g; uint8_t r; uint8_t a; };
-		};
-		Color() { r = 0; g = 0; b = 0; a = nDefaultAlpha; }
-		Color(uint8_t red, uint8_t green, uint8_t blue, uint8_t alpha = nDefaultAlpha) { n = blue | (green << 8) | (red << 16) | (alpha << 24); }
-		Color(uint32_t p) { n = p; }
+/// <summary>
+/// handle 
+/// Object Handle
+/// </summary>
+typedef int myHandle;	
+const myHandle invalidHandle = -1;
 
-		uint8_t GetGrayTone() { return (59 * r + 30 * g + 11 * b) / 100; }
-		static Color Random() { return Color(rand() % 256, rand() % 256, rand() % 256); }
-		enum Colors{White = 0xFFFFFFFF,  Red = 0xFFFF0000, DarkRed = 0xff800000, Blue = 0xFF0000FF, Black = 0xFF000000, Gray = 0xFF808080, Green = 0xFF00FF00};
-
+class myObject
+{
+protected:
+	myHandle object_id;
+public:
+	myObject():object_id(invalidHandle){};
+	virtual ~myObject() {}
+	void SetID(myHandle id) { this->object_id = id; }
+	myHandle GetID() { return object_id; }
+};
+typedef std::variant<int, float, const char*> variant;
+struct myColor
+{
+	union
+	{
+		uint32_t n = nDefaultPixel;
+		struct { uint8_t b; uint8_t g; uint8_t r; uint8_t a; };
 	};
+	myColor() { r = 0; g = 0; b = 0; a = nDefaultAlpha; }
+	myColor(uint8_t red, uint8_t green, uint8_t blue, uint8_t alpha = nDefaultAlpha) { n = blue | (green << 8) | (red << 16) | (alpha << 24); }
+	myColor(uint32_t p) { n = p; }
+
+	uint8_t GetGrayTone() { return (59 * r + 30 * g + 11 * b) / 100; }
+	static myColor Random() { return myColor(rand() % 256, rand() % 256, rand() % 256); }
+	enum Colors{White = 0xFFFFFFFF,  Red = 0xFFFF0000, DarkRed = 0xff800000, Blue = 0xFF0000FF, Black = 0xFF000000, Gray = 0xFF808080, Green = 0xFF00FF00};
+
+};
 	
-	struct StopWatch
+struct myStopWatch
+{
+	void Start()
 	{
-		void Start()
-		{
-			t1 = std::chrono::high_resolution_clock::now();
-		}
-		void Stop()
-		{
-			std::chrono::high_resolution_clock::time_point t2 = std::chrono::high_resolution_clock::now();
-			time_span = std::chrono::duration_cast<std::chrono::duration<double>>(t2 - t1);
-		}
-		double GetDurationMS()
-		{
-			return time_span.count() * 1000.;	// miliseconds
-		}
-		double GetDurationS()
-		{
-			return time_span.count();			// seconds.
-		}
-		std::string GetDurationStr()
-		{
-			std::stringstream buffer;
-			buffer << "It took me " << GetDurationMS() << " miliseconds." << std::endl;
-			return buffer.str();
-		}
-
-		std::chrono::high_resolution_clock::time_point t1;
-		std::chrono::duration<double> time_span;
-	};
-	template<typename T = int,int Size = 4>
-	struct fastarray
+		t1 = std::chrono::high_resolution_clock::now();
+	}
+	void Stop()
 	{
-		fastarray():currentSize(0){}
-		int size() { return currentSize; }
-		void clear() { currentSize = 0; }
-		void push(const T& val) {assert(currentSize < Size); data[currentSize++] = val; }
-		void remove(int index) { assert(index < currentSize); data[index] = data[--currentSize]; }
-		T& operator[](int index) { assert(index < currentSize); return data[index]; }
+		std::chrono::high_resolution_clock::time_point t2 = std::chrono::high_resolution_clock::now();
+		time_span = std::chrono::duration_cast<std::chrono::duration<double>>(t2 - t1);
+	}
+	double GetDurationMS()
+	{
+		return time_span.count() * 1000.;	// miliseconds
+	}
+	double GetDurationS()
+	{
+		return time_span.count();			// seconds.
+	}
+	std::string GetDurationStr()
+	{
+		std::stringstream buffer;
+		buffer << "It took me " << GetDurationMS() << " miliseconds." << std::endl;
+		return buffer.str();
+	}
 
-	private:
-		T data[Size];
-		int currentSize;
-	};			
-}
+	std::chrono::high_resolution_clock::time_point t1;
+	std::chrono::duration<double> time_span;
+};
+template<typename T = int,int Size = 4>
+struct myFastArray
+{
+	myFastArray():currentSize(0){}
+	int size() { return currentSize; }
+	void clear() { currentSize = 0; }
+	void push(const T& val) {assert(currentSize < Size); data[currentSize++] = val; }
+	void remove(int index) { assert(index < currentSize); data[index] = data[--currentSize]; }
+	T& operator[](int index) { assert(index < currentSize); return data[index]; }
+
+private:
+	T data[Size];
+	int currentSize;
+};			
 
 namespace myfs
 {

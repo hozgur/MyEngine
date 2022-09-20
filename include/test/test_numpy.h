@@ -5,18 +5,18 @@ using namespace My;
 
 void test5()
 {
-    Py::init();
-    Py::dict locals;
+    myPy::init();
+    myPy::dict locals;
     locals["a"] = 45L;
-    Py::dofile(myfs::path("user/py_test.py"));
+    myPy::dofile(myfs::path("user/py_test.py"));
    // Py::dofunction("test_numpy", {});
 }
 
-class MyEngine : public My::Engine
+class MyEngine : public My::myEngine
 {
 public:
 
-    MyEngine(const char* path) :My::Engine(path)
+    MyEngine(const char* path) :My::myEngine(path)
     {        
     }
 

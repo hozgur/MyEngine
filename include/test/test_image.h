@@ -3,13 +3,13 @@
 #include "my.h"
 
 using namespace My;
-class MyEngine : public My::Engine
+class MyEngine : public My::myEngine
 {
 public:
-	handle hImage = invalidHandle;
+	myHandle hImage = invalidHandle;
 	int iW = 64;
 	int iH = 64;
-	MyEngine(const char* path) :My::Engine(path)
+	MyEngine(const char* path) :My::myEngine(path)
 	{
 		
 	}
@@ -32,7 +32,7 @@ public:
 				int y = std::rand() & 3;*/
 				int x = 0,y = 0;
 
-				//FillCircle({ (int)mouseX, (int)mouseY }, 30, Color::Red);
+				//FillCircle({ (int)mouseX, (int)mouseY }, 30, myColor::Red);
 				DrawImage(hImage, (int)mouseX- iW/2, (int)mouseY - iH/2, iW, iH, x* iW, y * iW);
 				
 			}

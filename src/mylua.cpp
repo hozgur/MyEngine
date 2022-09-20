@@ -7,38 +7,38 @@ extern "C"
 #include <lauxlib.h>
 }
 
-My::LUA My::lua;
+myLua lua;
 
 #define L ((lua_State*)_L)
 
 
-My::LUA::LUA()
+myLua::myLua()
 {
 	_L = luaL_newstate();
 	luaL_openlibs(L);
 }
 
-My::LUA::~LUA()
+myLua::~myLua()
 {
 	lua_close(L);
 }
 
-bool My::LUA::dofile(std::string file)
+bool myLua::dofile(std::string file)
 {
 	return luaL_dofile(L,file.c_str()) == 0;
 }
 
-bool My::LUA::dostring(std::string content)
+bool myLua::dostring(std::string content)
 {
 	return luaL_dostring(L, content.c_str()) == 0;
 }
 
-bool My::LUA::loadstring(std::string str)
+bool myLua::loadstring(std::string str)
 {
     return luaL_loadstring(L, str.c_str()) == 0;
 }
 
-bool My::LUA::dofunction(std::string funcname, std::vector<variant> parameters)
+bool myLua::dofunction(std::string funcname, std::vector<variant> parameters)
 {
     lua_getglobal(L, funcname.c_str());
         
@@ -81,7 +81,7 @@ bool My::LUA::dofunction(std::string funcname, std::vector<variant> parameters)
                 
 }
 
-bool My::LUA::checkfunction(std::string funcname)
+bool myLua::checkfunction(std::string funcname)
 {
     lua_getglobal(L, funcname.c_str());
     if (!lua_isfunction(L, -1))
@@ -93,14 +93,14 @@ bool My::LUA::checkfunction(std::string funcname)
     return true;
 }
 
-bool My::LUA::loadlibrary(std::string libname, lualib* library)
+bool myLua::loadlibrary(std::string libname, myLualib* library)
 {
     luaL_requiref(L, libname.c_str(), (lua_CFunction)library->getLibFunction(), 1);
     lua_pop(L, 1);  /* remove lib */
     return false;
 }
 
-std::string My::LUA::error()
+std::string myLua::error()
 {
     std::string err;
     if(lua_type(L,-1) == LUA_TSTRING)
@@ -109,7 +109,7 @@ std::string My::LUA::error()
 	return err;
 }
 
-void My::LUA::stackdump()
+void myLua::stackdump()
 {
     int i;
     int top = lua_gettop(L);
@@ -139,7 +139,7 @@ void My::LUA::stackdump()
     printf("\n");  /* end the listing */
 }
 
-int My::LUA::getglobalint(const char* name)
+int myLua::getglobalint(const char* name)
 {
     int isnum;
     lua_getglobal(L, name);

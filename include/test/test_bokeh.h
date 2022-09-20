@@ -3,12 +3,12 @@
 #include "mypy.h"
 using namespace My;
 
-class MyEngine : public My::Engine
+class MyEngine : public My::myEngine
 {
 public:
-    handle hWeb = invalidHandle;
+    myHandle hWeb = invalidHandle;
     std::thread bokehThread;
-    MyEngine(const char* path) :My::Engine(path)
+    MyEngine(const char* path) :My::myEngine(path)
     {        
     }
 
@@ -22,7 +22,7 @@ public:
         AddWindow(1200, 800);
         hWeb = AddWebView(0, 0, 800, 400);
         py.init();
-        //SetScript(myfs::path("user/webview/bokeh_test.py"));
+        //SetScript(myfs::path("user/myWebView/bokeh_test.py"));
         bokehThread = std::thread(&MyEngine::bokehThreadFunc, this);
         return true;
     }
@@ -47,8 +47,8 @@ public:
     }
     void OnDraw() override
     {
-        Engine::OnDraw();
-        /*if (view->IsReady() && KeyState[Key::A])
+        myEngine::OnDraw();
+        /*if (view->IsReady() && KeyState[myKey::A])
         {
             navigated = true;
             view->Navigate("http://www.google.com");

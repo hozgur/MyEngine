@@ -23,8 +23,8 @@ namespace My
 
 		virtual void Draw()
 		{
-			My::Engine::pEngine->FillRect(pos, size, backColor);
-			My::Engine::pEngine->DrawRect(pos, size, borderColor);
+			My::myEngine::pEngine->FillRect(pos, size, backColor);
+			My::myEngine::pEngine->DrawRect(pos, size, borderColor);
 		}
 	};
 }

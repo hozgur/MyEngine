@@ -5,16 +5,16 @@ using namespace My;
 
 using json = nlohmann::json;
 
-class MyEngine : public My::Engine
+class MyEngine : public My::myEngine
 {
 public:
     
 
-    MyEngine(const char* path) :My::Engine(path)
+    MyEngine(const char* path) :My::myEngine(path)
     {
         json j;
 
-        // add a number that is stored as double (note the implicit conversion of j to an object)
+        // add a number that is stored as double (note the implicit conversion of j to an myObject)
         j["pi"] = 3.141;
 
         double pi = j["pi"];
@@ -25,16 +25,16 @@ public:
         // add a string that is stored as std::string
         j["name"] = "Niels";
 
-        // add another null object by passing nullptr
+        // add another null myObject by passing nullptr
         j["nothing"] = nullptr;
 
-        // add an object inside the object
+        // add an myObject inside the myObject
         j["answer"]["everything"] = 42;
 
         // add an array that is stored as std::vector (using an initializer list)
         j["list"] = { 1, 0, 2 };
 
-        // add another object (using an initializer list of pairs)
+        // add another myObject (using an initializer list of pairs)
         j["object"] = { {"currency", "USD"}, {"value", 42.99} };
 
         // instead, you could also write (which looks very similar to the JSON above)
@@ -55,7 +55,7 @@ public:
 
         debug << j2.dump() << "\n";
 
-        // create object from string literal
+        // create myObject from string literal
         json j3 = "{ \"happy\": true, \"pi\": 3.141 }"_json;
 
         debug << "j3 = " << j3 << "\n";

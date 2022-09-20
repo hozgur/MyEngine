@@ -48,7 +48,7 @@
 
 /*
 ** The equivalent, in bytes, of one unit of "work" (visiting a slot,
-** sweeping an object, etc.)
+** sweeping an myObject, etc.)
 */
 #define WORK2MEM	sizeof(TValue)
 
@@ -71,11 +71,11 @@
 #define makewhite(g,x)	\
   (x->marked = cast_byte((x->marked & ~maskcolors) | luaC_white(g)))
 
-/* make an object gray (neither white nor black) */
+/* make an myObject gray (neither white nor black) */
 #define set2gray(x)	resetbits(x->marked, maskcolors)
 
 
-/* make an object black (coming from any color) */
+/* make an myObject black (coming from any color) */
 #define set2black(x)  \
   (x->marked = cast_byte((x->marked & ~WHITEBITS) | bitmask(BLACKBIT)))
 
@@ -99,7 +99,7 @@
 #define markobject(g,t)	{ if (iswhite(t)) reallymarkobject(g, obj2gco(t)); }
 
 /*
-** mark an object that can be NULL (either because it is really optional,
+** mark an myObject that can be NULL (either because it is really optional,
 ** or it was stripped as debug info, or inside an uncompleted structure)
 */
 #define markobjectN(g,t)	{ if (t) markobject(g,t); }
@@ -140,7 +140,7 @@ static GCObject **getgclist (GCObject *o) {
 
 
 /*
-** Link a collectable object 'o' with a known type into the list 'p'.
+** Link a collectable myObject 'o' with a known type into the list 'p'.
 ** (Must be a macro to access the 'gclist' field in different types.)
 */
 #define linkgclist(o,p)	linkgclist_(obj2gco(o), &(o)->gclist, &(p))
@@ -154,7 +154,7 @@ static void linkgclist_ (GCObject *o, GCObject **pnext, GCObject **list) {
 
 
 /*
-** Link a generic collectable object 'o' into the list 'p'.
+** Link a generic collectable myObject 'o' into the list 'p'.
 */
 #define linkobjgclist(o,p) linkgclist_(obj2gco(o), getgclist(o), &(p))
 
@@ -194,15 +194,15 @@ static int iscleared (global_State *g, const GCObject *o) {
 
 
 /*
-** Barrier that moves collector forward, that is, marks the white object
-** 'v' being pointed by the black object 'o'.  In the generational
+** Barrier that moves collector forward, that is, marks the white myObject
+** 'v' being pointed by the black myObject 'o'.  In the generational
 ** mode, 'v' must also become old, if 'o' is old; however, it cannot
 ** be changed directly to OLD, because it may still point to non-old
 ** objects. So, it is marked as OLD0. In the next cycle it will become
 ** OLD1, and in the next it will finally become OLD (regular old). By
-** then, any object it points to will also be old.  If called in the
-** incremental sweep phase, it clears the black object to white (sweep
-** it) to avoid other barrier calls for this same object. (That cannot
+** then, any myObject it points to will also be old.  If called in the
+** incremental sweep phase, it clears the black myObject to white (sweep
+** it) to avoid other barrier calls for this same myObject. (That cannot
 ** be done is generational mode, as its sweep does not distinguish
 ** whites from deads.)
 */
@@ -212,7 +212,7 @@ void luaC_barrier_ (lua_State *L, GCObject *o, GCObject *v) {
   if (keepinvariant(g)) {  /* must keep invariant? */
     reallymarkobject(g, v);  /* restore invariant */
     if (isold(o)) {
-      lua_assert(!isold(v));  /* white object could not be old */
+      lua_assert(!isold(v));  /* white myObject could not be old */
       setage(v, G_OLD0);  /* restore generational invariant */
     }
   }
@@ -225,8 +225,8 @@ void luaC_barrier_ (lua_State *L, GCObject *o, GCObject *v) {
 
 
 /*
-** barrier that moves collector backward, that is, mark the black object
-** pointing to a white object as gray again.
+** barrier that moves collector backward, that is, mark the black myObject
+** pointing to a white myObject as gray again.
 */
 void luaC_barrierback_ (lua_State *L, GCObject *o) {
   global_State *g = G(L);
@@ -243,17 +243,17 @@ void luaC_barrierback_ (lua_State *L, GCObject *o) {
 
 void luaC_fix (lua_State *L, GCObject *o) {
   global_State *g = G(L);
-  lua_assert(g->allgc == o);  /* object must be 1st in 'allgc' list! */
+  lua_assert(g->allgc == o);  /* myObject must be 1st in 'allgc' list! */
   set2gray(o);  /* they will be gray forever */
   setage(o, G_OLD);  /* and old forever */
-  g->allgc = o->next;  /* remove object from 'allgc' list */
+  g->allgc = o->next;  /* remove myObject from 'allgc' list */
   o->next = g->fixedgc;  /* link it to 'fixedgc' list */
   g->fixedgc = o;
 }
 
 
 /*
-** create a new collectable object (with given type and size) and link
+** create a new collectable myObject (with given type and size) and link
 ** it to 'allgc' list.
 */
 GCObject *luaC_newobj (lua_State *L, int tt, size_t sz) {
@@ -278,7 +278,7 @@ GCObject *luaC_newobj (lua_State *L, int tt, size_t sz) {
 
 
 /*
-** Mark an object.  Userdata with no user values, strings, and closed
+** Mark an myObject.  Userdata with no user values, strings, and closed
 ** upvalues are visited and turned black here.  Open upvalues are
 ** already indirectly linked through their respective threads in the
 ** 'twups' list, so they don't go to the gray list; nevertheless, they
@@ -400,7 +400,7 @@ static void restartcollection (global_State *g) {
   markobject(g, g->mainthread);
   markvalue(g, &g->l_registry);
   markmt(g);
-  markbeingfnz(g);  /* mark any finalizing object left from previous cycle */
+  markbeingfnz(g);  /* mark any finalizing myObject left from previous cycle */
 }
 
 /* }====================================================== */
@@ -414,13 +414,13 @@ static void restartcollection (global_State *g) {
 
 
 /*
-** Check whether object 'o' should be kept in the 'grayagain' list for
+** Check whether myObject 'o' should be kept in the 'grayagain' list for
 ** post-processing by 'correctgraylist'. (It could put all old objects
 ** in the list and leave all the work to 'correctgraylist', but it is
 ** more efficient to avoid adding elements that will be removed.) Only
 ** TOUCHED1 objects need to be in the list. TOUCHED2 doesn't need to go
 ** back to a gray list, but then it must become OLD. (That is what
-** 'correctgraylist' does when it finds a TOUCHED2 object.)
+** 'correctgraylist' does when it finds a TOUCHED2 myObject.)
 */
 static void genlink (global_State *g, GCObject *o) {
   lua_assert(isblack(o));
@@ -462,7 +462,7 @@ static void traverseweakvalue (global_State *g, Table *h) {
 
 /*
 ** Traverse an ephemeron table and link it to proper list. Returns true
-** iff any object was marked during this traversal (which implies that
+** iff any myObject was marked during this traversal (which implies that
 ** convergence has to continue). During propagation phase, keep table
 ** in 'grayagain' list, to be visited again in the atomic phase. In
 ** the atomic phase, if table has any white->white entry, it has to
@@ -473,7 +473,7 @@ static void traverseweakvalue (global_State *g, Table *h) {
 ** by 'genlink'.
 */
 static int traverseephemeron (global_State *g, Table *h, int inv) {
-  int marked = 0;  /* true if an object is marked in this traversal */
+  int marked = 0;  /* true if an myObject is marked in this traversal */
   int hasclears = 0;  /* true if table has white keys */
   int hasww = 0;  /* true if table has entry "white-key -> white-value" */
   unsigned int i;
@@ -649,7 +649,7 @@ static int traversethread (global_State *g, lua_State *th) {
 
 
 /*
-** traverse one gray object, turning it to black.
+** traverse one gray myObject, turning it to black.
 */
 static lu_mem propagatemark (global_State *g) {
   GCObject *o = g->gray;
@@ -802,7 +802,7 @@ static void freeobj (lua_State *L, GCObject *o) {
 
 /*
 ** sweep at most 'countin' elements from a list of GCObjects erasing dead
-** objects, where a dead object is one marked with the old (non current)
+** objects, where a dead myObject is one marked with the old (non current)
 ** white; change all non-dead objects back to white, preparing for next
 ** collection cycle. Return where to continue the traversal or NULL if
 ** list is finished. ('*countout' gets the number of elements traversed.)
@@ -832,7 +832,7 @@ static GCObject **sweeplist (lua_State *L, GCObject **p, int countin,
 
 
 /*
-** sweep a list until a live object (or end of list)
+** sweep a list until a live myObject (or end of list)
 */
 static GCObject **sweeptolive (lua_State *L, GCObject **p) {
   GCObject **old = p;
@@ -875,11 +875,11 @@ static GCObject *udata2finalize (global_State *g) {
   g->tobefnz = o->next;  /* remove it from 'tobefnz' list */
   o->next = g->allgc;  /* return it to 'allgc' list */
   g->allgc = o;
-  resetbit(o->marked, FINALIZEDBIT);  /* object is "normal" again */
+  resetbit(o->marked, FINALIZEDBIT);  /* myObject is "normal" again */
   if (issweepphase(g))
-    makewhite(g, o);  /* "sweep" object */
+    makewhite(g, o);  /* "sweep" myObject */
   else if (getage(o) == G_OLD1)
-    g->firstold1 = o;  /* it is the first OLD1 object in the list */
+    g->firstold1 = o;  /* it is the first OLD1 myObject in the list */
   return o;
 }
 
@@ -912,7 +912,7 @@ static void GCTM (lua_State *L) {
     g->gcrunning = running;  /* restore state */
     if (unlikely(status != LUA_OK)) {  /* error while running __gc? */
       luaE_warnerror(L, "__gc metamethod");
-      L->top--;  /* pops error object */
+      L->top--;  /* pops error myObject */
     }
   }
 }
@@ -988,7 +988,7 @@ static void checkpointer (GCObject **p, GCObject *o) {
 
 /*
 ** Correct pointers to objects inside 'allgc' list when
-** object 'o' is being removed from the list.
+** myObject 'o' is being removed from the list.
 */
 static void correctpointers (global_State *g, GCObject *o) {
   checkpointer(&g->survival, o);
@@ -999,7 +999,7 @@ static void correctpointers (global_State *g, GCObject *o) {
 
 
 /*
-** if object 'o' has a finalizer, remove it from 'allgc' list (must
+** if myObject 'o' has a finalizer, remove it from 'allgc' list (must
 ** search the list to find it) and link it in 'finobj' list.
 */
 void luaC_checkfinalizer (lua_State *L, GCObject *o, Table *mt) {
@@ -1010,8 +1010,8 @@ void luaC_checkfinalizer (lua_State *L, GCObject *o, Table *mt) {
   else {  /* move 'o' to 'finobj' list */
     GCObject **p;
     if (issweepphase(g)) {
-      makewhite(g, o);  /* "sweep" object 'o' */
-      if (g->sweepgc == &o->next)  /* should not remove 'sweepgc' object */
+      makewhite(g, o);  /* "sweep" myObject 'o' */
+      if (g->sweepgc == &o->next)  /* should not remove 'sweepgc' myObject */
         g->sweepgc = sweeptolive(L, g->sweepgc);  /* change 'sweepgc' */
     }
     else
@@ -1071,7 +1071,7 @@ static void sweep2old (lua_State *L, GCObject **p) {
 /*
 ** Sweep for generational mode. Delete dead objects. (Because the
 ** collection is not incremental, there are no "new white" objects
-** during the sweep. So, any white object must be dead.) For
+** during the sweep. So, any white myObject must be dead.) For
 ** non-dead objects, advance their ages and clear the color of
 ** new objects. (Old objects keep their colors.)
 ** The ages of G_TOUCHED1 and G_TOUCHED2 objects cannot be advanced
@@ -1106,7 +1106,7 @@ static GCObject **sweepgen (lua_State *L, global_State *g, GCObject **p,
       else {  /* all other objects will be old, and so keep their color */
         setage(curr, nextage[getage(curr)]);
         if (getage(curr) == G_OLD1 && *pfirstold1 == NULL)
-          *pfirstold1 = curr;  /* first OLD1 object in the list */
+          *pfirstold1 = curr;  /* first OLD1 myObject in the list */
       }
       p = &curr->next;  /* go to next element */
     }
@@ -1156,7 +1156,7 @@ static GCObject **correctgraylist (GCObject **p) {
       lua_assert(isold(curr));  /* young objects should be white here */
       if (getage(curr) == G_TOUCHED2)  /* advance from TOUCHED2... */
         changeage(curr, G_TOUCHED2, G_OLD);  /* ... to OLD */
-      nw2black(curr);  /* make object black (to be removed) */
+      nw2black(curr);  /* make myObject black (to be removed) */
       goto remove;
     }
     remove: *p = *next; continue;
@@ -1216,7 +1216,7 @@ static void finishgencycle (lua_State *L, global_State *g) {
 ** finish the collection.
 */
 static void youngcollection (lua_State *L, global_State *g) {
-  GCObject **psurvival;  /* to point to first non-dead survival object */
+  GCObject **psurvival;  /* to point to first non-dead survival myObject */
   GCObject *dummy;  /* dummy out parameter to 'sweepgen' */
   lua_assert(g->gcstate == GCSpropagate);
   if (g->firstold1) {  /* are there regular OLD1 objects? */
@@ -1464,7 +1464,7 @@ static void setpause (global_State *g) {
 
 /*
 ** Enter first sweep phase.
-** The call to 'sweeptolive' makes the pointer point to an object
+** The call to 'sweeptolive' makes the pointer point to an myObject
 ** inside the list (instead of to the header), so that the real sweep do
 ** not need to skip objects created between "now" and the start of the
 ** real sweep.
@@ -1478,7 +1478,7 @@ static void entersweep (lua_State *L) {
 
 
 /*
-** Delete all objects in list 'p' until (but not including) object
+** Delete all objects in list 'p' until (but not including) myObject
 ** 'limit'.
 */
 static void deletelist (lua_State *L, GCObject *p, GCObject *limit) {
@@ -1581,7 +1581,7 @@ static lu_mem singlestep (lua_State *L) {
         return 0;
       }
       else
-        return propagatemark(g);  /* traverse one gray object */
+        return propagatemark(g);  /* traverse one gray myObject */
     }
     case GCSenteratomic: {
       lu_mem work = atomic(L);  /* work is what was traversed by 'atomic' */

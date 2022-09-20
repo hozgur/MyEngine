@@ -350,7 +350,7 @@ int luaO_utf8esc (char *buff, unsigned long x) {
 
 
 /*
-** Convert a number object to a string, adding it to a buffer
+** Convert a number myObject to a string, adding it to a buffer
 */
 static int tostringbuff (TValue *obj, char *buff) {
   int len;
@@ -369,7 +369,7 @@ static int tostringbuff (TValue *obj, char *buff) {
 
 
 /*
-** Convert a number object to a Lua string, replacing the value at 'obj'
+** Convert a number myObject to a Lua string, replacing the value at 'obj'
 */
 void luaO_tostring (lua_State *L, TValue *obj) {
   char buff[MAXNUMBER2STR];

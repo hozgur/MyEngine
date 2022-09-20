@@ -1,30 +1,31 @@
 #pragma once
 #include "mypy.h"
-using namespace My;
 
-class MyEngine : public My::Engine
+class MyEngine : public myEngine
 {
 public:
-    handle hWeb = invalidHandle;
+    myHandle hWeb = invalidHandle;
         
-    MyEngine(const char* path) :My::Engine(path)
+    MyEngine(const char* path) :myEngine(path)
     {        
         SetScript(myfs::path("user/lua_test.lua"));
-        py.init();
+        myPy::init();
         SetScript(myfs::path("user/webviewpy_test.py"));
     }
 
     bool OnStart() override
     {
-        //AddWindow(1200, 800);
-        hWeb = AddWebView(0, 0, 400, 300);
+        AddWindow(1920, 1080);
+        hWeb = AddWebView(1920-400, 0, 400, 300);
         return true;
     }
 
-    void OnReady(handle id) override
+    void OnReady(myHandle id) override
     {
-        //Navigate(id, "google.com.tr");
-        const char* content =   "<!DOCTYPE html>"
+        std::string url = myfs::path("user/webview/compiled/index.html");
+        url = "file://" + url;
+        Navigate(id, url);
+        /*const char* content =   "<!DOCTYPE html>"
                                 "<html lang = 'en'>" 
                                 "<head>"
                                 "<style type = 'text/css' >"
@@ -46,7 +47,7 @@ public:
 
 
 
-        NavigateContent(id, { content });
+        NavigateContent(id, { content });*/
     }
 
     void OnMessageReceived(std::string message)
@@ -56,8 +57,8 @@ public:
 
     void OnDraw() override
     {
-        Engine::OnDraw();
-        /*if (view->IsReady() && KeyState[Key::A])
+        myEngine::OnDraw();
+        /*if (view->IsReady() && KeyState[myKey::A])
         {
             navigated = true;
             view->Navigate("http://www.google.com");

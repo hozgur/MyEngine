@@ -2,11 +2,11 @@
 #include "my.h"
 using namespace My;
 #include "myparser.h"
-class MyEngine : public Engine
+class MyEngine : public myEngine
 {
 public:
 
-    MyEngine(const char* path) :Engine(path)
+    MyEngine(const char* path) :myEngine(path)
     {
     }
 
@@ -16,7 +16,7 @@ public:
         std::string outpath = myfs::path("user/webview/compiled/index.html");
         std::string libpath = myfs::path("script/web/lib/");
 
-        Parser::parse(inpath, outpath, {
+        myParser::parse(inpath, outpath, {
             {"LIB_PATH",libpath},
             {"DAT_PATH","dat.gui.min.js"},
             {"JQUERY_PATH","jquery-3.5.1.min.js"},

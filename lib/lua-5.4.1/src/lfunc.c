@@ -107,7 +107,7 @@ static void callclose (lua_State *L, void *ud) {
 
 
 /*
-** Prepare closing method plus its arguments for object 'obj' with
+** Prepare closing method plus its arguments for myObject 'obj' with
 ** error message 'err'. (This function assumes EXTRA_STACK.)
 */
 static int prepclosingmethod (lua_State *L, TValue *obj, TValue *err) {
@@ -155,7 +155,7 @@ static int callclosemth (lua_State *L, StkId level, int status) {
     else if (!l_isfalse(uv))  /* non-closable non-false value? */
       varerror(L, level, "attempt to close non-closable variable '%s'");
   }
-  else {  /* must close the object in protected mode */
+  else {  /* must close the myObject in protected mode */
     ptrdiff_t oldtop;
     level++;  /* space for error message */
     oldtop = savestack(L, level + 1);  /* top will be after that */
@@ -203,7 +203,7 @@ void luaF_newtbcupval (lua_State *L, StkId level) {
     if (unlikely(status != LUA_OK)) {  /* memory error creating upvalue? */
       lua_assert(status == LUA_ERRMEM);
       luaD_seterrorobj(L, LUA_ERRMEM, level + 1);  /* save error message */
-      /* next call must succeed, as object is closable */
+      /* next call must succeed, as myObject is closable */
       prepclosingmethod(L, s2v(level), s2v(level + 1));
       callclose(L, NULL);  /* call closing method */
       luaD_throw(L, LUA_ERRMEM);  /* throw memory error */

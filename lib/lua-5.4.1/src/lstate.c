@@ -394,7 +394,7 @@ LUA_API lua_State *lua_newstate (lua_Alloc f, void *ud) {
   g->currentwhite = bitmask(WHITE0BIT);
   L->marked = luaC_white(g);
   preinit_thread(L, g);
-  g->allgc = obj2gco(L);  /* by now, only object is the main thread */
+  g->allgc = obj2gco(L);  /* by now, only myObject is the main thread */
   L->next = NULL;
   g->Cstacklimit = L->nCcalls = LUAI_MAXCSTACK + CSTACKERR;
   incnny(L);  /* main thread is always non yieldable */
@@ -456,7 +456,7 @@ void luaE_warning (lua_State *L, const char *msg, int tocont) {
 ** Generate a warning from an error message
 */
 void luaE_warnerror (lua_State *L, const char *where) {
-  TValue *errobj = s2v(L->top - 1);  /* error object */
+  TValue *errobj = s2v(L->top - 1);  /* error myObject */
   const char *msg = (ttisstring(errobj))
                   ? svalue(errobj)
                   : "error object is not a string";

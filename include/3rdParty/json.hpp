@@ -2439,7 +2439,7 @@ class exception : public std::exception
     }
 
   private:
-    /// an exception object as storage for error messages
+    /// an exception myObject as storage for error messages
     std::runtime_error m;
 };
 
@@ -2498,7 +2498,7 @@ class parse_error : public exception
                          chars_read_total=0 if the position cannot be
                          determined)
     @param[in] what_arg  the explanatory string
-    @return parse_error object
+    @return parse_error myObject
     */
     static parse_error create(int id_, const position_t& pos, const std::string& what_arg)
     {
@@ -2553,13 +2553,13 @@ json.exception.invalid_iterator.203 | iterators do not fit current value | Eithe
 json.exception.invalid_iterator.204 | iterators out of range | When an iterator range for a primitive type (number, boolean, or string) is passed to a constructor or an erase function, this range has to be exactly (@ref begin(), @ref end()), because this is the only way the single stored value is expressed. All other ranges are invalid.
 json.exception.invalid_iterator.205 | iterator out of range | When an iterator for a primitive type (number, boolean, or string) is passed to an erase function, the iterator has to be the @ref begin() iterator, because it is the only way to address the stored value. All other iterators are invalid.
 json.exception.invalid_iterator.206 | cannot construct with iterators from null | The iterators passed to constructor @ref basic_json(InputIT first, InputIT last) belong to a JSON null value and hence to not define a valid range.
-json.exception.invalid_iterator.207 | cannot use key() for non-object iterators | The key() member function can only be used on iterators belonging to a JSON object, because other types do not have a concept of a key.
-json.exception.invalid_iterator.208 | cannot use operator[] for object iterators | The operator[] to specify a concrete offset cannot be used on iterators belonging to a JSON object, because JSON objects are unordered.
-json.exception.invalid_iterator.209 | cannot use offsets with object iterators | The offset operators (+, -, +=, -=) cannot be used on iterators belonging to a JSON object, because JSON objects are unordered.
+json.exception.invalid_iterator.207 | cannot use key() for non-myObject iterators | The key() member function can only be used on iterators belonging to a JSON myObject, because other types do not have a concept of a key.
+json.exception.invalid_iterator.208 | cannot use operator[] for myObject iterators | The operator[] to specify a concrete offset cannot be used on iterators belonging to a JSON myObject, because JSON objects are unordered.
+json.exception.invalid_iterator.209 | cannot use offsets with myObject iterators | The offset operators (+, -, +=, -=) cannot be used on iterators belonging to a JSON myObject, because JSON objects are unordered.
 json.exception.invalid_iterator.210 | iterators do not fit | The iterator range passed to the insert function are not compatible, meaning they do not belong to the same container. Therefore, the range (@a first, @a last) is invalid.
 json.exception.invalid_iterator.211 | passed iterators may not belong to container | The iterator range passed to the insert function must not be a subrange of the container to insert to.
 json.exception.invalid_iterator.212 | cannot compare iterators of different containers | When two iterators are compared, they must belong to the same container.
-json.exception.invalid_iterator.213 | cannot compare order of object iterators | The order of object iterators cannot be compared, because JSON objects are unordered.
+json.exception.invalid_iterator.213 | cannot compare order of myObject iterators | The order of myObject iterators cannot be compared, because JSON objects are unordered.
 json.exception.invalid_iterator.214 | cannot get value | Cannot get value for iterator: Either the iterator belongs to a null value or it is an iterator to a primitive type (number, boolean, or string), but the iterator is different to @ref begin().
 
 @liveexample{The following code shows how an `invalid_iterator` exception can be
@@ -2599,9 +2599,9 @@ Exceptions have ids 3xx.
 
 name / id                     | example message | description
 ----------------------------- | --------------- | -------------------------
-json.exception.type_error.301 | cannot create object from initializer list | To create an object from an initializer list, the initializer list must consist only of a list of pairs whose first element is a string. When this constraint is violated, an array is created instead.
-json.exception.type_error.302 | type must be object, but is array | During implicit or explicit value conversion, the JSON type must be compatible to the target type. For instance, a JSON string can only be converted into string types, but not into numbers or boolean types.
-json.exception.type_error.303 | incompatible ReferenceType for get_ref, actual type is object | To retrieve a reference to a value stored in a @ref basic_json object with @ref get_ref, the type of the reference must match the value type. For instance, for a JSON array, the @a ReferenceType must be @ref array_t &.
+json.exception.type_error.301 | cannot create myObject from initializer list | To create an myObject from an initializer list, the initializer list must consist only of a list of pairs whose first element is a string. When this constraint is violated, an array is created instead.
+json.exception.type_error.302 | type must be myObject, but is array | During implicit or explicit value conversion, the JSON type must be compatible to the target type. For instance, a JSON string can only be converted into string types, but not into numbers or boolean types.
+json.exception.type_error.303 | incompatible ReferenceType for get_ref, actual type is myObject | To retrieve a reference to a value stored in a @ref basic_json myObject with @ref get_ref, the type of the reference must match the value type. For instance, for a JSON array, the @a ReferenceType must be @ref array_t &.
 json.exception.type_error.304 | cannot use at() with string | The @ref at() member functions can only be executed for certain JSON types.
 json.exception.type_error.305 | cannot use operator[] with string | The @ref operator[] member functions can only be executed for certain JSON types.
 json.exception.type_error.306 | cannot use value() with string | The @ref value() member functions can only be executed for certain JSON types.
@@ -2611,11 +2611,11 @@ json.exception.type_error.309 | cannot use insert() with | The @ref insert() mem
 json.exception.type_error.310 | cannot use swap() with number | The @ref swap() member functions can only be executed for certain JSON types.
 json.exception.type_error.311 | cannot use emplace_back() with string | The @ref emplace_back() member function can only be executed for certain JSON types.
 json.exception.type_error.312 | cannot use update() with string | The @ref update() member functions can only be executed for certain JSON types.
-json.exception.type_error.313 | invalid value to unflatten | The @ref unflatten function converts an object whose keys are JSON Pointers back into an arbitrary nested JSON value. The JSON Pointers must not overlap, because then the resulting value would not be well defined.
-json.exception.type_error.314 | only objects can be unflattened | The @ref unflatten function only works for an object whose keys are JSON Pointers.
-json.exception.type_error.315 | values in object must be primitive | The @ref unflatten function only works for an object whose keys are JSON Pointers and whose values are primitive.
+json.exception.type_error.313 | invalid value to unflatten | The @ref unflatten function converts an myObject whose keys are JSON Pointers back into an arbitrary nested JSON value. The JSON Pointers must not overlap, because then the resulting value would not be well defined.
+json.exception.type_error.314 | only objects can be unflattened | The @ref unflatten function only works for an myObject whose keys are JSON Pointers.
+json.exception.type_error.315 | values in myObject must be primitive | The @ref unflatten function only works for an myObject whose keys are JSON Pointers and whose values are primitive.
 json.exception.type_error.316 | invalid UTF-8 byte at index 10: 0x7E | The @ref dump function only works with UTF-8 encoded strings; that is, if you assign a `std::string` to a JSON value, make sure it is UTF-8 encoded. |
-json.exception.type_error.317 | JSON value cannot be serialized to requested format | The dynamic type of the object cannot be represented in the requested serialization format (e.g. a raw `true` or `null` JSON object cannot be serialized to BSON) |
+json.exception.type_error.317 | JSON value cannot be serialized to requested format | The dynamic type of the myObject cannot be represented in the requested serialization format (e.g. a raw `true` or `null` JSON myObject cannot be serialized to BSON) |
 
 @liveexample{The following code shows how a `type_error` exception can be
 caught.,type_error}
@@ -2647,7 +2647,7 @@ class type_error : public exception
 
 This exception is thrown in case a library function is called on an input
 parameter that exceeds the expected range, for instance in case of array
-indices or nonexisting object keys.
+indices or nonexisting myObject keys.
 
 Exceptions have ids 4xx.
 
@@ -2655,13 +2655,13 @@ name / id                       | example message | description
 ------------------------------- | --------------- | -------------------------
 json.exception.out_of_range.401 | array index 3 is out of range | The provided array index @a i is larger than @a size-1.
 json.exception.out_of_range.402 | array index '-' (3) is out of range | The special array index `-` in a JSON Pointer never describes a valid element of the array, but the index past the end. That is, it can only be used to add elements at this position, but not to read it.
-json.exception.out_of_range.403 | key 'foo' not found | The provided key was not found in the JSON object.
+json.exception.out_of_range.403 | key 'foo' not found | The provided key was not found in the JSON myObject.
 json.exception.out_of_range.404 | unresolved reference token 'foo' | A reference token in a JSON Pointer could not be resolved.
 json.exception.out_of_range.405 | JSON pointer has no parent | The JSON Patch operations 'remove' and 'add' can not be applied to the root element of the JSON value.
 json.exception.out_of_range.406 | number overflow parsing '10E1000' | A parsed number could not be stored as without changing it to NaN or INF.
 json.exception.out_of_range.407 | number overflow serializing '9223372036854775808' | UBJSON and BSON only support integer numbers up to 9223372036854775807. (until version 3.8.0) |
-json.exception.out_of_range.408 | excessive array size: 8658170730974374167 | The size (following `#`) of an UBJSON array or object exceeds the maximal capacity. |
-json.exception.out_of_range.409 | BSON key cannot contain code point U+0000 (at byte 2) | Key identifiers to be serialized to BSON cannot contain code point U+0000, since the key is stored as zero-terminated c-string |
+json.exception.out_of_range.408 | excessive array size: 8658170730974374167 | The size (following `#`) of an UBJSON array or myObject exceeds the maximal capacity. |
+json.exception.out_of_range.409 | BSON key cannot contain code point U+0000 (at byte 2) | myKey identifiers to be serialized to BSON cannot contain code point U+0000, since the key is stored as zero-terminated c-string |
 
 @liveexample{The following code shows how an `out_of_range` exception can be
 caught.,out_of_range}
@@ -3005,7 +3005,7 @@ struct ordered_map;
 /*!
 @brief ordered JSON class
 
-This type preserves the insertion order of object keys.
+This type preserves the insertion order of myObject keys.
 
 @since version 3.9.0
 */
@@ -3444,7 +3444,7 @@ value with the default value for a given type
 enum class value_t : std::uint8_t
 {
     null,             ///< null value
-    object,           ///< object (unordered set of name/value pairs)
+    object,           ///< myObject (unordered set of name/value pairs)
     array,            ///< array (ordered collection of values)
     string,           ///< string value
     boolean,          ///< boolean value
@@ -3459,7 +3459,7 @@ enum class value_t : std::uint8_t
 @brief comparison operator for JSON types
 
 Returns an ordering that is similar to Python:
-- order: null < boolean < number < object < array < string < binary
+- order: null < boolean < number < myObject < array < string < binary
 - furthermore, each type is not smaller than itself
 - discarded values are not comparable
 - binary is represented as a b"" string in python and directly comparable to a
@@ -3471,7 +3471,7 @@ Returns an ordering that is similar to Python:
 inline bool operator<(const value_t lhs, const value_t rhs) noexcept
 {
     static constexpr std::array<std::uint8_t, 9> order = {{
-            0 /* null */, 3 /* object */, 4 /* array */, 5 /* string */,
+            0 /* null */, 3 /* myObject */, 4 /* array */, 5 /* string */,
             1 /* boolean */, 2 /* integer */, 2 /* unsigned */, 2 /* float */,
             6 /* binary */
         }
@@ -3975,7 +3975,7 @@ template<typename IteratorType> class iteration_proxy_value
                 return array_index_str;
             }
 
-            // use key from the object
+            // use key from the myObject
             case value_t::object:
                 return anchor.key();
 
@@ -5327,23 +5327,23 @@ struct json_sax
     virtual bool binary(binary_t& val) = 0;
 
     /*!
-    @brief the beginning of an object was read
-    @param[in] elements  number of object elements or -1 if unknown
+    @brief the beginning of an myObject was read
+    @param[in] elements  number of myObject elements or -1 if unknown
     @return whether parsing should proceed
     @note binary formats may report the number of elements
     */
     virtual bool start_object(std::size_t elements) = 0;
 
     /*!
-    @brief an object key was read
-    @param[in] val  object key
+    @brief an myObject key was read
+    @param[in] val  myObject key
     @return whether parsing should proceed
     @note It is safe to move the passed string.
     */
     virtual bool key(string_t& val) = 0;
 
     /*!
-    @brief the end of an object was read
+    @brief the end of an myObject was read
     @return whether parsing should proceed
     */
     virtual bool end_object() = 0;
@@ -5366,7 +5366,7 @@ struct json_sax
     @brief a parse error occurred
     @param[in] position    the position in the input where the error occurs
     @param[in] last_token  the last read token
-    @param[in] ex          an exception object describing the error
+    @param[in] ex          an exception myObject describing the error
     @return whether parsing should proceed (must return false)
     */
     virtual bool parse_error(std::size_t position,
@@ -5385,7 +5385,7 @@ namespace detail
 This class implements the @ref json_sax interface and processes the SAX events
 to create a JSON value which makes it basically a DOM parser. The structure or
 hierarchy of the JSON value is managed by the stack `ref_stack` which contains
-a pointer to the respective array or object for each recursion depth.
+a pointer to the respective array or myObject for each recursion depth.
 
 After successful parsing, the value that is passed by reference to the
 constructor contains the parsed value.
@@ -5528,7 +5528,7 @@ class json_sax_dom_parser
     @invariant If the ref stack is empty, then the passed value will be the new
                root.
     @invariant If the ref stack contains a value, then it is an array or an
-               object to which we can add elements
+               myObject to which we can add elements
     */
     template<typename Value>
     JSON_HEDLEY_RETURNS_NON_NULL
@@ -5558,7 +5558,7 @@ class json_sax_dom_parser
     BasicJsonType& root;
     /// stack to model hierarchy of values
     std::vector<BasicJsonType*> ref_stack {};
-    /// helper to hold the reference for the next object element
+    /// helper to hold the reference for the next myObject element
     BasicJsonType* object_element = nullptr;
     /// whether a syntax error occurred
     bool errored = false;
@@ -5637,14 +5637,14 @@ class json_sax_dom_callback_parser
 
     bool start_object(std::size_t len)
     {
-        // check callback for object start
+        // check callback for myObject start
         const bool keep = callback(static_cast<int>(ref_stack.size()), parse_event_t::object_start, discarded);
         keep_stack.push_back(keep);
 
         auto val = handle_value(BasicJsonType::value_t::object, true);
         ref_stack.push_back(val.second);
 
-        // check object limit
+        // check myObject limit
         if (ref_stack.back() && JSON_HEDLEY_UNLIKELY(len != std::size_t(-1) && len > ref_stack.back()->max_size()))
         {
             JSON_THROW(out_of_range::create(408, "excessive object size: " + std::to_string(len)));
@@ -5674,7 +5674,7 @@ class json_sax_dom_callback_parser
     {
         if (ref_stack.back() && !callback(static_cast<int>(ref_stack.size()) - 1, parse_event_t::object_end, *ref_stack.back()))
         {
-            // discard object
+            // discard myObject
             *ref_stack.back() = discarded;
         }
 
@@ -5768,12 +5768,12 @@ class json_sax_dom_callback_parser
     @param[in] skip_callback  whether we should skip calling the callback
                function; this is required after start_array() and
                start_object() SAX events, because otherwise we would call the
-               callback function with an empty array or object, respectively.
+               callback function with an empty array or myObject, respectively.
 
     @invariant If the ref stack is empty, then the passed value will be the new
                root.
     @invariant If the ref stack contains a value, then it is an array or an
-               object to which we can add elements
+               myObject to which we can add elements
 
     @return pair of boolean (whether value should be kept) and pointer (to the
             passed value in the ref_stack hierarchy; nullptr if not kept)
@@ -5825,7 +5825,7 @@ class json_sax_dom_callback_parser
             return {true, &(ref_stack.back()->m_value.array->back())};
         }
 
-        // object
+        // myObject
         JSON_ASSERT(ref_stack.back()->is_object());
         // check if we should store an element for the current key
         JSON_ASSERT(!key_keep_stack.empty());
@@ -5848,9 +5848,9 @@ class json_sax_dom_callback_parser
     std::vector<BasicJsonType*> ref_stack {};
     /// stack to manage which values to keep
     std::vector<bool> keep_stack {};
-    /// stack to manage which object keys to keep
+    /// stack to manage which myObject keys to keep
     std::vector<bool> key_keep_stack {};
-    /// helper to hold the reference for the next object element
+    /// helper to hold the reference for the next myObject element
     BasicJsonType* object_element = nullptr;
     /// whether a syntax error occurred
     bool errored = false;
@@ -5985,9 +5985,9 @@ class lexer_base
         value_integer,    ///< a signed integer -- use get_number_integer() for actual value
         value_float,      ///< an floating point number -- use get_number_float() for actual value
         begin_array,      ///< the character for array begin `[`
-        begin_object,     ///< the character for object begin `{`
+        begin_object,     ///< the character for myObject begin `{`
         end_array,        ///< the character for array end `]`
-        end_object,       ///< the character for object end `}`
+        end_object,       ///< the character for myObject end `}`
         name_separator,   ///< the name separator `:`
         value_separator,  ///< the value separator `,`
         parse_error,      ///< indicating a parse error
@@ -7856,7 +7856,7 @@ class binary_reader
     //////////
 
     /*!
-    @brief Reads in a BSON-object and passes it to the SAX-parser.
+    @brief Reads in a BSON-myObject and passes it to the SAX-parser.
     @return whether a valid BSON-value was passed to the SAX parser
     */
     bool parse_bson_internal()
@@ -7959,7 +7959,7 @@ class binary_reader
     @warning Not all BSON element types are supported yet. An unsupported
              @a element_type will give rise to a parse_error.114:
              Unsupported BSON record type 0x...
-    @return whether a valid BSON-object/array was passed to the SAX parser
+    @return whether a valid BSON-myObject/array was passed to the SAX parser
     */
     bool parse_bson_element_internal(const char_int_type element_type,
                                      const std::size_t element_type_parse_position)
@@ -7979,7 +7979,7 @@ class binary_reader
                 return get_number<std::int32_t, true>(input_format_t::bson, len) && get_bson_string(len, value) && sax->string(value);
             }
 
-            case 0x03: // object
+            case 0x03: // myObject
             {
                 return parse_bson_internal();
             }
@@ -8032,12 +8032,12 @@ class binary_reader
 
     The same binary layout is used for objects and arrays, hence it must be
     indicated with the argument @a is_array which one is expected
-    (true --> array, false --> object).
+    (true --> array, false --> myObject).
 
     @param[in] is_array Determines if the element list being read is to be
-                        treated as an object (@a is_array == false), or as an
+                        treated as an myObject (@a is_array == false), or as an
                         array (@a is_array == true).
-    @return whether a valid BSON-object/array was passed to the SAX parser
+    @return whether a valid BSON-myObject/array was passed to the SAX parser
     */
     bool parse_bson_element_list(const bool is_array)
     {
@@ -8775,10 +8775,10 @@ class binary_reader
     }
 
     /*!
-    @param[in] len  the length of the object or std::size_t(-1) for an
-                    object of indefinite size
+    @param[in] len  the length of the myObject or std::size_t(-1) for an
+                    myObject of indefinite size
     @param[in] tag_handler how CBOR tags should be treated
-    @return whether object creation completed
+    @return whether myObject creation completed
     */
     bool get_cbor_object(const std::size_t len,
                          const cbor_tag_handler_t tag_handler)
@@ -9425,8 +9425,8 @@ class binary_reader
     }
 
     /*!
-    @param[in] len  the length of the object
-    @return whether object creation completed
+    @param[in] len  the length of the myObject
+    @return whether myObject creation completed
     */
     bool get_msgpack_object(const std::size_t len)
     {
@@ -9474,7 +9474,7 @@ class binary_reader
     @brief reads a UBJSON string
 
     This function is either called after reading the 'S' byte explicitly
-    indicating a string, or in case of an object key where the 'S' byte can be
+    indicating a string, or in case of an myObject key where the 'S' byte can be
     left out.
 
     @param[out] result   created string
@@ -9743,7 +9743,7 @@ class binary_reader
             case '[':  // array
                 return get_ubjson_array();
 
-            case '{':  // object
+            case '{':  // myObject
                 return get_ubjson_object();
 
             default: // anything else
@@ -9817,7 +9817,7 @@ class binary_reader
     }
 
     /*!
-    @return whether object creation completed
+    @return whether myObject creation completed
     */
     bool get_ubjson_object()
     {
@@ -10205,15 +10205,15 @@ namespace detail
 
 enum class parse_event_t : uint8_t
 {
-    /// the parser read `{` and started to process a JSON object
+    /// the parser read `{` and started to process a JSON myObject
     object_start,
-    /// the parser read `}` and finished processing a JSON object
+    /// the parser read `}` and finished processing a JSON myObject
     object_end,
     /// the parser read `[` and started to process a JSON array
     array_start,
     /// the parser read `]` and finished processing a JSON array
     array_end,
-    /// the parser read a key of a value in an object
+    /// the parser read a key of a value in an myObject
     key,
     /// the parser finished reading a JSON value
     value
@@ -10354,7 +10354,7 @@ class parser
     bool sax_parse_internal(SAX* sax)
     {
         // stack to remember the hierarchy of structured values we are parsing
-        // true = array; false = object
+        // true = array; false = myObject
         std::vector<bool> states;
         // value to avoid a goto (see comment where set to true)
         bool skip_to_state_evaluation = false;
@@ -10405,7 +10405,7 @@ class parser
                                                             exception_message(token_type::name_separator, "object separator")));
                         }
 
-                        // remember we are now inside an object
+                        // remember we are now inside an myObject
                         states.push_back(false);
 
                         // parse values
@@ -10573,7 +10573,7 @@ class parser
                                         parse_error::create(101, m_lexer.get_position(),
                                                 exception_message(token_type::end_array, "array")));
             }
-            else  // object
+            else  // myObject
             {
                 // comma -> next value
                 if (get_token() == token_type::value_separator)
@@ -10614,7 +10614,7 @@ class parser
                         return false;
                     }
 
-                    // We are done with this object. Before we can parse a
+                    // We are done with this myObject. Before we can parse a
                     // new value, we need to evaluate the new state first.
                     // By setting skip_to_state_evaluation to false, we
                     // are effectively jumping to the beginning of this if.
@@ -10917,8 +10917,8 @@ class iter_impl
 
     /*!
     @brief constructor for a given JSON instance
-    @param[in] object  pointer to a JSON object for this iterator
-    @pre object != nullptr
+    @param[in] myObject  pointer to a JSON myObject for this iterator
+    @pre myObject != nullptr
     @post The iterator is initialized; i.e. `m_object != nullptr`.
     */
     explicit iter_impl(pointer object) noexcept : m_object(object)
@@ -11442,7 +11442,7 @@ class iter_impl
     }
 
     /*!
-    @brief  return the key of an object iterator
+    @brief  return the key of an myObject iterator
     @pre The iterator is initialized; i.e. `m_object != nullptr`.
     */
     const typename object_t::key_type& key() const
@@ -11581,7 +11581,7 @@ class json_reverse_iterator : public std::reverse_iterator<Base>
         return *(this->operator+(n));
     }
 
-    /// return the key of an object iterator
+    /// return the key of an myObject iterator
     auto key() const -> decltype(std::declval<Base>().key())
     {
         auto it = --this->base();
@@ -12022,7 +12022,7 @@ class json_pointer
                     }
                     else
                     {
-                        // start a new object otherwise
+                        // start a new myObject otherwise
                         result = &result->operator[](reference_token);
                     }
                     break;
@@ -12030,7 +12030,7 @@ class json_pointer
 
                 case detail::value_t::object:
                 {
-                    // create an entry in the object
+                    // create an entry in the myObject
                     result = &result->operator[](reference_token);
                     break;
                 }
@@ -12063,7 +12063,7 @@ class json_pointer
           create nested values instead. For instance, calling this function
           with pointer `"/this/that"` on a null value is equivalent to calling
           `operator[]("this").operator[]("that")` on that value, effectively
-          changing the null value to an object.
+          changing the null value to an myObject.
 
     @param[in] ptr  a JSON value
 
@@ -12090,7 +12090,7 @@ class json_pointer
                     return std::isdigit(x);
                 });
 
-                // change value to array for numbers or "-" or to object otherwise
+                // change value to array for numbers or "-" or to myObject otherwise
                 *ptr = (nums || reference_token == "-")
                        ? detail::value_t::array
                        : detail::value_t::object;
@@ -12100,7 +12100,7 @@ class json_pointer
             {
                 case detail::value_t::object:
                 {
-                    // use unchecked object access
+                    // use unchecked myObject access
                     ptr = &ptr->operator[](reference_token);
                     break;
                 }
@@ -12191,7 +12191,7 @@ class json_pointer
             {
                 case detail::value_t::object:
                 {
-                    // use unchecked object access
+                    // use unchecked myObject access
                     ptr = &ptr->operator[](reference_token);
                     break;
                 }
@@ -12275,7 +12275,7 @@ class json_pointer
                 {
                     if (!ptr->contains(reference_token))
                     {
-                        // we did not find the key in the object
+                        // we did not find the key in the myObject
                         return false;
                     }
 
@@ -12451,7 +12451,7 @@ class json_pointer
     /*!
     @param[in] reference_string  the reference string to the current value
     @param[in] value             the value to consider
-    @param[in,out] result        the result object to insert values to
+    @param[in,out] result        the result myObject to insert values to
 
     @note Empty objects or arrays are flattened to `null`.
     */
@@ -12484,12 +12484,12 @@ class json_pointer
             {
                 if (value.m_value.object->empty())
                 {
-                    // flatten empty object as null
+                    // flatten empty myObject as null
                     result[reference_string] = nullptr;
                 }
                 else
                 {
-                    // iterate object and use keys as reference string
+                    // iterate myObject and use keys as reference string
                     for (const auto& element : *value.m_value.object)
                     {
                         flatten(reference_string + "/" + escape(element.first), element.second, result);
@@ -12513,8 +12513,8 @@ class json_pointer
     @return unflattened JSON
 
     @throw parse_error.109 if array index is not a number
-    @throw type_error.314  if value is not an object
-    @throw type_error.315  if object values are not primitive
+    @throw type_error.314  if value is not an myObject
+    @throw type_error.315  if myObject values are not primitive
     @throw type_error.313  if value cannot be unflattened
     */
     static BasicJsonType
@@ -12527,7 +12527,7 @@ class json_pointer
 
         BasicJsonType result;
 
-        // iterate the JSON object values
+        // iterate the JSON myObject values
         for (const auto& element : *value.m_value.object)
         {
             if (JSON_HEDLEY_UNLIKELY(!element.second.is_primitive()))
@@ -12842,7 +12842,7 @@ class binary_writer
 
     /*!
     @param[in] j  JSON value to serialize
-    @pre       j.type() == value_t::object
+    @pre       j.type() == value_t::myObject
     */
     void write_bson(const BasicJsonType& j)
     {
@@ -13123,7 +13123,7 @@ class binary_writer
 
             case value_t::object:
             {
-                // step 1: write control byte and the object size
+                // step 1: write control byte and the myObject size
                 const auto N = j.m_value.object->size();
                 if (N <= 0x17)
                 {
@@ -13453,7 +13453,7 @@ class binary_writer
 
             case value_t::object:
             {
-                // step 1: write control byte and the object size
+                // step 1: write control byte and the myObject size
                 const auto N = j.m_value.object->size();
                 if (N <= 15)
                 {
@@ -13835,12 +13835,12 @@ class binary_writer
     }
 
     /*!
-    @brief Writes a BSON element with key @a name and object @a value
+    @brief Writes a BSON element with key @a name and myObject @a value
     */
     void write_bson_object_entry(const string_t& name,
                                  const typename BasicJsonType::object_t& value)
     {
-        write_bson_entry_header(name, 0x03); // object
+        write_bson_entry_header(name, 0x03); // myObject
         write_bson_object(value);
     }
 
@@ -13994,9 +13994,9 @@ class binary_writer
 
     /*!
     @brief Calculates the size of the BSON serialization of the given
-           JSON-object @a j.
+           JSON-myObject @a j.
     @param[in] j  JSON value to serialize
-    @pre       j.type() == value_t::object
+    @pre       j.type() == value_t::myObject
     */
     static std::size_t calc_bson_object_size(const typename BasicJsonType::object_t& value)
     {
@@ -14011,7 +14011,7 @@ class binary_writer
 
     /*!
     @param[in] j  JSON value to serialize
-    @pre       j.type() == value_t::object
+    @pre       j.type() == value_t::myObject
     */
     void write_bson_object(const typename BasicJsonType::object_t& value)
     {
@@ -15590,7 +15590,7 @@ class serializer
     additional parameter. In case of arrays and objects, the function is
     called recursively.
 
-    - strings and object keys are escaped using `escape_string()`
+    - strings and myObject keys are escaped using `escape_string()`
     - integer numbers are converted implicitly via `operator<<`
     - floating-point numbers are converted to a string using `"%g"` format
     - binary values are serialized as objects containing the subtype and the
@@ -16654,7 +16654,7 @@ namespace nlohmann
 in @ref object_t)
 @tparam ArrayType type for JSON arrays (`std::vector` by default; will be used
 in @ref array_t)
-@tparam StringType type for JSON strings and object keys (`std::string` by
+@tparam StringType type for JSON strings and myObject keys (`std::string` by
 default; will be used in @ref string_t)
 @tparam BooleanType type for JSON booleans (`bool` by default; will be used
 in @ref boolean_t)
@@ -16715,7 +16715,7 @@ and `from_json()` (@ref adl_serializer by default)
 
 @invariant The member variables @a m_value and @a m_type have the following
 relationship:
-- If `m_type == value_t::object`, then `m_value.object != nullptr`.
+- If `m_type == value_t::myObject`, then `m_value.myObject != nullptr`.
 - If `m_type == value_t::array`, then `m_value.array != nullptr`.
 - If `m_type == value_t::string`, then `m_value.string != nullptr`.
 The invariants are checked by member function assert_invariant().
@@ -16885,18 +16885,18 @@ class basic_json
     /*!
     @brief returns version information on the library
 
-    This function returns a JSON object with information about the library,
+    This function returns a JSON myObject with information about the library,
     including the version number and information on the platform and compiler.
 
-    @return JSON object holding version information
+    @return JSON myObject holding version information
     key         | description
     ----------- | ---------------
-    `compiler`  | Information on the used compiler. It is an object with the following keys: `c++` (the used C++ standard), `family` (the compiler family; possible values are `clang`, `icc`, `gcc`, `ilecpp`, `msvc`, `pgcpp`, `sunpro`, and `unknown`), and `version` (the compiler version).
+    `compiler`  | Information on the used compiler. It is an myObject with the following keys: `c++` (the used C++ standard), `family` (the compiler family; possible values are `clang`, `icc`, `gcc`, `ilecpp`, `msvc`, `pgcpp`, `sunpro`, and `unknown`), and `version` (the compiler version).
     `copyright` | The copyright line for the library as string.
     `name`      | The name of the library as string.
     `platform`  | The used platform as string. Possible values are `win32`, `linux`, `apple`, `unix`, and `unknown`.
     `url`       | The URL of the project as string.
-    `version`   | The version of the library. It is an object with the following keys: `major`, `minor`, and `patch` as defined by [Semantic Versioning](http://semver.org), and `string` (the version string).
+    `version`   | The version of the library. It is an myObject with the following keys: `major`, `minor`, and `patch` as defined by [Semantic Versioning](http://semver.org), and `string` (the version string).
 
     @liveexample{The following code shows an example output of the `meta()`
     function.,meta}
@@ -16983,12 +16983,12 @@ class basic_json
 #endif
 
     /*!
-    @brief a type for an object
+    @brief a type for an myObject
 
     [RFC 7159](http://rfc7159.net/rfc7159) describes JSON objects as follows:
-    > An object is an unordered collection of zero or more name/value pairs,
+    > An myObject is an unordered collection of zero or more name/value pairs,
     > where a name is a string and a value is a string, number, boolean, null,
-    > object, or array.
+    > myObject, or array.
 
     To store objects in C++, a type is defined by the template parameters
     described below.
@@ -17022,9 +17022,9 @@ class basic_json
     the default type, objects have the following behavior:
 
     - When all names are unique, objects will be interoperable in the sense
-      that all software implementations receiving that object will agree on
+      that all software implementations receiving that myObject will agree on
       the name-value mappings.
-    - When the names within an object are not unique, it is unspecified which
+    - When the names within an myObject are not unique, it is unspecified which
       one of the values for a given key will be chosen. For instance,
       `{"key": 2, "key": 1}` could be equal to either `{"key": 1}` or
       `{"key": 2}`.
@@ -17042,23 +17042,23 @@ class basic_json
     [RFC 7159](http://rfc7159.net/rfc7159) specifies:
     > An implementation may set limits on the maximum depth of nesting.
 
-    In this class, the object's limit of nesting is not explicitly constrained.
+    In this class, the myObject's limit of nesting is not explicitly constrained.
     However, a maximum depth of nesting may be introduced by the compiler or
     runtime environment. A theoretical limit can be queried by calling the
-    @ref max_size function of a JSON object.
+    @ref max_size function of a JSON myObject.
 
     #### Storage
 
     Objects are stored as pointers in a @ref basic_json type. That is, for any
-    access to object values, a pointer of type `object_t*` must be
+    access to myObject values, a pointer of type `object_t*` must be
     dereferenced.
 
     @sa @ref array_t -- type for an array value
 
     @since version 1.0.0
 
-    @note The order name/value pairs are added to the object is *not*
-    preserved by the library. Therefore, iterating an object may return
+    @note The order name/value pairs are added to the myObject is *not*
+    preserved by the library. Therefore, iterating an myObject may return
     name/value pairs in a different order than they were originally stored. In
     fact, keys will be traversed in alphabetical order as `std::map` with
     `std::less` is used by default. Please note this behavior conforms to [RFC
@@ -17111,7 +17111,7 @@ class basic_json
     Arrays are stored as pointers in a @ref basic_json type. That is, for any
     access to array values, a pointer of type `array_t*` must be dereferenced.
 
-    @sa @ref object_t -- type for an object value
+    @sa @ref object_t -- type for an myObject value
 
     @since version 1.0.0
     */
@@ -17148,7 +17148,7 @@ class basic_json
     #### String comparison
 
     [RFC 7159](http://rfc7159.net/rfc7159) states:
-    > Software implementations are typically required to test names of object
+    > Software implementations are typically required to test names of myObject
     > members for equality. Implementations that transform the textual
     > representation into sequences of Unicode code units and then perform the
     > comparison numerically, code unit by code unit, are interoperable in the
@@ -17481,7 +17481,7 @@ class basic_json
 
   private:
 
-    /// helper for exception-safe object creation
+    /// helper for exception-safe myObject creation
     template<typename T, typename... Args>
     JSON_HEDLEY_RETURNS_NON_NULL
     static T* create(Args&& ... args)
@@ -17513,7 +17513,7 @@ class basic_json
 
     JSON type | value_t type    | used type
     --------- | --------------- | ------------------------
-    object    | object          | pointer to @ref object_t
+    myObject    | myObject          | pointer to @ref object_t
     array     | array           | pointer to @ref array_t
     string    | string          | pointer to @ref string_t
     boolean   | boolean         | @ref boolean_t
@@ -17531,7 +17531,7 @@ class basic_json
     */
     union json_value
     {
-        /// object (stored with pointer to save storage)
+        /// myObject (stored with pointer to save storage)
         object_t* object;
         /// array (stored with pointer to save storage)
         array_t* array;
@@ -17715,7 +17715,7 @@ class basic_json
                 basic_json current_item(std::move(stack.back()));
                 stack.pop_back();
 
-                // if current_item is array/object, move
+                // if current_item is array/myObject, move
                 // its children to the stack to be processed later
                 if (current_item.is_array())
                 {
@@ -17807,9 +17807,9 @@ class basic_json
     @brief parser event types
 
     The parser callback distinguishes the following events:
-    - `object_start`: the parser read `{` and started to process a JSON object
-    - `key`: the parser read a key of a value in an object
-    - `object_end`: the parser read `}` and finished processing a JSON object
+    - `object_start`: the parser read `{` and started to process a JSON myObject
+    - `key`: the parser read a key of a value in an myObject
+    - `object_end`: the parser read `}` and finished processing a JSON myObject
     - `array_start`: the parser read `[` and started to process a JSON array
     - `array_end`: the parser read `]` and finished processing a JSON array
     - `value`: the parser finished reading a JSON value
@@ -17836,9 +17836,9 @@ class basic_json
 
     parameter @a event | description | parameter @a depth | parameter @a parsed
     ------------------ | ----------- | ------------------ | -------------------
-    parse_event_t::object_start | the parser read `{` and started to process a JSON object | depth of the parent of the JSON object | a JSON value with type discarded
-    parse_event_t::key | the parser read a key of a value in an object | depth of the currently parsed JSON object | a JSON string containing the key
-    parse_event_t::object_end | the parser read `}` and finished processing a JSON object | depth of the parent of the JSON object | the parsed JSON object
+    parse_event_t::object_start | the parser read `{` and started to process a JSON myObject | depth of the parent of the JSON myObject | a JSON value with type discarded
+    parse_event_t::key | the parser read a key of a value in an myObject | depth of the currently parsed JSON myObject | a JSON string containing the key
+    parse_event_t::object_end | the parser read `}` and finished processing a JSON myObject | depth of the parent of the JSON myObject | the parsed JSON myObject
     parse_event_t::array_start | the parser read `[` and started to process a JSON array | depth of the parent of the JSON array | a JSON value with type discarded
     parse_event_t::array_end | the parser read `]` and finished processing a JSON array | depth of the parent of the JSON array | the parsed JSON array
     parse_event_t::value | the parser finished reading a JSON value | depth of the value | the parsed JSON value
@@ -17863,7 +17863,7 @@ class basic_json
 
     @return Whether the JSON value which called the function during parsing
     should be kept (`true`) or not (`false`). In the latter case, it is either
-    skipped completely or replaced by an empty discarded object.
+    skipped completely or replaced by an empty discarded myObject.
 
     @sa @ref parse for examples
 
@@ -17892,7 +17892,7 @@ class basic_json
     boolean     | `false`
     string      | `""`
     number      | `0`
-    object      | `{}`
+    myObject      | `{}`
     array       | `[]`
     binary      | empty array
 
@@ -17917,7 +17917,7 @@ class basic_json
     }
 
     /*!
-    @brief create a null object
+    @brief create a null myObject
 
     Create a `null` JSON value. It either takes a null pointer as parameter
     (explicitly creating `null`) or no parameter (implicitly creating `null`).
@@ -18094,16 +18094,16 @@ class basic_json
     }
 
     /*!
-    @brief create a container (array or object) from an initializer list
+    @brief create a container (array or myObject) from an initializer list
 
-    Creates a JSON value of type array or object from the passed initializer
+    Creates a JSON value of type array or myObject from the passed initializer
     list @a init. In case @a type_deduction is `true` (default), the type of
     the JSON value to be created is deducted from the initializer list @a init
     according to the following rules:
 
-    1. If the list is empty, an empty JSON object value `{}` is created.
+    1. If the list is empty, an empty JSON myObject value `{}` is created.
     2. If the list consists of pairs whose first element is a string, a JSON
-       object value is created where the first elements of the pairs are
+       myObject value is created where the first elements of the pairs are
        treated as keys and the second elements are as values.
     3. In all other cases, an array is created.
 
@@ -18111,13 +18111,13 @@ class basic_json
     JSON values. The rationale is as follows:
 
     1. The empty initializer list is written as `{}` which is exactly an empty
-       JSON object.
+       JSON myObject.
     2. C++ has no way of describing mapped types other than to list a list of
        pairs. As JSON requires that keys must be of type string, rule 2 is the
        weakest constraint one can pose on initializer lists to interpret them
-       as an object.
+       as an myObject.
     3. In all other cases, the initializer list could not be interpreted as
-       JSON object type, so interpreting it as JSON array type is safe.
+       JSON myObject type, so interpreting it as JSON array type is safe.
 
     With the rules described above, the following JSON values cannot be
     expressed by an initializer list:
@@ -18138,18 +18138,18 @@ class basic_json
     of the JSON value is deducted from the initializer list @a init; when set
     to `false`, the type provided via @a manual_type is forced. This mode is
     used by the functions @ref array(initializer_list_t) and
-    @ref object(initializer_list_t).
+    @ref myObject(initializer_list_t).
 
     @param[in] manual_type internal parameter; when @a type_deduction is set
     to `false`, the created JSON value will use the provided type (only @ref
-    value_t::array and @ref value_t::object are valid); when @a type_deduction
+    value_t::array and @ref value_t::myObject are valid); when @a type_deduction
     is set to `true`, this parameter has no effect
 
     @throw type_error.301 if @a type_deduction is `false`, @a manual_type is
-    `value_t::object`, but @a init contains an element which is not a pair
+    `value_t::myObject`, but @a init contains an element which is not a pair
     whose first element is a string. In this case, the constructor could not
-    create an object. If @a type_deduction would have be `true`, an array
-    would have been created. See @ref object(initializer_list_t)
+    create an myObject. If @a type_deduction would have be `true`, an array
+    would have been created. See @ref myObject(initializer_list_t)
     for an example.
 
     @complexity Linear in the size of the initializer list @a init.
@@ -18162,7 +18162,7 @@ class basic_json
 
     @sa @ref array(initializer_list_t) -- create a JSON array
     value from an initializer list
-    @sa @ref object(initializer_list_t) -- create a JSON object
+    @sa @ref myObject(initializer_list_t) -- create a JSON myObject
     value from an initializer list
 
     @since version 1.0.0
@@ -18182,13 +18182,13 @@ class basic_json
         // adjust type if type deduction is not wanted
         if (!type_deduction)
         {
-            // if array is wanted, do not create an object though possible
+            // if array is wanted, do not create an myObject though possible
             if (manual_type == value_t::array)
             {
                 is_an_object = false;
             }
 
-            // if object is wanted but impossible, throw an exception
+            // if myObject is wanted but impossible, throw an exception
             if (JSON_HEDLEY_UNLIKELY(manual_type == value_t::object && !is_an_object))
             {
                 JSON_THROW(type_error::create(301, "cannot create object from initializer list"));
@@ -18197,7 +18197,7 @@ class basic_json
 
         if (is_an_object)
         {
-            // the initializer list is a list of pairs -> create object
+            // the initializer list is a list of pairs -> create myObject
             m_type = value_t::object;
             m_value = value_t::object;
 
@@ -18325,9 +18325,9 @@ class basic_json
     are:
     1. creating an array whose elements are all pairs whose first element is a
     string -- in this case, the initializer list constructor would create an
-    object, taking the first elements as keys
+    myObject, taking the first elements as keys
     2. creating an empty array -- passing the empty initializer list to the
-    initializer list constructor yields an empty object
+    initializer list constructor yields an empty myObject
 
     @param[in] init  initializer list with JSON values to create an array from
     (optional)
@@ -18344,7 +18344,7 @@ class basic_json
 
     @sa @ref basic_json(initializer_list_t, bool, value_t) --
     create a JSON value from an initializer list
-    @sa @ref object(initializer_list_t) -- create a JSON object
+    @sa @ref myObject(initializer_list_t) -- create a JSON myObject
     value from an initializer list
 
     @since version 1.0.0
@@ -18356,11 +18356,11 @@ class basic_json
     }
 
     /*!
-    @brief explicitly create an object from an initializer list
+    @brief explicitly create an myObject from an initializer list
 
-    Creates a JSON object value from a given initializer list. The initializer
+    Creates a JSON myObject value from a given initializer list. The initializer
     lists elements must be pairs, and their first elements must be strings. If
-    the initializer list is empty, the empty object `{}` is created.
+    the initializer list is empty, the empty myObject `{}` is created.
 
     @note This function is only added for symmetry reasons. In contrast to the
     related function @ref array(initializer_list_t), there are
@@ -18368,12 +18368,12 @@ class basic_json
     initializer list @a init can also be passed to the initializer list
     constructor @ref basic_json(initializer_list_t, bool, value_t).
 
-    @param[in] init  initializer list to create an object from (optional)
+    @param[in] init  initializer list to create an myObject from (optional)
 
-    @return JSON object value
+    @return JSON myObject value
 
     @throw type_error.301 if @a init is not a list of pairs whose first
-    elements are strings. In this case, no object can be created. When such a
+    elements are strings. In this case, no myObject can be created. When such a
     value is passed to @ref basic_json(initializer_list_t, bool, value_t),
     an array would have been created from the passed initializer list @a init.
     See example below.
@@ -18384,7 +18384,7 @@ class basic_json
     changes to any JSON value.
 
     @liveexample{The following code shows an example for the `object`
-    function.,object}
+    function.,myObject}
 
     @sa @ref basic_json(initializer_list_t, bool, value_t) --
     create a JSON value from an initializer list
@@ -18437,9 +18437,9 @@ class basic_json
     - In case of other primitive types (number, boolean, or string), @a first
       must be `begin()` and @a last must be `end()`. In this case, the value is
       copied. Otherwise, invalid_iterator.204 is thrown.
-    - In case of structured types (array, object), the constructor behaves as
+    - In case of structured types (array, myObject), the constructor behaves as
       similar versions for `std::vector` or `std::map`; that is, a JSON array
-      or object is constructed from the values in the range.
+      or myObject is constructed from the values in the range.
 
     @tparam InputIT an input iterator type (@ref iterator or @ref
     const_iterator)
@@ -18686,7 +18686,7 @@ class basic_json
     value @a other using move semantics. It "steals" the resources from @a
     other and leaves it as JSON null value.
 
-    @param[in,out] other  value to move to this object
+    @param[in,out] other  value to move to this myObject
 
     @post `*this` has the same value as @a other before the call.
     @post @a other is a JSON null value.
@@ -18785,10 +18785,10 @@ class basic_json
 
   public:
     ///////////////////////
-    // object inspection //
+    // myObject inspection //
     ///////////////////////
 
-    /// @name object inspection
+    /// @name myObject inspection
     /// Functions to inspect the type of a JSON value.
     /// @{
 
@@ -18799,7 +18799,7 @@ class basic_json
     Python's `json.dumps()` function, and currently supports its @a indent
     and @a ensure_ascii parameters.
 
-    @param[in] indent If indent is nonnegative, then array elements and object
+    @param[in] indent If indent is nonnegative, then array elements and myObject
     members will be pretty-printed with that indent level. An indent level of
     `0` will only insert newlines. `-1` (the default) selects the most compact
     representation.
@@ -18819,7 +18819,7 @@ class basic_json
     @throw type_error.316 if a string stored inside the JSON value is not
                           UTF-8 encoded and @a error_handler is set to strict
 
-    @note Binary values are serialized as object containing two keys:
+    @note Binary values are serialized as myObject containing two keys:
       - "bytes": an array of bytes as integers
       - "subtype": the subtype as integer or "null" if the binary has no subtype
 
@@ -18874,7 +18874,7 @@ class basic_json
             number (integer)          | value_t::number_integer
             number (unsigned integer) | value_t::number_unsigned
             number (floating-point)   | value_t::number_float
-            object                    | value_t::object
+            myObject                    | value_t::myObject
             array                     | value_t::array
             binary                    | value_t::binary
             discarded                 | value_t::discarded
@@ -18932,9 +18932,9 @@ class basic_json
     @brief return whether type is structured
 
     This function returns true if and only if the JSON type is structured
-    (array or object).
+    (array or myObject).
 
-    @return `true` if type is structured (array or object), `false` otherwise.
+    @return `true` if type is structured (array or myObject), `false` otherwise.
 
     @complexity Constant.
 
@@ -18946,7 +18946,7 @@ class basic_json
 
     @sa @ref is_primitive() -- returns whether value is primitive
     @sa @ref is_array() -- returns whether value is an array
-    @sa @ref is_object() -- returns whether value is an object
+    @sa @ref is_object() -- returns whether value is an myObject
 
     @since version 1.0.0
     */
@@ -19115,11 +19115,11 @@ class basic_json
     }
 
     /*!
-    @brief return whether value is an object
+    @brief return whether value is an myObject
 
-    This function returns true if and only if the JSON value is an object.
+    This function returns true if and only if the JSON value is an myObject.
 
-    @return `true` if type is object, `false` otherwise.
+    @return `true` if type is myObject, `false` otherwise.
 
     @complexity Constant.
 
@@ -19273,13 +19273,13 @@ class basic_json
         JSON_THROW(type_error::create(302, "type must be boolean, but is " + std::string(type_name())));
     }
 
-    /// get a pointer to the value (object)
+    /// get a pointer to the value (myObject)
     object_t* get_impl_ptr(object_t* /*unused*/) noexcept
     {
         return is_object() ? m_value.object : nullptr;
     }
 
-    /// get a pointer to the value (object)
+    /// get a pointer to the value (myObject)
     constexpr const object_t* get_impl_ptr(const object_t* /*unused*/) const noexcept
     {
         return is_object() ? m_value.object : nullptr;
@@ -19477,7 +19477,7 @@ class basic_json
     @liveexample{The example below shows several conversions from JSON values
     to other types. There a few things to note: (1) Floating-point numbers can
     be converted to integers\, (2) A JSON array can be converted to a standard
-    `std::vector<short>`\, (3) A JSON object can be converted to C++
+    `std::vector<short>`\, (3) A JSON myObject can be converted to C++
     associative containers such as `std::unordered_map<std::string\,
     json>`.,get__ValueType_const}
 
@@ -19575,7 +19575,7 @@ class basic_json
     @liveexample{The example below shows several conversions from JSON values
     to other types. There a few things to note: (1) Floating-point numbers can
     be converted to integers\, (2) A JSON array can be converted to a standard
-    `std::vector<short>`\, (3) A JSON object can be converted to C++
+    `std::vector<short>`\, (3) A JSON myObject can be converted to C++
     associative containers such as `std::unordered_map<std::string\,
     json>`.,get_to}
 
@@ -19672,7 +19672,7 @@ class basic_json
     Explicit pointer access to the internally stored JSON value. No copies are
     made.
 
-    @warning The pointer becomes invalid if the underlying JSON object
+    @warning The pointer becomes invalid if the underlying JSON myObject
     changes.
 
     @tparam PointerType pointer type; must be a pointer to @ref array_t, @ref
@@ -19783,7 +19783,7 @@ class basic_json
     @liveexample{The example below shows several conversions from JSON values
     to other types. There a few things to note: (1) Floating-point numbers can
     be converted to integers\, (2) A JSON array can be converted to a standard
-    `std::vector<short>`\, (3) A JSON object can be converted to C++
+    `std::vector<short>`\, (3) A JSON myObject can be converted to C++
     associative containers such as `std::unordered_map<std::string\,
     json>`.,operator__ValueType}
 
@@ -19942,7 +19942,7 @@ class basic_json
     }
 
     /*!
-    @brief access specified object element with bounds checking
+    @brief access specified myObject element with bounds checking
 
     Returns a reference to the element at with specified key @a key, with
     bounds checking.
@@ -19951,9 +19951,9 @@ class basic_json
 
     @return reference to the element at key @a key
 
-    @throw type_error.304 if the JSON value is not an object; in this case,
+    @throw type_error.304 if the JSON value is not an myObject; in this case,
     calling `at` with a key makes no sense. See example below.
-    @throw out_of_range.403 if the key @a key is is not stored in the object;
+    @throw out_of_range.403 if the key @a key is is not stored in the myObject;
     that is, `find(key) == end()`. See example below.
 
     @exceptionsafety Strong guarantee: if an exception is thrown, there are no
@@ -19967,7 +19967,7 @@ class basic_json
 
     @since version 1.0.0
 
-    @liveexample{The example below shows how object elements can be read and
+    @liveexample{The example below shows how myObject elements can be read and
     written using `at()`. It also demonstrates the different exceptions that
     can be thrown.,at__object_t_key_type}
     */
@@ -19993,7 +19993,7 @@ class basic_json
     }
 
     /*!
-    @brief access specified object element with bounds checking
+    @brief access specified myObject element with bounds checking
 
     Returns a const reference to the element at with specified key @a key,
     with bounds checking.
@@ -20002,9 +20002,9 @@ class basic_json
 
     @return const reference to the element at key @a key
 
-    @throw type_error.304 if the JSON value is not an object; in this case,
+    @throw type_error.304 if the JSON value is not an myObject; in this case,
     calling `at` with a key makes no sense. See example below.
-    @throw out_of_range.403 if the key @a key is is not stored in the object;
+    @throw out_of_range.403 if the key @a key is is not stored in the myObject;
     that is, `find(key) == end()`. See example below.
 
     @exceptionsafety Strong guarantee: if an exception is thrown, there are no
@@ -20018,7 +20018,7 @@ class basic_json
 
     @since version 1.0.0
 
-    @liveexample{The example below shows how object elements can be read using
+    @liveexample{The example below shows how myObject elements can be read using
     `at()`. It also demonstrates the different exceptions that can be thrown.,
     at__object_t_key_type_const}
     */
@@ -20126,24 +20126,24 @@ class basic_json
     }
 
     /*!
-    @brief access specified object element
+    @brief access specified myObject element
 
     Returns a reference to the element at with specified key @a key.
 
-    @note If @a key is not found in the object, then it is silently added to
-    the object and filled with a `null` value to make `key` a valid reference.
-    In case the value was `null` before, it is converted to an object.
+    @note If @a key is not found in the myObject, then it is silently added to
+    the myObject and filled with a `null` value to make `key` a valid reference.
+    In case the value was `null` before, it is converted to an myObject.
 
     @param[in] key  key of the element to access
 
     @return reference to the element at key @a key
 
-    @throw type_error.305 if the JSON value is not an object or null; in that
+    @throw type_error.305 if the JSON value is not an myObject or null; in that
     cases, using the [] operator with a key makes no sense.
 
     @complexity Logarithmic in the size of the container.
 
-    @liveexample{The example below shows how object elements can be read and
+    @liveexample{The example below shows how myObject elements can be read and
     written using the `[]` operator.,operatorarray__key_type}
 
     @sa @ref at(const typename object_t::key_type&) for access by reference
@@ -20154,7 +20154,7 @@ class basic_json
     */
     reference operator[](const typename object_t::key_type& key)
     {
-        // implicitly convert null value to an empty object
+        // implicitly convert null value to an empty myObject
         if (is_null())
         {
             m_type = value_t::object;
@@ -20172,7 +20172,7 @@ class basic_json
     }
 
     /*!
-    @brief read-only access specified object element
+    @brief read-only access specified myObject element
 
     Returns a const reference to the element at with specified key @a key. No
     bounds checking is performed.
@@ -20187,12 +20187,12 @@ class basic_json
     @pre The element with key @a key must exist. **This precondition is
          enforced with an assertion.**
 
-    @throw type_error.305 if the JSON value is not an object; in that case,
+    @throw type_error.305 if the JSON value is not an myObject; in that case,
     using the [] operator with a key makes no sense.
 
     @complexity Logarithmic in the size of the container.
 
-    @liveexample{The example below shows how object elements can be read using
+    @liveexample{The example below shows how myObject elements can be read using
     the `[]` operator.,operatorarray__key_type_const}
 
     @sa @ref at(const typename object_t::key_type&) for access by reference
@@ -20214,24 +20214,24 @@ class basic_json
     }
 
     /*!
-    @brief access specified object element
+    @brief access specified myObject element
 
     Returns a reference to the element at with specified key @a key.
 
-    @note If @a key is not found in the object, then it is silently added to
-    the object and filled with a `null` value to make `key` a valid reference.
-    In case the value was `null` before, it is converted to an object.
+    @note If @a key is not found in the myObject, then it is silently added to
+    the myObject and filled with a `null` value to make `key` a valid reference.
+    In case the value was `null` before, it is converted to an myObject.
 
     @param[in] key  key of the element to access
 
     @return reference to the element at key @a key
 
-    @throw type_error.305 if the JSON value is not an object or null; in that
+    @throw type_error.305 if the JSON value is not an myObject or null; in that
     cases, using the [] operator with a key makes no sense.
 
     @complexity Logarithmic in the size of the container.
 
-    @liveexample{The example below shows how object elements can be read and
+    @liveexample{The example below shows how myObject elements can be read and
     written using the `[]` operator.,operatorarray__key_type}
 
     @sa @ref at(const typename object_t::key_type&) for access by reference
@@ -20244,7 +20244,7 @@ class basic_json
     JSON_HEDLEY_NON_NULL(2)
     reference operator[](T* key)
     {
-        // implicitly convert null to object
+        // implicitly convert null to myObject
         if (is_null())
         {
             m_type = value_t::object;
@@ -20262,7 +20262,7 @@ class basic_json
     }
 
     /*!
-    @brief read-only access specified object element
+    @brief read-only access specified myObject element
 
     Returns a const reference to the element at with specified key @a key. No
     bounds checking is performed.
@@ -20277,12 +20277,12 @@ class basic_json
     @pre The element with key @a key must exist. **This precondition is
          enforced with an assertion.**
 
-    @throw type_error.305 if the JSON value is not an object; in that case,
+    @throw type_error.305 if the JSON value is not an myObject; in that case,
     using the [] operator with a key makes no sense.
 
     @complexity Logarithmic in the size of the container.
 
-    @liveexample{The example below shows how object elements can be read using
+    @liveexample{The example below shows how myObject elements can be read using
     the `[]` operator.,operatorarray__key_type_const}
 
     @sa @ref at(const typename object_t::key_type&) for access by reference
@@ -20306,9 +20306,9 @@ class basic_json
     }
 
     /*!
-    @brief access specified object element with default value
+    @brief access specified myObject element with default value
 
-    Returns either a copy of an object's element at the specified key @a key
+    Returns either a copy of an myObject's element at the specified key @a key
     or a given default value if no element with key @a key exists.
 
     The function is basically equivalent to executing
@@ -20340,12 +20340,12 @@ class basic_json
 
     @throw type_error.302 if @a default_value does not match the type of the
     value at @a key
-    @throw type_error.306 if the JSON value is not an object; in that case,
+    @throw type_error.306 if the JSON value is not an myObject; in that case,
     using `value()` with a key makes no sense.
 
     @complexity Logarithmic in the size of the container.
 
-    @liveexample{The example below shows how object elements can be queried
+    @liveexample{The example below shows how myObject elements can be queried
     with a default value.,basic_json__value}
 
     @sa @ref at(const typename object_t::key_type&) for access by reference
@@ -20387,9 +20387,9 @@ class basic_json
     }
 
     /*!
-    @brief access specified object element via JSON Pointer with default value
+    @brief access specified myObject element via JSON Pointer with default value
 
-    Returns either a copy of an object's element at the specified key @a key
+    Returns either a copy of an myObject's element at the specified key @a key
     or a given default value if no element with key @a key exists.
 
     The function is basically equivalent to executing
@@ -20417,12 +20417,12 @@ class basic_json
 
     @throw type_error.302 if @a default_value does not match the type of the
     value at @a ptr
-    @throw type_error.306 if the JSON value is not an object; in that case,
+    @throw type_error.306 if the JSON value is not an myObject; in that case,
     using `value()` with a key makes no sense.
 
     @complexity Logarithmic in the size of the container.
 
-    @liveexample{The example below shows how object elements can be queried
+    @liveexample{The example below shows how myObject elements can be queried
     with a default value.,basic_json__value_ptr}
 
     @sa @ref operator[](const json_pointer&) for unchecked access by reference
@@ -20466,14 +20466,14 @@ class basic_json
     Returns a reference to the first element in the container. For a JSON
     container `c`, the expression `c.front()` is equivalent to `*c.begin()`.
 
-    @return In case of a structured type (array or object), a reference to the
+    @return In case of a structured type (array or myObject), a reference to the
     first element is returned. In case of number, string, boolean, or binary
     values, a reference to the value is returned.
 
     @complexity Constant.
 
     @pre The JSON value must not be `null` (would throw `std::out_of_range`)
-    or an empty array or object (undefined behavior, **guarded by
+    or an empty array or myObject (undefined behavior, **guarded by
     assertions**).
     @post The JSON value remains unchanged.
 
@@ -20509,14 +20509,14 @@ class basic_json
     return *tmp;
     @endcode
 
-    @return In case of a structured type (array or object), a reference to the
+    @return In case of a structured type (array or myObject), a reference to the
     last element is returned. In case of number, string, boolean, or binary
     values, a reference to the value is returned.
 
     @complexity Constant.
 
     @pre The JSON value must not be `null` (would throw `std::out_of_range`)
-    or an empty array or object (undefined behavior, **guarded by
+    or an empty array or myObject (undefined behavior, **guarded by
     assertions**).
     @post The JSON value remains unchanged.
 
@@ -20586,7 +20586,7 @@ class basic_json
     @sa @ref erase(IteratorType, IteratorType) -- removes the elements in
     the given range
     @sa @ref erase(const typename object_t::key_type&) -- removes the element
-    from an object at the given key
+    from an myObject at the given key
     @sa @ref erase(const size_type) -- removes the element from an array at
     the given index
 
@@ -20699,7 +20699,7 @@ class basic_json
 
     @sa @ref erase(IteratorType) -- removes the element at a given position
     @sa @ref erase(const typename object_t::key_type&) -- removes the element
-    from an object at the given key
+    from an myObject at the given key
     @sa @ref erase(const size_type) -- removes the element from an array at
     the given index
 
@@ -20776,9 +20776,9 @@ class basic_json
     }
 
     /*!
-    @brief remove element from a JSON object given a key
+    @brief remove element from a JSON myObject given a key
 
-    Removes elements from a JSON object with the key value @a key.
+    Removes elements from a JSON myObject with the key value @a key.
 
     @param[in] key value of the elements to remove
 
@@ -20789,7 +20789,7 @@ class basic_json
     @post References and iterators to the erased elements are invalidated.
     Other references and iterators are not affected.
 
-    @throw type_error.307 when called on a type other than JSON object;
+    @throw type_error.307 when called on a type other than JSON myObject;
     example: `"cannot use erase() with null"`
 
     @complexity `log(size()) + count(key)`
@@ -20822,7 +20822,7 @@ class basic_json
 
     @param[in] idx index of the element to remove
 
-    @throw type_error.307 when called on a type other than JSON object;
+    @throw type_error.307 when called on a type other than JSON myObject;
     example: `"cannot use erase() with null"`
     @throw out_of_range.401 when `idx >= size()`; example: `"array index 17
     is out of range"`
@@ -20835,7 +20835,7 @@ class basic_json
     @sa @ref erase(IteratorType, IteratorType) -- removes the elements in
     the given range
     @sa @ref erase(const typename object_t::key_type&) -- removes the element
-    from an object at the given key
+    from an myObject at the given key
 
     @since version 1.0.0
     */
@@ -20868,22 +20868,22 @@ class basic_json
     /// @{
 
     /*!
-    @brief find an element in a JSON object
+    @brief find an element in a JSON myObject
 
-    Finds an element in a JSON object with key equivalent to @a key. If the
-    element is not found or the JSON value is not an object, end() is
+    Finds an element in a JSON myObject with key equivalent to @a key. If the
+    element is not found or the JSON value is not an myObject, end() is
     returned.
 
     @note This method always returns @ref end() when executed on a JSON type
-          that is not an object.
+          that is not an myObject.
 
     @param[in] key key value of the element to search for.
 
     @return Iterator to an element with key equivalent to @a key. If no such
-    element is found or the JSON value is not an object, past-the-end (see
+    element is found or the JSON value is not an myObject, past-the-end (see
     @ref end()) iterator is returned.
 
-    @complexity Logarithmic in the size of the JSON object.
+    @complexity Logarithmic in the size of the JSON myObject.
 
     @liveexample{The example shows how `find()` is used.,find__key_type}
 
@@ -20905,7 +20905,7 @@ class basic_json
     }
 
     /*!
-    @brief find an element in a JSON object
+    @brief find an element in a JSON myObject
     @copydoc find(KeyT&&)
     */
     template<typename KeyT>
@@ -20922,21 +20922,21 @@ class basic_json
     }
 
     /*!
-    @brief returns the number of occurrences of a key in a JSON object
+    @brief returns the number of occurrences of a key in a JSON myObject
 
     Returns the number of elements with key @a key. If ObjectType is the
     default `std::map` type, the return value will always be `0` (@a key was
     not found) or `1` (@a key was found).
 
     @note This method always returns `0` when executed on a JSON type that is
-          not an object.
+          not an myObject.
 
     @param[in] key key value of the element to count
 
     @return Number of elements with key @a key. If the JSON value is not an
-    object, the return value will be `0`.
+    myObject, the return value will be `0`.
 
-    @complexity Logarithmic in the size of the JSON object.
+    @complexity Logarithmic in the size of the JSON myObject.
 
     @liveexample{The example shows how `count()` is used.,count}
 
@@ -20950,26 +20950,26 @@ class basic_json
     }
 
     /*!
-    @brief check the existence of an element in a JSON object
+    @brief check the existence of an element in a JSON myObject
 
-    Check whether an element exists in a JSON object with key equivalent to
-    @a key. If the element is not found or the JSON value is not an object,
+    Check whether an element exists in a JSON myObject with key equivalent to
+    @a key. If the element is not found or the JSON value is not an myObject,
     false is returned.
 
     @note This method always returns false when executed on a JSON type
-          that is not an object.
+          that is not an myObject.
 
     @param[in] key key value to check its existence.
 
     @return true if an element with specified @a key exists. If no such
-    element with such key is found or the JSON value is not an object,
+    element with such key is found or the JSON value is not an myObject,
     false is returned.
 
-    @complexity Logarithmic in the size of the JSON object.
+    @complexity Logarithmic in the size of the JSON myObject.
 
     @liveexample{The following code shows an example for `contains()`.,contains}
 
-    @sa @ref find(KeyT&&) -- returns an iterator to an object element
+    @sa @ref find(KeyT&&) -- returns an iterator to an myObject element
     @sa @ref contains(const json_pointer&) const -- checks the existence for a JSON pointer
 
     @since version 3.6.0
@@ -20982,7 +20982,7 @@ class basic_json
     }
 
     /*!
-    @brief check the existence of an element in a JSON object given a JSON pointer
+    @brief check the existence of an element in a JSON myObject given a JSON pointer
 
     Check whether the given JSON pointer @a ptr can be resolved in the current
     JSON value.
@@ -20999,7 +20999,7 @@ class basic_json
     @throw parse_error.106   if an array index begins with '0'
     @throw parse_error.109   if an array index was not a number
 
-    @complexity Logarithmic in the size of the JSON object.
+    @complexity Logarithmic in the size of the JSON myObject.
 
     @liveexample{The following code shows an example for `contains()`.,contains_json_pointer}
 
@@ -21336,7 +21336,7 @@ class basic_json
           element as string (see example).
 
     @param[in] ref  reference to a JSON value
-    @return iteration proxy object wrapping @a ref with an interface to use in
+    @return iteration proxy myObject wrapping @a ref with an interface to use in
             range-based for loops
 
     @liveexample{The following code shows how the wrapper is used,iterator_wrapper}
@@ -21420,11 +21420,11 @@ class basic_json
           `key()` returns an empty string.
 
     @warning Using `items()` on temporary objects is dangerous. Make sure the
-             object's lifetime exeeds the iteration. See
+             myObject's lifetime exeeds the iteration. See
              <https://github.com/nlohmann/json/issues/2040> for more
              information.
 
-    @return iteration proxy object wrapping @a ref with an interface to use in
+    @return iteration proxy myObject wrapping @a ref with an interface to use in
             range-based for loops
 
     @liveexample{The following code shows how the function is used.,items}
@@ -21473,11 +21473,11 @@ class basic_json
             string      | `false`
             number      | `false`
             binary      | `false`
-            object      | result of function `object_t::empty()`
+            myObject      | result of function `object_t::empty()`
             array       | result of function `array_t::empty()`
 
     @liveexample{The following code uses `empty()` to check if a JSON
-    object contains any elements.,empty}
+    myObject contains any elements.,empty}
 
     @complexity Constant, as long as @ref array_t and @ref object_t satisfy
     the Container concept; that is, their `empty()` functions have constant
@@ -21545,7 +21545,7 @@ class basic_json
             string      | `1`
             number      | `1`
             binary      | `1`
-            object      | result of function object_t::size()
+            myObject      | result of function object_t::size()
             array       | result of function array_t::size()
 
     @liveexample{The following code calls `size()` on the different value
@@ -21620,7 +21620,7 @@ class basic_json
             string      | `1` (same as `size()`)
             number      | `1` (same as `size()`)
             binary      | `1` (same as `size()`)
-            object      | result of function `object_t::max_size()`
+            myObject      | result of function `object_t::max_size()`
             array       | result of function `array_t::max_size()`
 
     @liveexample{The following code calls `max_size()` on the different value
@@ -21693,7 +21693,7 @@ class basic_json
     string      | `""`
     number      | `0`
     binary      | An empty byte vector
-    object      | `{}`
+    myObject      | `{}`
     array       | `[]`
 
     @post Has the same effect as calling
@@ -21711,7 +21711,7 @@ class basic_json
 
     @exceptionsafety No-throw guarantee: this function never throws exceptions.
 
-    @sa @ref basic_json(value_t) -- constructor that creates an object with the
+    @sa @ref basic_json(value_t) -- constructor that creates an myObject with the
         same value than calling `clear()`
 
     @since version 1.0.0
@@ -21774,7 +21774,7 @@ class basic_json
     }
 
     /*!
-    @brief add an object to an array
+    @brief add an myObject to an array
 
     Appends the given element @a val to the end of the JSON value. If the
     function is called on a JSON null value, an empty array is created before
@@ -21801,7 +21801,7 @@ class basic_json
             JSON_THROW(type_error::create(308, "cannot use push_back() with " + std::string(type_name())));
         }
 
-        // transform null object into an array
+        // transform null myObject into an array
         if (is_null())
         {
             m_type = value_t::array;
@@ -21815,7 +21815,7 @@ class basic_json
     }
 
     /*!
-    @brief add an object to an array
+    @brief add an myObject to an array
     @copydoc push_back(basic_json&&)
     */
     reference operator+=(basic_json&& val)
@@ -21825,7 +21825,7 @@ class basic_json
     }
 
     /*!
-    @brief add an object to an array
+    @brief add an myObject to an array
     @copydoc push_back(basic_json&&)
     */
     void push_back(const basic_json& val)
@@ -21836,7 +21836,7 @@ class basic_json
             JSON_THROW(type_error::create(308, "cannot use push_back() with " + std::string(type_name())));
         }
 
-        // transform null object into an array
+        // transform null myObject into an array
         if (is_null())
         {
             m_type = value_t::array;
@@ -21849,7 +21849,7 @@ class basic_json
     }
 
     /*!
-    @brief add an object to an array
+    @brief add an myObject to an array
     @copydoc push_back(basic_json&&)
     */
     reference operator+=(const basic_json& val)
@@ -21859,22 +21859,22 @@ class basic_json
     }
 
     /*!
-    @brief add an object to an object
+    @brief add an myObject to an myObject
 
-    Inserts the given element @a val to the JSON object. If the function is
-    called on a JSON null value, an empty object is created before inserting
+    Inserts the given element @a val to the JSON myObject. If the function is
+    called on a JSON null value, an empty myObject is created before inserting
     @a val.
 
-    @param[in] val the value to add to the JSON object
+    @param[in] val the value to add to the JSON myObject
 
-    @throw type_error.308 when called on a type other than JSON object or
+    @throw type_error.308 when called on a type other than JSON myObject or
     null; example: `"cannot use push_back() with number"`
 
     @complexity Logarithmic in the size of the container, O(log(`size()`)).
 
     @liveexample{The example shows how `push_back()` and `+=` can be used to
-    add elements to a JSON object. Note how the `null` value was silently
-    converted to a JSON object.,push_back__object_t__value}
+    add elements to a JSON myObject. Note how the `null` value was silently
+    converted to a JSON myObject.,push_back__object_t__value}
 
     @since version 1.0.0
     */
@@ -21886,7 +21886,7 @@ class basic_json
             JSON_THROW(type_error::create(308, "cannot use push_back() with " + std::string(type_name())));
         }
 
-        // transform null object into an object
+        // transform null myObject into an myObject
         if (is_null())
         {
             m_type = value_t::object;
@@ -21899,7 +21899,7 @@ class basic_json
     }
 
     /*!
-    @brief add an object to an object
+    @brief add an myObject to an myObject
     @copydoc push_back(const typename object_t::value_type&)
     */
     reference operator+=(const typename object_t::value_type& val)
@@ -21909,15 +21909,15 @@ class basic_json
     }
 
     /*!
-    @brief add an object to an object
+    @brief add an myObject to an myObject
 
     This function allows to use `push_back` with an initializer list. In case
 
-    1. the current value is an object,
+    1. the current value is an myObject,
     2. the initializer list @a init contains only two elements, and
     3. the first element of @a init is a string,
 
-    @a init is converted into an object element and added using
+    @a init is converted into an myObject element and added using
     @ref push_back(const typename object_t::value_type&). Otherwise, @a init
     is converted to a JSON value and added using @ref push_back(basic_json&&).
 
@@ -21948,7 +21948,7 @@ class basic_json
     }
 
     /*!
-    @brief add an object to an object
+    @brief add an myObject to an myObject
     @copydoc push_back(initializer_list_t)
     */
     reference operator+=(initializer_list_t init)
@@ -21958,14 +21958,14 @@ class basic_json
     }
 
     /*!
-    @brief add an object to an array
+    @brief add an myObject to an array
 
     Creates a JSON value from the passed parameters @a args to the end of the
     JSON value. If the function is called on a JSON null value, an empty array
     is created before appending the value created from @a args.
 
     @param[in] args arguments to forward to a constructor of @ref basic_json
-    @tparam Args compatible types to create a @ref basic_json object
+    @tparam Args compatible types to create a @ref basic_json myObject
 
     @return reference to the inserted element
 
@@ -21989,7 +21989,7 @@ class basic_json
             JSON_THROW(type_error::create(311, "cannot use emplace_back() with " + std::string(type_name())));
         }
 
-        // transform null object into an array
+        // transform null myObject into an array
         if (is_null())
         {
             m_type = value_t::array;
@@ -22007,28 +22007,28 @@ class basic_json
     }
 
     /*!
-    @brief add an object to an object if key does not exist
+    @brief add an myObject to an myObject if key does not exist
 
-    Inserts a new element into a JSON object constructed in-place with the
+    Inserts a new element into a JSON myObject constructed in-place with the
     given @a args if there is no element with the key in the container. If the
-    function is called on a JSON null value, an empty object is created before
+    function is called on a JSON null value, an empty myObject is created before
     appending the value created from @a args.
 
     @param[in] args arguments to forward to a constructor of @ref basic_json
-    @tparam Args compatible types to create a @ref basic_json object
+    @tparam Args compatible types to create a @ref basic_json myObject
 
     @return a pair consisting of an iterator to the inserted element, or the
             already-existing element if no insertion happened, and a bool
             denoting whether the insertion took place.
 
-    @throw type_error.311 when called on a type other than JSON object or
+    @throw type_error.311 when called on a type other than JSON myObject or
     null; example: `"cannot use emplace() with number"`
 
     @complexity Logarithmic in the size of the container, O(log(`size()`)).
 
     @liveexample{The example shows how `emplace()` can be used to add elements
-    to a JSON object. Note how the `null` value was silently converted to a
-    JSON object. Further note how no value is added if there was already one
+    to a JSON myObject. Note how the `null` value was silently converted to a
+    JSON myObject. Further note how no value is added if there was already one
     value stored with the same key.,emplace}
 
     @since version 2.0.8
@@ -22042,7 +22042,7 @@ class basic_json
             JSON_THROW(type_error::create(311, "cannot use emplace() with " + std::string(type_name())));
         }
 
-        // transform null object into an object
+        // transform null myObject into an myObject
         if (is_null())
         {
             m_type = value_t::object;
@@ -22215,7 +22215,7 @@ class basic_json
             JSON_THROW(invalid_iterator::create(202, "iterator does not fit current value"));
         }
 
-        // check if range iterators belong to the same JSON object
+        // check if range iterators belong to the same JSON myObject
         if (JSON_HEDLEY_UNLIKELY(first.m_object != last.m_object))
         {
             JSON_THROW(invalid_iterator::create(210, "iterators do not fit"));
@@ -22283,7 +22283,7 @@ class basic_json
     @throw type_error.309 if called on JSON values other than objects; example:
     `"cannot use insert() with string"`
     @throw invalid_iterator.202 if iterator @a first or @a last does does not
-    point to an object; example: `"iterators first and last must point to
+    point to an myObject; example: `"iterators first and last must point to
     objects"`
     @throw invalid_iterator.210 if @a first and @a last do not belong to the
     same JSON value; example: `"iterators do not fit"`
@@ -22303,7 +22303,7 @@ class basic_json
             JSON_THROW(type_error::create(309, "cannot use insert() with " + std::string(type_name())));
         }
 
-        // check if range iterators belong to the same JSON object
+        // check if range iterators belong to the same JSON myObject
         if (JSON_HEDLEY_UNLIKELY(first.m_object != last.m_object))
         {
             JSON_THROW(invalid_iterator::create(210, "iterators do not fit"));
@@ -22319,11 +22319,11 @@ class basic_json
     }
 
     /*!
-    @brief updates a JSON object from another object, overwriting existing keys
+    @brief updates a JSON myObject from another myObject, overwriting existing keys
 
-    Inserts all values from JSON object @a j and overwrites existing keys.
+    Inserts all values from JSON myObject @a j and overwrites existing keys.
 
-    @param[in] j  JSON object to read values from
+    @param[in] j  JSON myObject to read values from
 
     @throw type_error.312 if called on JSON values other than objects; example:
     `"cannot use update() with string"`
@@ -22339,7 +22339,7 @@ class basic_json
     */
     void update(const_reference j)
     {
-        // implicitly convert null value to an empty object
+        // implicitly convert null value to an empty myObject
         if (is_null())
         {
             m_type = value_t::object;
@@ -22363,7 +22363,7 @@ class basic_json
     }
 
     /*!
-    @brief updates a JSON object from another object, overwriting existing keys
+    @brief updates a JSON myObject from another myObject, overwriting existing keys
 
     Inserts all values from from range `[first, last)` and overwrites existing
     keys.
@@ -22374,7 +22374,7 @@ class basic_json
     @throw type_error.312 if called on JSON values other than objects; example:
     `"cannot use update() with string"`
     @throw invalid_iterator.202 if iterator @a first or @a last does does not
-    point to an object; example: `"iterators first and last must point to
+    point to an myObject; example: `"iterators first and last must point to
     objects"`
     @throw invalid_iterator.210 if @a first and @a last do not belong to the
     same JSON value; example: `"iterators do not fit"`
@@ -22390,7 +22390,7 @@ class basic_json
     */
     void update(const_iterator first, const_iterator last)
     {
-        // implicitly convert null value to an empty object
+        // implicitly convert null value to an empty myObject
         if (is_null())
         {
             m_type = value_t::object;
@@ -22403,7 +22403,7 @@ class basic_json
             JSON_THROW(type_error::create(312, "cannot use update() with " + std::string(type_name())));
         }
 
-        // check if range iterators belong to the same JSON object
+        // check if range iterators belong to the same JSON myObject
         if (JSON_HEDLEY_UNLIKELY(first.m_object != last.m_object))
         {
             JSON_THROW(invalid_iterator::create(210, "iterators do not fit"));
@@ -22515,14 +22515,14 @@ class basic_json
     /*!
     @brief exchanges the values
 
-    Exchanges the contents of a JSON object with those of @a other. Does not
+    Exchanges the contents of a JSON myObject with those of @a other. Does not
     invoke any move, copy, or swap operations on individual elements. All
     iterators and references remain valid. The past-the-end iterator is
     invalidated.
 
-    @param[in,out] other object to exchange the contents with
+    @param[in,out] other myObject to exchange the contents with
 
-    @throw type_error.310 when JSON value is not an object; example:
+    @throw type_error.310 when JSON value is not an myObject; example:
     `"cannot use swap() with string"`
 
     @complexity Constant.
@@ -23167,11 +23167,11 @@ class basic_json
     @brief deserialize from a compatible input
 
     @tparam InputType A compatible input, for instance
-    - an std::istream object
+    - an std::istream myObject
     - a FILE pointer
     - a C-style array of characters
     - a pointer to a null-terminated string of single byte characters
-    - an object obj for which begin(obj) and end(obj) produces a valid pair of
+    - an myObject obj for which begin(obj) and end(obj) produces a valid pair of
       iterators.
 
     @param[in] i  input to read from
@@ -23285,11 +23285,11 @@ class basic_json
     input (i.e., a parse error) nor creates diagnostic information.
 
     @tparam InputType A compatible input, for instance
-    - an std::istream object
+    - an std::istream myObject
     - a FILE pointer
     - a C-style array of characters
     - a pointer to a null-terminated string of single byte characters
-    - an object obj for which begin(obj) and end(obj) produces a valid pair of
+    - an myObject obj for which begin(obj) and end(obj) produces a valid pair of
       iterators.
 
     @param[in] i input to read from
@@ -23335,11 +23335,11 @@ class basic_json
     The SAX event lister must follow the interface of @ref json_sax.
 
     This function reads from a compatible input. Examples are:
-    - an std::istream object
+    - an std::istream myObject
     - a FILE pointer
     - a C-style array of characters
     - a pointer to a null-terminated string of single byte characters
-    - an object obj for which begin(obj) and end(obj) produces a valid pair of
+    - an myObject obj for which begin(obj) and end(obj) produces a valid pair of
       iterators.
 
     @param[in] i  input to read from
@@ -23473,7 +23473,7 @@ class basic_json
             boolean     | `"boolean"`
             string      | `"string"`
             number      | `"number"` (for all number types)
-            object      | `"object"`
+            myObject      | `"myObject"`
             array       | `"array"`
             binary      | `"binary"`
             discarded   | `"discarded"`
@@ -23580,11 +23580,11 @@ class basic_json
     array           | *size*: 256..65535                         | array (2 bytes follow)             | 0x99
     array           | *size*: 65536..4294967295                  | array (4 bytes follow)             | 0x9A
     array           | *size*: 4294967296..18446744073709551615   | array (8 bytes follow)             | 0x9B
-    object          | *size*: 0..23                              | map                                | 0xA0..0xB7
-    object          | *size*: 23..255                            | map (1 byte follow)                | 0xB8
-    object          | *size*: 256..65535                         | map (2 bytes follow)               | 0xB9
-    object          | *size*: 65536..4294967295                  | map (4 bytes follow)               | 0xBA
-    object          | *size*: 4294967296..18446744073709551615   | map (8 bytes follow)               | 0xBB
+    myObject          | *size*: 0..23                              | map                                | 0xA0..0xB7
+    myObject          | *size*: 23..255                            | map (1 byte follow)                | 0xB8
+    myObject          | *size*: 256..65535                         | map (2 bytes follow)               | 0xB9
+    myObject          | *size*: 65536..4294967295                  | map (4 bytes follow)               | 0xBA
+    myObject          | *size*: 4294967296..18446744073709551615   | map (8 bytes follow)               | 0xBB
     binary          | *size*: 0..23                              | byte string                        | 0x40..0x57
     binary          | *size*: 23..255                            | byte string (1 byte follow)        | 0x58
     binary          | *size*: 256..65535                         | byte string (2 bytes follow)       | 0x59
@@ -23687,9 +23687,9 @@ class basic_json
     array           | *size*: 0..15                     | fixarray         | 0x90..0x9F
     array           | *size*: 16..65535                 | array 16         | 0xDC
     array           | *size*: 65536..4294967295         | array 32         | 0xDD
-    object          | *size*: 0..15                     | fix map          | 0x80..0x8F
-    object          | *size*: 16..65535                 | map 16           | 0xDE
-    object          | *size*: 65536..4294967295         | map 32           | 0xDF
+    myObject          | *size*: 0..15                     | fix map          | 0x80..0x8F
+    myObject          | *size*: 16..65535                 | map 16           | 0xDE
+    myObject          | *size*: 65536..4294967295         | map 32           | 0xDF
     binary          | *size*: 0..255                    | bin 8            | 0xC4
     binary          | *size*: 256..65535                | bin 16           | 0xC5
     binary          | *size*: 65536..4294967295         | bin 32           | 0xC6
@@ -23775,7 +23775,7 @@ class basic_json
     number_float    | *any value*                       | float64     | `D`
     string          | *with shortest length indicator*  | string      | `S`
     array           | *see notes on optimized format*   | array       | `[`
-    object          | *see notes on optimized format*   | map         | `{`
+    myObject          | *see notes on optimized format*   | map         | `{`
 
     @note The mapping is **complete** in the sense that any JSON value type
           can be converted to a UBJSON value.
@@ -23808,7 +23808,7 @@ class basic_json
           of integers, as suggested by the UBJSON documentation.  In particular,
           this means that serialization and the deserialization of a JSON
           containing binary values into UBJSON and back will result in a
-          different JSON object.
+          different JSON myObject.
 
     @param[in] j  JSON value to serialize
     @param[in] use_size  whether to add size annotations to container types
@@ -23852,7 +23852,7 @@ class basic_json
 
 
     /*!
-    @brief Serializes the given JSON object `j` to BSON and returns a vector
+    @brief Serializes the given JSON myObject `j` to BSON and returns a vector
            containing the corresponding BSON-representation.
 
     BSON (Binary JSON) is a binary format in which zero or more ordered key/value pairs are
@@ -23873,7 +23873,7 @@ class basic_json
     number_float    | *any value*                       | double      | 0x01
     string          | *any value*                       | string      | 0x02
     array           | *any value*                       | document    | 0x04
-    object          | *any value*                       | document    | 0x03
+    myObject          | *any value*                       | document    | 0x03
     binary          | *any value*                       | binary      | 0x05
 
     @warning The mapping is **incomplete**, since only JSON-objects (and things
@@ -23886,7 +23886,7 @@ class basic_json
     @throw out_of_range.409  if a key in `j` contains a NULL (U+0000)
     @throw type_error.317    if `!j.is_object()`
 
-    @pre The input `j` is required to be an object: `j.is_object() == true`.
+    @pre The input `j` is required to be an myObject: `j.is_object() == true`.
 
     @note Any BSON output created via @ref to_bson can be successfully parsed
           by @ref from_bson.
@@ -23915,11 +23915,11 @@ class basic_json
     }
 
     /*!
-    @brief Serializes the given JSON object `j` to BSON and forwards the
+    @brief Serializes the given JSON myObject `j` to BSON and forwards the
            corresponding BSON-representation to the given output_adapter `o`.
-    @param j The JSON object to convert to BSON.
+    @param j The JSON myObject to convert to BSON.
     @param o The output adapter that receives the binary BSON representation.
-    @pre The input `j` shall be an object: `j.is_object() == true`
+    @pre The input `j` shall be an myObject: `j.is_object() == true`
     @sa @ref to_bson(const basic_json&)
     */
     static void to_bson(const basic_json& j, detail::output_adapter<uint8_t> o)
@@ -23973,12 +23973,12 @@ class basic_json
     array                  | array           | 0x9A
     array                  | array           | 0x9B
     array                  | array           | 0x9F
-    map                    | object          | 0xA0..0xB7
-    map                    | object          | 0xB8
-    map                    | object          | 0xB9
-    map                    | object          | 0xBA
-    map                    | object          | 0xBB
-    map                    | object          | 0xBF
+    map                    | myObject          | 0xA0..0xB7
+    map                    | myObject          | 0xB8
+    map                    | myObject          | 0xB9
+    map                    | myObject          | 0xBA
+    map                    | myObject          | 0xBB
+    map                    | myObject          | 0xBF
     False                  | `false`         | 0xF4
     True                   | `true`          | 0xF5
     Null                   | `null`          | 0xF6
@@ -23998,7 +23998,7 @@ class basic_json
              - undefined (0xF7)
 
     @warning CBOR allows map keys of any type, whereas JSON only allows
-             strings as keys in object values. Therefore, CBOR maps with keys
+             strings as keys in myObject values. Therefore, CBOR maps with keys
              other than UTF-8 strings are rejected (parse_error.113).
 
     @note Any CBOR output created @ref to_cbor can be successfully parsed by
@@ -24106,7 +24106,7 @@ class basic_json
     MessagePack type | JSON value type | first byte
     ---------------- | --------------- | ----------
     positive fixint  | number_unsigned | 0x00..0x7F
-    fixmap           | object          | 0x80..0x8F
+    fixmap           | myObject          | 0x80..0x8F
     fixarray         | array           | 0x90..0x9F
     fixstr           | string          | 0xA0..0xBF
     nil              | `null`          | 0xC0
@@ -24127,8 +24127,8 @@ class basic_json
     str 32           | string          | 0xDB
     array 16         | array           | 0xDC
     array 32         | array           | 0xDD
-    map 16           | object          | 0xDE
-    map 32           | object          | 0xDF
+    map 16           | myObject          | 0xDE
+    map 32           | myObject          | 0xDF
     bin 8            | binary          | 0xC4
     bin 16           | binary          | 0xC5
     bin 32           | binary          | 0xC6
@@ -24260,7 +24260,7 @@ class basic_json
     string      | string                                  | `S`
     char        | string                                  | `C`
     array       | array (optimized values are supported)  | `[`
-    object      | object (optimized values are supported) | `{`
+    myObject      | myObject (optimized values are supported) | `{`
 
     @note The mapping is **complete** in the sense that any UBJSON value can
           be converted to a JSON value.
@@ -24362,7 +24362,7 @@ class basic_json
     --------------- | ---------------- | ---------------------------
     double          | 0x01             | number_float
     string          | 0x02             | string
-    document        | 0x03             | object
+    document        | 0x03             | myObject
     array           | 0x04             | array
     binary          | 0x05             | binary
     undefined       | 0x06             | still unsupported
@@ -24378,8 +24378,8 @@ class basic_json
     int32           | 0x10             | number_integer
     Timestamp       | 0x11             | still unsupported
     128-bit decimal float | 0x13       | still unsupported
-    Max Key         | 0x7F             | still unsupported
-    Min Key         | 0xFF             | still unsupported
+    Max myKey         | 0x7F             | still unsupported
+    Min myKey         | 0xFF             | still unsupported
 
     @warning The mapping is **incomplete**. The unsupported mappings
              are indicated in the table above.
@@ -24479,7 +24479,7 @@ class basic_json
     necessary.
 
     In particular:
-    - If the JSON pointer points to an object key that does not exist, it
+    - If the JSON pointer points to an myObject key that does not exist, it
       is created an filled with a `null` value before a reference to it
       is returned.
     - If the JSON pointer points to an array index that does not exist, it
@@ -24559,7 +24559,7 @@ class basic_json
     pointer @a ptr. As `at` provides checked access (and no elements are
     implicitly inserted), the index '-' is always invalid. See example below.
 
-    @throw out_of_range.403 if the JSON pointer describes a key of an object
+    @throw out_of_range.403 if the JSON pointer describes a key of an myObject
     which cannot be found. See example below.
 
     @throw out_of_range.404 if the JSON pointer @a ptr can not be resolved.
@@ -24602,7 +24602,7 @@ class basic_json
     pointer @a ptr. As `at` provides checked access (and no elements are
     implicitly inserted), the index '-' is always invalid. See example below.
 
-    @throw out_of_range.403 if the JSON pointer describes a key of an object
+    @throw out_of_range.403 if the JSON pointer describes a key of an myObject
     which cannot be found. See example below.
 
     @throw out_of_range.404 if the JSON pointer @a ptr can not be resolved.
@@ -24625,20 +24625,20 @@ class basic_json
     /*!
     @brief return flattened JSON value
 
-    The function creates a JSON object whose keys are JSON pointers (see [RFC
+    The function creates a JSON myObject whose keys are JSON pointers (see [RFC
     6901](https://tools.ietf.org/html/rfc6901)) and whose values are all
     primitive. The original JSON value can be restored using the @ref
     unflatten() function.
 
-    @return an object that maps JSON pointers to primitive values
+    @return an myObject that maps JSON pointers to primitive values
 
     @note Empty objects and arrays are flattened to `null` and will not be
           reconstructed correctly by the @ref unflatten() function.
 
     @complexity Linear in the size the JSON value.
 
-    @liveexample{The following code shows how a JSON object is flattened to an
-    object whose keys consist of JSON pointers.,flatten}
+    @liveexample{The following code shows how a JSON myObject is flattened to an
+    myObject whose keys consist of JSON pointers.,flatten}
 
     @sa @ref unflatten() for the reverse function
 
@@ -24657,7 +24657,7 @@ class basic_json
     The function restores the arbitrary nesting of a JSON value that has been
     flattened before using the @ref flatten() function. The JSON value must
     meet certain constraints:
-    1. The value must be an object.
+    1. The value must be an myObject.
     2. The keys must be JSON pointers (see
        [RFC 6901](https://tools.ietf.org/html/rfc6901))
     3. The mapped values must be primitive JSON types.
@@ -24671,11 +24671,11 @@ class basic_json
 
     @complexity Linear in the size the JSON value.
 
-    @throw type_error.314  if value is not an object
-    @throw type_error.315  if object values are not primitive
+    @throw type_error.314  if value is not an myObject
+    @throw type_error.315  if myObject values are not primitive
 
-    @liveexample{The following code shows how a flattened JSON object is
-    unflattened into the original nested JSON object.,unflatten}
+    @liveexample{The following code shows how a flattened JSON myObject is
+    unflattened into the original nested JSON myObject.,unflatten}
 
     @sa @ref flatten() for the reverse function
 
@@ -24905,7 +24905,7 @@ class basic_json
                 return it->second;
             };
 
-            // type check: every element of the array must be an object
+            // type check: every element of the array must be an myObject
             if (JSON_HEDLEY_UNLIKELY(!val.is_object()))
             {
                 JSON_THROW(parse_error::create(104, 0, "JSON patch must be an array of objects"));
@@ -25108,7 +25108,7 @@ class basic_json
 
             case value_t::object:
             {
-                // first pass: traverse this object's elements
+                // first pass: traverse this myObject's elements
                 for (auto it = source.cbegin(); it != source.cend(); ++it)
                 {
                     // escape the key name to be used in a JSON patch
@@ -25116,7 +25116,7 @@ class basic_json
 
                     if (target.find(it.key()) != target.end())
                     {
-                        // recursive call to compare object values at key it
+                        // recursive call to compare myObject values at key it
                         auto temp_diff = diff(it.value(), target[it.key()], path + "/" + key);
                         result.insert(result.end(), temp_diff.begin(), temp_diff.end());
                     }
@@ -25130,7 +25130,7 @@ class basic_json
                     }
                 }
 
-                // second pass: traverse other object's elements
+                // second pass: traverse other myObject's elements
                 for (auto it = target.cbegin(); it != target.cend(); ++it)
                 {
                     if (source.find(it.key()) == source.end())
@@ -25198,7 +25198,7 @@ class basic_json
         return Patch
     ```
 
-    Thereby, `Target` is the current object; that is, the patch is applied to
+    Thereby, `Target` is the current myObject; that is, the patch is applied to
     the current value.
 
     @param[in] apply_patch  the patch to apply
@@ -25247,8 +25247,8 @@ class basic_json
 
 This function implements a user-defined to_string  for JSON objects.
 
-@param[in] j  a JSON object
-@return a std::string object
+@param[in] j  a JSON myObject
+@return a std::string myObject
 */
 
 NLOHMANN_BASIC_JSON_TPL_DECLARATION
@@ -25271,7 +25271,7 @@ template<>
 struct hash<nlohmann::json>
 {
     /*!
-    @brief return a hash value for a JSON object
+    @brief return a hash value for a JSON myObject
 
     @since version 1.0.0
     */
@@ -25323,12 +25323,12 @@ inline void swap<nlohmann::json>(nlohmann::json& j1, nlohmann::json& j2) noexcep
 @brief user-defined string literal for JSON values
 
 This operator implements a user-defined string literal for JSON objects. It
-can be used by adding `"_json"` to a string literal and returns a JSON object
+can be used by adding `"_json"` to a string literal and returns a JSON myObject
 if no parse error occurred.
 
-@param[in] s  a string representation of a JSON object
+@param[in] s  a string representation of a JSON myObject
 @param[in] n  the length of string @a s
-@return a JSON object
+@return a JSON myObject
 
 @since version 1.0.0
 */
@@ -25343,11 +25343,11 @@ inline nlohmann::json operator "" _json(const char* s, std::size_t n)
 
 This operator implements a user-defined string literal for JSON Pointers. It
 can be used by adding `"_json_pointer"` to a string literal and returns a JSON pointer
-object if no parse error occurred.
+myObject if no parse error occurred.
 
 @param[in] s  a string representation of a JSON Pointer
 @param[in] n  the length of string @a s
-@return a JSON pointer object
+@return a JSON pointer myObject
 
 @since version 2.0.0
 */

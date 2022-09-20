@@ -21,7 +21,7 @@
 
 
 /*
-** Operations that an object must define to mimic a table
+** Operations that an myObject must define to mimic a table
 ** (some functions only need some of them)
 */
 #define TAB_R	1			/* read */
