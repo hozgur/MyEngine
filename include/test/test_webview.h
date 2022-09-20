@@ -8,19 +8,26 @@ class MyEngine : public myEngine
 {
 public:
     myHandle hWeb = invalidHandle;
+    const int width = 800;
+    const int height = 600;
     const int posX = 400;
     const int posY = 0;
+    int size = 7;
+	float speed = 1;
     MyEngine(const char* path) :myEngine(path)
-    {        
+    {
+        
         SetScript(myfs::path("user/lua_test.lua"));
+        lua.setglobal("clientWidth", width);
+        lua.setglobal("clientHeight", height);
+				
         myPy::init();
         SetScript(myfs::path("user/webviewpy_test.py"));
     }
 
     bool OnStart() override
     {
-		const int width = 800;
-		const int height = 600;
+		
         AddWindow(width, height);
         hWeb = AddWebView(posX, posY, 400, 300);
         return true;
@@ -60,16 +67,26 @@ public:
     
     virtual void OnMessageReceived(myHandle id, std::string message) override
     {
-        debug << message;
+        //debug << message;
         json msg = json::parse(message);
 		
         if (msg["event"] == "mousemove") {
-            myEngine::pEngine->mouseX = msg["x"] + posX;
-            myEngine::pEngine->mouseY = msg["y"] + posY;
+            myEngine::pEngine->mouseX = (float) (msg["x"] + posX);
+            myEngine::pEngine->mouseY = (float) (msg["y"] + posY);
+        }
+        if (msg["event"] == "sizechange") {            
+			size = msg["value"];
+            debug << "size = " << size <<"\n";
+        }
+        if (msg["event"] == "speedchange") {            
+            speed = msg["value"];
+            debug << "speed = " << speed << "\n";
         }
     }
     void OnDraw() override
     {
+		lua.setglobal("circleSize", size);
+        lua.setglobal("speed", speed);
         myEngine::OnDraw();
         /*if (view->IsReady() && KeyState[myKey::A])
         {

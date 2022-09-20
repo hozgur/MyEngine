@@ -38,6 +38,16 @@ bool myLua::loadstring(std::string str)
     return luaL_loadstring(L, str.c_str()) == 0;
 }
 
+void myLua::setglobal(const char* name,int value) {	
+	lua_pushinteger(L, value);
+	lua_setglobal(L, name);
+}
+
+void myLua::setglobal(const char* name, float value) {
+    lua_pushnumber(L, value);
+    lua_setglobal(L, name);
+}
+
 bool myLua::dofunction(std::string funcname, std::vector<variant> parameters)
 {
     lua_getglobal(L, funcname.c_str());

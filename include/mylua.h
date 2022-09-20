@@ -21,6 +21,8 @@ struct myLua
 	void stackdump();
 
 	int getglobalint(const char* name);
+	void setglobal(const char* name, int value);
+	void setglobal(const char* name, float value);
 };
 	
 extern myLua lua;

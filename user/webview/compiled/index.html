@@ -19,18 +19,24 @@
     <script type="text/javascript">
         $(function () {
             var controls = new function() {
-            this.Speed = 0.02;
-            this.Size = 0.03;
+            this.Speed = 1;
+            this.Size = 7;
             }
             var gui = new dat.GUI();
-            gui.add(controls, 'Speed', 0, 0.5).onChange(function (newValue) {
+            gui.add(controls, 'Speed', 0.1, 5).onChange(function (newValue) {
                 window.chrome.webview.postMessage(JSON.stringify(
                     {
                     event: "speedchange",
                     value: newValue
                     }))                  
             });
-            gui.add(controls, 'Size', 0, 0.5);
+            gui.add(controls, 'Size', 3, 15).onChange(function (newValue) {
+                window.chrome.webview.postMessage(JSON.stringify(
+                    {
+                        event: "sizechange",
+                        value: newValue
+                    }))
+            });
             document.addEventListener('mousemove', function (event) {
                 let elem = event.target;
                 let jsonObject =
