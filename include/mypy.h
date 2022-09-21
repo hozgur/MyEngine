@@ -15,18 +15,10 @@ namespace myPy
 	bool isInitialized();
 	bool dofile(std::string file);
 	bool addModule(myPyModule* module);		
-	bool dostring(std::string content);
-	bool dostring(std::string content, dict locals);
-	bool dostring(std::string content, dict locals, dict &result);		
-	bool dofunction(std::string funcname, paramlist parameters);
+	bool dostring(std::string content);	
+	int dofunction(std::string funcname, paramlist parameters);
 	bool checkfunction(std::string funcname);		
 	template<typename T>
-	T getglobal(const char* name) { T result; return result; }
-
-	//template<>int getglobal<int>(const char* name) { return getglobalint(name); }
-
-	//std::string error();
-		
-
-	//int getglobalint(const char* name);
+	T getglobal(const char* name) { return {}; }
+	template<typename T> void setglobal(const char* name, const T& val);
 };	

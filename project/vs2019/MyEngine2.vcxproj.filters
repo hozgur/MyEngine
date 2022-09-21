@@ -207,6 +207,9 @@
     <ClCompile Include="..\..\src\mypyarray.cpp">
       <Filter>Source Files\src</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\mypycore.cpp">
+      <Filter>Source Files\src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\include\Windows\directdraw.h">
@@ -446,11 +449,41 @@
     <ClInclude Include="..\..\include\test\test_tensor.h">
       <Filter>Header Files\include\test</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\include\py_mytensor.h">
-      <Filter>Header Files\include</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\include\test\test_draw.h">
       <Filter>Header Files\include\test</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\test\test_autoencoder.h">
+      <Filter>Header Files\include\test</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\test\test_autoencoder_cuda.h">
+      <Filter>Header Files\include\test</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\test\test_autoencoder2.h">
+      <Filter>Header Files\include\test</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\test\test_autoencoder3.h">
+      <Filter>Header Files\include\test</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\test\test_iterator.h">
+      <Filter>Header Files\include\test</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\test\test_mnist.h">
+      <Filter>Header Files\include\test</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\test\test_mnist2.h">
+      <Filter>Header Files\include\test</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\test\test_mnist3.h">
+      <Filter>Header Files\include\test</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\mypycore.h">
+      <Filter>Header Files\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\mypytensor.h">
+      <Filter>Header Files\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\mypyengine.h">
+      <Filter>Header Files\include</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

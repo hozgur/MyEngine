@@ -48,7 +48,7 @@ public:
     myImage<myColor>* background = nullptr;
     public:
     myEngine(const char* path);
-    ~myEngine();
+    virtual ~myEngine();
     bool Start();
     bool SetScript(std::string scriptPath);
     bool AddWindow(int width,int height, int pixelWidth = 1, int pixelHeight = 1, bool fullScreen = false);
@@ -103,23 +103,14 @@ public:
     virtual void OnError(myHandle id, std::string uri) {};
 
 
-    void DeleteObject(myHandle id);
-        
-    myObject* Get(myHandle id)
-    {
-        std::map<myHandle, myObject*>::iterator it;
-        it = objects.find(id);
-        if (it == objects.end())
-            return nullptr;
-        else
-            return it->second;
-    }
-
+    void        removeObject(myHandle id);        
+    myObject*   getObject(myHandle id);
+    myHandle    setObject(myObject* obj);    
     void UpdateKeyState(uint8_t key, bool state);
 
 protected:
     void EngineThread();
-    myHandle GetHashCode();
+    myHandle getHashCode();
     myHandle SetObject(myObject* obj);
         
 public:

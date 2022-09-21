@@ -1,16 +1,11 @@
 ﻿#include "my.h"
 #include "mypy.h"
 #define PY_SSIZE_T_CLEAN
-#ifdef _DEBUG
-#undef _DEBUG
 #include <Python.h>
-#define _DEBUG
-#else
-#include <Python.h>
-#endif
 #include <filesystem>
-#include <py_mytensor.h>
+#include <mypytensor.h>
 #include "mypyarray.h"
+#include "mypyengine.h"
 namespace fs = std::filesystem;
 
 #include "mypyarray.h"
@@ -28,6 +23,7 @@ struct pyconvert
     }
 };
 wchar_t* myPy::program = nullptr;
+PyObject* gpDict;
 
 void myPy::exit()
 {
@@ -53,8 +49,11 @@ bool myPy::init()
         program = nullptr;
         return false;
     }    
-    addModule(nullptr);
-    Py_Initialize();    
+    if (!addEngineModule())
+        debug << "Error on adding Python MyEngine module.\n";
+    Py_Initialize();
+    gpDict = PyDict_New();
+    PyDict_SetItemString(gpDict, "__builtins__", PyEval_GetBuiltins());
     return true;
 }
 
@@ -65,78 +64,43 @@ bool myPy::isInitialized()
 
 bool myPy::dostring(std::string content)
 {        
-    return PyRun_SimpleString(content.c_str()) == 0;
-}
-
-bool myPy::dostring(std::string content, dict locals)
-{
-    PyObject* pDict = PyDict_New();
-    if (!pDict) return NULL;
-    PyDict_SetItemString(pDict, "__builtins__", PyEval_GetBuiltins());
-    pyconvert pc;
-    for (dictItem element : locals)
-        PyDict_SetItemString(pDict, element.first.c_str(), std::visit(pc, element.second));
-    return PyRun_String(content.c_str(), Py_file_input, pDict, pDict) != NULL;
-}
-bool myPy::dostring(std::string content, dict locals, dict &result)
-{    
-    PyObject* pDict = PyDict_New();    
-    if (!pDict) return NULL;
-
-    PyDict_SetItemString(pDict, "__builtins__", PyEval_GetBuiltins());
-    pyconvert pc;
-    for (dictItem element : locals)
-        PyDict_SetItemString(pDict, element.first.c_str(), std::visit(pc, element.second));
-
-    if (PyRun_String(content.c_str(), Py_file_input, pDict, pDict) != NULL)
+    auto result = PyRun_String(content.c_str(), Py_file_input, gpDict, gpDict);
+    if (result == nullptr)
     {
-        for (dictItem element : result)        
-        {
-            const char* key = element.first.c_str();
-            auto value = element.second;
-            
-            if (std::get_if<double>(&value))
-            {
-                result[key] = PyFloat_AsDouble(PyDict_GetItemString(pDict, key));
-            }else
-            if (std::get_if<long>(&value))
-            {
-                result[key] = PyLong_AsLong(PyDict_GetItemString(pDict, key));
-            }else
-            if (std::get_if<std::string>(&value))
-            {
-                result[key] = PyUnicode_AsUTF8(PyDict_GetItemString(pDict, key));
-            }
-        }
+        PyErr_Print();
+        return false;
     }
-    return true;
+    return  true;
 }
 
-bool myPy::dofunction(std::string funcname, paramlist parameters)
+
+int myPy::dofunction(std::string funcname, paramlist parameters)
 {
-    PyObject *mainModule = PyImport_ImportModule("__main__");
-    PyObject* pFunc = PyObject_GetAttrString(mainModule, funcname.c_str());
+    PyObject* pFunc = PyDict_GetItemString(gpDict, funcname.c_str());
+    if (pFunc == nullptr)
+    {
+        debug << funcname << " not found.";
+        return -1;
+    }
     PyObject* pArgs = PyTuple_New(parameters.size());
     int i = 0;
-    pyconvert pc;
-    for (std::variant v : parameters)    
+    static pyconvert pc;
+    for (std::variant v : parameters)
         PyTuple_SetItem(pArgs, i++, std::visit(pc, v));
-        
-    PyObject *pResult = PyObject_CallObject(pFunc, pArgs);    
-    if (PyObject_CheckBuffer(pResult))
+
+    PyObject* pResult = PyObject_CallObject(pFunc, pArgs);
+    int result = -1;
+    if (pResult != nullptr)
     {
-        Py_buffer buffer;
-        if (PyObject_GetBuffer(pResult, &buffer, NULL) == 0)
-        {
-            debug << buffer.len << "\n";
-            debug << buffer.strides << "\n";
-            PyBuffer_Release(&buffer);
-        }
+        if (PyNumber_Check(pResult))
+            result = PyLong_AsUnsignedLong(pResult);
+        Py_DECREF(pResult);
     }
-    Py_DECREF(pResult);
-    Py_DECREF(pFunc);
+    else
+        PyErr_Print();
+
     Py_DECREF(pArgs);
-    return true;
+    return result;
 }
 
 bool myPy::checkfunction(std::string funcname)
@@ -154,8 +118,14 @@ bool myPy::dofile(std::string file)
     std::ifstream ifs(file);
     std::string content((std::istreambuf_iterator<char>(ifs)),
         (std::istreambuf_iterator<char>()));
-    
-    return PyRun_SimpleString(content.c_str()) == 0;
+
+    auto result = PyRun_String(content.c_str(), Py_file_input, gpDict, gpDict);
+    if (result == nullptr)
+    {
+        PyErr_Print();
+        return false;
+    }
+    return  true;
 }
 
 
@@ -212,31 +182,8 @@ static PyObject* engine_test(PyObject* self, PyObject* args)
     return longNumber;
 }
 
-static PyMethodDef EngineMethods[] = {
-    { "engine_test",  engine_test, METH_VARARGS,
-     "Test method for engine module."},
-    {NULL, NULL, 0, NULL}        /* Sentinel */
-};
-
-static struct PyModuleDef engineModule = {
-    PyModuleDef_HEAD_INIT,
-    "MyEngine",   /* name of module */
-    "module doc", /* module documentation, may be NULL */
-    -1,       /* size of per-interpreter state of the module,
-                 or -1 if the module keeps state in global variables. */
-    EngineMethods
-};
-
-PyMODINIT_FUNC PyInit_MyEngine(void)
+template<>
+void myPy::setglobal(const char* name, const int& val)
 {
-    return PyModule_Create(&engineModule);
-}
-
-bool myPy::addModule(myPyModule* module)
-{
-    if (PyImport_AppendInittab("MyEngine", PyInit_MyEngine) == -1) {
-        debug << "Error: could not extend in-built modules table\n";
-        return false;
-    }
-    return true;
+    PyDict_SetItemString(gpDict, name, PyLong_FromLong(val));
 }

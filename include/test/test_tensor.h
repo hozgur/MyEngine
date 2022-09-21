@@ -8,12 +8,12 @@ public:
 
 	MyEngine(const char* path) :My::myEngine(path)
 	{
-		mytensorImpl<int> tensor({ 3, 5, 5 });
+		mytensorImpl<int> myTensor({ 3, 5, 5 });
 		//mytensorImpl<int> tensor({});
-		debug << tensor;
-		*tensor.pData = 123;
+		debug << myTensor;
+		*myTensor.pData = 123;
 		debug << "Strides = ";
-		for (int64_t s : tensor.strides())
+		for (int64_t s : myTensor.strides())
 			debug << s << " ";
 		debug << "\n";
 		const int itemsize = 33;

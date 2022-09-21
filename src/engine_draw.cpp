@@ -181,8 +181,8 @@ void myEngine::DrawText(int x, int y, std::string text, int fontHeight)
 
 void myEngine::DrawImage(myHandle sourceImage, int x, int y, int width, int height, int sx, int sy, myHandle destImage)
 {
-    myImage<myColor>* imgSource = dynamic_cast<myImage<myColor>*>(Get(sourceImage));
-    myImage<myColor>* imgDest = (destImage < 0)?background: dynamic_cast<myImage<myColor>*>(Get(destImage));
+    myImage<myColor>* imgSource = dynamic_cast<myImage<myColor>*>(getObject(sourceImage));
+    myImage<myColor>* imgDest = (destImage < 0)?background: dynamic_cast<myImage<myColor>*>(getObject(destImage));
     if((imgSource != nullptr) && (imgDest != nullptr))
         imgDest->draw(imgSource, x, y, width, height, sx, sy, width, height);
 }

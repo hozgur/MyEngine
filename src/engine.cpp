@@ -22,7 +22,24 @@ myEngine::myEngine(const char* path)
     mousePressed = false;
         
 }
-
+myObject* myEngine::getObject(myHandle id)
+{
+    if (id <= 0) return nullptr;
+    std::map<myHandle, myObject*>::iterator it;
+    it = objects.find(id);
+    if (it == objects.end())
+        return nullptr;
+    else
+        return it->second;
+}
+myHandle myEngine::setObject(myObject* obj)
+{
+    if (obj == nullptr) return -1;
+    myHandle key = getHashCode();
+    obj->SetID(key);
+    objects[key] = obj;
+    return key;
+}
 myEngine::~myEngine()
 {
     for(std::map<myHandle, myObject*>::iterator it = objects.begin(); it != objects.end(); ++it)
@@ -94,10 +111,10 @@ void myEngine::OnIdle()
     {
         switch (q.commandID)
         {
-            case myCommands::Navigate: if (q.params.size() == 1) ((myWebView*)Get(q.id))->Navigate(std::get<std::string>(q.params[0])); break;
-            case myCommands::NavigateContent: if (q.params.size() == 1) ((myWebView*)Get(q.id))->NavigateContent(std::get<std::string>(q.params[0])); break;
-            case myCommands::SetScript: if (q.params.size() == 1) ((myWebView*)Get(q.id))->SetScript(std::get<std::string>(q.params[0])); break;
-            case myCommands::PostWebMessage: if (q.params.size() == 1) ((myWebView*)Get(q.id))->PostWebMessage(std::get<std::string>(q.params[0])); break;
+            case myCommands::Navigate: if (q.params.size() == 1) ((myWebView*)getObject(q.id))->Navigate(std::get<std::string>(q.params[0])); break;
+            case myCommands::NavigateContent: if (q.params.size() == 1) ((myWebView*)getObject(q.id))->NavigateContent(std::get<std::string>(q.params[0])); break;
+            case myCommands::SetScript: if (q.params.size() == 1) ((myWebView*)getObject(q.id))->SetScript(std::get<std::string>(q.params[0])); break;
+            case myCommands::PostWebMessage: if (q.params.size() == 1) ((myWebView*)getObject(q.id))->PostWebMessage(std::get<std::string>(q.params[0])); break;
         }
     }
 }
@@ -119,7 +136,7 @@ void myEngine::PostWebMessage(myHandle id, std::string message)
     commandQueue.push({ id, myCommands::PostWebMessage, {message} });
 }
     
-myHandle myEngine::GetHashCode()
+myHandle myEngine::getHashCode()
 {
     static myHandle key = 0;
     static bool lookup = false;
@@ -144,13 +161,13 @@ myHandle myEngine::GetHashCode()
 myHandle myEngine::SetObject(myObject* obj)
 {
     if (obj == nullptr) return -1;
-    myHandle key = GetHashCode();
+    myHandle key = getHashCode();
     obj->SetID(key);
     objects[key] = obj;
     return key;
 }
 
-void myEngine::DeleteObject(myHandle id)
+void myEngine::removeObject(myHandle id)
 {
     delete objects[id];
     objects.erase(id);
