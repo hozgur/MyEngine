@@ -1,8 +1,9 @@
 // my.cpp
-// //#include "test/test_molecular.h"
+#include "test/autoencoder_new.h"
+//#include "test/test_molecular.h"
 //#include "test/test_iterator.h"
 //#include "test/test_perf_molecular.h"
-#include "test/test_autoencoder3.h"
+//#include "test/test_autoencoder3.h"
 //#include "test/test_py_background.h"
 //#include "test/test_autoencoder2.h"
 //#include "test/test_mnist3.h"

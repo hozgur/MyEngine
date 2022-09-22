@@ -49,6 +49,8 @@ inline int mod(int a, int b) { return (a % b + b) % b; }
 /// handle 
 /// Object Handle
 /// </summary>
+typedef std::string myString;
+
 typedef int myHandle;	
 const myHandle invalidHandle = -1;
 
@@ -132,6 +134,7 @@ namespace myfs
 	std::string root();
 	bool exits(const std::string& path, const std::string& filename);
 	std::string path(std::string directory);
+	std::string path(std::string directory, std::string filename);
 	std::string getEnv(std::string env);
 }
 

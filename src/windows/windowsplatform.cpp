@@ -276,7 +276,7 @@ void WindowsPlatform::StartSystemEventLoop()
 	{
 		TranslateMessage(&msg);
 		DispatchMessage(&msg);
-		myEngine::pEngine->OnIdle();
+		myEngine::pEngine->onIdle();
 	}
 	debug << "End of loop";
 }

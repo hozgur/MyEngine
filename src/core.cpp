@@ -66,16 +66,22 @@ namespace myfs
         return path.make_preferred().string();
     }
 
+	std::string path(std::string directory, std::string filename)
+	{
+		fs::path path = root();
+		path /= directory;
+		path /= filename;
+		return path.make_preferred().string();
+	}
+    
     std::string getEnv(std::string env)
     {
-        char* pValue;
         size_t len;
+        char* pValue;
         errno_t err = _dupenv_s(&pValue, &len, env.c_str());
         if (err) return "";
-        std::string val(pValue);
+		std::string value = pValue;        
         free(pValue);
-        return val;
-    }
-
-    
+        return value;
+    }    
 }

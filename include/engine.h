@@ -112,7 +112,10 @@ protected:
     void EngineThread();
     myHandle getHashCode();
     myHandle SetObject(myObject* obj);
-        
+	
+//private:
+public: //TODO: find a way to make this function private	
+    virtual void onIdle();
 public:
     template<typename T> void ForEachPixel(T&& lambda)
     {

@@ -312,6 +312,8 @@
   <ItemGroup>
     <None Include="..\..\script\init.lua" />
     <None Include="..\..\script\init.py" />
+    <None Include="..\..\user\DeepLearning\autoencoder2\ui\ui.html" />
+    <None Include="..\..\user\DeepLearning\autoencoder2\ui\ui.js" />
     <None Include="..\..\user\ilay.lua" />
     <None Include="..\..\user\lua_test.lua" />
     <None Include="..\..\user\py_test.py" />

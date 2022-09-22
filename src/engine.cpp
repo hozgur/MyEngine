@@ -24,7 +24,7 @@ myEngine::myEngine(const char* path)
 }
 myObject* myEngine::getObject(myHandle id)
 {
-    if (id <= 0) return nullptr;
+    if (id < 0) return nullptr;
     std::map<myHandle, myObject*>::iterator it;
     it = objects.find(id);
     if (it == objects.end())
@@ -102,9 +102,12 @@ bool myEngine::SetScript(std::string scriptPath)
     }
     return true;
 }
-    
 
-void myEngine::OnIdle()
+void myEngine::OnIdle() {
+	
+}
+
+void myEngine::onIdle()
 {
     myCommand q;
     if (commandQueue.pop(q))
@@ -117,6 +120,7 @@ void myEngine::OnIdle()
             case myCommands::PostWebMessage: if (q.params.size() == 1) ((myWebView*)getObject(q.id))->PostWebMessage(std::get<std::string>(q.params[0])); break;
         }
     }
+    OnIdle();
 }
 
 void myEngine::Navigate(myHandle id, std::string uri)
