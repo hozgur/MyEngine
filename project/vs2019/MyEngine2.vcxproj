@@ -235,6 +235,7 @@
     <ClInclude Include="..\..\include\myxml.h" />
     <ClInclude Include="..\..\include\platform.h" />
     <ClInclude Include="..\..\include\python\pymodule.h" />
+    <ClInclude Include="..\..\include\test\autoencoder_new.h" />
     <ClInclude Include="..\..\include\test\engine2.h" />
     <ClInclude Include="..\..\include\test\parse_test.h" />
     <ClInclude Include="..\..\include\test\test_ai.h" />
@@ -312,9 +313,14 @@
   <ItemGroup>
     <None Include="..\..\script\init.lua" />
     <None Include="..\..\script\init.py" />
+    <None Include="..\..\user\DeepLearning\autoencoder2\autoencoders.py" />
+    <None Include="..\..\user\DeepLearning\autoencoder2\init.py" />
+    <None Include="..\..\user\DeepLearning\autoencoder2\loader.py" />
+    <None Include="..\..\user\DeepLearning\autoencoder2\run.py" />
+    <None Include="..\..\user\DeepLearning\autoencoder2\run2.py" />
+    <None Include="..\..\user\DeepLearning\autoencoder2\ui\ui.css" />
     <None Include="..\..\user\DeepLearning\autoencoder2\ui\ui.html" />
     <None Include="..\..\user\DeepLearning\autoencoder2\ui\ui.js" />
-    <None Include="..\..\user\ilay.lua" />
     <None Include="..\..\user\lua_test.lua" />
     <None Include="..\..\user\py_test.py" />
     <None Include="..\..\user\webview\bokeh_test.py" />

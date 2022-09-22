@@ -1,8 +1,6 @@
 #pragma once
 #include "mypy.h"
 #include "myparser.h"
-#include <3rdParty/json.hpp>
-using json = nlohmann::json;
 
 class MyEngine : public myEngine
 {

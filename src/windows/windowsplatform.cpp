@@ -193,15 +193,31 @@ bool WindowsPlatform::AddWindow(int width,int height, int pixelWidth, int pixelH
 		y = 0;
 		myEngine::pEngine->clientWidth = width/pixelWidth;
 		myEngine::pEngine->clientHeight = height/pixelHeight;
+		RECT rWndRect = { 0, 0, width, height };
+		AdjustWindowRectEx(&rWndRect, dwStyle, FALSE, dwExStyle);
+	}
+	else
+	{
+		RECT windowRect;
+		windowRect.left = (long)0;
+		windowRect.right = (long)width;
+		windowRect.top = (long)0;
+		windowRect.bottom = (long)height;
+		AdjustWindowRectEx(&windowRect, dwStyle, FALSE, dwExStyle);
+		width = windowRect.right - windowRect.left;
+		height = windowRect.bottom - windowRect.top;
+		x = (mi.rcMonitor.right - width) / 2;
+		y = (mi.rcMonitor.bottom - height) / 2;
+		myEngine::pEngine->clientWidth = width / pixelWidth;
+		myEngine::pEngine->clientHeight = height / pixelHeight;
 	}
 
 	// Keep client size as requested
-	RECT rWndRect = { 0, 0, width, height };
-	AdjustWindowRectEx(&rWndRect, dwStyle, FALSE, dwExStyle);
-	int w = rWndRect.right - rWndRect.left;
-	int h = rWndRect.bottom - rWndRect.top;		
+	
+	int w = myEngine::pEngine->clientWidth;
+	int h = myEngine::pEngine->clientHeight;
 	backSurface = new mySurface();
-	if (backSurface->Create(width/pixelWidth, height/pixelHeight, 32) == false) return false;
+	if (backSurface->Create(w, h, 32) == false) return false;
 	myEngine::pEngine->background = new WindowsImage(backSurface);
 	hWnd = CreateWindowEx(dwExStyle, myT("MyEngine"), myT(""), dwStyle,
 		x, y, w, h, NULL, NULL, GetModuleHandle(nullptr), this);

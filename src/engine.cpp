@@ -24,7 +24,7 @@ myEngine::myEngine(const char* path)
 }
 myObject* myEngine::getObject(myHandle id)
 {
-    if (id < 0) return nullptr;
+    if (id <= 0) return nullptr;
     std::map<myHandle, myObject*>::iterator it;
     it = objects.find(id);
     if (it == objects.end())
@@ -142,23 +142,26 @@ void myEngine::PostWebMessage(myHandle id, std::string message)
     
 myHandle myEngine::getHashCode()
 {
-    static myHandle key = 0;
+    std::mutex mtx;
+    static myHandle key = 1;
     static bool lookup = false;
-
+    std::unique_lock<std::mutex> lck(mtx, std::defer_lock);
+    lck.lock();
     if (lookup)
     {        
         while (objects.count(key) > 0)
         {
             key++;
-            if (key == INT32_MAX) key = 0;
+            if (key == INT32_MAX) key = 1;
         }
     }
 
     if (key == INT32_MAX)
     {
-        key = 0;
+        key = 1;
         lookup = true;
     }
+    lck.unlock();
     return key++;
 }
 
@@ -173,8 +176,10 @@ myHandle myEngine::SetObject(myObject* obj)
 
 void myEngine::removeObject(myHandle id)
 {
-    delete objects[id];
-    objects.erase(id);
+    if (id > 0) {
+        delete objects[id];
+        objects.erase(id);
+    }    
 }
 
 void myEngine::EngineThread()

@@ -491,15 +491,15 @@
     <ClInclude Include="..\..\include\mypyengine.h">
       <Filter>Header Files\include</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\include\test\autoencoder_new.h">
+      <Filter>Header Files\include\test</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\script\init.lua">
       <Filter>Script Files</Filter>
     </None>
     <None Include="..\..\user\lua_test.lua">
-      <Filter>User Files</Filter>
-    </None>
-    <None Include="..\..\user\ilay.lua">
       <Filter>User Files</Filter>
     </None>
     <None Include="..\..\user\py_test.py">
@@ -534,6 +534,24 @@
       <Filter>User Files\autoencoder_new</Filter>
     </None>
     <None Include="..\..\user\DeepLearning\autoencoder2\ui\ui.js">
+      <Filter>User Files\autoencoder_new</Filter>
+    </None>
+    <None Include="..\..\user\DeepLearning\autoencoder2\ui\ui.css">
+      <Filter>User Files\autoencoder_new</Filter>
+    </None>
+    <None Include="..\..\user\DeepLearning\autoencoder2\init.py">
+      <Filter>User Files\autoencoder_new</Filter>
+    </None>
+    <None Include="..\..\user\DeepLearning\autoencoder2\run.py">
+      <Filter>User Files\autoencoder_new</Filter>
+    </None>
+    <None Include="..\..\user\DeepLearning\autoencoder2\run2.py">
+      <Filter>User Files\autoencoder_new</Filter>
+    </None>
+    <None Include="..\..\user\DeepLearning\autoencoder2\loader.py">
+      <Filter>User Files\autoencoder_new</Filter>
+    </None>
+    <None Include="..\..\user\DeepLearning\autoencoder2\autoencoders.py">
       <Filter>User Files\autoencoder_new</Filter>
     </None>
   </ItemGroup>

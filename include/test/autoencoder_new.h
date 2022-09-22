@@ -19,42 +19,73 @@ public:
 	myHandle menu = invalidHandle;
 	bool OnStart() override
 	{
+		//SetScript(myfs::path("user/lua_test.lua"));
+		//lua.setglobal("clientWidth", width);
+		//lua.setglobal("clientHeight", height);
+
 		if (!myPy::init())
 		{
 			debug << "Py Error!\n";
 			exit(1);
 		}
 		AddWindow(width, height);
-		menu = AddWebView(posX, posY, 400, 300);
+		SetWindowTitle("Auto Encoder Test");
+		menu = AddWebView(posX, posY, 400, 600);
 		
-		/*if (myPy::dofile(myfs::path(project_path,"init.py")))
+		if (myPy::dofile(myfs::path(project_path,"init.py")))
 		{
 			status = true;
+			debug << "Python ready.\n";
 		}
 		else
 		{
-			debug << "Error on init.py";
+			debug << "Error on init.py\n";
 			exit(1);
-		}*/
+		}
+		myPy::dofile(myfs::path(project_path, "autoencoders.py"));
+		reloadModule();	// first load
 		return true;
 	}
 
+	void reloadModule() {
+		myPy::dofile(myfs::path(project_path, "loader.py"));
+	}
+	
 	void OnReady(myHandle id) override
 	{
 		myString inpath = myfs::path(project_path, "ui/ui.html");
 		myString outpath = myfs::path(project_path, "ui/compiled/ui.html");
 		myString jspath = myfs::path(project_path, "ui/ui.js");
+		myString csspath = myfs::path(project_path, "ui/ui.css");
+		myString libpath = myfs::path("script/web/lib/");
 		
 		myParser::parse(inpath, outpath, {
-			{"JS_PATH",jspath}
+			{"LIB_PATH",libpath},
+			{"JS_PATH",jspath},
+			{"CSS_PATH",csspath}
 			});
 		Navigate(menu, "file://" + outpath);
-		debug << "Ready\n";
+		
 	}
-	bool OnNavigate(myHandle id, std::string uri) override {
-		debug << "Navigate to " << uri << "\n";
-		return true;
+	
+	void OnMessageReceived(myHandle id, myString msg) override
+	{		
+		json jmsg = json::parse(msg);
+			
+		myString id2 = jmsg["id"];
+		myString value = jmsg["message"];
+		if (id2 == "reload")
+		{
+			reloadModule();
+		}
+			
+		if (id2.substr(0, 5) == "param")
+		{
+			myPy::dofunction("onChange", { id2,value });
+		}
+		
 	}
+
 	void OnKey(uint8_t key, bool pressed) override
 	{
 		if (pressed)
@@ -79,6 +110,7 @@ public:
 
 	void OnDraw() override
 	{
+		//myEngine::OnDraw();
 		//Py::dofunction("Forward2", {(int)mouseX,(int)mouseY});
 	}
 
@@ -86,7 +118,5 @@ public:
 	{
 
 	}
-
-
-		
+			
 };
