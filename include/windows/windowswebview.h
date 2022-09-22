@@ -76,5 +76,26 @@ public:
         }
         return true;
     }
-
+    virtual bool SetSize(int width, int height) {
+        if (webviewController) {
+            RECT bounds;
+            webviewController->get_Bounds(&bounds);
+            bounds.right = bounds.left + width;
+            bounds.bottom = bounds.top + height;
+            webviewController->put_Bounds(bounds);
+        }
+    }
+    virtual bool SetPosition(int x, int y) {
+        if (webviewController) {
+            RECT bounds;
+            webviewController->get_Bounds(&bounds);
+            int width = bounds.right - bounds.left;
+            int height = bounds.bottom - bounds.top;
+            bounds.left = x;
+            bounds.top  = y;
+            bounds.right = bounds.left + width;
+            bounds.bottom = bounds.top + height;
+            webviewController->put_Bounds(bounds);
+        }
+    }
 };

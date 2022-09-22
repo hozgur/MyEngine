@@ -21,7 +21,7 @@ enum myKey
     NP0, NP1, NP2, NP3, NP4, NP5, NP6, NP7, NP8, NP9,
     NP_MUL, NP_DIV, NP_ADD, NP_SUB, NP_DECIMAL, PERIOD
 };
-class myEngine : public myLualib
+class myEngine : public myLualib, myView
 {
 public:
     const char* version = "1.0.0";
@@ -130,4 +130,10 @@ public:
         }
     }
     myLuaCFunction getLibFunction();
+
+    // Inherited via myView
+    virtual bool SetSize(int width, int height) override;
+    virtual bool SetPosition(int x, int y) override;
+    virtual bool GetSize(int& width, int& height) override;
+    virtual bool GetPosition(int& x, int& y) override;
 };

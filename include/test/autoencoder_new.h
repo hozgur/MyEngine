@@ -10,19 +10,19 @@ public:
 	{
 
 	}
-	const int width = 800;
-	const int height = 600;
-	const int posX = 400;
+	const int width = 1200;
+	const int height = 900;
+	
+	const int menuWidth = 400;
+	const int menuHeight = height;
+	const int posX = width - menuWidth;
 	const int posY = 0;
 	const myString project_path = "user/DeepLearning/AutoEncoder2";
 	bool status = false;
 	myHandle menu = invalidHandle;
+	myColor brushColor = myColor::White;
 	bool OnStart() override
 	{
-		//SetScript(myfs::path("user/lua_test.lua"));
-		//lua.setglobal("clientWidth", width);
-		//lua.setglobal("clientHeight", height);
-
 		if (!myPy::init())
 		{
 			debug << "Py Error!\n";
@@ -30,7 +30,7 @@ public:
 		}
 		AddWindow(width, height);
 		SetWindowTitle("Auto Encoder Test");
-		menu = AddWebView(posX, posY, 400, 600);
+		menu = AddWebView(posX, posY, menuWidth, menuHeight);
 		
 		if (myPy::dofile(myfs::path(project_path,"init.py")))
 		{
@@ -112,6 +112,8 @@ public:
 	{
 		//myEngine::OnDraw();
 		//Py::dofunction("Forward2", {(int)mouseX,(int)mouseY});
+		if(mousePressed)
+			FillCircle({ (int)mouseX,(int)mouseY }, 5, brushColor);
 	}
 
 	void OnUpdate() override

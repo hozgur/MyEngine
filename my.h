@@ -3,6 +3,7 @@
 
 // Declaration place
 #include "core.h"
+#include "myview.h"
 #include "myimage.h"
 #include "mywebview.h"
 #include "platform.h"

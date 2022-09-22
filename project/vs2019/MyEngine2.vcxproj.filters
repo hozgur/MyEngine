@@ -216,6 +216,9 @@
     <ClCompile Include="..\..\src\mypycore.cpp">
       <Filter>Source Files\src</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\include\platform.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\include\Windows\directdraw.h">
@@ -493,6 +496,9 @@
     </ClInclude>
     <ClInclude Include="..\..\include\test\autoencoder_new.h">
       <Filter>Header Files\include\test</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\myview.h">
+      <Filter>Header Files\include</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
