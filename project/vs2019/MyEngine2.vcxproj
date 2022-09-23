@@ -167,7 +167,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\include\platform.cpp" />
     <ClCompile Include="..\..\lib\lua-5.4.1\src\lapi.c" />
     <ClCompile Include="..\..\lib\lua-5.4.1\src\lauxlib.c" />
     <ClCompile Include="..\..\lib\lua-5.4.1\src\lbaselib.c" />
@@ -202,10 +201,11 @@
     <ClCompile Include="..\..\lib\lua-5.4.1\src\lzio.c" />
     <ClCompile Include="..\..\my.cpp" />
     <ClCompile Include="..\..\src\core.cpp" />
-    <ClCompile Include="..\..\src\engine.cpp" />
-    <ClCompile Include="..\..\src\engine_draw.cpp" />
-    <ClCompile Include="..\..\src\engine_lualib.cpp" />
-    <ClCompile Include="..\..\src\engine_pymodule.cpp" />
+    <ClCompile Include="..\..\src\myengine.cpp" />
+    <ClCompile Include="..\..\src\myengine_draw.cpp" />
+    <ClCompile Include="..\..\src\myengine_lualib.cpp" />
+    <ClCompile Include="..\..\src\myengine_pymodule.cpp" />
+    <ClCompile Include="..\..\src\myengine_view.cpp" />
     <ClCompile Include="..\..\src\mylua.cpp" />
     <ClCompile Include="..\..\src\mypy.cpp" />
     <ClCompile Include="..\..\src\mypyarray.cpp" />
@@ -220,7 +220,7 @@
   <ItemGroup>
     <ClInclude Include="..\..\include\commandqueue.h" />
     <ClInclude Include="..\..\include\core.h" />
-    <ClInclude Include="..\..\include\engine.h" />
+    <ClInclude Include="..\..\include\myengine.h" />
     <ClInclude Include="..\..\include\myimage.h" />
     <ClInclude Include="..\..\include\mylualib.h" />
     <ClInclude Include="..\..\include\mymath.h" />
@@ -237,9 +237,10 @@
     <ClInclude Include="..\..\include\myxml.h" />
     <ClInclude Include="..\..\include\platform.h" />
     <ClInclude Include="..\..\include\python\pymodule.h" />
-    <ClInclude Include="..\..\include\test\autoencoder_new.h" />
+    <ClInclude Include="..\..\include\test\test_anchor.h" />
+    <ClInclude Include="..\..\include\test\test_autoencoder_new.h" />
     <ClInclude Include="..\..\include\test\engine2.h" />
-    <ClInclude Include="..\..\include\test\parse_test.h" />
+    <ClInclude Include="..\..\include\test\test_parse.h" />
     <ClInclude Include="..\..\include\test\test_ai.h" />
     <ClInclude Include="..\..\include\test\test_ai2.h" />
     <ClInclude Include="..\..\include\test\test_autoencoder.h" />
@@ -260,7 +261,7 @@
     <ClInclude Include="..\..\include\test\test_mnist2.h" />
     <ClInclude Include="..\..\include\test\test_mnist3.h" />
     <ClInclude Include="..\..\include\test\test_py.h" />
-    <ClInclude Include="..\..\include\test\std_test.h" />
+    <ClInclude Include="..\..\include\test\test_std.h" />
     <ClInclude Include="..\..\include\test\test_dat.h" />
     <ClInclude Include="..\..\include\test\test_image.h" />
     <ClInclude Include="..\..\include\test\test_json.h" />
@@ -270,8 +271,8 @@
     <ClInclude Include="..\..\include\test\test_vuetify.h" />
     <ClInclude Include="..\..\include\test\test_webview.h" />
     <ClInclude Include="..\..\include\test\test_xml.h" />
-    <ClInclude Include="..\..\include\test\uitest.h" />
-    <ClInclude Include="..\..\include\test\myengine.h" />
+    <ClInclude Include="..\..\include\test\test_ui.h" />
+    <ClInclude Include="..\..\include\test\test_myengine.h" />
     <ClInclude Include="..\..\include\ui\control.h" />
     <ClInclude Include="..\..\include\ui\slider.h" />
     <ClInclude Include="..\..\include\ui\theme.h" />

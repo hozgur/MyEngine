@@ -8,7 +8,7 @@
 #include "mywebview.h"
 #include "platform.h"
 #include "commandqueue.h"
-#include "engine.h"
+#include "myengine.h"
 #include "mylua.h"
 
 #ifdef USE_MY_CONTROLS

@@ -1,5 +1,6 @@
 // my.cpp
-#include "test/autoencoder_new.h"
+#include "test/test_anchor.h"
+//#include "test/test_autoencoder_new.h"
 //#include "test/test_molecular.h"
 //#include "test/test_iterator.h"
 //#include "test/test_perf_molecular.h"

@@ -72,8 +72,15 @@ bool windowswebview::Create()
     return true;
 }
 
-windowswebview::windowswebview(HWND hWnd, int x, int y, int width, int height)
+bool windowswebview::SetAnchors(myAnchor anchors)
 {
+    return false;
+}
+
+
+windowswebview::windowswebview(HWND hWnd, int x, int y, int width, int height, myAnchor anchor)
+{
+    this->anchor = anchor;
     this->bounds = { x, y, x + width, y + height };
     this->hWnd = hWnd;
     Create();

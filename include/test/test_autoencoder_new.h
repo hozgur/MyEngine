@@ -30,7 +30,7 @@ public:
 		}
 		AddWindow(width, height);
 		SetWindowTitle("Auto Encoder Test");
-		menu = AddWebView(posX, posY, menuWidth, menuHeight);
+		menu = AddWebView(posX, posY, menuWidth, menuHeight,myAnchorRight);
 		
 		if (myPy::dofile(myfs::path(project_path,"init.py")))
 		{
@@ -44,6 +44,7 @@ public:
 		}
 		myPy::dofile(myfs::path(project_path, "autoencoders.py"));
 		reloadModule();	// first load
+		myPy::dofunction("onChange", {"param0","0"});
 		return true;
 	}
 

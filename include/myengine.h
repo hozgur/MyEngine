@@ -44,6 +44,7 @@ public:
     int pressedKey = -1;
     int releasedKey = -1;
     std::map<myHandle, myObject*> objects;
+    std::vector<myHandle> childViews;
     myCommandQueue commandQueue;
     myImage<myColor>* background = nullptr;
     public:
@@ -52,7 +53,7 @@ public:
     bool Start();
     bool SetScript(std::string scriptPath);
     bool AddWindow(int width,int height, int pixelWidth = 1, int pixelHeight = 1, bool fullScreen = false);
-    myHandle AddWebView(int x,int y, int width, int height);
+    myHandle AddWebView(int x,int y, int width, int height,int anchor = myAnchorNone);
     int GetScanLine() { return pPlatform->GetScanLine(); }
     myColor* GetLinePointer(int nLine) { return pPlatform->GetLinePointer(nLine); }
     myColor& Pixel(int x, int y) { static myColor color; if (isInScreen(x, y)) return GetLinePointer(y)[x]; else return color; }
@@ -88,6 +89,7 @@ public:
     virtual void OnIdle();
     virtual void OnKey(uint8_t key, bool pressed);
     virtual void OnMouse(myMouseEvent event, float x, float y);
+    virtual void OnSize(int cx, int cy);
 
     //WebView Methods
     void Navigate(myHandle id, std::string uri);
@@ -116,6 +118,7 @@ protected:
 //private:
 public: //TODO: find a way to make this function private	
     virtual void onIdle();
+    virtual void onSize(int cx, int cy);
 public:
     template<typename T> void ForEachPixel(T&& lambda)
     {
@@ -135,5 +138,6 @@ public:
     virtual bool SetSize(int width, int height) override;
     virtual bool SetPosition(int x, int y) override;
     virtual bool GetSize(int& width, int& height) override;
-    virtual bool GetPosition(int& x, int& y) override;
+    virtual bool GetPosition(int& x, int& y) override;    
+    virtual bool SetAnchors(myAnchor anchors) override;
 };

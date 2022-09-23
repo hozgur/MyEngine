@@ -5,7 +5,7 @@ class myPlatform
 public:
     virtual bool Init() = 0;
     virtual bool AddWindow(int width, int height, int pixelWidth = 1,int pixelHeight = 1, bool fullScreen = false) = 0;
-    virtual myWebView* AddWebView(int x, int y, int width, int height) = 0;
+    virtual myWebView* AddWebView(int x, int y, int width, int height, myAnchor anchor) = 0;
     virtual void StartSystemEventLoop() = 0;
     virtual void SetFPS(int fps) = 0;
     virtual myColor* GetLinePointer(int nLine) = 0;

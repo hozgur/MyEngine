@@ -20,7 +20,7 @@ public:
 
 	virtual bool Init() override;
 	virtual bool AddWindow(int width, int height, int pixelWidth = 1, int pixelHeight = 1, bool fullScreen = false) override;
-	virtual myWebView* AddWebView(int x, int y, int width, int height) override;
+	virtual myWebView* AddWebView(int x, int y, int width, int height, myAnchor anchor) override;
 	virtual void StartSystemEventLoop() override;
 	virtual void SetFPS(int fps);
 	inline virtual myColor* GetLinePointer(int nLine);

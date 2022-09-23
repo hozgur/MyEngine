@@ -1,7 +1,6 @@
 #pragma once
 #define I_want_to_create_my_custom_main
 #include "my.h"
-using namespace My;
 const float pi = (float)std::atan(1) * 4;
 
 const int lineCount = 500;

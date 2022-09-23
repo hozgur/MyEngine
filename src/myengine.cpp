@@ -122,7 +122,51 @@ void myEngine::onIdle()
     }
     OnIdle();
 }
+void myEngine::onSize(int cx,int cy) {
+	OnSize(cx, cy); // send before clientWidth and Height changes.
+	int dx = cx - clientWidth;
+	int dy = cy - clientHeight;
+    clientWidth = cx;
+    clientHeight = cy;
+    for (myHandle viewHandle : childViews) {		
+        myView* view = (myView*)getObject(viewHandle);
 
+		// left - right
+        if (view->anchor & myAnchorLeft) {
+            if (view->anchor & myAnchorRight) {
+                int width = 0, height = 0;
+                view->GetSize(width, height);
+                width += dx;
+                view->SetSize(width, height);
+            }
+        }
+        else {
+            if (view->anchor & myAnchorRight) {
+                int x = 0, y = 0;
+                view->GetPosition(x, y);
+                x += dx;
+                view->SetPosition(x, y);
+            }
+        }
+        // top - bottom
+        if (view->anchor & myAnchorTop) {
+            if (view->anchor & myAnchorBottom) {
+                int width = 0, height = 0;
+                view->GetSize(width, height);
+                height += dy;
+                view->SetSize(width, height);
+            }
+        }
+        else {
+            if (view->anchor & myAnchorBottom) {
+                int x = 0, y = 0;
+                view->GetPosition(x, y);
+                y += dy;
+                view->SetPosition(x, y);
+            }
+        }
+	}    
+}
 void myEngine::Navigate(myHandle id, std::string uri)
 {
     commandQueue.push({ id, myCommands::Navigate, {uri} });
@@ -243,25 +287,29 @@ void myEngine::OnKey(uint8_t key, bool pressed)
         releasedKey = key;
 
 }
-void myEngine::OnMouse(myMouseEvent event, float x, float y)
-{
+void myEngine::OnMouse(myMouseEvent event, float x, float y) {
+}
+void myEngine::OnSize(int cx, int cy) {
 }
 bool myEngine::OnStart() { return true; }
         
-void myEngine::SetWindowTitle(std::string title)
-{
+void myEngine::SetWindowTitle(std::string title) {
     pPlatform->SetWindowTitle(title);
 }
 
-void myEngine::UpdateKeyState(uint8_t key, bool state)
-{
+void myEngine::UpdateKeyState(uint8_t key, bool state) {
     KeyState[key] = state;
     OnKey(key, state);
 }
 
-myHandle myEngine::AddWebView(int x, int y, int width, int height)
-{
-    return SetObject(pPlatform->AddWebView(x, y, width, height));
+myHandle myEngine::AddWebView(int x, int y, int width, int height, int anchor) {
+    myView* view = pPlatform->AddWebView(x, y, width, height,(myAnchor)anchor);
+    if (view) {
+        myHandle id = SetObject(view);
+        childViews.push_back(id);
+        return id;
+    }
+    return invalidHandle;
 }
 
 myHandle myEngine::loadImage(std::string path)

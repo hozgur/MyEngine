@@ -72,7 +72,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\src\engine.cpp">
+    <ClCompile Include="..\..\src\myengine.cpp">
       <Filter>Source Files\src</Filter>
     </ClCompile>
     <ClCompile Include="..\..\my.cpp">
@@ -192,16 +192,16 @@
     <ClCompile Include="..\..\src\mylua.cpp">
       <Filter>Source Files\src</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\engine_lualib.cpp">
+    <ClCompile Include="..\..\src\myengine_lualib.cpp">
       <Filter>Source Files\src</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\engine_draw.cpp">
+    <ClCompile Include="..\..\src\myengine_draw.cpp">
       <Filter>Source Files\src</Filter>
     </ClCompile>
     <ClCompile Include="..\..\src\mypy.cpp">
       <Filter>Source Files\src</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\engine_pymodule.cpp">
+    <ClCompile Include="..\..\src\myengine_pymodule.cpp">
       <Filter>Source Files\src</Filter>
     </ClCompile>
     <ClCompile Include="..\..\src\windows\windowswebview.cpp">
@@ -216,8 +216,8 @@
     <ClCompile Include="..\..\src\mypycore.cpp">
       <Filter>Source Files\src</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\include\platform.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="..\..\src\myengine_view.cpp">
+      <Filter>Source Files\src</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -233,7 +233,7 @@
     <ClInclude Include="..\..\include\core.h">
       <Filter>Header Files\include</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\include\engine.h">
+    <ClInclude Include="..\..\include\myengine.h">
       <Filter>Header Files\include</Filter>
     </ClInclude>
     <ClInclude Include="..\..\include\platform.h">
@@ -248,7 +248,7 @@
     <ClInclude Include="..\..\include\windows\windowscore.h">
       <Filter>Header Files\include\Windows</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\include\test\myengine.h">
+    <ClInclude Include="..\..\include\test\test_myengine.h">
       <Filter>Header Files\include\test</Filter>
     </ClInclude>
     <ClInclude Include="..\..\include\test\molecularengine.h">
@@ -260,7 +260,7 @@
     <ClInclude Include="..\..\include\ui\slider.h">
       <Filter>Header Files\include\ui</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\include\test\uitest.h">
+    <ClInclude Include="..\..\include\test\test_ui.h">
       <Filter>Header Files\include\test</Filter>
     </ClInclude>
     <ClInclude Include="..\..\include\ui\control.h">
@@ -398,7 +398,7 @@
     <ClInclude Include="..\..\include\test\test_webview.h">
       <Filter>Header Files\include\test</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\include\test\std_test.h">
+    <ClInclude Include="..\..\include\test\test_std.h">
       <Filter>Header Files\include\test</Filter>
     </ClInclude>
     <ClInclude Include="..\..\include\test\test_bokeh.h">
@@ -407,7 +407,7 @@
     <ClInclude Include="..\..\include\test\test_dat.h">
       <Filter>Header Files\include\test</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\include\test\parse_test.h">
+    <ClInclude Include="..\..\include\test\test_parse.h">
       <Filter>Header Files\include\test</Filter>
     </ClInclude>
     <ClInclude Include="..\..\include\myparser.h">
@@ -494,11 +494,14 @@
     <ClInclude Include="..\..\include\mypyengine.h">
       <Filter>Header Files\include</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\include\test\autoencoder_new.h">
+    <ClInclude Include="..\..\include\test\test_autoencoder_new.h">
       <Filter>Header Files\include\test</Filter>
     </ClInclude>
     <ClInclude Include="..\..\include\myview.h">
       <Filter>Header Files\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\test\test_anchor.h">
+      <Filter>Header Files\include\test</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

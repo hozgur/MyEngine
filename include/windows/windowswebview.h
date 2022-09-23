@@ -15,7 +15,7 @@ class windowswebview : public myWebView
     HWND hWnd = nullptr;
         
 public:
-	windowswebview(HWND hWnd, int x, int y, int width, int height);
+	windowswebview(HWND hWnd, int x, int y, int width, int height, myAnchor anchor);
 	virtual ~windowswebview();
     bool Create();
     void Close() { webviewController->Close();}
@@ -76,6 +76,8 @@ public:
         }
         return true;
     }
+
+    // Inherited via myWebView
     virtual bool SetSize(int width, int height) {
         if (webviewController) {
             RECT bounds;
@@ -83,7 +85,9 @@ public:
             bounds.right = bounds.left + width;
             bounds.bottom = bounds.top + height;
             webviewController->put_Bounds(bounds);
+            return true;
         }
+        return false;
     }
     virtual bool SetPosition(int x, int y) {
         if (webviewController) {
@@ -96,6 +100,30 @@ public:
             bounds.right = bounds.left + width;
             bounds.bottom = bounds.top + height;
             webviewController->put_Bounds(bounds);
+            return true;
         }
-    }
+        return false;
+    }    
+    virtual bool GetSize(int& width, int& height) override {
+        if (webviewController) {
+            RECT bounds;
+            webviewController->get_Bounds(&bounds);
+            width = bounds.right - bounds.left;
+            height = bounds.bottom - bounds.top;
+            return true;
+        }
+        return false;
+    };
+    virtual bool GetPosition(int& x, int& y) override {
+        if (webviewController) {
+            RECT bounds;
+            webviewController->get_Bounds(&bounds);
+            x = bounds.left;
+            y = bounds.top;
+            return true;
+        }
+        return false;
+    };
+
+    virtual bool SetAnchors(myAnchor anchors) override;
 };

@@ -240,7 +240,7 @@ LRESULT CALLBACK WindowsPlatform::WindowEvent(HWND hWnd, UINT uMsg, WPARAM wPara
 			myEngine::pEngine->OnMouse(myMouseEvent::Mouse_Move,mouseX, mouseY );
 			return 0;				
 		}
-		//case WM_SIZE:       ptrPGE->olc_UpdateWindowSize(lParam & 0xFFFF, (lParam >> 16) & 0xFFFF);	return 0;
+		case WM_SIZE:       myEngine::pEngine->onSize(lParam & 0xFFFF, (lParam >> 16) & 0xFFFF);	return 0;
 		//case WM_MOUSEWHEEL:	ptrPGE->olc_UpdateMouseWheel(GET_WHEEL_DELTA_WPARAM(wParam));           return 0;
 		//case WM_MOUSELEAVE: ptrPGE->olc_UpdateMouseFocus(false);                                    return 0;
 		//case WM_SETFOCUS:	ptrPGE->olc_UpdateKeyFocus(true);                                       return 0;
@@ -345,8 +345,8 @@ void WindowsPlatform::MapKeys()
 	mapKeys[VK_MULTIPLY] = myKey::NP_MUL; mapKeys[VK_ADD] = myKey::NP_ADD; mapKeys[VK_DIVIDE] = myKey::NP_DIV; mapKeys[VK_SUBTRACT] = myKey::NP_SUB; mapKeys[VK_DECIMAL] = myKey::NP_DECIMAL;		
 }
 	
-myWebView* WindowsPlatform::AddWebView(int x, int y, int width, int height)
+myWebView* WindowsPlatform::AddWebView(int x, int y, int width, int height, myAnchor anchor)
 {
-	windowswebview* view = new windowswebview(hWnd, x, y, width, height);
+	windowswebview* view = new windowswebview(hWnd, x, y, width, height,anchor);
 	return view;
 }
