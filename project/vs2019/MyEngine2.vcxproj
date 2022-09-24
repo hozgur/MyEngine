@@ -261,6 +261,7 @@
     <ClInclude Include="..\..\include\test\test_mnist2.h" />
     <ClInclude Include="..\..\include\test\test_mnist3.h" />
     <ClInclude Include="..\..\include\test\test_py.h" />
+    <ClInclude Include="..\..\include\test\test_python_graphics.h" />
     <ClInclude Include="..\..\include\test\test_std.h" />
     <ClInclude Include="..\..\include\test\test_dat.h" />
     <ClInclude Include="..\..\include\test\test_image.h" />
@@ -317,6 +318,7 @@
     <None Include="..\..\script\init.lua" />
     <None Include="..\..\script\init.py" />
     <None Include="..\..\user\DeepLearning\autoencoder2\autoencoders.py" />
+    <None Include="..\..\user\DeepLearning\autoencoder2\graphics.py" />
     <None Include="..\..\user\DeepLearning\autoencoder2\init.py" />
     <None Include="..\..\user\DeepLearning\autoencoder2\loader.py" />
     <None Include="..\..\user\DeepLearning\autoencoder2\run.py" />
@@ -325,6 +327,14 @@
     <None Include="..\..\user\DeepLearning\autoencoder2\ui\ui.html" />
     <None Include="..\..\user\DeepLearning\autoencoder2\ui\ui.js" />
     <None Include="..\..\user\lua_test.lua" />
+    <None Include="..\..\user\python\graphics\encoder.py" />
+    <None Include="..\..\user\python\graphics\graphics.py" />
+    <None Include="..\..\user\python\graphics\init.py" />
+    <None Include="..\..\user\python\graphics\loader.py" />
+    <None Include="..\..\user\python\graphics\run.py" />
+    <None Include="..\..\user\python\graphics\ui\ui.css" />
+    <None Include="..\..\user\python\graphics\ui\ui.html" />
+    <None Include="..\..\user\python\graphics\ui\ui.js" />
     <None Include="..\..\user\py_test.py" />
     <None Include="..\..\user\webview\bokeh_test.py" />
     <None Include="..\..\user\webview\compiled\index.html" />

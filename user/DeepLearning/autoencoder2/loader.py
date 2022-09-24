@@ -1,7 +1,8 @@
 
-
+my.Import("user/DeepLearning/autoencoder2/graphics.py")
+my.Import("user/DeepLearning/autoencoder2/autoencoders.py")
 net = CNN()
-checkPointPath = MyEngine.Path("user/DeepLearning/autoencoder2/data/checkpoint.pth.tar")
+checkPointPath = my.Path("user/DeepLearning/autoencoder2/data/checkpoint.pth.tar")
 checkpoint = torch.load(checkPointPath)
 net.load_state_dict(checkpoint['state_dict'])
 net.to(device)
@@ -29,7 +30,6 @@ decoder = torch.nn.Sequential(
 
 decoder = decoder.to(device)
 
-
 def decodeImage(params):
         
     sigmoid = torch.nn.Sigmoid()
@@ -41,5 +41,8 @@ def decodeImage(params):
     img_array = img_array.transpose(1,2,0)
     image = (img_array * 255).astype(np.uint8)
 
-    backBuffer = np.asarray(MyEngine.GetBackground(),dtype="byte")
+    backBuffer = np.asarray(my.GetBackground(),dtype="byte")
     backBuffer[0:0+image.shape[1],0:0+image.shape[0],:3] = image
+
+
+    

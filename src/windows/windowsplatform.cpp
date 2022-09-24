@@ -234,7 +234,7 @@ LRESULT CALLBACK WindowsPlatform::WindowEvent(HWND hWnd, UINT uMsg, WPARAM wPara
 			int pw = myEngine::pEngine->pixelWidth;
 			int ph = myEngine::pEngine->pixelHeight;
 			float mouseX = (float)(lParam & 0xFFFF) / pw;
-			float mouseY = (float)((lParam >> 16) & 0xFFFF) / ph;
+			float mouseY = (float)((lParam >> 16) & 0xFFFF) / ph;			
 			myEngine::pEngine->mouseX = mouseX;
 			myEngine::pEngine->mouseY = mouseY;
 			myEngine::pEngine->OnMouse(myMouseEvent::Mouse_Move,mouseX, mouseY );

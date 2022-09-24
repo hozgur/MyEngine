@@ -6,7 +6,7 @@
 using Eigen::Matrix;
 typedef Matrix<float, 2, 1> vec2;
 typedef Matrix<int, 2, 1> ivec2;
-
+typedef void (*drawLineFunc)(int,int,myColor);
 enum class myMouseEvent {Mouse_LBPressed, Mouse_RBPressed, Mouse_MBPressed, Mouse_LBReleased, MouseRBReleased, Mouse_MBReleased,
                         Mouse_Move};
 enum myKey
@@ -33,7 +33,7 @@ public:
     int pixelWidth;
     int pixelHeight;
     std::atomic<float> mouseX;
-    std::atomic<float> mouseY;
+    std::atomic<float> mouseY;    
     bool mousePressed;
     static std::atomic<bool> baThreadActive;
     static myEngine* pEngine;
@@ -71,6 +71,7 @@ public:
     void FillRect(ivec2 pos, ivec2 size, const myColor& c);
     void DrawRect(ivec2 pos, ivec2 size, const myColor& c);
     void FillCircle(ivec2 pos, int radius, const myColor& c);
+    void DrawLine(int32_t x1, int32_t y1, int32_t x2, int32_t y2, myColor p, drawLineFunc func);
     void DrawLine(int32_t x1, int32_t y1, int32_t x2, int32_t y2, myColor p, uint32_t pattern = 0xFFFFFFFF);
     void DrawLine(ivec2 p1, ivec2 p2, myColor p, uint32_t pattern = 0xFFFFFFFF);
     void DrawText(int x, int y, std::string text,int fontHeight);

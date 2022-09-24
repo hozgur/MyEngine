@@ -70,6 +70,9 @@
     <Filter Include="User Files\autoencoder_new">
       <UniqueIdentifier>{6ce949b6-5c47-421b-8ea2-f85c1b4a02a6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="User Files\python_graphics">
+      <UniqueIdentifier>{99b5ff0d-11e8-4474-a506-41c0cd5cfdb4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src\myengine.cpp">
@@ -503,6 +506,9 @@
     <ClInclude Include="..\..\include\test\test_anchor.h">
       <Filter>Header Files\include\test</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\include\test\test_python_graphics.h">
+      <Filter>Header Files\include\test</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\script\init.lua">
@@ -562,6 +568,33 @@
     </None>
     <None Include="..\..\user\DeepLearning\autoencoder2\autoencoders.py">
       <Filter>User Files\autoencoder_new</Filter>
+    </None>
+    <None Include="..\..\user\DeepLearning\autoencoder2\graphics.py">
+      <Filter>User Files\autoencoder_new</Filter>
+    </None>
+    <None Include="..\..\user\python\graphics\graphics.py">
+      <Filter>User Files\python_graphics</Filter>
+    </None>
+    <None Include="..\..\user\python\graphics\init.py">
+      <Filter>User Files\python_graphics</Filter>
+    </None>
+    <None Include="..\..\user\python\graphics\loader.py">
+      <Filter>User Files\python_graphics</Filter>
+    </None>
+    <None Include="..\..\user\python\graphics\run.py">
+      <Filter>User Files\python_graphics</Filter>
+    </None>
+    <None Include="..\..\user\python\graphics\ui\ui.css">
+      <Filter>User Files\python_graphics</Filter>
+    </None>
+    <None Include="..\..\user\python\graphics\ui\ui.html">
+      <Filter>User Files\python_graphics</Filter>
+    </None>
+    <None Include="..\..\user\python\graphics\ui\ui.js">
+      <Filter>User Files\python_graphics</Filter>
+    </None>
+    <None Include="..\..\user\python\graphics\encoder.py">
+      <Filter>User Files\python_graphics</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
