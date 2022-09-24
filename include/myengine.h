@@ -21,7 +21,7 @@ enum myKey
     NP0, NP1, NP2, NP3, NP4, NP5, NP6, NP7, NP8, NP9,
     NP_MUL, NP_DIV, NP_ADD, NP_SUB, NP_DECIMAL, PERIOD
 };
-class myEngine : public myLualib, myView
+class myEngine : public myLualib, public myView
 {
 public:
     const char* version = "1.0.0";
@@ -113,8 +113,7 @@ public:
 
 protected:
     void EngineThread();
-    myHandle getHashCode();
-    myHandle SetObject(myObject* obj);
+    myHandle getHashCode();    
 	
 //private:
 public: //TODO: find a way to make this function private	

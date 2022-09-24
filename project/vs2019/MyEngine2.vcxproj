@@ -332,9 +332,11 @@
     <None Include="..\..\user\python\graphics\init.py" />
     <None Include="..\..\user\python\graphics\loader.py" />
     <None Include="..\..\user\python\graphics\run.py" />
+    <None Include="..\..\user\python\graphics\ui\msg.html" />
+    <None Include="..\..\user\python\graphics\ui\msg.js" />
     <None Include="..\..\user\python\graphics\ui\ui.css" />
-    <None Include="..\..\user\python\graphics\ui\ui.html" />
-    <None Include="..\..\user\python\graphics\ui\ui.js" />
+    <None Include="..\..\user\python\graphics\ui\menu.html" />
+    <None Include="..\..\user\python\graphics\ui\menu.js" />
     <None Include="..\..\user\py_test.py" />
     <None Include="..\..\user\webview\bokeh_test.py" />
     <None Include="..\..\user\webview\compiled\index.html" />

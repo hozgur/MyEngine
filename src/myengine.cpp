@@ -40,6 +40,41 @@ myHandle myEngine::setObject(myObject* obj)
     objects[key] = obj;
     return key;
 }
+void myEngine::removeObject(myHandle id)
+{
+    if (id > 0) {
+        delete objects[id];
+        objects.erase(id);
+    }
+}
+myHandle myEngine::getHashCode()
+{
+    static std::mutex mtx;
+    static const int keyStart = 1; // Eskiden 0 idi ama Python için 0 kullanýlmamasý gerektiði için baþlangýç 1 yapýldý.
+    static myHandle key = keyStart;
+    static bool lookup = false;
+    std::unique_lock<std::mutex> lck(mtx, std::defer_lock);
+    lck.lock();
+    if (lookup)
+    {
+        while (objects.count(key) > 0)
+        {
+            key++;
+            if (key == INT32_MAX) key = keyStart;
+        }
+    }
+
+    if (key == INT32_MAX)
+    {
+        key = keyStart;
+        lookup = true;
+    }
+    lck.unlock();
+    return key++;
+}
+
+
+
 myEngine::~myEngine()
 {
     for(std::map<myHandle, myObject*>::iterator it = objects.begin(); it != objects.end(); ++it)
@@ -135,9 +170,8 @@ void myEngine::onSize(int cx,int cy) {
         if (view->anchor & myAnchorLeft) {
             if (view->anchor & myAnchorRight) {
                 int width = 0, height = 0;
-                view->GetSize(width, height);
-                width += dx;
-                view->SetSize(width, height);
+                view->GetSize(width, height);                
+                view->SetSize(clientWidth, height);
             }
         }
         else {
@@ -152,9 +186,8 @@ void myEngine::onSize(int cx,int cy) {
         if (view->anchor & myAnchorTop) {
             if (view->anchor & myAnchorBottom) {
                 int width = 0, height = 0;
-                view->GetSize(width, height);
-                height += dy;
-                view->SetSize(width, height);
+                view->GetSize(width, height);                
+                view->SetSize(width, clientHeight);
             }
         }
         else {
@@ -184,47 +217,7 @@ void myEngine::PostWebMessage(myHandle id, std::string message)
     commandQueue.push({ id, myCommands::PostWebMessage, {message} });
 }
     
-myHandle myEngine::getHashCode()
-{
-    std::mutex mtx;
-    static myHandle key = 1;
-    static bool lookup = false;
-    std::unique_lock<std::mutex> lck(mtx, std::defer_lock);
-    lck.lock();
-    if (lookup)
-    {        
-        while (objects.count(key) > 0)
-        {
-            key++;
-            if (key == INT32_MAX) key = 1;
-        }
-    }
 
-    if (key == INT32_MAX)
-    {
-        key = 1;
-        lookup = true;
-    }
-    lck.unlock();
-    return key++;
-}
-
-myHandle myEngine::SetObject(myObject* obj)
-{
-    if (obj == nullptr) return -1;
-    myHandle key = getHashCode();
-    obj->SetID(key);
-    objects[key] = obj;
-    return key;
-}
-
-void myEngine::removeObject(myHandle id)
-{
-    if (id > 0) {
-        delete objects[id];
-        objects.erase(id);
-    }    
-}
 
 void myEngine::EngineThread()
 {
@@ -305,7 +298,7 @@ void myEngine::UpdateKeyState(uint8_t key, bool state) {
 myHandle myEngine::AddWebView(int x, int y, int width, int height, int anchor) {
     myView* view = pPlatform->AddWebView(x, y, width, height,(myAnchor)anchor);
     if (view) {
-        myHandle id = SetObject(view);
+        myHandle id = setObject(view);
         childViews.push_back(id);
         return id;
     }
@@ -314,5 +307,5 @@ myHandle myEngine::AddWebView(int x, int y, int width, int height, int anchor) {
 
 myHandle myEngine::loadImage(std::string path)
 {
-    return SetObject(pPlatform->loadImage(path));
+    return setObject(pPlatform->loadImage(path));
 }

@@ -53,7 +53,7 @@ bool windowswebview::Create()
                                 args->TryGetWebMessageAsString(&message);
                                 myEngine::pEngine->OnMessageReceived(object_id, myfs::w2s(message));
                                 //debug << myfs::w2s(message) << "\n";
-                                webview->PostWebMessageAsString(message);
+                                //webview->PostWebMessageAsString(message);
                                 CoTaskMemFree(message);
                                 return S_OK;
                             }).Get(), &token2);

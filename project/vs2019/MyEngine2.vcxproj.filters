@@ -587,13 +587,19 @@
     <None Include="..\..\user\python\graphics\ui\ui.css">
       <Filter>User Files\python_graphics</Filter>
     </None>
-    <None Include="..\..\user\python\graphics\ui\ui.html">
+    <None Include="..\..\user\python\graphics\ui\menu.html">
       <Filter>User Files\python_graphics</Filter>
     </None>
-    <None Include="..\..\user\python\graphics\ui\ui.js">
+    <None Include="..\..\user\python\graphics\ui\menu.js">
       <Filter>User Files\python_graphics</Filter>
     </None>
     <None Include="..\..\user\python\graphics\encoder.py">
+      <Filter>User Files\python_graphics</Filter>
+    </None>
+    <None Include="..\..\user\python\graphics\ui\msg.html">
+      <Filter>User Files\python_graphics</Filter>
+    </None>
+    <None Include="..\..\user\python\graphics\ui\msg.js">
       <Filter>User Files\python_graphics</Filter>
     </None>
   </ItemGroup>

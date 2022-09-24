@@ -10,7 +10,9 @@ namespace myPy
             PyErr_SetString(PyExc_TypeError, "Invalid path argument string.");
             Py_RETURN_NONE;
         }
+		
         return PyUnicode_FromString(myfs::path(path).c_str());
+        
     }
 
     static PyObject* engine_import(PyObject* self, PyObject* args)
@@ -32,6 +34,18 @@ namespace myPy
             PyErr_SetString(PyExc_TypeError, err.c_str());
             Py_RETURN_NONE;
         }
+    }
+
+    static PyObject* engine_sendMessage(PyObject* self, PyObject* args)
+    {        
+        const char* msg = nullptr;
+        if (PyArg_ParseTuple(args, "s", &msg) == 0)
+        {
+            PyErr_SetString(PyExc_TypeError, "Invalid arguments.");
+            Py_RETURN_NONE;
+        }
+        myEngine::pEngine->OnMessageReceived(invalidHandle, msg);
+        Py_RETURN_NONE;
     }
 
     static PyObject* engine_getbackground(PyObject* self, PyObject* args)
@@ -133,6 +147,8 @@ namespace myPy
             "Import file."},
             { "GetBackground",  engine_getbackground, METH_NOARGS,
             "Get Background Image Tensor."},
+            { "Message",  engine_sendMessage, METH_VARARGS,
+            "Send Message to Host as string."},
         {NULL, NULL, 0, NULL}        /* Sentinel */
     };
 

@@ -1,3 +1,4 @@
+import json
 my.Import("user/DeepLearning/autoencoder2/autoencoders.py")
 net = CNN()
 my.Import("user/python/graphics/encoder.py")
@@ -8,6 +9,7 @@ net.to(device)
 backBuffer = np.asarray(my.GetBackground(),dtype="byte")
 import colorsys
 
+my.Message(json.dumps({"id": "python", "message":"Hello"}))
 des = np.asarray(Image.open(my.Path("user/python/graphics/test.png")))
 print(des.shape)
 backBuffer[0:900,0:1200,0:3] = des[0:900,0:1200,::-1]
@@ -31,7 +33,7 @@ def onMouseMove(x,y):
 	permute = [2, 1, 0]
 	inp = inp[:,permute]	
 	out = encoder(inp)
-	print(out)
+	my.Message(json.dumps({"id": "python", "message":str(out)}))
 	outimage = decoder(out)[:,permute]
 	
 	img_array = sigmoid(outimage).cpu().detach().numpy()	

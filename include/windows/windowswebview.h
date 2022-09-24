@@ -47,34 +47,43 @@ public:
 	}
 	virtual bool NavigateContent(std::string htmlContent) override
 	{
-		HRESULT hr = webviewWindow->NavigateToString(myfs::s2w(htmlContent).c_str());
-        if (hr != S_OK)
-        {
-            debug << "Navigate to Content Error." << hr << "\n";
+        if (webviewWindow) {
+            HRESULT hr = webviewWindow->NavigateToString(myfs::s2w(htmlContent).c_str());
+            if (hr != S_OK)
+            {
+                debug << "Navigate to Content Error." << hr << "\n";
+            }
+            return hr == S_OK;
         }
-        return hr == S_OK;
+        return false;
 	}
 
     virtual bool SetScript(std::string scriptContent) override
     {
-        HRESULT hr = webviewWindow->AddScriptToExecuteOnDocumentCreated(myfs::s2w(scriptContent).c_str(), nullptr);
-        if (hr != S_OK)
-        {
-            debug << "WebView SetScript Error." << hr << "\n";
-            return false;
+        if (webviewWindow) {
+            HRESULT hr = webviewWindow->ExecuteScript(myfs::s2w(scriptContent).c_str(), nullptr);
+            if (hr != S_OK)
+            {
+                debug << "WebView SetScript Error." << hr << "\n";
+                return false;
+            }
+            return true;
         }
-        return true;
+        return false;
     }
 
     virtual bool PostWebMessage(std::string message) override
     {
-        HRESULT hr = webviewWindow->PostWebMessageAsString(myfs::s2w(message).c_str());
-        if (hr != S_OK)
-        {
-            debug << "WebView Post Message Error." << hr << "\n";
-            return false;
+        if (webviewWindow) {
+            HRESULT hr = webviewWindow->PostWebMessageAsString(myfs::s2w(message).c_str());
+            if (hr != S_OK)
+            {
+                debug << "WebView Post Message Error." << hr << "\n";
+                return false;
+            }
+            return true;
         }
-        return true;
+        return false;
     }
 
     // Inherited via myWebView

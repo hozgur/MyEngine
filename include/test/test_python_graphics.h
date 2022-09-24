@@ -16,14 +16,12 @@ public:
 	}
 	const int width = 1200;
 	const int height = 900;
-
-	const int menuWidth = 400;
-	const int menuHeight = height;
-	const int posX = width - menuWidth;
-	const int posY = 0;
+	
+	
 	const myString project_path = "user/python/graphics";
 	bool status = false;
 	myHandle menu = invalidHandle;
+	myHandle messageBox = invalidHandle;
 	myColor brushColor = myColor::White;
 	static int brushSize;
 
@@ -36,8 +34,8 @@ public:
 		}
 		AddWindow(width, height);
 		SetWindowTitle("Graphics Test");
-		menu = AddWebView(posX, posY, menuWidth, menuHeight, myAnchorRight);
-
+		menu = AddWebView(width-400, 0, 400, 200, myAnchorRight);
+		messageBox = AddWebView(0, height-200, width, 200, myAnchorLeft | myAnchorRight | myAnchorBottom);
 		if (myPy::dofile(myfs::path(project_path, "init.py")))
 		{
 			status = true;
@@ -57,11 +55,10 @@ public:
 		myPy::dofile(myfs::path(project_path, "graphics.py"));
 	}
 
-	void OnReady(myHandle id) override
-	{
-		myString inpath = myfs::path(project_path, "ui/ui.html");
-		myString outpath = myfs::path(project_path, "ui/compiled/ui.html");
-		myString jspath = myfs::path(project_path, "ui/ui.js");
+	void navigate(myHandle view,myString html,myString js) {
+		myString inpath = myfs::path(project_path, "ui/"+ html);
+		myString outpath = myfs::path(project_path, "ui/compiled/" + html);
+		myString jspath = myfs::path(project_path, "ui/" + js);
 		myString csspath = myfs::path(project_path, "ui/ui.css");
 		myString libpath = myfs::path("script/web/lib/");
 
@@ -70,7 +67,14 @@ public:
 			{"JS_PATH",jspath},
 			{"CSS_PATH",csspath}
 			});
-		Navigate(menu, "file://" + outpath);
+		Navigate(view, "file://" + outpath);
+	}
+	
+	void OnReady(myHandle id) override
+	{
+		navigate(menu,"menu.html", "menu.js");
+		navigate(messageBox,"msg.html", "msg.js");
+		
 
 	}
 
@@ -99,6 +103,17 @@ public:
 			debug << "Brush Size: " << brushSize << "\n";
 		}
 
+		if (id2 == "python")
+		{			
+			debug << "Message from python: " << value << "\n";
+			myWebView* messageBoxView = (myWebView*)getObject(messageBox);
+			/*myString script = "const mynode = document.createTextNode('" + value + "');\n";
+			script += "document.getElementById('message').appendChild(mynode)";
+			
+			messageBoxView->SetScript(script);*/
+			messageBoxView->PostWebMessage(value);
+		}
+
 	}
 
 	void OnKey(uint8_t key, bool pressed) override
@@ -122,8 +137,8 @@ public:
 		static int oldx = 0, oldy = 0;
 		if (mousePressed) {
 			if (mouseX != oldx || mouseY != oldy) {
-				oldx = mouseX;
-				oldy = mouseY;
+				oldx = (int)mouseX;
+				oldy = (int)mouseY;
 				myPy::dofunction("onMouseMove", { mouseX,mouseY });
 			}
 		}
