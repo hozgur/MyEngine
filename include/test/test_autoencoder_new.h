@@ -3,10 +3,10 @@
 #include "mypy.h"
 #include "mytensor.h"
 #include "myparser.h"
-class MyEngine : public myEngine
+class MyParamTest : public myEngine
 {
 public:
-	MyEngine(const char* path) :myEngine(path)
+	MyParamTest(const char* path) :myEngine(path)
 	{
 
 	}

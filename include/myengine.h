@@ -102,7 +102,7 @@ public:
 
     virtual void OnReady(myHandle id) {};
     virtual bool OnNavigate(myHandle id, std::string uri) { return true; }
-    virtual void OnMessageReceived(myHandle id, std::string message) { debug << "WebView Received Message = " << message << "\n"; }
+    virtual void OnMessageReceived(myHandle viewId, std::string message) { debug << "WebView Received Message = " << message << "\n"; }
     virtual void OnError(myHandle id, std::string uri) {};
 
 

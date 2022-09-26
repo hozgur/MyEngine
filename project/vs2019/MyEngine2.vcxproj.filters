@@ -13,9 +13,6 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="User Files">
-      <Extensions>js;py;lua;html</Extensions>
-    </Filter>
     <Filter Include="Header Files\include">
       <UniqueIdentifier>{d09d375a-d8b4-496a-b5f9-c7bab42bd447}</UniqueIdentifier>
     </Filter>
@@ -509,8 +506,14 @@
     <ClInclude Include="..\..\include\test\test_python_graphics.h">
       <Filter>Header Files\include\test</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\include\test\test_ae2_trainer.h">
+      <Filter>Header Files\include\test</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\..\script\init.py">
+      <Filter>Script Files</Filter>
+    </None>
     <None Include="..\..\script\init.lua">
       <Filter>Script Files</Filter>
     </None>

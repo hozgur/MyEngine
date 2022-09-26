@@ -237,6 +237,7 @@
     <ClInclude Include="..\..\include\myxml.h" />
     <ClInclude Include="..\..\include\platform.h" />
     <ClInclude Include="..\..\include\python\pymodule.h" />
+    <ClInclude Include="..\..\include\test\test_ae2_trainer.h" />
     <ClInclude Include="..\..\include\test\test_anchor.h" />
     <ClInclude Include="..\..\include\test\test_autoencoder_new.h" />
     <ClInclude Include="..\..\include\test\engine2.h" />

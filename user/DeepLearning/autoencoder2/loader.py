@@ -2,11 +2,10 @@
 my.Import("user/DeepLearning/autoencoder2/graphics.py")
 my.Import("user/DeepLearning/autoencoder2/autoencoders.py")
 net = CNN()
-checkPointPath = my.Path("user/DeepLearning/autoencoder2/data/checkpoint.pth.tar")
+checkPointPath = my.Path("user/DeepLearning/autoencoder2/data/70-100-256-10-1/checkpoint.pth.tar")
 checkpoint = torch.load(checkPointPath)
 net.load_state_dict(checkpoint['state_dict'])
 net.to(device)
-
 parameters = {}
 for i in range(16):
     parameters["param"+str(i)] = 0

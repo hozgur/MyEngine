@@ -1,7 +1,8 @@
 // my.cpp
+#include "test/test_ae2_trainer.h" 
 #include "test/test_python_graphics.h" 
 //#include "test/test_anchor.h"
-//#include "test/test_autoencoder_new.h"
+#include "test/test_autoencoder_new.h"
 //#include "test/test_molecular.h"
 //#include "test/test_iterator.h"
 //#include "test/test_perf_molecular.h"
@@ -30,9 +31,35 @@
 //#define USE_MY_CONTROLS
 //#include "test/uitest.h"
 
+
+myEngine* selectEngine(const char* app) {
+    debug << "Please Select Function:\n";
+    debug << "1 - Trainer\n";
+    debug << "2 - Predictor\n";
+    debug << "3 - Param Edit\n";
+    int f = getchar();
+    debug << f << "\n";
+    if (f == '1')
+		return new MyTrainer(app);
+
+    if (f == '2')
+	return new MyPredictor(app);	
+
+    return new MyParamTest(app);
+}
+
+
 int main(int argc, char *argv[])
-{        
-    MyEngine engine(argv[0]);
-    engine.Start();
+{   
+    debug << "AutoEncoder  Trainer-Predictor\n";
+    myEngine* engine = nullptr;
+    if (argc < 2) {
+        engine = selectEngine(argv[0]);
+    }
+    
+    if (engine)
+        engine->Start();
+
+    delete engine;
     return 0;
 }
