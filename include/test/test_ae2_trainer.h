@@ -23,7 +23,7 @@ public:
 	const int wndHeight = 800;
 
 	const myString appTitle = "AutoEncoder Trainer";
-	const myString project_path = "user/DeepLearning/autoencoder2/trainer";
+	const myString project_path = "user/DeepLearning/autoencoder3";
 	const myString python_file = "trainer.py";
 
 	bool status = false;

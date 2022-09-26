@@ -327,6 +327,14 @@
     <None Include="..\..\user\DeepLearning\autoencoder2\ui\ui.css" />
     <None Include="..\..\user\DeepLearning\autoencoder2\ui\ui.html" />
     <None Include="..\..\user\DeepLearning\autoencoder2\ui\ui.js" />
+    <None Include="..\..\user\DeepLearning\autoencoder3\init.py" />
+    <None Include="..\..\user\DeepLearning\autoencoder3\menu.html" />
+    <None Include="..\..\user\DeepLearning\autoencoder3\menu.js" />
+    <None Include="..\..\user\DeepLearning\autoencoder3\model2.py" />
+    <None Include="..\..\user\DeepLearning\autoencoder3\msg.html" />
+    <None Include="..\..\user\DeepLearning\autoencoder3\msg.js" />
+    <None Include="..\..\user\DeepLearning\autoencoder3\trainer.py" />
+    <None Include="..\..\user\DeepLearning\autoencoder3\ui.css" />
     <None Include="..\..\user\lua_test.lua" />
     <None Include="..\..\user\python\graphics\encoder.py" />
     <None Include="..\..\user\python\graphics\graphics.py" />

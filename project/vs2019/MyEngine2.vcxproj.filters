@@ -70,6 +70,9 @@
     <Filter Include="User Files\python_graphics">
       <UniqueIdentifier>{99b5ff0d-11e8-4474-a506-41c0cd5cfdb4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="User Files\autoencoder3">
+      <UniqueIdentifier>{af14cff0-64e4-4098-a71d-63a2fd007b87}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src\myengine.cpp">
@@ -604,6 +607,30 @@
     </None>
     <None Include="..\..\user\python\graphics\ui\msg.js">
       <Filter>User Files\python_graphics</Filter>
+    </None>
+    <None Include="..\..\user\DeepLearning\autoencoder3\init.py">
+      <Filter>User Files\autoencoder3</Filter>
+    </None>
+    <None Include="..\..\user\DeepLearning\autoencoder3\menu.html">
+      <Filter>User Files\autoencoder3</Filter>
+    </None>
+    <None Include="..\..\user\DeepLearning\autoencoder3\menu.js">
+      <Filter>User Files\autoencoder3</Filter>
+    </None>
+    <None Include="..\..\user\DeepLearning\autoencoder3\model2.py">
+      <Filter>User Files\autoencoder3</Filter>
+    </None>
+    <None Include="..\..\user\DeepLearning\autoencoder3\msg.html">
+      <Filter>User Files\autoencoder3</Filter>
+    </None>
+    <None Include="..\..\user\DeepLearning\autoencoder3\msg.js">
+      <Filter>User Files\autoencoder3</Filter>
+    </None>
+    <None Include="..\..\user\DeepLearning\autoencoder3\trainer.py">
+      <Filter>User Files\autoencoder3</Filter>
+    </None>
+    <None Include="..\..\user\DeepLearning\autoencoder3\ui.css">
+      <Filter>User Files\autoencoder3</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
