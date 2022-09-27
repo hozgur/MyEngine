@@ -7,7 +7,7 @@ class CNN(nn.Module):
             nn.Linear(in_features=3*32*32, out_features=32*32),
             nn.ReLU(),                        
         )                
-        self.flatten = nn.Flatten(0,2)  
+        self.flatten = nn.Flatten()  
         self.unflatten  = nn.Unflatten(0, (3,32,32))
 
         self.decoder = nn.Sequential(
