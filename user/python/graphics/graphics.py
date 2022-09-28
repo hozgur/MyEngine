@@ -1,14 +1,15 @@
 import json
-my.Import("user/DeepLearning/autoencoder2/autoencoders.py")
+my.Import("user/python/graphics/model1.py")
 net = CNN()
-my.Import("user/python/graphics/encoder.py")
-checkPointPath = my.Path("user/python/graphics/data/70-100-256-10-1/checkpoint.pth.tar")
+checkPointPath = my.Path("user/python/graphics/data/model1.pth")
 checkpoint = torch.load(checkPointPath)
-net.load_state_dict(checkpoint['state_dict'])
+net.load_state_dict(torch.load(checkPointPath))
+net.eval()
 net.to(device)
 backBuffer = np.asarray(my.GetBackground(),dtype="byte")
 import colorsys
 
+chunkSize = 32
 my.Message(json.dumps({"id": "python", "message":"Hello2"}))
 des = np.asarray(Image.open(my.Path("user/python/graphics/test.png")))
 print(des.shape)
@@ -25,10 +26,11 @@ def set_color(x,y,c):
 def onMouseMove(x,y):
 	global backBuffer
 	sigmoid = torch.nn.Sigmoid()
-	x1 = x - 128
-	y1 = y - 128
-	inpim = backBuffer[y1:y1+256,x1:x1+256,:3].astype(np.uint8)
-	backBuffer[0:256,256:512,0:3] = inpim
+	x1 = x - int(chunkSize/2)
+	y1 = y - int(chunkSize/2)
+	my.Message(json.dumps({"id": "mouseMove", "message":json.dumps({"x":x,"y":y})}))
+	inpim = backBuffer[y1:y1+chunkSize,x1:x1+chunkSize,:3].astype(np.uint8)
+	backBuffer[0:chunkSize,chunkSize:2*chunkSize,0:3] = inpim
 	print(inpim.max())
 	print(inpim.min())
 	inpim = np.asarray(inpim)/255.0
@@ -40,19 +42,31 @@ def onMouseMove(x,y):
 	permute = [2, 1, 0]
 	inp = inp[:,permute]
 	#out = net(inp)
-	out = encoder(inp)
+	out = net.flatten(inp)
+	out = net.encoder(out)
 	#my.Message(json.dumps({"id": "python", "message":str(out)}))
-	out = decoder(out)
-	out = sigmoid(out)[:,permute]
+	out = net.decoder(out)
+	out = net.unflatten(out)
+	out = out[:,permute]
 	
 	img_array = out.data.cpu().numpy()	
 	img_array = img_array.squeeze()
 	img_array = img_array.transpose(1,2,0)
-	image = (img_array * 255).astype(np.uint8)
+	back = backBuffer[y1:y1+chunkSize,x1:x1+chunkSize,:3].astype(np.uint8)/255.0	
+	img_array +=0.2
+	img_array[img_array > 1] = 1
+	cmy = 1 - img_array
+	backcmy = 1 - back
+	render = backcmy + (1-backcmy)*cmy
+	render[render > 1] = 1
+	rgbrender = 1 - render
+	image = (rgbrender * 255).astype(np.uint8)
 	#image2 = Image.fromarray(image)
 	#image2.save("./out.png")
-	#backBuffer[y1:y1+image.shape[1],x1:x1+image.shape[0],:3] = image
+	backBuffer[y1:y1+image.shape[1],x1:x1+image.shape[0],:3] = image
+
 	backBuffer[0:0+image.shape[1],0:0+image.shape[0],:3] = image
+	
 	
 	
 

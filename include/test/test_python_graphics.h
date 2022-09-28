@@ -114,6 +114,12 @@ public:
 			messageBoxView->PostWebMessage(value);
 		}
 
+		if (id2 == "mouseMove")
+		{			
+			json coord = json::parse(value);
+			FillCircle({ coord["x"],coord["y"]}, brushSize, brushColor);			
+		}
+
 	}
 
 	void OnKey(uint8_t key, bool pressed) override
@@ -158,9 +164,9 @@ public:
 		int x = (int)mouseX;
 		int y = (int)mouseY;
 		if (mousePressed) {
-			DrawLine(oldx, oldy, x, y, brushColor, [](int x, int y, myColor p) {
+			/*DrawLine(oldx, oldy, x, y, brushColor, [](int x, int y, myColor p) {
 				myEngine::pEngine->FillCircle({ x,y }, brushSize, p);
-				});
+				});*/
 			
 			//myPy::dofunction("onMouseMove", { mouseX,mouseY });
 		}
