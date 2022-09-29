@@ -340,6 +340,7 @@
     <None Include="..\..\user\python\graphics\graphics.py" />
     <None Include="..\..\user\python\graphics\init.py" />
     <None Include="..\..\user\python\graphics\loader.py" />
+    <None Include="..\..\user\python\graphics\model1.py" />
     <None Include="..\..\user\python\graphics\run.py" />
     <None Include="..\..\user\python\graphics\ui\msg.html" />
     <None Include="..\..\user\python\graphics\ui\msg.js" />

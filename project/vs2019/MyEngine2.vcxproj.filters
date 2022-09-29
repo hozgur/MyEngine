@@ -632,6 +632,9 @@
     <None Include="..\..\user\DeepLearning\autoencoder3\ui.css">
       <Filter>User Files\autoencoder3</Filter>
     </None>
+    <None Include="..\..\user\python\graphics\model1.py">
+      <Filter>User Files\python_graphics</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Xml Include="..\..\user\tree.xml">

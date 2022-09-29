@@ -1,9 +1,9 @@
 class CNN(nn.Module):
-    def __init__(self, inChannels=3, chunkSizeX = 32,chunkSizeY = 32):
+    def __init__(self, inChannels=3, chunkSizeX = 64,chunkSizeY = 64):
         super(CNN, self).__init__()
         self.chunkSizeX = chunkSizeX
         self.chunkSizeY = chunkSizeY
-        self.intermediateSize = 3 * chunkSizeX *chunkSizeY
+        self.intermediateSize = 1024
         self.transfer = nn.Sigmoid()
         self.encoder = nn.Sequential(
             nn.Linear(in_features=3*chunkSizeX*chunkSizeY, out_features=self.intermediateSize),
