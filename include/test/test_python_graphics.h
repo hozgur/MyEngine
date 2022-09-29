@@ -78,32 +78,40 @@ public:
 
 	}
 
-	void OnMessageReceived(myHandle id, myString msg) override
+	void OnMessageReceived(myHandle viewId, myString msg) override
 	{
 		json jmsg = json::parse(msg);
 
-		myString id2 = jmsg["id"];
+		myString id = jmsg["id"];
 		myString value = jmsg["message"];
-		if (id2 == "reload")
+		if (id == "reload")
 		{
 			reloadModule();
 		}
 
-		if (id2 == "color")
+		if (id == "refresh") {
+			myPy::dofunction("drawImage", {});
+		}
+		
+		if (id == "render") {
+			myPy::dofunction("renderScreen", {});
+		}
+
+		if (id == "color")
 		{	
 			json color = json::parse(value);
 			brushColor = myColor(color[0], color[1], color[2]);
 			debug << "Color: " << color[0] << "\n";
 
 		}
-		if (id2 == "brushSize")
+		if (id == "brushSize")
 		{		
 			json brush = json::parse(value);
 			brushSize = brush;
 			debug << "Brush Size: " << brushSize << "\n";
 		}
 
-		if (id2 == "python")
+		if (id == "python")
 		{			
 			debug << "Message from python: " << value << "\n";
 			myWebView* messageBoxView = (myWebView*)getObject(messageBox);
@@ -114,7 +122,7 @@ public:
 			messageBoxView->PostWebMessage(value);
 		}
 
-		if (id2 == "mouseMove")
+		if (id == "mouseMove")
 		{			
 			json coord = json::parse(value);
 			FillCircle({ coord["x"],coord["y"]}, brushSize, brushColor);			

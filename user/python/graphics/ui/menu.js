@@ -4,8 +4,8 @@ const parameters = {
     color: [255, 0, 0],
     brushSize: 5,
     reload: function () { post('reload', '') },
-    save:   function () { post('save', '') },
-    load:   function () { post('load', '') }
+    refresh:   function () { post('refresh', '') },
+    render:   function () { post('render', '') }
 };
 
 function post(id, message) {
@@ -16,8 +16,8 @@ function onLoad() {
     for (let i = 0; i < paramCount; i++)
         parameters["param" + i] = 0
     gui.add(parameters, 'reload').name('Reload Python Module');
-    gui.add(parameters, 'save').name('Save Model');
-    gui.add(parameters, 'load').name('Load Model');
+    gui.add(parameters, 'refresh').name('Refresh Screen');
+    gui.add(parameters, 'render').name('Render Screen');
     gui.addColor(parameters, 'color').name('Color').onChange(function (value) {        
         post('color', JSON.stringify(value));
     });
