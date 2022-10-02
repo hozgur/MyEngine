@@ -21,29 +21,32 @@ public:
     void Close() { webviewController->Close();}
 	virtual bool Navigate(std::string url) override
 	{
-        std::wstring uri(myfs::s2w(url));
-		HRESULT hr = webviewWindow->Navigate(uri.c_str());
-        if (hr == E_INVALIDARG)
-        {
-            // An invalid URI was provided.
-            if (uri.find(L' ') == std::wstring::npos
-                && uri.find(L'.') != std::wstring::npos)
+        if (webviewWindow) {
+            std::wstring uri(myfs::s2w(url));
+            HRESULT hr = webviewWindow->Navigate(uri.c_str());
+            if (hr == E_INVALIDARG)
             {
-                // If it contains a dot and no spaces, try tacking http:// on the front.
-                hr = webviewWindow->Navigate((L"http://" + uri).c_str());
+                // An invalid URI was provided.
+                if (uri.find(L' ') == std::wstring::npos
+                    && uri.find(L'.') != std::wstring::npos)
+                {
+                    // If it contains a dot and no spaces, try tacking http:// on the front.
+                    hr = webviewWindow->Navigate((L"http://" + uri).c_str());
+                }
+                else
+                {
+                    // Otherwise treat it as a web search. We aren't bothering to escape
+                    // URL syntax characters such as & and #
+                    hr = webviewWindow->Navigate((L"https://www.google.com/search?q=" + uri).c_str());
+                }
             }
-            else
-            {
-                // Otherwise treat it as a web search. We aren't bothering to escape
-                // URL syntax characters such as & and #
-                hr = webviewWindow->Navigate((L"https://www.google.com/search?q=" + uri).c_str());
+            if (hr != S_OK) {
+                debug << "Invalid Arg Error Code hr = " << hr << "\n";
+                return false;
             }
+            return true;
         }
-        if (hr != S_OK) {
-            debug << "Invalid Arg Error Code hr = " << hr << "\n";
-            return false;
-        }
-        return true;
+        return false;
 	}
 	virtual bool NavigateContent(std::string htmlContent) override
 	{

@@ -1,6 +1,6 @@
 // my.cpp
 #include "test/test_ae2_trainer.h" 
-#include "test/test_python_graphics.h" 
+#include "projects/python/graphics/graphics.h" 
 //#include "test/test_anchor.h"
 #include "test/test_autoencoder_new.h"
 //#include "test/test_molecular.h"

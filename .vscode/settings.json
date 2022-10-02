@@ -1,3 +1,0 @@
-{
-    "cmake.sourceDirectory": "${workspaceFolder}/lib/eigen-3.3.7/bench/btl"
-}
