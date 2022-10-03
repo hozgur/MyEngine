@@ -75,7 +75,7 @@ bool myPy::dostring(std::string content)
 }
 
 
-int myPy::dofunction(std::string funcname, paramlist parameters)
+int myPy::call(std::string funcname, paramlist parameters)
 {
     PyObject* pFunc = PyDict_GetItemString(gpDict, funcname.c_str());
     if (pFunc == nullptr)
@@ -106,12 +106,8 @@ int myPy::dofunction(std::string funcname, paramlist parameters)
 
 bool myPy::checkfunction(std::string funcname)
 {
-    PyObject* mainModule = PyImport_ImportModule("__main__");
-    PyObject* pFunc = PyObject_GetAttrString(mainModule, funcname.c_str());
-    if (pFunc == NULL)        
-        return false;
-    Py_DECREF(pFunc);
-    return true;
+    PyObject* pFunc = PyDict_GetItemString(gpDict, funcname.c_str());    
+    return (pFunc != nullptr);
 }
 
 bool myPy::dofile(std::string file)

@@ -26,6 +26,7 @@
 #include <3rdParty/json.hpp>
 using json = nlohmann::json;
 
+#include "limits.h"
 #ifdef WINDOWS
 #define VC_EXTRALEAN
 #define WIN32_LEAN_AND_MEAN

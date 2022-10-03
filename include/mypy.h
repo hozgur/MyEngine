@@ -16,7 +16,7 @@ namespace myPy
 	bool dofile(std::string file);
 	bool addModule(myPyModule* module);		
 	bool dostring(std::string content);	
-	int dofunction(std::string funcname, paramlist parameters);
+	int call(std::string funcname, paramlist parameters);
 	bool checkfunction(std::string funcname);		
 	template<typename T>
 	T getglobal(const char* name) { return {}; }

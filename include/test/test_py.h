@@ -21,7 +21,7 @@ void test1()
 void test2()
 {
     myPy::dofile(myfs::path("user/py_test.py"));
-    myPy::dofunction("test_function", { 33. });
+    myPy::call("test_function", { 33. });
 }
 
 struct SampleVisitor

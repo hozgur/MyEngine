@@ -253,7 +253,7 @@ void myEngine::OnDraw()
         
     if (pyEnable && myPy::checkfunction("OnDraw"))
     {
-        if (myPy::dofunction("OnDraw", {}) == false)
+        if (myPy::call("OnDraw", {}) == false)
             pyEnable = false;
     }
 

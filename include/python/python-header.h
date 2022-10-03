@@ -3,7 +3,7 @@
 #include "mypy.h"
 
 void usage() {
-	debug << "Usage:myengine project-path <path-to-project>\n" << "Example:myengine project-path projects/python/graphics\n";
+	debug << "Usage:myengine python project-path <path-to-project>\n" << "Example:myengine project-path projects/python/graphics\n";
 }
 
 class pyEngine : public myEngine
@@ -15,13 +15,13 @@ public:
 
 	pyEngine(const char* path,const int argc, const char *argv[]) :myEngine(path)
 	{
-		if (argc < 3) {
+		if (argc < 4) {
 			usage();
 			exit(1);
 		}
-		myString arg = argv[1];
+		myString arg = argv[2];
 		if (arg == "project-path") {			
-			project_path = argv[2];
+			project_path = argv[3];
 		}
 		else {
 			usage();
@@ -32,8 +32,7 @@ public:
 	bool OnStart() override
 	{
 		if (myPy::init()) {
-			debug << "Python ready. :)\n";
-			exit(1);
+			debug << "Python ready. :)\n";			
 		}
 		else {
 			debug << "Py Init Error!\n";
@@ -43,7 +42,7 @@ public:
 		if (!myPy::dofile(myfs::path(project_path, "init.py"))) {
 			debug << "Error on init.py\n";
 			exit(1);
-		}
+		}		
 		
 		reloadModule();	// first load
 		return true;
@@ -59,6 +58,9 @@ public:
 
 	void OnReady(myHandle id) override
 	{
+		if (myPy::checkfunction("OnReady")) {			
+			myPy::call("OnReady", { (long)id });
+		}
 		
 	}
 
@@ -70,7 +72,8 @@ public:
 
 	void OnKey(uint8_t key, bool pressed) override
 	{
-		
+		if (pressed)
+			if (key == myKey::R) reloadModule();
 	}
 
 	void run()

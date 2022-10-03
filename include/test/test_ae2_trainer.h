@@ -112,9 +112,9 @@ public:
 	{
 		if (pressed)
 		{
-			if (key == myKey::S) status = myPy::dofunction("save_", { myfs::path("user/DeepLearning/AutoEncoder/models/data/") });
+			if (key == myKey::S) status = myPy::call("save_", { myfs::path("user/DeepLearning/AutoEncoder/models/data/") });
 			if (key == myKey::R) reloadModule();
-			if (key == myKey::L) status = myPy::dofunction("load_", { myfs::path("user/DeepLearning/AutoEncoder/models/data/") });
+			if (key == myKey::L) status = myPy::call("load_", { myfs::path("user/DeepLearning/AutoEncoder/models/data/") });
 		}
 
 
@@ -122,7 +122,7 @@ public:
 
 	void run()
 	{
-		//status = myPy::dofunction("runBatch", {}) >= 0;
+		//status = myPy::call("runBatch", {}) >= 0;
 	}
 
 	void OnIdle() override
@@ -132,7 +132,7 @@ public:
 			if (mouseX != oldx || mouseY != oldy) {
 				oldx = (int)mouseX;
 				oldy = (int)mouseY;
-				myPy::dofunction("onMouseMove", { mouseX,mouseY });
+				myPy::call("onMouseMove", { mouseX,mouseY });
 			}
 		}
 	}
@@ -146,7 +146,7 @@ public:
 	void OnDraw() override
 	{
 		//myEngine::OnDraw();
-		//Py::dofunction("Forward2", {(int)mouseX,(int)mouseY});	
+		//Py::call("Forward2", {(int)mouseX,(int)mouseY});	
 		static int oldx, oldy;
 		int x = (int)mouseX;
 		int y = (int)mouseY;

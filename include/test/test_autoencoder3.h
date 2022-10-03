@@ -31,8 +31,8 @@ public:
 	{
 		if (pressed)
 		{
-			if (key == myKey::S) canRun = myPy::dofunction("save_", { myfs::path("user/DeepLearning/AutoEncoder/models/data/") });
-			if (key == myKey::L) canRun = myPy::dofunction("load_", { myfs::path("user/DeepLearning/AutoEncoder/models/data/") });
+			if (key == myKey::S) canRun = myPy::call("save_", { myfs::path("user/DeepLearning/AutoEncoder/models/data/") });
+			if (key == myKey::L) canRun = myPy::call("load_", { myfs::path("user/DeepLearning/AutoEncoder/models/data/") });
 		}
 			
 
@@ -40,7 +40,7 @@ public:
 
 	void run()
 	{
-		int stat = myPy::dofunction("runBatch", {});
+		int stat = myPy::call("runBatch", {});
 		if (stat < 0) { canRun = false; return; }		
 	}
 
@@ -53,7 +53,7 @@ public:
 
 	void OnDraw() override
 	{
-		//Py::dofunction("Forward2", {(int)mouseX,(int)mouseY});
+		//Py::call("Forward2", {(int)mouseX,(int)mouseY});
 	}
 
 	void OnUpdate() override

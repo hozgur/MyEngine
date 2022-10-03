@@ -43,7 +43,7 @@ public:
 			exit(1);
 		}		
 		reloadModule();	// first load
-		myPy::dofunction("onChange", {"param0","0"});
+		myPy::call("onChange", {"param0","0"});
 		return true;
 	}
 
@@ -81,7 +81,7 @@ public:
 			
 		if (id2.substr(0, 5) == "param")
 		{
-			myPy::dofunction("onChange", { id2,value });
+			myPy::call("onChange", { id2,value });
 		}
 		
 	}
@@ -90,8 +90,8 @@ public:
 	{
 		if (pressed)
 		{
-			if (key == myKey::S) status = myPy::dofunction("save_", { myfs::path("user/DeepLearning/AutoEncoder/models/data/") });
-			if (key == myKey::L) status = myPy::dofunction("load_", { myfs::path("user/DeepLearning/AutoEncoder/models/data/") });
+			if (key == myKey::S) status = myPy::call("save_", { myfs::path("user/DeepLearning/AutoEncoder/models/data/") });
+			if (key == myKey::L) status = myPy::call("load_", { myfs::path("user/DeepLearning/AutoEncoder/models/data/") });
 		}
 
 
@@ -99,7 +99,7 @@ public:
 
 	void run()
 	{
-		status = myPy::dofunction("runBatch", {}) >= 0;		
+		status = myPy::call("runBatch", {}) >= 0;		
 	}
 
 	void OnIdle() override
@@ -111,7 +111,7 @@ public:
 	void OnDraw() override
 	{
 		//myEngine::OnDraw();
-		//Py::dofunction("Forward2", {(int)mouseX,(int)mouseY});
+		//Py::call("Forward2", {(int)mouseX,(int)mouseY});
 		if(mousePressed)
 			FillCircle({ (int)mouseX,(int)mouseY }, 5, brushColor);
 	}

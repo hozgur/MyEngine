@@ -3,7 +3,18 @@
 
 int main(int argc, char *argv[])
 {   
-	pyEngine engine((const char *)argv[0],argc,(const char**) argv);
-	engine.Start();
-    return 0;
+	if (argc > 1) {
+		myString mode = argv[1];
+		if (mode == "python") {
+			pyEngine engine((const char*)argv[0], argc, (const char**)argv);
+			engine.Start();
+			return 0;			
+		}		
+	}
+	else
+	{
+		debug << "Please specify a mode. \n";
+		debug << "Usage:myengine python python-path <path-to-python-project>\n";
+		return 1;
+	}	
 }

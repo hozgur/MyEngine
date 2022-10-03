@@ -90,11 +90,11 @@ public:
 		}
 
 		if (id == "refresh") {
-			myPy::dofunction("drawImage", {});
+			myPy::call("drawImage", {});
 		}
 		
 		if (id == "render") {
-			myPy::dofunction("renderScreen", {});
+			myPy::call("renderScreen", {});
 		}
 
 		if (id == "color")
@@ -134,8 +134,8 @@ public:
 	{
 		if (pressed)
 		{
-			if (key == myKey::S) status = myPy::dofunction("save_", { myfs::path("user/DeepLearning/AutoEncoder/models/data/") });
-			if (key == myKey::L) status = myPy::dofunction("load_", { myfs::path("user/DeepLearning/AutoEncoder/models/data/") });
+			if (key == myKey::S) status = myPy::call("save_", { myfs::path("user/DeepLearning/AutoEncoder/models/data/") });
+			if (key == myKey::L) status = myPy::call("load_", { myfs::path("user/DeepLearning/AutoEncoder/models/data/") });
 		}
 
 
@@ -143,7 +143,7 @@ public:
 
 	void run()
 	{
-		//status = myPy::dofunction("runBatch", {}) >= 0;
+		//status = myPy::call("runBatch", {}) >= 0;
 	}
 
 	void OnIdle() override
@@ -153,7 +153,7 @@ public:
 			if (mouseX != oldx || mouseY != oldy) {
 				oldx = (int)mouseX;
 				oldy = (int)mouseY;
-				myPy::dofunction("onMouseMove", { mouseX,mouseY });
+				myPy::call("onMouseMove", { mouseX,mouseY });
 			}
 		}
 	}
@@ -167,7 +167,7 @@ public:
 	void OnDraw() override
 	{
 		//myEngine::OnDraw();
-		//Py::dofunction("Forward2", {(int)mouseX,(int)mouseY});	
+		//Py::call("Forward2", {(int)mouseX,(int)mouseY});	
 		static int oldx, oldy;
 		int x = (int)mouseX;
 		int y = (int)mouseY;
@@ -176,7 +176,7 @@ public:
 				myEngine::pEngine->FillCircle({ x,y }, brushSize, p);
 				});*/
 			
-			//myPy::dofunction("onMouseMove", { mouseX,mouseY });
+			//myPy::call("onMouseMove", { mouseX,mouseY });
 		}
 		oldx = x;
 		oldy = y;			

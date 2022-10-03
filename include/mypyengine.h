@@ -83,7 +83,137 @@ namespace myPy
             Py_RETURN_NONE;
         }
     }
-
+    // AddWindow function
+	// Arguments
+	// 1. window title
+	// 2. Width
+	// 3. Height
+	// 4. pixelWidth
+	// 5. pixelHeight
+	// 6. fullScreen
+	// returns true or false
+    static PyObject* engine_addwindow(PyObject* self, PyObject* args) {
+        Py_ssize_t argCount = PyTuple_Size(args);
+        if (argCount < 3) {                
+            std::string err = "AddWindow needs parameters.";
+            PyErr_SetString(PyExc_TypeError, err.c_str());
+            Py_RETURN_NONE;
+        }
+		const char* title = nullptr;
+		title = PyUnicode_AsUTF8(PyTuple_GetItem(args, 0));
+        long width  = PyLong_AsLong(PyTuple_GetItem(args, 1));
+        long height = PyLong_AsLong(PyTuple_GetItem(args, 2));
+        long pixelWidth = 1;
+		long pixelHeight = 1;
+        bool fullScreen = false;
+		if ((width <= 0) || (width > MAX_WIDTH)) {
+			std::string err = "Invalid width.";
+			PyErr_SetString(PyExc_TypeError, err.c_str());
+			Py_RETURN_NONE;
+		}
+		if ((height <= 0) || (height > MAX_HEIGHT)) {
+			std::string err = "Invalid height.";
+			PyErr_SetString(PyExc_TypeError, err.c_str());
+			Py_RETURN_NONE;
+		}
+		if (argCount > 4) {
+			long pixelWidth = PyLong_AsLong(PyTuple_GetItem(args, 3));
+			long pixelHeight = PyLong_AsLong(PyTuple_GetItem(args, 4));
+			if ((pixelWidth <= 0) || (pixelWidth > MAX_PIXELWIDTH) || (pixelWidth * width > MAX_WIDTH)) {
+				std::string err = "Invalid pixelWidth.";
+				PyErr_SetString(PyExc_TypeError, err.c_str());
+				Py_RETURN_NONE;
+			}
+			if ((pixelHeight <= 0) || (pixelHeight > MAX_PIXELHEIGHT) || (pixelHeight * height > MAX_HEIGHT)) {
+				std::string err = "Invalid pixelHeight.";
+				PyErr_SetString(PyExc_TypeError, err.c_str());
+				Py_RETURN_NONE;
+			}			
+		}
+        if (argCount > 5) {			
+			fullScreen = PyObject_IsTrue(PyTuple_GetItem(args, 5));
+		}
+		
+		bool ok = myEngine::pEngine->AddWindow(width, height, pixelWidth, pixelHeight, fullScreen);
+		if(ok)
+		    myEngine::pEngine->SetWindowTitle(title);
+		
+		return PyBool_FromLong(ok);
+    }
+	//AddWebView
+	//Arguments:
+	//1. x
+	//2. y
+	//3. width
+	//4. height
+	//5. anchor
+	//6. url (optional
+    static PyObject* engine_addwebview(PyObject* self, PyObject* args) {
+        Py_ssize_t argCount = PyTuple_Size(args);
+        if (argCount < 4) {
+            std::string err = "AddWebView needs parameters.";
+            PyErr_SetString(PyExc_TypeError, err.c_str());
+            Py_RETURN_NONE;
+        }
+        long x = PyLong_AsLong(PyTuple_GetItem(args, 0));
+        long y = PyLong_AsLong(PyTuple_GetItem(args, 1));
+        long width = PyLong_AsLong(PyTuple_GetItem(args, 2));
+        long height = PyLong_AsLong(PyTuple_GetItem(args, 3));
+        long anchor = 0;
+        if (argCount > 4) {
+            anchor = PyLong_AsLong(PyTuple_GetItem(args, 4));
+        }
+        if ((anchor < 0) || (anchor > 15)) {
+            anchor = 0;
+        }
+        if ((x < 0) || (x > MAX_WIDTH)) {
+            std::string err = "Invalid x.";
+            PyErr_SetString(PyExc_TypeError, err.c_str());
+            Py_RETURN_NONE;
+        }
+        if ((y < 0) || (y > MAX_HEIGHT)) {
+            std::string err = "Invalid y.";
+            PyErr_SetString(PyExc_TypeError, err.c_str());
+            Py_RETURN_NONE;
+        }
+        if ((width <= 0) || (width > MAX_WIDTH)) {
+            std::string err = "Invalid width.";
+            PyErr_SetString(PyExc_TypeError, err.c_str());
+            Py_RETURN_NONE;
+        }
+        if ((height <= 0) || (height > MAX_HEIGHT)) {
+            std::string err = "Invalid height.";
+            PyErr_SetString(PyExc_TypeError, err.c_str());
+            Py_RETURN_NONE;
+        }
+        const char* url = nullptr;
+        if (argCount > 5) {            
+            url = PyUnicode_AsUTF8(PyTuple_GetItem(args, 5));
+        }
+        myHandle viewId = myEngine::pEngine->AddWebView(x, y, width, height, anchor);
+		if(url)
+			myEngine::pEngine->Navigate(viewId, url);
+		
+		return PyLong_FromLong(viewId);
+	}		
+	//Navigate
+	//Arguments:
+	//1. viewId
+	//2. url
+	static PyObject* engine_navigate(PyObject* self, PyObject* args) {
+		Py_ssize_t argCount = PyTuple_Size(args);
+		if (argCount < 2) {
+			std::string err = "Navigate needs parameters.";
+			PyErr_SetString(PyExc_TypeError, err.c_str());
+			Py_RETURN_NONE;
+		}
+		long viewId = PyLong_AsLong(PyTuple_GetItem(args, 0));
+		const char* url = nullptr;
+		url = PyUnicode_AsUTF8(PyTuple_GetItem(args, 1));
+		myEngine::pEngine->Navigate(viewId, url);
+		Py_RETURN_NONE;
+	}
+	
     static PyObject* engine_test(PyObject* self, PyObject* args)
     {
         Py_ssize_t argCount = PyTuple_Size(args);
@@ -138,16 +268,14 @@ namespace myPy
     }
 
     static PyMethodDef EngineMethods[] = {
-        { "engine_test",  engine_test, METH_VARARGS,
-            "Test method for engine module."},
-            { "Path",  engine_path, METH_VARARGS,
-            "Combine MyEngine Root Path with your relative path inside of Root."},
-            { "Import",  engine_import, METH_VARARGS,
-            "Import file."},
-            { "GetBackground",  engine_getbackground, METH_NOARGS,
-            "Get Background Image Tensor."},
-            { "Message",  engine_sendMessage, METH_VARARGS,
-            "Send Message to Host as string."},
+        { "engine_test",  engine_test, METH_VARARGS, "Test method for engine module."},
+        { "Path",  engine_path, METH_VARARGS, "Combine MyEngine Root Path with your relative path inside of Root."},
+        { "Import",  engine_import, METH_VARARGS, "Import file."},
+        { "GetBackground",  engine_getbackground, METH_NOARGS, "Get Background Image Tensor."},
+        { "Message",  engine_sendMessage, METH_VARARGS, "Send Message to Host as string."},
+        { "AddWindow",  engine_addwindow, METH_VARARGS, "Open a window."},		
+		{ "AddWebView",  engine_addwebview, METH_VARARGS, "Add WebView."},
+		{ "Navigate",  engine_navigate, METH_VARARGS, "Navigate WebView."},		
         {NULL, NULL, 0, NULL}        /* Sentinel */
     };
 

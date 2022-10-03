@@ -42,7 +42,7 @@ public:
 
 	void run()
 	{
-		int stat = myPy::dofunction("runBatch", {});
+		int stat = myPy::call("runBatch", {});
 		if (stat < 0) { canRun = false; return; }
 
 		int id = myPy::getglobal<int>("inpId");
@@ -113,7 +113,7 @@ public:
 		if (xx < 0) xx = 0;
 		if (yy < 0) yy = 0;
 		FillCircle({ xx * 100 + 500,yy * 100 + 10 }, 3, myColor::Blue);
-		myPy::dofunction("Forward2", { xx,yy });
+		myPy::call("Forward2", { xx,yy });
 		int id = myPy::getglobal<int>("fwdId");
 		myTensor<float>* tensDraw = (myTensor<float>*) getObject(id);
 		for (int y = 0; y < 28; y++)
