@@ -63,7 +63,6 @@ namespace myPy
         int size = stride * height;
 
         pytensor* pytens = (pytensor*)PyObject_CallObject((PyObject*)&pytensorType, args);
-        //pytensor* pytens = (pytensor*)pytensorType.tp_alloc(&pytensorType, 0);
         if (pytens)
         {
             myEngine::pEngine->removeObject(pytens->tensorId);

@@ -236,6 +236,7 @@
     <ClInclude Include="..\..\include\myxml.h" />
     <ClInclude Include="..\..\include\platform.h" />
     <ClInclude Include="..\..\include\python\pymodule.h" />
+    <ClInclude Include="..\..\include\python\python-header.h" />
     <ClInclude Include="..\..\include\test\test_ae2_trainer.h" />
     <ClInclude Include="..\..\include\test\test_anchor.h" />
     <ClInclude Include="..\..\include\test\test_autoencoder_new.h" />
@@ -311,10 +312,11 @@
     <ClInclude Include="..\..\lib\lua-5.4.1\src\lundump.h" />
     <ClInclude Include="..\..\lib\lua-5.4.1\src\lvm.h" />
     <ClInclude Include="..\..\lib\lua-5.4.1\src\lzio.h" />
-    <ClInclude Include="..\..\molecular.h" />
     <ClInclude Include="..\..\my.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\..\projects\python\hello-world\init.py" />
+    <None Include="..\..\projects\python\hello-world\run.py" />
     <None Include="..\..\script\init.lua" />
     <None Include="..\..\script\init.py" />
     <None Include="packages.config" />

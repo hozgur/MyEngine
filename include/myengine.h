@@ -24,7 +24,7 @@ enum myKey
 class myEngine : public myLualib, public myView
 {
 public:
-    const char* version = "1.0.0";
+    static const char* version;
     myPlatform* pPlatform;
     int clientWidth;
     int clientHeight;
@@ -102,7 +102,7 @@ public:
 
     virtual void OnReady(myHandle id) {};
     virtual bool OnNavigate(myHandle id, std::string uri) { return true; }
-    virtual void OnMessageReceived(myHandle viewId, std::string message) { debug << "WebView Received Message = " << message << "\n"; }
+    virtual void OnMessageReceived(myHandle senderId, std::string message) { debug << "WebView Received Message = " << message << "\n"; }
     virtual void OnError(myHandle id, std::string uri) {};
 
 

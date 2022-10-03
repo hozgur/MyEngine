@@ -52,6 +52,7 @@ bool myPy::init()
     if (!addEngineModule())
         debug << "Error on adding Python MyEngine module.\n";
     Py_Initialize();
+	//gpDict Global Dictionary for python global variables.
     gpDict = PyDict_New();
     PyDict_SetItemString(gpDict, "__builtins__", PyEval_GetBuiltins());
     return true;

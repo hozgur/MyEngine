@@ -2,9 +2,11 @@
 #include "my.h"
 #include "mypy.h"
 #include "windows\windowsplatform.h"
+
 namespace fs = std::filesystem;
 std::atomic<bool> myEngine::baThreadActive = { false };
 myEngine* myEngine::pEngine = nullptr;
+const char* myEngine::version = "3.0.0";
 myEngine::myEngine(const char* path)
 {
     appPath = path;

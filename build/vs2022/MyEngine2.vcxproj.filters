@@ -49,6 +49,9 @@
     <Filter Include="Project Files">
       <UniqueIdentifier>{d99b7d7e-f50c-492b-b0d1-b54210faff43}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Project Files\hello-world">
+      <UniqueIdentifier>{0f0107c6-b763-496b-aa41-a9f2715e5e5f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src\myengine.cpp">
@@ -215,9 +218,6 @@
     <ClInclude Include="..\..\include\platform.h">
       <Filter>Header Files\include</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\my.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\include\test\engine2.h">
       <Filter>Header Files\include\test</Filter>
     </ClInclude>
@@ -229,9 +229,6 @@
     </ClInclude>
     <ClInclude Include="..\..\include\test\molecularengine.h">
       <Filter>Header Files\include\test</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\molecular.h">
-      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\include\ui\slider.h">
       <Filter>Header Files\include\ui</Filter>
@@ -410,9 +407,6 @@
     <ClInclude Include="..\..\include\myxml.h">
       <Filter>Header Files\include</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\include\commandqueue.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\include\test\test_ai.h">
       <Filter>Header Files\include\test</Filter>
     </ClInclude>
@@ -485,6 +479,15 @@
     <ClInclude Include="..\..\include\test\test_ae2_trainer.h">
       <Filter>Header Files\include\test</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\include\python\python-header.h">
+      <Filter>Header Files\include\python</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\commandqueue.h">
+      <Filter>Header Files\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\my.h">
+      <Filter>Header Files\include</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\script\init.py">
@@ -497,8 +500,11 @@
       <Filter>Script Files</Filter>
     </None>
     <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Natvis Include="$(MSBuildThisFileDirectory)..\..\natvis\wil.natvis" />
+    <None Include="..\..\projects\python\hello-world\init.py">
+      <Filter>Project Files\hello-world</Filter>
+    </None>
+    <None Include="..\..\projects\python\hello-world\run.py">
+      <Filter>Project Files\hello-world</Filter>
+    </None>
   </ItemGroup>
 </Project>
