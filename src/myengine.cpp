@@ -14,6 +14,7 @@ myEngine::myEngine(const char* path)
     pyEnable = false;
     pEngine = this;
     pPlatform = new WindowsPlatform();
+    keepAliveonDestroyWindow = false;
     lua.loadlibrary("engine", this);
         
     if (!lua.dofile(myfs::path("script\\init.lua")))
@@ -79,25 +80,40 @@ myHandle myEngine::getHashCode()
 
 myEngine::~myEngine()
 {
-    for(std::map<myHandle, myObject*>::iterator it = objects.begin(); it != objects.end(); ++it)
-        delete it->second;
+    DestroyMainWindow();
     myPy::exit();
-    delete background;
+    
     delete pPlatform;
 }
 
-bool myEngine::AddWindow(int width,int height, int pixelWidth, int pixelHeight, bool fullScreen)
+bool myEngine::AddMainWindow(int width,int height, int pixelWidth, int pixelHeight, bool fullScreen)
 {
     if ((width <= 0) || (height <= 0) || (pixelWidth <= 0) || (pixelHeight <= 0))
     {
-        debug << "AddWindow - invalid parameters\n";
+        debug << "AddMainWindow - invalid parameters\n";
         return false;
+    }
+	if(clientWidth > 0) {
+		keepAliveonDestroyWindow = true;
+        DestroyMainWindow();
+        keepAliveonDestroyWindow = false;
     }
     clientWidth = width;
     clientHeight = height;
     this->pixelWidth = pixelWidth;
     this->pixelHeight = pixelHeight;
-    return pPlatform->AddWindow(width*pixelWidth,height*pixelHeight,pixelWidth,pixelHeight,fullScreen);
+    return pPlatform->AddMainWindow(width*pixelWidth,height*pixelHeight,pixelWidth,pixelHeight,fullScreen);
+}
+
+bool myEngine::DestroyMainWindow() {
+	// Delete all objects
+    for (std::map<myHandle, myObject*>::iterator it = objects.begin(); it != objects.end(); ++it)        
+        delete it->second;
+    objects.clear();
+    childViews.clear();
+    delete background;
+	background = nullptr;	
+	return pPlatform->DestroyMainWindow();
 }
 
 bool myEngine::Start()

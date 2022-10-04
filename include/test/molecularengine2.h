@@ -41,7 +41,7 @@ public:
 	}
 	bool OnStart() override
 	{
-		AddWindow(width*scale, height*scale,3,3);		
+		AddMainWindow(width*scale, height*scale,3,3);		
 		std::srand(0);
 		grid.bDrawLines = true;
 		InitDots();		

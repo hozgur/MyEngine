@@ -49,7 +49,7 @@ public:
 	}
 	bool OnStart() override
 	{
-		AddWindow(600, 600, false);
+		AddMainWindow(600, 600, false);
 		SetFPS(60);
 		std::srand(0);
 		InitDots();

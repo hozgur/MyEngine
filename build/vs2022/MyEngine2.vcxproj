@@ -235,7 +235,7 @@
     <ClInclude Include="..\..\include\mywebview.h" />
     <ClInclude Include="..\..\include\myparser.h" />
     <ClInclude Include="..\..\include\myxml.h" />
-    <ClInclude Include="..\..\include\platform.h" />
+    <ClInclude Include="..\..\include\myplatform.h" />
     <ClInclude Include="..\..\include\python\pymodule.h" />
     <ClInclude Include="..\..\include\python\python-header.h" />
     <ClInclude Include="..\..\include\test\test_ae2_trainer.h" />

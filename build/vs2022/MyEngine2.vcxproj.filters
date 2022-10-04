@@ -215,7 +215,7 @@
     <ClInclude Include="..\..\include\myengine.h">
       <Filter>Header Files\include</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\include\platform.h">
+    <ClInclude Include="..\..\include\myplatform.h">
       <Filter>Header Files\include</Filter>
     </ClInclude>
     <ClInclude Include="..\..\include\test\engine2.h">
@@ -509,5 +509,8 @@
     <None Include="..\..\projects\python\hello-world\run.py">
       <Filter>Project Files\hello-world</Filter>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Natvis Include="$(MSBuildThisFileDirectory)..\..\natvis\wil.natvis" />
   </ItemGroup>
 </Project>

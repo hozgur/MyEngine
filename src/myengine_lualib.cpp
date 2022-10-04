@@ -17,7 +17,7 @@ static int engine_addWindow(lua_State* L) {
 	int pixelWidth = (int) luaL_checkinteger(L, 3);
 	int pixelHeight = (int) luaL_checkinteger(L, 4);
 	int fullscreen = lua_toboolean(L, 5);
-	int result = myEngine::pEngine->AddWindow(width, height, pixelWidth, pixelHeight, fullscreen);
+	int result = myEngine::pEngine->AddMainWindow(width, height, pixelWidth, pixelHeight, fullscreen);
 	lua_pushnumber(L, result);
 	return 1;
 }

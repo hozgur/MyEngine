@@ -149,7 +149,7 @@ inline int WindowsPlatform::GetScanLine()
 		return -1;
 }
 
-bool WindowsPlatform::AddWindow(int width,int height, int pixelWidth, int pixelHeight, bool fullScreen)
+bool WindowsPlatform::AddMainWindow(int width,int height, int pixelWidth, int pixelHeight, bool fullScreen)
 {
 	if (hWnd != nullptr)
 	{
@@ -225,6 +225,14 @@ bool WindowsPlatform::AddWindow(int width,int height, int pixelWidth, int pixelH
 	return true;
 }
 
+bool WindowsPlatform::DestroyMainWindow()
+{
+	if (hWnd == nullptr) return false;
+	DestroyWindow(hWnd);
+	hWnd = nullptr;
+	return true;
+}
+
 LRESULT CALLBACK WindowsPlatform::WindowEvent(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
 	switch (uMsg)
@@ -276,7 +284,7 @@ LRESULT CALLBACK WindowsPlatform::WindowEvent(HWND hWnd, UINT uMsg, WPARAM wPara
 		//case WM_MBUTTONDOWN:ptrPGE->olc_UpdateMouseState(2, true);                                  return 0;
 		//case WM_MBUTTONUP:	ptrPGE->olc_UpdateMouseState(2, false);                                 return 0;
 		case WM_CLOSE:		myEngine::baThreadActive = false; PostMessage(hWnd, WM_DESTROY, 0, 0);        return 0;
-		case WM_DESTROY:	PostQuitMessage(0); DestroyWindow(hWnd);								return 0;
+		case WM_DESTROY:	if(myEngine::pEngine->keepAliveonDestroyWindow == false) PostQuitMessage(0); if(hWnd) DestroyWindow(hWnd); return 0;
 		//case WM_TIMER:		_OnPaint();/* InvalidateRect(hWnd, nullptr, false);*/					return 0;
 		case WM_PAINT:		return 0;
 		case WM_ERASEBKGND: return 0;

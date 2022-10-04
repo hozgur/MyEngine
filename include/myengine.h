@@ -47,12 +47,14 @@ public:
     std::vector<myHandle> childViews;
     myCommandQueue commandQueue;
     myImage<myColor>* background = nullptr;
+    bool keepAliveonDestroyWindow;
     public:
     myEngine(const char* path);
     virtual ~myEngine();
     bool Start();
     bool SetScript(std::string scriptPath);
-    bool AddWindow(int width,int height, int pixelWidth = 1, int pixelHeight = 1, bool fullScreen = false);
+    bool AddMainWindow(int width,int height, int pixelWidth = 1, int pixelHeight = 1, bool fullScreen = false);
+    bool DestroyMainWindow();
     myHandle AddWebView(int x,int y, int width, int height,int anchor = myAnchorNone);
     int GetScanLine() { return pPlatform->GetScanLine(); }
     myColor* GetLinePointer(int nLine) { return pPlatform->GetLinePointer(nLine); }

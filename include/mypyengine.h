@@ -83,7 +83,7 @@ namespace myPy
             Py_RETURN_NONE;
         }
     }
-    // AddWindow function
+    // AddMainWindow function
 	// Arguments
 	// 1. window title
 	// 2. Width
@@ -92,10 +92,10 @@ namespace myPy
 	// 5. pixelHeight
 	// 6. fullScreen
 	// returns true or false
-    static PyObject* engine_addwindow(PyObject* self, PyObject* args) {
+    static PyObject* engine_addmainwindow(PyObject* self, PyObject* args) {
         Py_ssize_t argCount = PyTuple_Size(args);
         if (argCount < 3) {                
-            std::string err = "AddWindow needs parameters.";
+            std::string err = "AddMainWindow needs parameters.";
             PyErr_SetString(PyExc_TypeError, err.c_str());
             Py_RETURN_NONE;
         }
@@ -134,7 +134,7 @@ namespace myPy
 			fullScreen = PyObject_IsTrue(PyTuple_GetItem(args, 5));
 		}
 		
-		bool ok = myEngine::pEngine->AddWindow(width, height, pixelWidth, pixelHeight, fullScreen);
+		bool ok = myEngine::pEngine->AddMainWindow(width, height, pixelWidth, pixelHeight, fullScreen);
 		if(ok)
 		    myEngine::pEngine->SetWindowTitle(title);
 		
@@ -273,7 +273,7 @@ namespace myPy
         { "Import",  engine_import, METH_VARARGS, "Import file."},
         { "GetBackground",  engine_getbackground, METH_NOARGS, "Get Background Image Tensor."},
         { "Message",  engine_sendMessage, METH_VARARGS, "Send Message to Host as string."},
-        { "AddWindow",  engine_addwindow, METH_VARARGS, "Open a window."},		
+        { "AddMainWindow",  engine_addmainwindow, METH_VARARGS, "Open a window."},		
 		{ "AddWebView",  engine_addwebview, METH_VARARGS, "Add WebView."},
 		{ "Navigate",  engine_navigate, METH_VARARGS, "Navigate WebView."},		
         {NULL, NULL, 0, NULL}        /* Sentinel */

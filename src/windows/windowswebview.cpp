@@ -90,3 +90,11 @@ windowswebview::~windowswebview()
 {
     Close();
 }
+
+void windowswebview::Close() { 
+	if (webviewController) {
+        webviewController->Close();
+        webviewController = nullptr;
+        webviewWindow = nullptr;
+	}
+}

@@ -18,7 +18,7 @@ public:
 	windowswebview(HWND hWnd, int x, int y, int width, int height, myAnchor anchor);
 	virtual ~windowswebview();
     bool Create();
-    void Close() { webviewController->Close();}
+    void Close();
 	virtual bool Navigate(std::string url) override
 	{
         if (webviewWindow) {

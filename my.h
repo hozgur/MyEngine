@@ -6,7 +6,7 @@
 #include "myview.h"
 #include "myimage.h"
 #include "mywebview.h"
-#include "platform.h"
+#include "myplatform.h"
 #include "commandqueue.h"
 #include "myengine.h"
 #include "mylua.h"
@@ -32,7 +32,7 @@ public:
 
 	bool OnStart() override
 	{
-		AddWindow(600, 600, false);		
+		AddMainWindow(600, 600, false);		
 		return true;
 	}
 
