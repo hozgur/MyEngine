@@ -52,6 +52,9 @@
     <Filter Include="Project Files\hello-world">
       <UniqueIdentifier>{0f0107c6-b763-496b-aa41-a9f2715e5e5f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Project Files\hello-world\html">
+      <UniqueIdentifier>{390aed17-d6d5-43c7-8824-3714e096c6af}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src\myengine.cpp">
@@ -508,6 +511,18 @@
     </None>
     <None Include="..\..\projects\python\hello-world\run.py">
       <Filter>Project Files\hello-world</Filter>
+    </None>
+    <None Include="..\..\projects\python\hello-world\anchors.py">
+      <Filter>Project Files\hello-world</Filter>
+    </None>
+    <None Include="..\..\projects\python\hello-world\html\hello.html">
+      <Filter>Project Files\hello-world\html</Filter>
+    </None>
+    <None Include="..\..\projects\python\hello-world\html\hello.js">
+      <Filter>Project Files\hello-world\html</Filter>
+    </None>
+    <None Include="..\..\projects\python\hello-world\html\style.css">
+      <Filter>Project Files\hello-world\html</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>

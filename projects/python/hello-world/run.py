@@ -1,18 +1,22 @@
 
+
+my.Import("projects/python/hello-world/anchors.py")
+
 print("Hello World! #2")
 
+
+htmlFile = my.Path("projects/python/hello-world/html/hello.html")
+
 def OnReady(id):
-	my.Navigate(web1,"www.google.com")
+	my.Navigate(web1,htmlFile)
 
-myAnchorNone	= 0
-myAnchorLeft	= 1
-myAnchorRight	= 2
-myAnchorTop		= 4
-myAnchorBottom	= 8
-myAnchorAll		= 15
 
+try : web1
+except NameError : web1 = 0
+
+	
 my.RemoveWebView(web1)
-web1 = my.AddWebView(200,0,400,400,myAnchorRight)
+web1 = my.AddWebView(400,0,400,400,myAnchorRight)
 
 
 

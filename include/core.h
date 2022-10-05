@@ -58,13 +58,21 @@ typedef std::string myString;
 typedef int myHandle;	
 const myHandle invalidHandle = -1;
 typedef std::variant<int, float, const char*> variant;
+typedef uint64_t myTime;
 
-class myTime {
-public:
-	static uint64_t now() {
-		return std::chrono::duration_cast<std::chrono::microseconds>(std::chrono::system_clock::now().time_since_epoch()).count();
+// time
+// Önemli not: Windows 10 C++ 20 standardýnda file time ve system time dönüþümlerini tam olarak desteklemediði ve arka planda
+// kendisi filetime kullandýðý için. time deðiþken tabaný file_clock üzerinden kuruldu.
+// Böylece sistem saati ile dosyalarýn kayýt zamanlarý tutarlý hale getirildi.
+namespace myos {
+	inline myTime now() {
+		return  std::chrono::duration_cast<std::chrono::microseconds>(std::chrono::file_clock::now().time_since_epoch()).count();
 	}
-};
+	inline std::chrono::time_point<std::chrono::file_clock> timePoint(myTime t) {
+		return  std::chrono::time_point<std::chrono::file_clock>(std::chrono::microseconds(t));
+	}
+}
+
 
 class myObject
 {
@@ -144,9 +152,11 @@ namespace myfs
 	std::string w2s(std::wstring_view wstring);
 	std::wstring s2w(std::string_view string);
 	std::string root();
-	bool exits(const std::string& path, const std::string& filename);
+	bool exists(const std::string& filePath);
+	bool exists(const std::string& path, const std::string& filename);
 	std::string path(std::string directory);
 	std::string path(std::string directory, std::string filename);
 	std::string getEnv(std::string env);
+	myTime lastWriteTime(const std::string& filePath);
 }
 

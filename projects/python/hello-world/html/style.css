@@ -1,0 +1,18 @@
+html {
+    scroll-behavior: smooth;
+}
+
+#menu {
+    color: azure;
+    background-color: rgba(0,0, 0, 0);
+}
+
+#message {
+    color: azure;
+    background-color: rgba(0,0, 0, 0.5);
+    overflow-y: scroll;
+}
+
+body {
+    font-family: Segoe UI,SegoeUI,Helvetica Neue,Helvetica,Arial,sans-serif;
+}

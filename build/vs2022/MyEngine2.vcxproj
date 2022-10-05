@@ -138,7 +138,7 @@
       <ConformanceMode>true</ConformanceMode>
       <OpenMPSupport>true</OpenMPSupport>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
-      <LanguageStandard>stdcpp17</LanguageStandard>
+      <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -156,7 +156,7 @@
       <ConformanceMode>true</ConformanceMode>
       <OpenMPSupport>true</OpenMPSupport>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
-      <LanguageStandard>stdcpp17</LanguageStandard>
+      <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -316,6 +316,10 @@
     <ClInclude Include="..\..\my.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\..\projects\python\hello-world\anchors.py" />
+    <None Include="..\..\projects\python\hello-world\html\hello.html" />
+    <None Include="..\..\projects\python\hello-world\html\hello.js" />
+    <None Include="..\..\projects\python\hello-world\html\style.css" />
     <None Include="..\..\projects\python\hello-world\init.py" />
     <None Include="..\..\projects\python\hello-world\run.py" />
     <None Include="..\..\script\init.lua" />

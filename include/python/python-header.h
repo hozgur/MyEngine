@@ -1,7 +1,7 @@
 #pragma once
 #include "my.h"
 #include "mypy.h"
-
+#include <format>
 void usage() {
 	debug << "Usage:myengine python project-path <path-to-project>\n" << "Example:myengine project-path projects/python/graphics\n";
 }
@@ -11,9 +11,11 @@ class pyEngine : public myEngine
 public:
 	
 	myString project_path;
-	uint64_t initpyLastWriteTime;
-	uint64_t runpyLastWriteTime;
-
+	myString initFilePath;
+	myString runFilePath;
+	myTime initLastTime;
+	myTime runLastTime;
+	
 	pyEngine(const char* path,const int argc, const char *argv[]) :myEngine(path)
 	{
 		if (argc < 4) {
@@ -29,6 +31,10 @@ public:
 			usage();
 			exit(1);
 		}
+		initFilePath = myfs::path(project_path, "init.py");
+		runFilePath = myfs::path(project_path, "run.py");
+		initLastTime = myfs::lastWriteTime(initFilePath);;
+		runLastTime = myfs::lastWriteTime(runFilePath);;
 	}
 			
 	bool OnStart() override
@@ -41,38 +47,27 @@ public:
 			exit(1);
 		}
 		
-		initpyLastWriteTime = loadModule("init");
-		if (initpyLastWriteTime < 0) {
-			exit(1);
-		}		
-		runpyLastWriteTime = loadModule("run");
+		init();
+		run();
 		return true;
 	}
-
-	uint64_t loadModule(myString moduleName) {
-		myString filePath = myfs::path(project_path, moduleName + ".py");
-		if (!myPy::dofile(filePath)) {
-			debug << "Error on running <" + moduleName+".py>\n";
-			return -1;
-		}
-		return std::filesystem::last_write_time(filePath).time_since_epoch().count();		
-	}
-
-	bool loadModuleIfChanged(myString moduleName, uint64_t& lastWriteTime) {
-		myString filePath = myfs::path(project_path, moduleName + ".py");
-		uint64_t newWriteTime = std::filesystem::last_write_time(filePath).time_since_epoch().count();
-		if (newWriteTime > lastWriteTime) {
-			lastWriteTime = newWriteTime;
-			if (!myPy::dofile(filePath)) {
-				debug << "Error on running <" + moduleName + ".py>\n";
-				return false;
-			}
-			return true;
-		}
-		return false;
-	}
+	
 	void navigate(myHandle view, myString html, myString js) {
 		
+	}
+
+	void init() {
+		if (myfs::exists(initFilePath)) {
+			myPy::dofile(initFilePath);
+			initLastTime = myfs::lastWriteTime(initFilePath);
+		}
+	}
+
+	void run() {
+		if (myfs::exists(runFilePath)) {
+			myPy::dofile(runFilePath);
+			runLastTime = myfs::lastWriteTime(runFilePath);
+		}
 	}
 
 	void OnReady(myHandle id) override
@@ -91,26 +86,32 @@ public:
 
 	void OnKey(uint8_t key, bool pressed) override
 	{
-		if (pressed)
-			if (key == myKey::R) loadModule("run");
+	
 	}
 
-	void run()
-	{
-		
-	}
-
-	void OnIdle() override
-	{
-		// check files for changes and reload if needed on time interval (100 msec)
-		static uint64_t lastTime = 0;
-		uint64_t now = myTime::now();
-		if (now - lastTime > 100000) {
+	void OnEveryMiliseconds(int mils,std::function<void(void)> function) {
+		static myTime lastTime = 0;
+		myTime now = myos::now()/1000;
+		if (now - lastTime > mils) {
 			lastTime = now;
-			if (loadModuleIfChanged("init", initpyLastWriteTime)) loadModule("run");
-			loadModuleIfChanged("run", runpyLastWriteTime);
+			function();
 		}
-		
+	}
+
+	void checkFileChanges() {
+		if (myfs::lastWriteTime(initFilePath) > initLastTime) {
+			init(); run();
+		}
+		if (myfs::lastWriteTime(runFilePath) > runLastTime) {
+			run();
+		}
+	}
+	
+	void OnIdle() override
+	{		
+		OnEveryMiliseconds(100, [&]() {
+			checkFileChanges();
+			});		
 	}
 	
 	void OnDraw() override

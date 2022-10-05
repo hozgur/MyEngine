@@ -94,7 +94,9 @@ windowswebview::~windowswebview()
 void windowswebview::Close() { 
 	if (webviewController) {
         webviewController->Close();
+        webviewController->Release();
         webviewController = nullptr;
-        webviewWindow = nullptr;
+        webviewWindow->Release();
+		webviewWindow = nullptr;
 	}
 }

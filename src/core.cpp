@@ -27,8 +27,12 @@ namespace myfs
     }
 #endif
     
-    
-    bool exits(const std::string& path, const std::string& filename)
+    bool exists(const std::string& filePath)
+    {
+        return std::filesystem::exists(filePath);
+    }
+
+    bool exists(const std::string& path, const std::string& filename)
     {
         for (const auto& entry : fs::directory_iterator(path))
         {
@@ -46,7 +50,7 @@ namespace myfs
         //debug << isFileExists(cpath);
         while (true)
         {
-            if (exits(cpath.string(), "myroot.txt"))
+            if (exists(cpath.string(), "myroot.txt"))
                 return cpath.string();
 
             fs::path parent = cpath.parent_path();
@@ -83,5 +87,11 @@ namespace myfs
 		std::string value = pValue;        
         free(pValue);
         return value;
-    }    
+    }
+
+    myTime lastWriteTime(const std::string& filePath) {
+        auto t = std::filesystem::last_write_time(filePath);
+        return std::chrono::duration_cast<std::chrono::microseconds>(t.time_since_epoch()).count();        
+    }
+        
 }
