@@ -1,8 +1,8 @@
 
 print("Hello World! #2")
-import MyEngine as my
-if not my.AddMainWindow("Hello World Window",800,600):
-	print("error on window creation")
+
+def OnReady(id):
+	my.Navigate(web1,"www.google.com")
 
 myAnchorNone	= 0
 myAnchorLeft	= 1
@@ -11,11 +11,9 @@ myAnchorTop		= 4
 myAnchorBottom	= 8
 myAnchorAll		= 15
 
-def OnReady(id):
-	my.Navigate(web1,"www.google.com")
+my.RemoveWebView(web1)
+web1 = my.AddWebView(200,0,400,400,myAnchorRight)
 
-
-web1 = my.AddWebView(0,0,400,400,myAnchorRight)
 
 
 

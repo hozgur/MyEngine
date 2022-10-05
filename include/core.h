@@ -57,6 +57,14 @@ typedef std::string myString;
 
 typedef int myHandle;	
 const myHandle invalidHandle = -1;
+typedef std::variant<int, float, const char*> variant;
+
+class myTime {
+public:
+	static uint64_t now() {
+		return std::chrono::duration_cast<std::chrono::microseconds>(std::chrono::system_clock::now().time_since_epoch()).count();
+	}
+};
 
 class myObject
 {
@@ -68,7 +76,7 @@ public:
 	void SetID(myHandle id) { this->object_id = id; }
 	myHandle GetID() { return object_id; }
 };
-typedef std::variant<int, float, const char*> variant;
+
 struct myColor
 {
 	union

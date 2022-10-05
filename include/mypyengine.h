@@ -195,7 +195,22 @@ namespace myPy
 			myEngine::pEngine->Navigate(viewId, url);
 		
 		return PyLong_FromLong(viewId);
-	}		
+	}
+	//Remove WebView
+	//Arguments:
+	//1. viewId
+	static PyObject* engine_removewebview(PyObject* self, PyObject* args) {
+		Py_ssize_t argCount = PyTuple_Size(args);
+		if (argCount < 1) {
+			std::string err = "Error unknown id. Please specify viewId.";
+			PyErr_SetString(PyExc_TypeError, err.c_str());
+			Py_RETURN_NONE;
+		}
+		long viewId = PyLong_AsLong(PyTuple_GetItem(args, 0));		
+        myEngine::pEngine->removeObject(viewId);
+		Py_RETURN_NONE;
+	}
+	
 	//Navigate
 	//Arguments:
 	//1. viewId
@@ -275,6 +290,7 @@ namespace myPy
         { "Message",  engine_sendMessage, METH_VARARGS, "Send Message to Host as string."},
         { "AddMainWindow",  engine_addmainwindow, METH_VARARGS, "Open a window."},		
 		{ "AddWebView",  engine_addwebview, METH_VARARGS, "Add WebView."},
+        { "RemoveWebView",  engine_removewebview, METH_VARARGS, "Remove WebView."},
 		{ "Navigate",  engine_navigate, METH_VARARGS, "Navigate WebView."},		
         {NULL, NULL, 0, NULL}        /* Sentinel */
     };
