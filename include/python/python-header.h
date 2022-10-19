@@ -3,7 +3,7 @@
 #include "mypy.h"
 #include <format>
 void usage() {
-	debug << "Usage:myengine python project-path <path-to-project>\n" << "Example:myengine project-path projects/python/graphics\n";
+	debug << "Usage:myengine python project-path <path-to-project> [debug-mode]\n" << "Example:myengine project-path projects/python/graphics\n";
 }
 
 class pyEngine : public myEngine
@@ -15,7 +15,7 @@ public:
 	myString runFilePath;
 	myTime initLastTime;
 	myTime runLastTime;
-	
+	bool debugMode = false;
 	pyEngine(const char* path,const int argc, const char *argv[]) :myEngine(path)
 	{
 		if (argc < 4) {
@@ -31,6 +31,17 @@ public:
 			usage();
 			exit(1);
 		}
+		if (argc > 4) {
+			arg = argv[4];
+			if (arg == "debug-mode") {
+				debugMode = true;
+			}
+			else {
+				debug << "Unknown argument: " << arg << std::endl;
+				usage();
+				exit(1);
+			}
+		}			
 		initFilePath = myfs::path(project_path, "init.py");
 		runFilePath = myfs::path(project_path, "run.py");
 		initLastTime = myfs::lastWriteTime(initFilePath);;
@@ -80,8 +91,9 @@ public:
 
 	void OnMessageReceived(myHandle senderId, myString msg) override
 	{
-		
-
+		if (debugMode) {
+			debug << "OnMessageReceived: " << msg << std::endl;
+		}
 	}
 
 	void OnKey(uint8_t key, bool pressed) override
@@ -108,7 +120,7 @@ public:
 	}
 	
 	void OnIdle() override
-	{		
+	{	
 		OnEveryMiliseconds(100, [&]() {
 			checkFileChanges();
 			});		

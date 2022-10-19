@@ -170,7 +170,10 @@ void myEngine::onIdle()
             case myCommands::Navigate: if (q.params.size() == 1) ((myWebView*)getObject(q.id))->Navigate(std::get<std::string>(q.params[0])); break;
             case myCommands::NavigateContent: if (q.params.size() == 1) ((myWebView*)getObject(q.id))->NavigateContent(std::get<std::string>(q.params[0])); break;
             case myCommands::SetScript: if (q.params.size() == 1) ((myWebView*)getObject(q.id))->SetScript(std::get<std::string>(q.params[0])); break;
-            case myCommands::PostWebMessage: if (q.params.size() == 1) ((myWebView*)getObject(q.id))->PostWebMessage(std::get<std::string>(q.params[0])); break;
+            case myCommands::PostWebMessage: if (q.params.size() == 1) {
+				myWebView* wv = (myWebView*)getObject(q.id);
+				if (wv) wv->PostWebMessage(std::get<std::string>(q.params[0]));                
+            }                
         }
     }
     OnIdle();
@@ -183,38 +186,42 @@ void myEngine::onSize(int cx,int cy) {
     clientHeight = cy;
     for (myHandle viewHandle : childViews) {		
         myView* view = (myView*)getObject(viewHandle);
-
-		// left - right
-        if (view->anchor & myAnchorLeft) {
-            if (view->anchor & myAnchorRight) {
-                int width = 0, height = 0;
-                view->GetSize(width, height);                
-                view->SetSize(clientWidth, height);
+        if (view) {
+            // left - right
+            if (view->anchor & myAnchorLeft) {
+                if (view->anchor & myAnchorRight) {
+                    int width = 0, height = 0;
+                    view->GetSize(width, height);
+                    view->SetSize(clientWidth, height);
+                }
+            }
+            else {
+                if (view->anchor & myAnchorRight) {
+                    int x = 0, y = 0;
+                    view->GetPosition(x, y);
+                    x += dx;
+                    view->SetPosition(x, y);
+                }
+            }
+            // top - bottom
+            if (view->anchor & myAnchorTop) {
+                if (view->anchor & myAnchorBottom) {
+                    int width = 0, height = 0;
+                    view->GetSize(width, height);
+                    view->SetSize(width, clientHeight);
+                }
+            }
+            else {
+                if (view->anchor & myAnchorBottom) {
+                    int x = 0, y = 0;
+                    view->GetPosition(x, y);
+                    y += dy;
+                    view->SetPosition(x, y);
+                }
             }
         }
         else {
-            if (view->anchor & myAnchorRight) {
-                int x = 0, y = 0;
-                view->GetPosition(x, y);
-                x += dx;
-                view->SetPosition(x, y);
-            }
-        }
-        // top - bottom
-        if (view->anchor & myAnchorTop) {
-            if (view->anchor & myAnchorBottom) {
-                int width = 0, height = 0;
-                view->GetSize(width, height);                
-                view->SetSize(width, clientHeight);
-            }
-        }
-        else {
-            if (view->anchor & myAnchorBottom) {
-                int x = 0, y = 0;
-                view->GetPosition(x, y);
-                y += dy;
-                view->SetPosition(x, y);
-            }
+            debug << "There is no invalid view! ViewHandle = " << viewHandle << "\n";
         }
 	}    
 }

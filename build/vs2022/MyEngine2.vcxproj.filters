@@ -55,6 +55,9 @@
     <Filter Include="Project Files\hello-world\html">
       <UniqueIdentifier>{390aed17-d6d5-43c7-8824-3714e096c6af}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Project Files\machine-learning">
+      <UniqueIdentifier>{b18bb24f-f3de-4aa6-90f1-c85c7295ab2c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src\myengine.cpp">
@@ -523,6 +526,27 @@
     </None>
     <None Include="..\..\projects\python\hello-world\html\style.css">
       <Filter>Project Files\hello-world\html</Filter>
+    </None>
+    <None Include="..\..\projects\python\machine-learning\anchors.py">
+      <Filter>Project Files\machine-learning</Filter>
+    </None>
+    <None Include="..\..\projects\python\machine-learning\init.py">
+      <Filter>Project Files\machine-learning</Filter>
+    </None>
+    <None Include="..\..\projects\python\machine-learning\run.py">
+      <Filter>Project Files\machine-learning</Filter>
+    </None>
+    <None Include="..\..\projects\python\machine-learning\html\index.html">
+      <Filter>Project Files\machine-learning</Filter>
+    </None>
+    <None Include="..\..\projects\python\machine-learning\html\index.js">
+      <Filter>Project Files\machine-learning</Filter>
+    </None>
+    <None Include="..\..\projects\python\machine-learning\html\style.css">
+      <Filter>Project Files\machine-learning</Filter>
+    </None>
+    <None Include="..\..\projects\python\machine-learning\models.py">
+      <Filter>Project Files\machine-learning</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>

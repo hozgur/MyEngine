@@ -37,14 +37,31 @@ namespace myPy
     }
 
     static PyObject* engine_sendMessage(PyObject* self, PyObject* args)
-    {        
+    {
+        const char* id = nullptr;
         const char* msg = nullptr;
-        if (PyArg_ParseTuple(args, "s", &msg) == 0)
+        if (PyArg_ParseTuple(args, "ss", &id,&msg) == 0)
         {
             PyErr_SetString(PyExc_TypeError, "Invalid arguments.");
             Py_RETURN_NONE;
         }
-        myEngine::pEngine->OnMessageReceived(invalidHandle, msg);
+        myString json = std::format("{{\"id\":\"{}\",\"msg\":\"{}\"}}", id,msg);
+        myEngine::pEngine->OnMessageReceived(invalidHandle, json);
+        Py_RETURN_NONE;
+    }
+
+    static PyObject* engine_sendWebMessage(PyObject* self, PyObject* args)
+    {
+		int webId = 0;
+        const char* id = nullptr;
+        const char* msg = nullptr;
+        if (PyArg_ParseTuple(args, "iss", &webId, &id, &msg) == 0)
+        {
+            PyErr_SetString(PyExc_TypeError, "Invalid arguments.");
+            Py_RETURN_NONE;
+        }
+        myString json = std::format("{{\"id\":\"{}\",\"msg\":\"{}\"}}", id, msg);
+        myEngine::pEngine->PostWebMessage(webId, json);
         Py_RETURN_NONE;
     }
 
@@ -287,7 +304,8 @@ namespace myPy
         { "Path",  engine_path, METH_VARARGS, "Combine MyEngine Root Path with your relative path inside of Root."},
         { "Import",  engine_import, METH_VARARGS, "Import file."},
         { "GetBackground",  engine_getbackground, METH_NOARGS, "Get Background Image Tensor."},
-        { "Message",  engine_sendMessage, METH_VARARGS, "Send Message to Host as string."},
+        { "Message",  engine_sendMessage, METH_VARARGS, "Send Message to Host as json string with id and msg fields."},
+        { "WebMessage",  engine_sendWebMessage, METH_VARARGS, "Send Message to Web View as json string with id and msg fields."},
         { "AddMainWindow",  engine_addmainwindow, METH_VARARGS, "Open a window."},		
 		{ "AddWebView",  engine_addwebview, METH_VARARGS, "Add WebView."},
         { "RemoveWebView",  engine_removewebview, METH_VARARGS, "Remove WebView."},
