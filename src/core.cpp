@@ -3,6 +3,14 @@
 #ifdef WINDOWS
 #include "windows/windowscore.h"
 #endif // WINDOWS
+std::stringstream debugStringStream;
+std::vector<std::function<void(std::string)> > debugHandlers;
+
+std::ostream& Debug()
+{	
+	return debugStringStream;
+}
+
 namespace fs = std::filesystem;
 namespace myfs
 {
@@ -90,8 +98,12 @@ namespace myfs
     }
 
     myTime lastWriteTime(const std::string& filePath) {
-        auto t = std::filesystem::last_write_time(filePath);
-        return std::chrono::duration_cast<std::chrono::microseconds>(t.time_since_epoch()).count();        
-    }
-        
+        if (exists(filePath)) {
+            auto t = std::filesystem::last_write_time(filePath);
+            return std::chrono::duration_cast<std::chrono::microseconds>(t.time_since_epoch()).count();
+        }
+		else {
+			return 0;
+		}
+    }        
 }

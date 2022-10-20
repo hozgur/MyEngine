@@ -121,7 +121,10 @@ bool myEngine::Start()
     if(myPy::isInitialized())
         if (!myPy::dofile(myfs::path("script\\init.py")))
             debug << "Python init.py Error\n";
-    if (OnStart() == false) return false;
+	
+    bool stat = OnStart();
+    onIdle();   // for debug messages;
+    if (stat == false) return false;
     pPlatform->StartUp();
     pPlatform->StartSystemEventLoop();                
     OnExit();//TODO: Lua implimentation
@@ -176,6 +179,20 @@ void myEngine::onIdle()
             }                
         }
     }
+	
+    if (debugStringStream.str().length() > 0) {
+        if (debugHandlers.size() > 0)
+        {
+            std::string s = debugStringStream.str();
+            for (auto& h : debugHandlers)
+            {
+                h(s);
+            }            
+        }
+		std::cout << debugStringStream.str();
+        debugStringStream.str("");
+    }
+	
     OnIdle();
 }
 void myEngine::onSize(int cx,int cy) {

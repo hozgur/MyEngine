@@ -57,7 +57,7 @@ public:
 			debug << "Py Init Error!\n";
 			exit(1);
 		}
-		
+		onIdle();
 		init();
 		run();
 		return true;
@@ -72,12 +72,18 @@ public:
 			myPy::dofile(initFilePath);
 			initLastTime = myfs::lastWriteTime(initFilePath);
 		}
+		else {
+			debug << CONSOLE_BRED << "init.py not found!\n" << CONSOLE_DEFAULT;
+		}
 	}
 
 	void run() {
 		if (myfs::exists(runFilePath)) {
 			myPy::dofile(runFilePath);
 			runLastTime = myfs::lastWriteTime(runFilePath);
+		}
+		else {
+			debug << CONSOLE_BRED << "run.py not found!\n" << CONSOLE_DEFAULT;
 		}
 	}
 
@@ -93,6 +99,9 @@ public:
 	{
 		if (debugMode) {
 			debug << "OnMessageReceived: " << msg << std::endl;
+		}
+		if (myPy::checkfunction("OnMessage")) {
+			myPy::call("OnMessage", { (int) senderId,msg });
 		}
 	}
 

@@ -32,12 +32,30 @@ using json = nlohmann::json;
 #define WIN32_LEAN_AND_MEAN
 #endif
 
-inline std::ostream& Debug()
-{
-    return std::cout;
-}
+#define CONSOLE_DEFAULT		"\x1B[0m"
+#define CONSOLE_RED			"\x1B[31m"
+#define CONSOLE_GREEN		"\x1B[32m"
+#define CONSOLE_YELLOW		"\x1B[33m"
+#define CONSOLE_BLUE		"\x1B[34m"
+#define CONSOLE_MAGENTA		"\x1B[35m"
+#define CONSOLE_CYAN		"\x1B[36m"
+#define CONSOLE_WHITE		"\x1B[37m"
+#define CONSOLE_BRED		"\x1B[31;1m"
+#define CONSOLE_BGREEN		"\x1B[32;1m"
+#define CONSOLE_BYELLOW		"\x1B[33;1m"
+#define CONSOLE_BBLUE		"\x1B[34;1m"
+#define CONSOLE_BMAGENTA	"\x1B[35;1m"
+#define CONSOLE_BCYAN		"\x1B[36;1m"
+#define CONSOLE_BWHITE		"\x1B[37;1m"
+
+extern std::stringstream debugStringStream;
+extern std::vector<std::function<void(std::string)> > debugHandlers;
+
+std::ostream& Debug();
+
 
 #define debug Debug()
+
 
 #if defined(UNICODE) || defined(_UNICODE)
 #define myT(s) L##s
