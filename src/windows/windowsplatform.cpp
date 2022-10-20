@@ -3,6 +3,7 @@
 #include "windows\windowscore.h"
 #include "Windows\windowsplatform.h"
 #include <Shlwapi.h>
+#include <shellscalingapi.h>
 #pragma comment(lib, "gdiplus.lib")
 #pragma comment(lib, "Shlwapi.lib")
 #pragma comment(lib, "ddraw.lib")
@@ -18,6 +19,7 @@ WindowsPlatform::WindowsPlatform() :myPlatform()
 	Gdiplus::GdiplusStartup(&m_gdiplusToken, &gdiplusstartupinput, NULL);
 	backSurface = nullptr;
 	SetConsoleOutputCP(65001);
+	SetProcessDpiAwareness(PROCESS_PER_MONITOR_DPI_AWARE);
 	Init();
 }
 

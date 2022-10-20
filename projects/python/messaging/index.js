@@ -1,10 +1,25 @@
 window.chrome.webview.addEventListener('message', onMessage);
 window.addEventListener('load', onLoad);
 
+
+function loadThumb(path) {
+    const img = document.createElement("img");
+    img.src = path
+    img.id = "image";
+    img.style = "max-width:100px;max-height:100px";
+    img.classList.add("right");
+    document.body.appendChild(img)
+}
+
+messageHandlers = {
+    "path": msg => document.getElementById("ipath").value = msg,
+    "load": loadThumb
+}
+
 function onMessage(msg) {
-    console.log(msg.data)
-    let ipath = document.getElementById("ipath");
-    ipath.value = JSON.parse(msg.data).msg;    
+    data = JSON.parse(msg.data);
+    console.log(data);
+    messageHandlers[data.id](data.msg);
 }
 
 function post(id, message) {
@@ -18,15 +33,6 @@ function onLoad() {
 }
 
 
-function onclickLoadImage() {
+function onclickLoadImage() {    
     post("load", document.getElementById("ipath").value)
-    if (document.getElementById("image"))
-        return;
-
-    const img = document.createElement("img");
-    img.src = "./" + document.getElementById("ipath").value;
-    img.id = "image";
-    img.style = "max-width:100px;max-height:100px";
-    img.classList.add("right");
-    document.body.appendChild(img)
 }

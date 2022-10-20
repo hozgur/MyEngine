@@ -13,9 +13,9 @@ windowHeight = 600
 if not my.AddMainWindow("Messaging Example",windowWidth,windowHeight):
 	print("error on window creation")
 
-project_folder = "projects/python/messaging/"
-my.Import(project_folder+ "anchors.py")
-htmlFile = my.Path(project_folder + "index.html")
+project_path = "projects/python/messaging/"
+my.Import(project_path+ "anchors.py")
+htmlFile = my.Path(project_path + "index.html")
 
 
 try : web1

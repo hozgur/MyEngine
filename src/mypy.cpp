@@ -112,17 +112,26 @@ bool myPy::checkfunction(std::string funcname)
 
 bool myPy::dofile(std::string file)
 {
-    std::ifstream ifs(file);
+    /*std::ifstream ifs(file);
     std::string content((std::istreambuf_iterator<char>(ifs)),
-        (std::istreambuf_iterator<char>()));
-
-    auto result = PyRun_String(content.c_str(), Py_file_input, gpDict, gpDict);
-    if (result == nullptr)
-    {
-        PyErr_Print();
-        return false;
-    }
-    return  true;
+        (std::istreambuf_iterator<char>()));*/
+    FILE* fp = nullptr;
+    fopen_s(&fp, file.c_str(), "rb");
+    if (fp) {
+        myString filename = std::filesystem::path(file).filename().string();
+        PyObject* s = PyRun_File(fp, filename.c_str(), Py_file_input, gpDict, gpDict);
+		if (s == nullptr)
+		{
+            Py_XDECREF(s);
+			PyErr_Print();
+            fclose(fp);
+			return false;
+		}
+        Py_XDECREF(s);
+        fclose(fp);
+        return true;
+    }    
+    return  false;
 }
 
 

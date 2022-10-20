@@ -25,7 +25,7 @@ namespace myPy
         }
 
 
-        if(dofile(myfs::path(file).c_str()))
+        if(dofile(myfs::path(file)))
             Py_RETURN_NONE;
         else
         {
