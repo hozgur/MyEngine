@@ -28,7 +28,7 @@ function post(id, message) {
 
 
 function onLoad() {
-    post("ready", "hello");
+    post("ready", "web ready");
     document.getElementById("loadimage").onclick = onclickLoadImage;
 }
 

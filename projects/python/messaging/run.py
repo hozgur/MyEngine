@@ -10,16 +10,16 @@ def onloadImage(message):
 	image = Image.open(im_path)	
 	size = 100,100
 	image.thumbnail(size)		
-	file_name = project_path + thumb_path
-	full_path = my.Path(file_name)	
-	image.save(full_path)
+	thumb_name = project_path + thumb_path
+	thumb_pathname = my.Path(thumb_name)	
+	image.save(thumb_pathname)
 	my.WebMessage(web1,"load",thumb_path)
 
 def onReady(message):
 	my.WebMessage(web1,"path",image_path)
 
 messageHandlers = {
-	"load":onloadImage,
+	"load":onloadImage,  
 	"ready":onReady
 }
 
